@@ -4,23 +4,19 @@
             <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>Fecha</mat-label>
-                    <input matInput type="date" value="{{factura.fecha | date:'yyyy-MM-dd'}}" class="form-control-sm"
-                        disabled>
+                    <input matInput type="date" value="{{factura.fecha | date:'yyyy-MM-dd'}}" class="form-control-sm" disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>Tipo</mat-label>
-                    <input matInput type="text" class="form-control-sm"
-                        [(ngModel)]="factura.vendedor.punto_venta.codigo" [ngModelOptions]="{standalone: true}"
-                        disabled>
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="factura.vendedor.punto_venta.codigo" [ngModelOptions]="{standalone: true}" disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-4">
                 <mat-form-field appearance="standard">
                     <mat-label>Factura</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="factura.numero"
-                        [ngModelOptions]="{standalone: true}" disabled>
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="factura.numero" [ngModelOptions]="{standalone: true}" disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-2">
@@ -35,8 +31,7 @@
             <div class="form-group col-8">
                 <mat-form-field appearance="standard">
                     <mat-label>Cliente</mat-label>
-                    <input matInput type="text" [(ngModel)]="factura.cliente.razon_social"
-                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm" disabled>
+                    <input matInput type="text" [(ngModel)]="factura.cliente.razon_social" oninput="this.value = this.value.toUpperCase()" class="form-control-sm" disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-4">
@@ -98,8 +93,7 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Fecha Cheque</mat-label>
-                    <input matInput [matDatepicker]="picker1" class="form-control-sm"
-                        [(ngModel)]="fechaCheque">
+                    <input matInput [matDatepicker]="picker1" class="form-control-sm" [(ngModel)]="cheque.fecha">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
@@ -122,8 +116,7 @@
             <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>Banco</mat-label>
-                    <mat-autocomplete #banco_cheque="matAutocomplete" [displayWith]="ver_banco_cheque"
-                        (optionSelected)="seleccionar_banco_cheque()">
+                    <mat-autocomplete #banco_cheque="matAutocomplete" [displayWith]="ver_banco_cheque" (optionSelected)="seleccionar_banco_cheque()">
                         <mat-option *ngFor="let banco of filtro_bancos_cheques | async" [value]="banco">
                             {{banco.abreviatura}}
                         </mat-option>
@@ -224,8 +217,7 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Fecha</mat-label>
-                    <input matInput [matDatepicker]="picker2" class="form-control-sm"
-                        [(ngModel)]="deposito.fecha">
+                    <input matInput [matDatepicker]="picker2" class="form-control-sm" [(ngModel)]="deposito.fecha">
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>
@@ -243,8 +235,7 @@
             <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>Banco</mat-label>
-                    <mat-autocomplete #banco_deposito="matAutocomplete" [displayWith]="ver_banco_deposito"
-                        (optionSelected)="seleccionar_banco_deposito()">
+                    <mat-autocomplete #banco_deposito="matAutocomplete" [displayWith]="ver_banco_deposito" (optionSelected)="seleccionar_banco_deposito()">
                         <mat-option *ngFor="let banco of filtro_bancos_depositos | async" [value]="banco">
                             {{banco.abreviatura}}
                         </mat-option>
@@ -345,15 +336,14 @@
                 <div class="form-group col-3 derecha">
                     El total en transferencias es:
                 </div>
-                <div class="form-group col-1">{{totalTransferencias() | currency}}</div>
+                <div class="form-group col-1">{{total_transferencias() | currency}}</div>
             </div>
         </div>
         <div class="card-body form-row col-12">
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Fecha</mat-label>
-                    <input matInput [matDatepicker]="picker3" [formControl]="date" class="form-control-sm"
-                        [(ngModel)]="fechaTransferencia">
+                    <input matInput [matDatepicker]="picker3" class="form-control-sm" [(ngModel)]="transferencia.fecha">
                     <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                     <mat-datepicker #picker3></mat-datepicker>
                 </mat-form-field>
@@ -371,31 +361,29 @@
             <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>Banco</mat-label>
-                    <mat-autocomplete #banco_transferencia="matAutocomplete" [displayWith]="ver_banco_transferencia"
-                        (optionSelected)="seleccionar_banco_transferencia()">
+                    <mat-autocomplete #banco_transferencia="matAutocomplete" [displayWith]="ver_banco_transferencia" (optionSelected)="seleccionar_banco_transferencia()">
                         <mat-option *ngFor="let banco of filtro_bancos_transferencias | async" [value]="banco">
                             {{banco.abreviatura}}
                         </mat-option>
                     </mat-autocomplete>
-                    <input matInput type="text" class="form-control-sm"
-                        [formControl]="seleccion_banco_transferencia" [matAutocomplete]="banco_transferencia">
+                    <input matInput type="text" class="form-control-sm" [formControl]="seleccion_banco_transferencia" [matAutocomplete]="banco_transferencia">
                 </mat-form-field>
             </div>
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>No. Comprobante</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="comprobanteTransferencia">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="transferencia.comprobante">
                 </mat-form-field>
             </div>
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Valor</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="valorTransferencia">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="transferencia.valor">
                 </mat-form-field>
             </div>
             <div class="form-group col-1">
                 <br>
-                <button class="btn btn-primary btn-circle " (click)="agregarTransferencia()">
+                <button class="btn btn-primary btn-circle " (click)="agregar_transferencia()">
                     <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
                 </button>
             </div>
@@ -403,7 +391,7 @@
         <mat-divider></mat-divider>
         <div class="form-row">
             <div class="mat-elevation-z8 col-12">
-                <table mat-table [dataSource]="dataSourceTransferencias" matSort>
+                <table mat-table [dataSource]="data_transferencias" matSort>
                     <!-- Posicion Columna -->
                     <ng-container matColumnDef="id">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
@@ -438,16 +426,15 @@
                     <ng-container matColumnDef="valor">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
                         <td mat-cell *matCellDef="let transferencia"> {{transferencia.valor | currency}} </td>
-                        <td mat-footer-cell *matFooterCellDef> {{totalTransferencias() | currency}} </td>
+                        <td mat-footer-cell *matFooterCellDef> {{total_transferencias() | currency}} </td>
                     </ng-container>
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                         <td mat-cell *matCellDef="let l=index">
-                            <button mat-raised-button color="primary" focusable="false"
-                                (click)="borrarTransferencia(l)">
+                            <button mat-raised-button color="primary" focusable="false">
                                 Editar
                             </button>&nbsp;
-                            <button mat-raised-button color="warn" focusable="false" (click)="borrarTransferencia(l)">
+                            <button mat-raised-button color="warn" focusable="false" (click)="borrar_transferencia(l)">
                                 Eliminar
                             </button>
                         </td>
@@ -492,8 +479,7 @@
             <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>Banco</mat-label>
-                    <mat-autocomplete #banco_tarjeta_credito="matAutocomplete" [displayWith]="ver_banco_tarjeta_credito"
-                        (optionSelected)="seleccionar_banco_tarjeta_credito()">
+                    <mat-autocomplete #banco_tarjeta_credito="matAutocomplete" [displayWith]="ver_banco_tarjeta_credito" (optionSelected)="seleccionar_banco_tarjeta_credito()">
                         <mat-option *ngFor="let banco of filtro_bancos_tarjetas_creditos | async">
                             {{banco.abreviatura}}
                         </mat-option>
@@ -618,8 +604,7 @@
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                         <td mat-cell *matCellDef="let m=index">
-                            <button mat-raised-button color="primary" focusable="false"
-                                (click)="borrarTarjetaCredito(m)">
+                            <button mat-raised-button color="primary" focusable="false" (click)="borrarTarjetaCredito(m)">
                                 Editar
                             </button>&nbsp;
                             <button mat-raised-button color="warn" focusable="false" (click)="borrarTarjetaCredito(m)">
@@ -667,8 +652,7 @@
             <div class="form-group col-4">
                 <mat-form-field appearance="standard">
                     <mat-label>Banco</mat-label>
-                    <mat-autocomplete #banco_tarjeta_debito="matAutocomplete" [displayWith]="ver_banco_tarjeta_debito"
-                        (optionSelected)="seleccionar_banco_tarjeta_debito()">
+                    <mat-autocomplete #banco_tarjeta_debito="matAutocomplete" [displayWith]="ver_banco_tarjeta_debito" (optionSelected)="seleccionar_banco_tarjeta_debito()">
                         <mat-option *ngFor="let banco of filtro_bancos_tarjetas_debitos | async">
                             {{banco.abreviatura}}
                         </mat-option>
@@ -771,8 +755,7 @@
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                         <td mat-cell *matCellDef="let n=index">
-                            <button mat-raised-button color="primary" focusable="false"
-                                (click)="borrarTarjetaDebito(n)">
+                            <button mat-raised-button color="primary" focusable="false" (click)="borrarTarjetaDebito(n)">
                                 Editar
                             </button>&nbsp;
                             <button mat-raised-button color="warn" focusable="false">
@@ -820,8 +803,7 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Comprobante</mat-label>
-                    <mat-autocomplete #razon_social_cliente="matAutocomplete" [displayWith]="ver_razon_social_cliente"
-                        (optionSelected)="seleccionar_cliente()">
+                    <mat-autocomplete #razon_social_cliente="matAutocomplete" [displayWith]="ver_razon_social_cliente" (optionSelected)="seleccionar_cliente()">
                         <mat-option *ngFor="let cliente of filtro_razon_social_clientes | async">
                             {{cliente.razon_social}}
                         </mat-option>
@@ -832,8 +814,7 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Fecha</mat-label>
-                    <input matInput [matDatepicker]="picker4" [formControl]="date" class="form-control-sm"
-                        [(ngModel)]="fechaComprobanteCompensacion">
+                    <input matInput [matDatepicker]="picker4" class="form-control-sm">
                     <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                     <mat-datepicker #picker4></mat-datepicker>
                 </mat-form-field>
@@ -1051,8 +1032,7 @@
             <div class="form-row col-5">
                 <mat-form-field appearance="outline" class="grande">
                     <mat-label>Comentario</mat-label>
-                    <textarea matInput [(ngModel)]="recaudacion.comentario" placeholder="Descripción del pago..."
-                        class="form-control form-control-sm" rows="5"></textarea>
+                    <textarea matInput [(ngModel)]="recaudacion.comentario" placeholder="Descripción del pago..." class="form-control form-control-sm" rows="5"></textarea>
                 </mat-form-field>
             </div>
         </div>
