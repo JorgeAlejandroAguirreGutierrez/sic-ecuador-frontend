@@ -1,0 +1,184 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <h4>Almacenamiento</h4>
+            <nav class="nav flex-column">
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + G</font> Grabar <fa-icon class="float-right" [icon]="['fas', 'save']">
+                    </fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + N</font> Nuevo Registro <fa-icon class="float-right"
+                        [icon]="['fas', 'file']"></fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + E</font> Editar Registro <fa-icon class="float-right"
+                        [icon]="['fas', 'edit']"></fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + B</font> Buscar <fa-icon class="float-right" [icon]="['fas', 'search']">
+                    </fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + A</font> Anular Registro <fa-icon class="float-right"
+                        [icon]="['fas', 'trash']"></fa-icon>
+                </a>
+                <a class="nav-link" href="#">Salir <fa-icon class="float-right" [icon]="['fas', 'sign-out-alt']">
+                    </fa-icon></a>
+            </nav>
+            <hr>
+            <h4>Procesamiento</h4>
+            <nav class="nav flex-column">
+                <a class="nav-link" href="#">Importar <fa-icon class="float-right" [icon]="['fas', 'file-import']">
+                    </fa-icon></a>
+                <a class="nav-link" href="#">Exportar <fa-icon class="float-right" [icon]="['fas', 'file-download']">
+                    </fa-icon></a>
+            </nav>
+        </div>
+        <div class="col-9">
+            <h2>Crear Dato Adicional</h2>
+            <hr>
+            <div id="formulario">
+                <div class="form-group form-row">
+                    <label for="codigo" class="col-4 col-form-label">Codigo</label>
+                    <div class="col-8">
+                        <input type="text" [(ngModel)]="dato_adicional.codigo" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label for="plazo" class="col-4 col-form-label">Tipo</label>
+                    <div class="col-8">
+                        <input type="number" [(ngModel)]="dato_adicional.tipo" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label for="plazo" class="col-4 col-form-label">Nombre</label>
+                    <div class="col-8">
+                        <input type="number" [(ngModel)]="dato_adicional.nombre" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label for="plazo" class="col-4 col-form-label">Abreviatura</label>
+                    <div class="col-8">
+                        <input type="file" [(ngModel)]="dato_adicional.abreviatura" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <h2>Dato Adicionales</h2>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>CODIGO</th>
+                        <th>TIPO</th>
+                        <th>NOMBRE</th>
+                        <th>ABREVIATURA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dato_adicional of datos_adicionales">
+                        <td>
+                            <input type="radio" name="seleccion" (click)="seleccion(dato_adicional)">
+                        </td>
+                        <td>
+                            {{dato_adicional.codigo}}
+                        </td>
+                        <td>
+                            {{dato_adicional.tipo}}
+                        </td>
+                        <td>
+                            {{dato_adicional.nombre}}
+                        </td>
+                        <td>
+                            {{dato_adicional.abreviatura}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<ng-template #actualizar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Dato Adicional</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <h3>Actualizar Dato Adicional</h3>
+            <hr>
+            <div class="form-group form-row">
+                <label class="col-2 col-form-label">Codigo</label>
+                <div class="col-10">
+                    <input type="text" class="form-control" disabled [(ngModel)]="p_dato_adicional.codigo">
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <label class="col-2 col-form-label">Tipo</label>
+                <div class="col-10">
+                    <input type="text" class="form-control" [(ngModel)]="p_dato_adicional.tipo">
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <label class="col-2 col-form-label">Nombre</label>
+                <div class="col-10">
+                    <input type="text" class="form-control" [(ngModel)]="p_dato_adicional.nombre">
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <label class="col-2 col-form-label">Abreviatura</label>
+                <div class="col-10">
+                    <input type="text" class="form-control" [(ngModel)]="p_dato_adicional.abreviatura">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modal.close('actualizar')">Aceptar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('close')">Cerrar</button>
+    </div>
+</ng-template>
+<ng-template #eliminar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Eliminar</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        ¿Esta seguro de eliminar el dato adicional?
+        <br>
+        <div class="form-group form-row">
+            <label class="col-2 col-form-label">Codigo</label>
+            <div class="col-10">
+                <input type="text" class="form-control" disabled [(ngModel)]="p_dato_adicional.codigo">
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label class="col-2 col-form-label">Tipo</label>
+            <div class="col-10">
+                <input type="text" class="form-control" [(ngModel)]="p_dato_adicional.tipo">
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-10">
+                <input type="text" class="form-control" [(ngModel)]="p_dato_adicional.nombre">
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label class="col-2 col-form-label">Abreviatura</label>
+            <div class="col-10">
+                <input type="text" class="form-control" [(ngModel)]="p_dato_adicional.abreviatura">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modal.close('eliminar')">Aceptar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('close')">Cerrar</button>
+    </div>
+</ng-template>

@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+h1{
+    margin: 0px;
+}
+.panel-catalogo-productos, .panel-detalle-producto{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 45px;
+    background-color: whitesmoke;
+}
+.imagen-fondo-principal{
+    background-image: url('./assets/img/main-fondo.jpg');
+    height: 100%;
+}
+.container-info{
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+.container-info > *{
+    width: 47%;
+    margin: 10px;
+}

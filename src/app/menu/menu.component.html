@@ -1,0 +1,206 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-row card card-principal">
+                <div class="card-header">
+                    FINANCIERO
+                </div>
+                <div class="row card-body card-contenido">
+                    <div class="row">
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_clientes">
+                            <a (click)="abrirOpcion('CLIENTES')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_cliente}}" alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">CLIENTES</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_proveedores">
+                            <a (click)="abrirOpcion('PROVEEDORES')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_proveedor}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">PROVEEDORES</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_facturacion">
+                            <a (click)="abrirOpcion('FACTURACION')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_facturacion}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">FACTURACION</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_contabilidad">
+                            <a (click)="abrirOpcion('CONTABILIDAD')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_contabilidad}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">CONTABILIDAD</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_financiero">
+                            <a (click)="abrirOpcion('FINANCIERO')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top  mx-auto d-block imagen efecto" src="{{ico_financiero}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">FINANCIERO</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_inventarios">
+                            <a (click)="abrirOpcion('INVENTARIOS')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_inventario}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">INVENTARIOS</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_activos_fijos">
+                            <a (click)="abrirOpcion('ACTIVOS FIJOS')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_activosfijos}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">ACTIVOS FIJOS</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_talento_humano">
+                            <a (click)="abrirOpcion('TALENTO HUMANO')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_talentohumano}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">TALENTO HUMANO</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_produccion">
+                            <a (click)="abrirOpcion('PRODUCCION')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_produccion}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">PRODUCCION</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_importacion">
+                            <a (click)="abrirOpcion('IMPORTACION')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_importacion}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">IMPORTACION</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-row card card-principal">
+                <div class="card-header">
+                    ADMINISTRACION
+                </div>
+                <div class="row card-body card-contenido">
+                    <div class="row">
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_estadisticas">
+                            <a (click)="abrirOpcion('ESTADISTICAS')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_estadistica}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">ESTADISTICAS</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_control">
+                            <a (click)="abrirOpcion('CONTROL')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto"
+                                        src="{{ico_organismoscontrol}}" alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">ORGANISMOS DE CONTROL</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_auditorias">
+                            <a (click)="abrirOpcion('AUDITORIA')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_auditoria}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">AUDITORIA</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_tutoriales">
+                            <a (click)="abrirOpcion('TUTORIALES')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_tutorial}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">TUTORIALES</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_configuraciones">
+                            <a (click)="abrirOpcion('CONFIGURACION')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_configuracion}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">CONFIGURACION</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

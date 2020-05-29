@@ -1,0 +1,54 @@
+<mat-card class="oh text-center little-profile" [class.unavailable]='!product.available'>
+  <img mat-card-image [src]='product.img' alt="{{product.name}}" height="200">
+  <mat-card-content>
+    <div class="pro-img">
+      <img src="assets/images/siice-sin-letras.png" width="60" alt="user" class="img-circle">
+    </div>
+    <h3 class="m-b-0">{{product.name}}</h3>
+    <br>
+    <h5 class="m-t-0">Precio:&nbsp;${{product.price}}</h5>
+    <h5 class="m-t-0">Unidades Disponibles:&nbsp;{{cantidadTotalUnidadesDisponibles}}</h5>
+    <h5 class="m-t-0">Requerido:&nbsp;
+      <input max="{{cantidadTotalUnidadesDisponibles}}" type="number" name="cantidadAgregar"
+        [(ngModel)]="cantidadAgregar" (ngModelChange)="calcularUnidadesDisponibles($event)">&nbsp;
+      <button class="btn btn-light m-t-1" (click)="onAddToCart()"><mat-icon>add_shopping_cart</mat-icon></button>
+    </h5>
+    <div class="details">
+      <div class="available" *ngIf='product.available'>
+        <hr>
+        <div fxLayout="row" fxLayoutWrap="wrap">
+          <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+            <a class="btn btn-info" (click)='onProductClick()'>Detalle</a>
+            <!--small>Followers</small-->
+          </div>
+          <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+            <a class="btn btn-warning" [routerLink]="['detalle-producto',product.id]">Agrandar</a>
+          </div>
+          <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
+            <a class="btn btn-success" (click)="agregarProductoAlCarrito()">Añadir</a>
+          </div>
+        </div>
+      </div>
+      <div class="not-available" *ngIf='!product.available'>
+        <hr>
+        <a class="btn btn-danger">No disponible</a>
+      </div>
+      <!--span class="category-name" *ngFor='let category of product.categories'>{{category}}</span-->
+      <div class="detail-view" [class.active]='detailViewActive'>
+        <div class="bg" [class.shown]='detailViewActive'></div>
+        <!--div class="info-wrapper"-->
+        <div class="">
+          <p class="d-holder d-title">{{product.name}}</p>
+          <p class="d-holder d-price">$ {{product.price}}</p>
+          <p class="d-holder d-description">{{product.description}}</p>
+        </div>
+        <button type="button" class="hide-detail-btn" (click)='onProductClick()'>Ocultar</button>
+      </div>
+      <div class="bestseller-badge" [class.in-detailed]='detailViewActive' *ngIf='product.best_seller'>
+        <span class="star left">&nbsp;</span>
+        <span class="txt">Oferta del mes</span>
+        <span class="star right">&nbsp;</span>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

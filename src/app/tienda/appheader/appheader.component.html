@@ -1,0 +1,37 @@
+<!-- ============================================================== -->
+<!-- Profile - style you can find in header.scss -->
+<!-- ============================================================== -->
+
+<button mat-icon-button class="m-r-5" routerLink="/pedidos"><mat-icon>shopping_cart</mat-icon>
+    <!-- <span class="badge badge-pill ba dge-danger">3</span> -->
+    <span class="badge badge-pill ba dge-danger" *ngIf="cantidadAgregados!=0">{{cantidadAgregados}}</span>
+</button>
+<button mat-icon-button class="m-r-5"><mat-icon>add_alert</mat-icon>
+    <!-- <span class="badge badge-pill ba dge-danger">3</span> -->
+    <span class="nav-alert notifications"></span>
+</button>
+<button mat-icon-button class="btn nav-link"><mat-icon>mail_outline</mat-icon>
+    <!-- <span class="badge badge-pill ba dge-danger">3</span> -->
+    <span class="nav-alert messages"></span>
+</button>
+
+<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5"> <img src="assets/img/user.jpg" alt="user"
+        class="profile-pic">
+</button>
+<mat-menu #profile="matMenu" class="mymegamenu">
+    <button mat-menu-item routerLink="/login">
+        <mat-icon>account_circle</mat-icon> Administracion
+    </button>
+    <button mat-menu-item>
+        <mat-icon>settings</mat-icon> Configuracion
+    </button>
+    <button mat-menu-item>
+        <mat-icon>account_box</mat-icon> Perfil
+    </button>
+    <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon> Deshabilitar notificaciones
+    </button>
+    <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon> Salir
+    </button>
+</mat-menu>

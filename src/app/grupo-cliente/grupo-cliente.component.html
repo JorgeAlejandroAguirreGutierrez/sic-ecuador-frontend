@@ -1,0 +1,203 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <h4>Almacenamiento</h4>
+            <nav class="nav flex-column">
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + G</font> Grabar <fa-icon class="float-right" [icon]="['fas', 'save']">
+                    </fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + N</font> Nuevo Registro <fa-icon class="float-right"
+                        [icon]="['fas', 'file']"></fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + E</font> Editar Registro <fa-icon class="float-right"
+                        [icon]="['fas', 'edit']"></fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + B</font> Buscar <fa-icon class="float-right" [icon]="['fas', 'search']">
+                    </fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + A</font> Anular Registro <fa-icon class="float-right"
+                        [icon]="['fas', 'trash']"></fa-icon>
+                </a>
+                <a class="nav-link" href="#">Salir <fa-icon class="float-right" [icon]="['fas', 'sign-out-alt']">
+                    </fa-icon></a>
+            </nav>
+            <hr>
+            <h4>Procesamiento</h4>
+            <nav class="nav flex-column">
+                <a class="nav-link" href="#">Importar <fa-icon class="float-right" [icon]="['fas', 'file-import']">
+                    </fa-icon></a>
+                <a class="nav-link" href="#">Exportar <fa-icon class="float-right" [icon]="['fas', 'file-download']">
+                    </fa-icon></a>
+            </nav>
+        </div>
+        <div class="col-9">
+            <h2>CREAR GRUPOS DE CLIENTES</h2>
+            <hr>
+            <div id="formulario">
+                <div class="form-group form-row">
+                    <label for="codigo" class="col-4 col-form-label">Codigo</label>
+                    <div class="col-8">
+                        <input type="text" [(ngModel)]="grupo_cliente.codigo" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label for="plazo" class="col-4 col-form-label">Denominacion</label>
+                    <div class="col-8">
+                        <input type="text" [(ngModel)]="grupo_cliente.denominacion" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label for="plazo" class="col-4 col-form-label">Numero de Cuenta</label>
+                    <div class="col-8">
+                        <input type="text" [(ngModel)]="grupo_cliente.numero_cuenta" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label for="plazo" class="col-4 col-form-label">Nombre de Cuenta</label>
+                    <div class="col-8">
+                        <input type="text" [(ngModel)]="grupo_cliente.nombre_cuenta" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label for="plazo" class="col-4 col-form-label">Cliente Relacionado</label>
+                    <div class="col-8">
+                        <select [(ngModel)]="grupo_cliente.cliente_relacionado" class="form-control">
+                            <option [value]="1">SI</option>
+                            <option [value]="0">NO</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <h2>GRUPOS DE CLIENTES</h2>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>CODIGO</th>
+                        <th>DENOMINACION</th>
+                        <th>NUMERO</th>
+                        <th>NOMBRE</th>
+                        <th>RELACIONADO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let grupo_cliente of grupos_clientes">
+                        <td>
+                            <input type="radio" name="seleccion" (click)="seleccion(grupo_cliente)">
+                        </td>
+                        <td>
+                            {{grupo_cliente.codigo}}
+                        </td>
+                        <td>
+                            {{grupo_cliente.denominacion}}
+                        </td>
+                        <td>
+                            {{grupo_cliente.numero_cuenta}}
+                        </td>
+                        <td>
+                            {{grupo_cliente.nombre_cuenta}}
+                        </td>
+                        <td>
+                            {{grupo_cliente.cliente_relacionado}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<ng-template #actualizar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Actualizar Grupo de Cliente</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <h3>Actualizar Grupo de Cliente</h3>
+            <hr>
+            <div class="form-group form-row">
+                <label for="plazo" class="col-4 col-form-label">Denominacion</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="p_grupo_cliente.denominacion" class="form-control">
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <label for="plazo" class="col-4 col-form-label">Numero de Cuenta</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="p_grupo_cliente.numero_cuenta" class="form-control">
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <label for="plazo" class="col-4 col-form-label">Nombre de Cuenta</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="p_grupo_cliente.nombre_cuenta" class="form-control">
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <label for="plazo" class="col-4 col-form-label">Cliente Relacionado</label>
+                <div class="col-8">
+                    <select [(ngModel)]="p_grupo_cliente.cliente_relacionado" class="form-control">
+                        <option [value]="1">SI</option>
+                        <option [value]="0">NO</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modal.close('actualizar')">Aceptar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('close')">Cerrar</button>
+    </div>
+</ng-template>
+<ng-template #eliminar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Eliminar Grupo de Cliente</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        ¿Esta seguro de eliminar la grupo de clientes?
+        <br>
+        <div class="form-group form-row">
+            <label for="plazo" class="col-4 col-form-label">Denominacion</label>
+            <div class="col-8">
+                <input type="text" [(ngModel)]="p_grupo_cliente.denominacion" class="form-control">
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label for="plazo" class="col-4 col-form-label">Numero de Cuenta</label>
+            <div class="col-8">
+                <input type="text" [(ngModel)]="p_grupo_cliente.numero_cuenta" class="form-control">
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label for="plazo" class="col-4 col-form-label">Nombre de Cuenta</label>
+            <div class="col-8">
+                <input type="text" [(ngModel)]="p_grupo_cliente.nombre_cuenta" class="form-control">
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label for="plazo" class="col-4 col-form-label">Cliente Relacionado</label>
+            <div class="col-8">
+                <select [(ngModel)]="p_grupo_cliente.cliente_relacionado" class="form-control">
+                    <option [value]="1">SI</option>
+                    <option [value]="0">NO</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modal.close('eliminar')">Aceptar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('close')">Cerrar</button>
+    </div>
+</ng-template>

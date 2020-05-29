@@ -1,0 +1,98 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="text-center" title="SIICE Technology">
+                <figure>
+                <img class="col-4" alt="" src="{{url_logo}}" />
+                <figcaption>
+                    <div class="text-center">   
+                        <hr>
+                        <h3>SISTEMA INTEGRADO DE INFORMACIÓN CONTABLE EMPRESARIAL</h3>
+                    </div>
+                </figcaption>
+                </figure>
+            </div> 
+            <br>   
+        <div class="col-3"></div>
+    </div>   
+    <div class="row"></div> 
+        <div class="col-4"></div>
+        <div class="col-4">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#iniciar_sesion-tab" role="tab" aria-controls="iniciarSesion" aria-selected="true">Iniciar Sesion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#activar_sesion-tab" role="tab" aria-controls="activarSesion" aria-selected="false">Olvidó sus credenciales</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="iniciar_sesion-tab" id="iniciar_sesion-tab">
+                    <br>
+                    <div class="form-group form-row">
+                        <img class=iconos alt="usuario" src="{{url_icoempresa}}"/>
+                        <label class="col-3 col-form-label">Empresa:</label>
+                        <div class="col-7">
+                            <select [(ngModel)]="empresa.id" class="form-control form-control-sm" [value]="0">
+                                <option value="0">Seleccione la Empresa</option>
+                                    <option *ngFor="let empresa of empresas" [value]="empresa.id">
+                                        {{empresa.razon_social}}
+                                    </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <img class=iconos alt="usuario" src="{{url_icousuario}}" />
+                        <label for="identificacion" class="col-3 col-form-label">Usuario:</label>
+                        <div class="col-7">
+                            <input type="text" [(ngModel)]="sesion.usuario.identificacion" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <img class=iconos alt="contraseña" src="{{url_icocontrasenia}}" />
+                        <label for="contrasena" class="col-3 col-form-label">Contraseña:</label>
+                        <div class="col-7">
+                            <input type="password" [(ngModel)]="sesion.usuario.contrasena" class="form-control"
+                            (keyup.enter)="iniciarSesion()">
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <br>
+                        <button type="button" class="btn btn-primary boton" (click)="iniciarSesion()"><b>Iniciar Sesión</b></button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" role="tabpanel" id="activar_sesion-tab" aria-labelledby="activar_sesion-tab">
+                    <div class="form-group form-row">
+                        <label class="col-4 col-form-label">Identificacion</label>
+                        <div class="col-8">
+                            <input type="text" [(ngModel)]="sesion.usuario.identificacion" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-4 col-form-label">Correo</label>
+                        <div class="col-8">
+                            <input type="email" [(ngModel)]="sesion.usuario.correo" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-4 col-form-label">Contraseña</label>
+                        <div class="col-8">
+                            <input type="password" [(ngModel)]="sesion.usuario.contrasena" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-4 col-form-label">Repetir Contraseña</label>
+                        <div class="col-8">
+                            <input type="password" [(ngModel)]="repetir_contrasena" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button class="btn btn-info" (click)="activarSesion()">Activar Sesion</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>

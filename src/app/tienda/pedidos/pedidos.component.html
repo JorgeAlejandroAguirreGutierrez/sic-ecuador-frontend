@@ -1,0 +1,32 @@
+<div class="imagen-fondo-principal">
+  <app-menu-principal [cantidadAgregados]="cantidadAgregados" ></app-menu-principal>
+  <div class="panel-detalle-producto panel panel-default">
+    <div class="panel-heading">
+      <span class="panel-title">Carrito de Compras</span>
+    </div>
+    <div class="panel-body">
+      <div class="container-info">
+        <div class="lista-pedidos">
+          <ul class="media-list">
+            <li class="media" *ngFor="let producto of productosEnCarrito">
+              <a class="pull-left" href="#">
+                <img class="media-object imagen-pedidos" src="./assets/img/{{producto.img}}" alt="{{producto.name}}">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading">{{producto.name}}</h4>
+                <label>Unidades:</label>{{producto.cantidadAComprar}}<br>
+                <label>SUBTOTAL:</label>${{producto.cantidadAComprar * producto.price}}<br>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="total-pedido">
+          <h2>Total: {{totalAPagar}}</h2>
+          <a href="javascript:;" (click)="cancelarPedidos()" class="boton-volver btn btn-default">Cancelar</a>
+          <a href="javascript:;" (click)="pagarPedidos()" class="boton-volver btn btn-default">Pagar</a>
+        </div>
+      </div>
+      <a href="javascript:;" (click)="goBack()" class="boton-volver btn btn-default">Atras</a>
+    </div>
+  </div>
+</div>

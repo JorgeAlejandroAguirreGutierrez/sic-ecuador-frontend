@@ -1,0 +1,25 @@
+<div class="imagen-fondo-principal">
+  <app-menu-principal [cantidadAgregados]="cantidadAgregados" ></app-menu-principal>
+  <!--app-appheader></app-appheader-->
+  <div class="panel-detalle-producto panel panel-default">
+    <div class="panel-heading">
+      <span class="panel-title">{{producto.name}}</span>
+    </div>
+    <div class="panel-body">
+      <div class="container-info">
+        <div class="imagen-producto">
+          <img src="{{producto.img}}" alt="{{producto.name}}">
+        </div>
+        <div class="info-producto">
+          <ul>
+            <li><label>Nombre:&nbsp;</label>{{producto.name}}</li>
+            <li><label>Precio:&nbsp;</label>${{producto.price}}</li>
+            <li><label>Unidades Disponibles:&nbsp;</label>{{producto.unidadesDisponibles}}</li>
+            <li><label>Cantidad agregadas:&nbsp;</label>{{cantidadAgregados}}</li>
+          </ul>
+        </div>
+      </div>
+      <a href="javascript:;" (click)="goBack()" class="boton-volver btn btn-default">Atras</a>
+    </div>
+  </div>
+</div>

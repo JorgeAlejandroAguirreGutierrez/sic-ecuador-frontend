@@ -1,0 +1,33 @@
+.campo-formulario > *{
+    display: block;
+}
+.msn-error, .campo-formulario span{
+    color: red;
+    text-shadow: 1.2px 1.5px black;
+}
+.container-login{
+    background-image: url('../../../assets/img/login-fondo.jpg');
+    background-repeat: no-repeat;
+    height: 630px;
+    padding-top: 10%;
+}
+.form-login label, .form-login h1{
+    color: white;
+    text-shadow: 1px 1px black;
+}
+.form-login h1{
+    text-align: center;
+}
+.form-login{
+    width: 25%;
+    margin: 0 auto;
+}
+.form-login input{
+    width: 100%;
+    border-radius: 5px;
+}
+
+.form-login button{
+    margin-top: 12px;
+    margin-left: 38%;
+}

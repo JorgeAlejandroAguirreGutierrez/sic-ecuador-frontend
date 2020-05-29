@@ -1,0 +1,196 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <h4>Almacenamiento</h4>
+            <nav class="nav flex-column">
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + G</font> Grabar <fa-icon class="float-right" [icon]="['fas', 'save']">
+                    </fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + N</font> Nuevo Registro <fa-icon class="float-right"
+                        [icon]="['fas', 'file']"></fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + E</font> Editar Registro <fa-icon class="float-right"
+                        [icon]="['fas', 'edit']"></fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + B</font> Buscar <fa-icon class="float-right" [icon]="['fas', 'search']">
+                    </fa-icon>
+                </a>
+                <a class="nav-link" href="#">
+                    <font color="black">SHIFT + A</font> Anular Registro <fa-icon class="float-right"
+                        [icon]="['fas', 'trash']"></fa-icon>
+                </a>
+                <a class="nav-link" href="#">Salir <fa-icon class="float-right" [icon]="['fas', 'sign-out-alt']">
+                    </fa-icon></a>
+            </nav>
+            <hr>
+            <h4>Procesamiento</h4>
+            <nav class="nav flex-column">
+                <a class="nav-link" href="#">Importar <fa-icon class="float-right" [icon]="['fas', 'file-import']">
+                    </fa-icon></a>
+                <a class="nav-link" href="#">Exportar <fa-icon class="float-right" [icon]="['fas', 'file-download']">
+                    </fa-icon></a>
+            </nav>
+        </div>
+        <div class="col-9">
+            <h2>UBICACIONES</h2>
+            <hr>
+            <h3>Crear Plazo de Credito</h3>
+            <hr>
+            <div id="formulario">
+                <div class="form-group form-row">
+                    <label for="codigo" class="col-4 col-form-label">Codigo</label>
+                    <div class="col-8">
+                        <input type="text" [(ngModel)]="ubicacion.codigo" class="form-control" disabled>
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label for="plazo" class="col-4 col-form-label">Codigo Norma</label>
+                    <div class="col-8">
+                        <input type="text" [(ngModel)]="ubicacion.codigo_norma" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label for="plazo" class="col-4 col-form-label">Provincia</label>
+                    <div class="col-8">
+                        <input type="text" [(ngModel)]="ubicacion.provincia" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label for="plazo" class="col-4 col-form-label">Canton</label>
+                    <div class="col-8">
+                        <input type="text" [(ngModel)]="ubicacion.canton" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label for="plazo" class="col-4 col-form-label">Parroquia</label>
+                    <div class="col-8">
+                        <input type="text" [(ngModel)]="ubicacion.parroquia" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <h2>PLAZOS DE CREDITOS</h2>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>CODIGO</th>
+                        <th>CODIGO NORMA</th>
+                        <th>PROVINCIA</th>
+                        <th>CANTON</th>
+                        <th>PARROQUIA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ubicacion of ubicaciones">
+                        <td>
+                            <input type="radio" name="seleccion" (click)="seleccion(ubicacion)">
+                        </td>
+                        <td>
+                            {{ubicacion.codigo}}
+                        </td>
+                        <td>
+                            {{ubicacion.codigo_norma}}
+                        </td>
+                        <td>
+                            {{ubicacion.provincia}}
+                        </td>
+                        <td>
+                            {{ubicacion.canton}}
+                        </td>
+                        <td>
+                            {{ubicacion.parroquia}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<ng-template #actualizar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Actualizar Ubicacion</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <h3>Actualizar Ubicacion</h3>
+            <hr>
+            <div class="form-group form-row">
+                <label for="plazo" class="col-4 col-form-label">Codigo Norma</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="p_ubicacion.codigo_norma" class="form-control">
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <label for="plazo" class="col-4 col-form-label">Provincia</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="p_ubicacion.provincia" class="form-control">
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <label for="plazo" class="col-4 col-form-label">Canton</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="p_ubicacion.canton" class="form-control">
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <label for="plazo" class="col-4 col-form-label">Parroquia</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="p_ubicacion.parroquia" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modal.close('actualizar')">Aceptar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('close')">Cerrar</button>
+    </div>
+</ng-template>
+<ng-template #eliminar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Eliminar Ubicacion</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        ¿Esta seguro de eliminar la ubicacion?
+        <br>
+        <div class="form-group form-row">
+            <label for="plazo" class="col-4 col-form-label">Codigo Norma</label>
+            <div class="col-8">
+                <input type="text" [(ngModel)]="p_ubicacion.codigo_norma" class="form-control">
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label for="plazo" class="col-4 col-form-label">Provincia</label>
+            <div class="col-8">
+                <input type="text" [(ngModel)]="p_ubicacion.provincia" class="form-control">
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label for="plazo" class="col-4 col-form-label">Canton</label>
+            <div class="col-8">
+                <input type="text" [(ngModel)]="p_ubicacion.canton" class="form-control">
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label for="plazo" class="col-4 col-form-label">Parroquia</label>
+            <div class="col-8">
+                <input type="text" [(ngModel)]="p_ubicacion.parroquia" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modal.close('eliminar')">Aceptar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('close')">Cerrar</button>
+    </div>
+</ng-template>

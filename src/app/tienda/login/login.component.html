@@ -1,0 +1,19 @@
+<div class="container-login">
+  <div class="form-login">
+    <h1>Inicia Sesión</h1>
+    <form>
+      <div class="campo-formulario">
+        <label for="correo-input">Correo electrónico *</label>
+        <input #correo="ngModel" type="text" id="correo-input" name="correo-input" [(ngModel)]="usuario.correo" required pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
+        <span *ngIf="!correo.valid && correo.touched">Error: campo requerido o error en correo</span>
+      </div>
+      <div class="campo-formulario">
+        <label for="contrasena-input">Contraseña *</label>
+        <input #contrasena="ngModel" type="password" id="contrasena-input" name="contrasena-input" [(ngModel)]="usuario.contrasena" required>
+        <span *ngIf="!contrasena.valid && contrasena.touched">Error: campo requerido</span>
+      </div>
+      <span class="msn-error" *ngIf="msnUsuarioNoEncontrado!=undefined">{{msnUsuarioNoEncontrado}}</span>
+      <button (click)="login()" class="btn btn-success" type="button">Ingresar</button>
+    </form>
+  </div>
+</div>

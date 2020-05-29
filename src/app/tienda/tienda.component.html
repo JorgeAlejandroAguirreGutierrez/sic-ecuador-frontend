@@ -1,0 +1,99 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div class="main-container">
+    <!-- ============================================================== -->
+    <!-- Topbar - style you can find in header.scss -->
+    <!-- ============================================================== -->
+    <mat-toolbar class="topbar telative">
+        <!-- ============================================================== -->
+        <!-- Logo - style you can find in header.scss -->
+        <!-- ============================================================== -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                <!-- Logo icon --><b>
+                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                    <!-- Dark Logo icon -->
+                    <img src="assets/images/siice-sin-letras.png" alt="homepage" class="logo">
+                </b>
+                <!--End Logo icon -->
+                <!-- Logo text -->
+                <span fxShow="false" fxShow.gt-xs>
+                    <img src="assets/images/siice-online.png" alt="homepage" class="letras">
+                </span> </a>
+        </div>
+        <!-- ============================================================== -->
+        <!-- sidebar toggle -->
+        <!-- ============================================================== -->
+
+        <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span fxFlex></span>
+        <!-- ============================================================== -->
+        <!-- app header component - style you can find in header.scss / header.component.ts-->
+        <!-- ============================================================== -->
+        <app-appheader [cantidadAgregados]="cantidadAgregados"></app-appheader>
+        <!--app-menu-principal></app-menu-principal-->
+    </mat-toolbar>
+    <!-- ============================================================== -->
+    <!-- End Topbar - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+        <!-- ============================================================== -->
+        <!-- Sidebar - style you can find in sidebar.scss -->
+        <!-- ============================================================== -->
+        <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
+            fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches">
+            <!--app-appsidebar></app-appsidebar-->
+            <br>
+            <app-filters #filtersComponent [categories]='originalData.categories' [customFilters]='customFilters'
+                [priceFilters]='priceFilters' (filterChange)='onFilterChange($event)'></app-filters>
+        </mat-sidenav>
+        <!-- ============================================================== -->
+        <!-- Sidebar - style you can find in sidebar.scss -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- Page container - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <mat-sidenav-content class="page-wrapper imagen-fondo-principal">
+            <div fxLayout="row wrap">
+                <div class="row col-12 color">
+                    <div fxFlex.gt-lg="5" fxFlex.gt-md="5" fxFlex.gt-xs="20" fxFlex="20" class="m-t-5">
+                        <app-cart></app-cart> 
+                    </div>
+                    <div fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-xs="80" fxFlex="80" class="m-t-5">
+                        <app-url-form (urlChange)='onURLChange($event)'></app-url-form>
+                    </div>
+                    <div fxFlex.gt-lg="10" fxFlex.gt-md="10" fxFlex.gt-xs="10" fxFlex="10" class="m-t-5">
+                    </div>
+                    <div fxFlex.gt-lg="20" fxFlex.gt-md="20" fxFlex.gt-xs="40" fxFlex="40" class="m-t-5">
+                        <app-search-bar #searchComponent (searchChange)='onSearchChange($event)'></app-search-bar>
+                    </div>
+                    <div fxFlex.gt-lg="25" fxFlex.gt-md="25" fxFlex.gt-xs="50" fxFlex="50" class="m-t-5">
+                        <div class="sort-filters-wrapper">
+                            <app-sort-filters [filters]='sortFilters' (sortChange)='sortProducts($event)'>
+                            </app-sort-filters>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-12">
+                    <app-slider fxFlex="100"></app-slider>
+                </div>
+                <br>
+                <div class="row col-12">
+                    <app-contenido [product]="product" (productoAgregar)="agregarProductoAlCarrito($event)"
+                        *ngFor="let product of products" fxFlex.gt-lg="20" fxFlex.gt-md="25" fxFlex.gt-xs="33" fxFlex="50">
+                    </app-contenido>
+                </div>
+                <!--app-showcase [products]='products'></app-showcase-->
+                <!--app-tienda-online><app-spinner></app-spinner></app-tienda-online-->
+                <!--router-outlet><app-spinner></app-spinner></router-outlet-->
+            </div>
+        </mat-sidenav-content>
+        <!-- ============================================================== -->
+        <!-- Page container - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+    </mat-sidenav-container>
+</div>
