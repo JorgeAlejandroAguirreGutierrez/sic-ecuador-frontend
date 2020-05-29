@@ -84,7 +84,7 @@ export class InicioSesionComponent implements OnInit {
 
   obtenerParametro(){
     let parametro=new Parametro();
-    parametro.tipo='logo';
+    parametro.tipo='LOGO';
     this.parametroService.obtenerTipo (parametro).subscribe(
       res => {
         parametro= res.resultado as Parametro
