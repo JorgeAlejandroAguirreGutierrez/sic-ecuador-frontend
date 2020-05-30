@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/",
+                        "outputPath": "dist/sic-ecuador-frontend/",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -137,11 +137,11 @@
     "defaultProject": "sic-ecuador-frontend",
     "schematics": {
         "@schematics/angular:component": {
-          "prefix": "app",
-          "style": "css"
+            "prefix": "app",
+            "style": "css"
         },
         "@schematics/angular:directive": {
-          "prefix": "app"
+            "prefix": "app"
         }
-      }
+    }
 }
