@@ -598,7 +598,7 @@ export class FacturaComponent implements OnInit {
       return;
     }
     if (this.detalle.cantidad>this.detalle.bodega_producto.caracteristicas.length){
-      Swal.fire("Error", "Cantidad No Existente", "error");
+      Swal.fire("Error", "Cantidad No Existente. Max Cant. "+this.detalle.bodega_producto.caracteristicas.length, "error");
       return;
     }
     this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
