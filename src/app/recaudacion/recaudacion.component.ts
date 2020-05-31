@@ -27,6 +27,8 @@ import { PlazoCredito } from '../modelos/plazo-credito';
 import { CuentaPropia } from '../modelos/cuenta-propia';
 import { CuentaPropiaService } from '../servicios/cuenta-propia.service';
 import { Transferencia } from '../modelos/transferencia';
+import { FranquiciaTarjeta } from '../modelos/franquicia-tarjeta';
+import { FranquiciaTarjetaService } from '../servicios/franquicia-tarjeta.service';
 
 @Component({
   selector: 'app-recaudacion',
@@ -37,8 +39,8 @@ import { Transferencia } from '../modelos/transferencia';
 export class RecaudacionComponent implements OnInit {
 
   constructor(private facturaService: FacturaService, private clienteService: ClienteService, private bancoService: BancoService,
-    private sesionService: SesionService, private plazoCreditoService: PlazoCreditoService,
-    private cuentaPropiaService: CuentaPropiaService, private formaPagoService: FormaPagoService, private modalService: NgbModal) { }
+    private sesionService: SesionService, private plazoCreditoService: PlazoCreditoService, private cuentaPropiaService: CuentaPropiaService, 
+    private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, private modalService: NgbModal) { }
 
   @Input() factura: Factura;
   recaudacion: Recaudacion = new Recaudacion();
@@ -52,6 +54,7 @@ export class RecaudacionComponent implements OnInit {
   formas_pagos: FormaPago[]=[];
   clientes: Cliente[]=[];
   cuentas_propias: CuentaPropia[]=[];
+  franquicias_tarjetas: FranquiciaTarjeta[];
 
   seleccion_razon_social_cliente = new FormControl();
   filtro_razon_social_clientes: Observable<Cliente[]> = new Observable<Cliente[]>();
@@ -106,6 +109,7 @@ export class RecaudacionComponent implements OnInit {
 
   ngOnInit() {
     this.consultar_cuentas_propias();
+    this.consultar_franquicias_tarjetas();
     this.consultar_plazos_creditos();
     this.consultar_bancos_cheques();
     this.consultar_bancos_depositos();
@@ -155,6 +159,14 @@ export class RecaudacionComponent implements OnInit {
     this.cuentaPropiaService.consultar().subscribe(
       res => {
         this.cuentas_propias = res.resultado as CuentaPropia[]
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+  consultar_franquicias_tarjetas(){
+    this.franquiciaTarjetaService.consultar().subscribe(
+      res => {
+        this.franquicias_tarjetas = res.resultado as FranquiciaTarjeta[]
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );

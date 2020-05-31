@@ -469,10 +469,10 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Franquicia</mat-label>
-                    <mat-select class="form-control-sm" [(ngModel)]="franquiciaTarjetaCredito">
-                        <mat-option value="VISA">VISA</mat-option>
-                        <mat-option value="DINERS">DINERS CLUB</mat-option>
-                        <mat-option value="MASTER CARD">MASTER CARD</mat-option>
+                    <mat-select class="form-control-sm" [(ngModel)]="tarjeta_credito.franquicia">
+                        <mat-option *ngFor="let franquicia_tarjeta of franquicias_tarjetas" [value]="franquicia_tarjeta" (click)="habilitar_seccion_pago(forma_pago)">
+                            {{franquicia_tarjeta.nombre}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
