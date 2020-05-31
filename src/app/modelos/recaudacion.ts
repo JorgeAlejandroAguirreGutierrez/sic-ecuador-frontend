@@ -18,9 +18,9 @@ export class Recaudacion {
     cheques: Cheque[];
     depositos: Deposito[];
     transferencias: Transferencia[];
-    tarjeta_credito: TarjetaCredito;
-    tarjeta_debito: TarjetaDebito;
-    compensacion: Compensacion;
+    tarjetas_creditos: TarjetaCredito[];
+    tarjetas_debitos: TarjetaDebito[];
+    compensaciones: Compensacion[];
     credito: Credito;
     cambio: number;
 
@@ -31,8 +31,9 @@ export class Recaudacion {
         this.total=0;
         this.efectivo=0;
         this.cambio=0;
-        this.tarjeta_debito=new TarjetaDebito();
-        this.tarjeta_credito=new TarjetaCredito();
+        this.tarjetas_debitos=[]
+        this.tarjetas_creditos=[]
+        this.compensaciones=[];
         this.credito=new Credito();
     }
 }

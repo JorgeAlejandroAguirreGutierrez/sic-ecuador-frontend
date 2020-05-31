@@ -45,6 +45,9 @@ export class RecaudacionComponent implements OnInit {
   cheque: Cheque=new Cheque();
   deposito: Deposito=new Deposito();
   transferencia: Transferencia=new Transferencia();
+  tarjeta_debito: TarjetaDebito=new TarjetaDebito();
+  tarjeta_credito: TarjetaCredito=new TarjetaCredito();
+  compensacion: Compensacion=new Compensacion();
   plazos_creditos: PlazoCredito[];
   formas_pagos: FormaPago[]=[];
   clientes: Cliente[]=[];
@@ -73,11 +76,10 @@ export class RecaudacionComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
+  habilitar_cheques: boolean = false;
   columnasCheques: string[] = ['id', 'fecha', 'tipo', 'numero', 'banco', 'valor', 'acciones'];
   data_cheques = new MatTableDataSource<Cheque>(this.recaudacion.cheques);
-  tabla1: MatTable<Cheque>;
 
-  habilitar_cheques: boolean = false;
   habilitar_depositos: boolean = false;
   columnasDepositos: string[] = ['id', 'fecha', 'cuenta', 'banco', 'comprobante', 'valor', 'acciones'];
   data_depositos = new MatTableDataSource<Deposito>(this.recaudacion.depositos);
@@ -88,46 +90,19 @@ export class RecaudacionComponent implements OnInit {
   data_transferencias = new MatTableDataSource<Transferencia>(this.recaudacion.transferencias);
 
   // Variables para Tarjetas de crédito
-  habilitar_tarjetasCredito: boolean = false;
-  tarjetaCredito: TarjetaCredito[] = [];
-  franquiciaTarjetaCredito: string = "";
-  bancoTarjetaCredito: string = "";
-  titularTarjetaCredito: boolean = true;
-  identificacionTarjetaCredito: string = "";
-  nombreTarjetaCredito: string = "";
-  diferidoTarjetaCredito: boolean = false;
-  operadorTarjetaCredito: string = "";
-  loteTarjetaCredito: string = "";
-  valorTarjetaCredito: number = 0;
+  habilitar_tarjetas_creditos: boolean = false;
   columnasTarjetasCredito: string[] = ['id', 'franquicia', 'banco', 'identificacion', 'nombre', 'titular', 'diferido', 'operador', 'lote', 'valor', 'acciones'];
-  dataSourceTarjetasCredito = new MatTableDataSource<TarjetaCredito>(this.tarjetaCredito);
+  data_tarjetas_creditos = new MatTableDataSource<TarjetaCredito>(this.recaudacion.tarjetas_creditos);
 
   // Variables para Tarjetas de débito
-  habilitar_tarjetasDebito: boolean = false;
-  tarjetaDebito: TarjetaDebito[] = [];
-  franquiciaTarjetaDebito: string = "";
-  bancoTarjetaDebito: string = "";
-  identificacionTarjetaDebito: string = "";
-  nombreTarjetaDebito: string = "";
-  operadorTarjetaDebito: string = "";
-  loteTarjetaDebito: string = "";
-  valorTarjetaDebito: number = 0;
+  habilitar_tarjetas_debitos: boolean = false;
   columnasTarjetasDebito: string[] = ['id', 'franquicia', 'banco', 'identificacion', 'nombre', 'operador', 'lote', 'valor', 'acciones'];
-  dataSourceTarjetasDebito = new MatTableDataSource<TarjetaDebito>(this.tarjetaDebito);
+  data_tarjetas_debitos= new MatTableDataSource<TarjetaDebito>(this.recaudacion.tarjetas_debitos);
 
   // Variables para Compensaciones
   habilitar_compensaciones: boolean = false;
-  compensacion: Compensacion[] = [];
-  tipoComprobanteCompensacion: string = "";
-  comprobanteCompensacion: string = "";
-  fechaComprobanteCompensacion: Date = new Date();
-  origenCompensacion: string = "";
-  motivoCompensacion: string = "";
-  fechaVencimientoCompensacion: Date = new Date();
-  valor_inicialCompensacion: number = 0;
-  valor_compensadoCompensacion: number = 0;
   columnasCompensaciones: string[] = ['id', 'tipo', 'comprobante', 'fecha', 'origen', 'motivo', 'fechaVencimiento', 'valorInicial', 'valorCompensado', 'acciones'];
-  dataSourceCompensaciones = new MatTableDataSource<Compensacion>(this.compensacion);
+  data_compensaciones = new MatTableDataSource<Compensacion>(this.recaudacion.compensaciones);
 
   ngOnInit() {
     this.consultar_cuentas_propias();
@@ -336,10 +311,10 @@ export class RecaudacionComponent implements OnInit {
       this.habilitar_transferencias = !this.habilitar_transferencias;
     }
     if (formaPago == 'TARJETA DE CREDITO'){
-      this.habilitar_tarjetasCredito = !this.habilitar_tarjetasCredito;
+      this.habilitar_tarjetas_creditos = !this.habilitar_tarjetas_creditos;
     }
     if (formaPago == 'TARJETA DE DEBITO'){
-      this.habilitar_tarjetasDebito = !this.habilitar_tarjetasDebito;
+      this.habilitar_tarjetas_debitos = !this.habilitar_tarjetas_debitos;
     }
     if (formaPago == 'COMPENSACIONES'){
       this.habilitar_compensaciones = !this.habilitar_compensaciones;
@@ -359,6 +334,7 @@ export class RecaudacionComponent implements OnInit {
     this.cheque.banco=this.seleccion_banco_cheque.value;
     this.recaudacion.cheques.push(this.cheque);
     this.cheque=new Cheque();
+    this.seleccion_banco_cheque.patchValue("");
     this.data_cheques = new MatTableDataSource<Cheque>(this.recaudacion.cheques);
     this.data_cheques.sort = this.sort;
     this.data_cheques.paginator = this.paginator;
@@ -381,6 +357,7 @@ export class RecaudacionComponent implements OnInit {
     this.deposito.banco=this.seleccion_banco_deposito.value;
     this.recaudacion.depositos.push(this.deposito);
     this.deposito=new Deposito();
+    this.seleccion_banco_deposito.patchValue("");
     this.data_depositos = new MatTableDataSource<Deposito>(this.recaudacion.depositos);
     this.data_depositos.sort = this.sort;
     this.data_depositos.paginator = this.paginator;
@@ -403,6 +380,7 @@ export class RecaudacionComponent implements OnInit {
     this.transferencia.banco=this.seleccion_banco_transferencia.value;
     this.recaudacion.transferencias.push(this.transferencia);
     this.transferencia=new Transferencia();
+    this.seleccion_banco_transferencia.patchValue("");
     this.data_transferencias = new MatTableDataSource<Transferencia>(this.recaudacion.transferencias);
     this.data_transferencias.sort = this.sort;
     this.data_transferencias.paginator = this.paginator;
@@ -412,81 +390,72 @@ export class RecaudacionComponent implements OnInit {
     return this.recaudacion.transferencias.map(t => t.valor).reduce((acc, value) => acc + value, 0);
   }
 
-  borrarTarjetaCredito(cod: number) {
+  borrar_tarjeta_credito(cod: number) {
     if (confirm("Realmente quiere eliminar la tarjeta de crédito?")) {
-      this.tarjetaCredito.splice(cod, 1);
-      this.dataSourceTarjetasCredito = new MatTableDataSource<TarjetaCredito>(this.tarjetaCredito);
-      this.dataSourceTarjetasCredito.sort = this.sort;
-      this.dataSourceTarjetasCredito.paginator = this.paginator;
+      this.recaudacion.tarjetas_creditos.splice(cod, 1);
+      this.data_tarjetas_creditos = new MatTableDataSource<TarjetaCredito>(this.recaudacion.tarjetas_creditos);
+      this.data_tarjetas_creditos.sort = this.sort;
+      this.data_tarjetas_creditos.paginator = this.paginator;
     }
   }
 
-  agregarTarjetaCredito() {
-    this.tarjetaCredito.push({
-      id: this.tarjetaCredito.length + 1, franquicia: this.franquiciaTarjetaCredito, banco: this.bancoTarjetaCredito,
-      titular: this.titularTarjetaCredito, identificacion: this.identificacionTarjetaCredito, nombre: this.nombreTarjetaCredito, diferido: this.diferidoTarjetaCredito,
-      operador: this.operadorTarjetaCredito, lote: this.loteTarjetaCredito, valor: this.valorTarjetaCredito
-    });
-    this.dataSourceTarjetasCredito = new MatTableDataSource<TarjetaCredito>(this.tarjetaCredito);
-    this.dataSourceTarjetasCredito.sort = this.sort;
-    this.dataSourceTarjetasCredito.paginator = this.paginator;
+  agregar_tarjeta_credito() {
+    this.recaudacion.tarjetas_creditos.push(this.tarjeta_credito);
+    this.tarjeta_credito=new TarjetaCredito();
+    this.seleccion_banco_tarjeta_credito.patchValue("");
+    this.data_tarjetas_creditos = new MatTableDataSource<TarjetaCredito>(this.recaudacion.tarjetas_creditos);
+    this.data_tarjetas_creditos.sort = this.sort;
+    this.data_tarjetas_creditos.paginator = this.paginator;
   }
 
-  totalTarjetasCredito() {
-    return this.tarjetaCredito.map(t => t.valor).reduce((acc, value) => acc + value, 0);
+  total_tarjetas_creditos() {
+    return this.recaudacion.tarjetas_creditos.map(t => t.valor).reduce((acc, value) => acc + value, 0);
   }
 
-  borrarTarjetaDebito(cod: number) {
+  borrar_tarjeta_debito(cod: number) {
     if (confirm("Realmente quiere eliminar la tarjeta de débito?")) {
-      this.tarjetaDebito.splice(cod, 1);
-      this.dataSourceTarjetasDebito = new MatTableDataSource<TarjetaDebito>(this.tarjetaDebito);
-      this.dataSourceTarjetasDebito.sort = this.sort;
-      this.dataSourceTarjetasDebito.paginator = this.paginator;
+      this.recaudacion.tarjetas_debitos.splice(cod, 1);
+      this.data_tarjetas_debitos = new MatTableDataSource<TarjetaDebito>(this.recaudacion.tarjetas_debitos);
+      this.data_tarjetas_debitos.sort = this.sort;
+      this.data_tarjetas_debitos.paginator = this.paginator;
     }
   }
 
-  agregarTarjetaDebito() {
-    this.tarjetaDebito.push({
-      id: this.tarjetaDebito.length + 1, franquicia: this.franquiciaTarjetaDebito, banco: this.bancoTarjetaDebito,
-      identificacion: this.identificacionTarjetaDebito, nombre: this.nombreTarjetaDebito,
-      operador: this.operadorTarjetaDebito, lote: this.loteTarjetaDebito, valor: this.valorTarjetaDebito
-    });
-    this.dataSourceTarjetasDebito = new MatTableDataSource<TarjetaDebito>(this.tarjetaDebito);
-    this.dataSourceTarjetasDebito.sort = this.sort;
-    this.dataSourceTarjetasDebito.paginator = this.paginator;
+  agregar_tarjeta_debito() {
+    this.recaudacion.tarjetas_debitos.push(this.tarjeta_debito);
+    this.tarjeta_debito=new TarjetaDebito();
+    this.seleccion_banco_tarjeta_debito.patchValue("");
+    this.data_tarjetas_debitos = new MatTableDataSource<TarjetaDebito>(this.recaudacion.tarjetas_debitos);
+    this.data_tarjetas_debitos.sort = this.sort;
+    this.data_tarjetas_debitos.paginator = this.paginator;
   }
 
-  totalTarjetasDebito() {
-    return this.tarjetaDebito.map(t => t.valor).reduce((acc, value) => acc + value, 0);
+  total_tarjetas_debitos() {
+    return this.recaudacion.tarjetas_debitos.map(t => t.valor).reduce((acc, value) => acc + value, 0);
   }
 
-  borrarCompensacion(cod: number) {
+  borrar_compensacion(cod: number) {
     if (confirm("Realmente quiere eliminar la compensacion?")) {
-      this.compensacion.splice(cod, 1);
-      this.dataSourceCompensaciones = new MatTableDataSource<Compensacion>(this.compensacion);
-      this.dataSourceCompensaciones.sort = this.sort;
-      this.dataSourceCompensaciones.paginator = this.paginator;
+      this.recaudacion.compensaciones.splice(cod, 1);
+      this.data_compensaciones = new MatTableDataSource<Compensacion>(this.recaudacion.compensaciones);
+      this.data_compensaciones.sort = this.sort;
+      this.data_compensaciones.paginator = this.paginator;
     }
   }
 
-  agregarCompensacion() {
-    this.compensacion.push({
-      id: this.compensacion.length + 1, tipo_comprobante: this.tipoComprobanteCompensacion, comprobante: this.comprobanteCompensacion,
-      fecha_comprobante: this.fechaComprobanteCompensacion, origen: this.origenCompensacion, motivo: this.motivoCompensacion, fecha_vencimiento: this.fechaVencimientoCompensacion,
-      valor_inicial: this.valor_inicialCompensacion, valor_compensado: this.valor_compensadoCompensacion
-    });
-    this.dataSourceCompensaciones = new MatTableDataSource<Compensacion>(this.compensacion);
-    this.dataSourceCompensaciones.sort = this.sort;
-    this.dataSourceCompensaciones.paginator = this.paginator;
+  agregar_compensacion() {
+    this.recaudacion.compensaciones.push(this.compensacion);
+    this.data_compensaciones = new MatTableDataSource<Compensacion>(this.recaudacion.compensaciones);
+    this.data_compensaciones.sort = this.sort;
+    this.data_compensaciones.paginator = this.paginator;
   }
 
-  totalCompensaciones() {
-    return this.compensacion.map(t => t.valor_compensado).reduce((acc, value) => acc + value, 0);
+  total_compensaciones() {
+    return this.recaudacion.compensaciones.map(t => t.valor_compensado).reduce((acc, value) => acc + value, 0);
   }
 
-  totalCredito() {
-    // El total de la factura menos todos los totales
-    return this.compensacion.map(t => t.valor_compensado).reduce((acc, value) => acc + value, 0);
+  total_creditos() {
+    return 0;
   }
 
   crear(event) {

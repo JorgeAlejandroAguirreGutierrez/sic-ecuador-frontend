@@ -452,8 +452,8 @@
     </div>
 
     <!-- Sección TARJETA DE CRÉDITO -->
-    <mat-divider *ngIf="habilitar_tarjetasCredito"></mat-divider>
-    <div class="card" *ngIf="habilitar_tarjetasCredito">
+    <mat-divider *ngIf="habilitar_tarjetas_creditos"></mat-divider>
+    <div class="card" *ngIf="habilitar_tarjetas_creditos">
         <div class="card-header">
             <div class="form-row col-12">
                 <div class="form-group col-8 izquierda">
@@ -462,7 +462,7 @@
                 <div class="form-group col-3 derecha">
                     El total en tarjetas de crédito es:
                 </div>
-                <div class="form-group col-1">{{totalTarjetasCredito() | currency}}</div>
+                <div class="form-group col-1">{{total_tarjetas_creditos() | currency}}</div>
             </div>
         </div>
         <div class="card-body form-row col-12">
@@ -599,7 +599,7 @@
                     <ng-container matColumnDef="valor">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
                         <td mat-cell *matCellDef="let tarjetaCredito"> {{tarjetaCredito.valor | currency}} </td>
-                        <td mat-footer-cell *matFooterCellDef> {{totalTarjetasCredito() | currency}} </td>
+                        <td mat-footer-cell *matFooterCellDef> {{total_tarjetas_creditos() | currency}} </td>
                     </ng-container>
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
@@ -625,8 +625,8 @@
     </div>
 
     <!-- Sección TARJETA DE DEBITO -->
-    <mat-divider *ngIf="habilitar_tarjetasDebito"></mat-divider>
-    <div class="card" *ngIf="habilitar_tarjetasDebito">
+    <mat-divider *ngIf="habilitar_tarjetas_debitos"></mat-divider>
+    <div class="card" *ngIf="habilitar_tarjetas_debitos">
         <div class="card-header">
             <div class="form-row col-12">
                 <div class="form-group col-8 izquierda">
@@ -635,7 +635,7 @@
                 <div class="form-group col-3 derecha">
                     El total en tarjetas de debito es:
                 </div>
-                <div class="form-group col-1">{{totalTarjetasDebito() | currency}}</div>
+                <div class="form-group col-1">{{total_tarjetas_debitos() | currency}}</div>
             </div>
         </div>
         <div class="card-body form-row col-12">
@@ -950,7 +950,7 @@
                 <div class="form-group col-3 derecha">
                     El total a crédito será de:
                 </div>
-                <div class="form-group col-1">{{totalCredito() | currency}}</div>
+                <div class="form-group col-1">{{total_creditos() | currency}}</div>
             </div>
         </div>
         <div class="card-body form-row col-12">
