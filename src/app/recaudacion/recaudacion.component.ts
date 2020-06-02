@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, EventEmitter } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material';
+import { MatTable, MatTableDataSource, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { Recaudacion } from '../modelos/recaudacion';
 import { Cheque } from '../modelos/cheque';
@@ -29,11 +29,16 @@ import { CuentaPropiaService } from '../servicios/cuenta-propia.service';
 import { Transferencia } from '../modelos/transferencia';
 import { FranquiciaTarjeta } from '../modelos/franquicia-tarjeta';
 import { FranquiciaTarjetaService } from '../servicios/franquicia-tarjeta.service';
+import { AppDateAdapter, APP_DATE_FORMATS } from '../modelos/format-date-picker';
 
 @Component({
   selector: 'app-recaudacion',
   templateUrl: './recaudacion.component.html',
-  styleUrls: ['./recaudacion.component.css']
+  styleUrls: ['./recaudacion.component.css'],
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}
+  ]
 })
 
 export class RecaudacionComponent implements OnInit {
@@ -108,6 +113,7 @@ export class RecaudacionComponent implements OnInit {
   data_compensaciones = new MatTableDataSource<Compensacion>(this.recaudacion.compensaciones);
 
   ngOnInit() {
+    this.defecto_recaudacion();
     this.consultar_cuentas_propias();
     this.consultar_franquicias_tarjetas();
     this.consultar_plazos_creditos();
@@ -155,6 +161,9 @@ export class RecaudacionComponent implements OnInit {
       );
   }
 
+  defecto_recaudacion(){
+    this.recaudacion.efectivo=this.factura.total_con_descuento;
+  }
   consultar_cuentas_propias(){
     this.cuentaPropiaService.consultar().subscribe(
       res => {
@@ -248,7 +257,7 @@ export class RecaudacionComponent implements OnInit {
     return [];
   }
   ver_banco_cheque(banco: Banco): string {
-    return banco && banco.abreviatura ? banco.abreviatura : '';
+    return banco && banco.nombre ? banco.nombre : '';
   }
 
   private filtro_banco_deposito(value: string): Banco[] {
@@ -259,7 +268,7 @@ export class RecaudacionComponent implements OnInit {
     return [];
   }
   ver_banco_deposito(banco_deposito: Banco): string {
-    return banco_deposito && banco_deposito.abreviatura ? banco_deposito.abreviatura : '';
+    return banco_deposito && banco_deposito.nombre ? banco_deposito.nombre : '';
   }
   private filtro_banco_transferencia(value: string): Banco[] {
     if(this.bancos_transferencias.length>0) {
@@ -269,7 +278,7 @@ export class RecaudacionComponent implements OnInit {
     return [];
   }
   ver_banco_transferencia(banco_transferencia: Banco): string {
-    return banco_transferencia && banco_transferencia.abreviatura ? banco_transferencia.abreviatura : '';
+    return banco_transferencia && banco_transferencia.nombre ? banco_transferencia.nombre : '';
   }
 
   private filtro_banco_tarjeta_credito(value: string): Banco[] {
@@ -280,7 +289,7 @@ export class RecaudacionComponent implements OnInit {
     return [];
   }
   ver_banco_tarjeta_credito(banco_transferencia: Banco): string {
-    return banco_transferencia && banco_transferencia.abreviatura ? banco_transferencia.abreviatura : '';
+    return banco_transferencia && banco_transferencia.nombre ? banco_transferencia.nombre : '';
   }
 
   private filtro_banco_tarjeta_debito(value: string): Banco[] {
@@ -291,7 +300,7 @@ export class RecaudacionComponent implements OnInit {
     return [];
   }
   ver_banco_tarjeta_debito(banco_tarjeta_debito: Banco): string {
-    return banco_tarjeta_debito && banco_tarjeta_debito.abreviatura ? banco_tarjeta_debito.abreviatura : '';
+    return banco_tarjeta_debito && banco_tarjeta_debito.nombre ? banco_tarjeta_debito.nombre : '';
   }
   seleccionar_cliente(){
 
@@ -353,12 +362,12 @@ export class RecaudacionComponent implements OnInit {
   }
 
   total_cheques() {
-    return this.recaudacion.cheques.map(t => t.valor).reduce((acc, value) => acc + value, 0);
+    return this.recaudacion.cheques.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
-  borrar_deposito(cod: number) {
+  borrar_deposito(i: number) {
     if (confirm("Realmente quiere eliminar el deposito?")) {
-      this.recaudacion.depositos.splice(cod, 1);
+      this.recaudacion.depositos.splice(i, 1);
       this.data_depositos = new MatTableDataSource<Deposito>(this.recaudacion.depositos);
       this.data_depositos.sort = this.sort;
       this.data_depositos.paginator = this.paginator;
@@ -376,7 +385,7 @@ export class RecaudacionComponent implements OnInit {
   }
 
   total_depositos() {
-    return this.recaudacion.depositos.map(t => t.valor).reduce((acc, value) => acc + value, 0);
+    return this.recaudacion.depositos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
   borrar_transferencia(cod: number) {
@@ -399,7 +408,7 @@ export class RecaudacionComponent implements OnInit {
   }
 
   total_transferencias() {
-    return this.recaudacion.transferencias.map(t => t.valor).reduce((acc, value) => acc + value, 0);
+    return this.recaudacion.transferencias.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
   borrar_tarjeta_credito(cod: number) {
@@ -421,7 +430,7 @@ export class RecaudacionComponent implements OnInit {
   }
 
   total_tarjetas_creditos() {
-    return this.recaudacion.tarjetas_creditos.map(t => t.valor).reduce((acc, value) => acc + value, 0);
+    return this.recaudacion.tarjetas_creditos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
   borrar_tarjeta_debito(cod: number) {
@@ -443,7 +452,7 @@ export class RecaudacionComponent implements OnInit {
   }
 
   total_tarjetas_debitos() {
-    return this.recaudacion.tarjetas_debitos.map(t => t.valor).reduce((acc, value) => acc + value, 0);
+    return this.recaudacion.tarjetas_debitos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
   borrar_compensacion(cod: number) {
@@ -463,7 +472,7 @@ export class RecaudacionComponent implements OnInit {
   }
 
   total_compensaciones() {
-    return this.recaudacion.compensaciones.map(t => t.valor_compensado).reduce((acc, value) => acc + value, 0);
+    return this.recaudacion.compensaciones.map(t => Number(t.valor_compensado)).reduce((acc, value) => acc + value, 0);
   }
 
   total_creditos() {
