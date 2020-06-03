@@ -48,6 +48,13 @@ export class ProductoService {
         return throwError(err);
       }));
   }
+  consultarBienExistencias(producto: Producto): Observable<Resultado> {
+    return this.http.get(environment.host + util.ruta + util.producto+util.tipo+util.bien+"/"+producto.id+util.existencias, util.options).pipe(
+      map(response => response as Resultado),
+      catchError(err => {
+        return throwError(err);
+      }));
+  }
 
   consultarServicio(): Observable<Resultado> {
     return this.http.get(environment.host + util.ruta + util.producto+util.tipo+util.servicio, util.options).pipe(

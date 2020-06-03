@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Observable} from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -21,8 +21,6 @@ import { FacturaService } from '../servicios/factura.service';
 import { AuxiliarService } from '../servicios/auxiliar.service';
 import { Auxiliar } from '../modelos/auxiliar';
 import { Caracteristica } from '../modelos/caracteristica';
-import { CaracteristicaService } from '../servicios/caracteristica.service';
-import { MatStepper } from '@angular/material';
 
 @Component({
   selector: 'app-factura',
@@ -60,7 +58,7 @@ export class FacturaComponent implements OnInit {
 
   constructor(private clienteService: ClienteService, private auxiliarService: AuxiliarService, private sesionService: SesionService, 
     private medidaService: MedidaService, private impuestoService: ImpuestoService, private router: Router,
-    private facturaService: FacturaService, private productoService: ProductoService, private caracteristicaService: CaracteristicaService, 
+    private facturaService: FacturaService, private productoService: ProductoService, 
     private modalService: NgbModal, private _formBuilder: FormBuilder) { }
 
   factura_crear: Factura=new Factura();
@@ -498,18 +496,24 @@ export class FacturaComponent implements OnInit {
     this.stock_total=0;
   }
   seleccionar_producto() {
-    this.detalle.producto=this.seleccion_producto.value;
-    if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
-    if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
-    this.detalle.bodega_producto=this.detalle.producto.bodegas_productos[0];
-    this.costo_promedio=this.detalle.bodega_producto.kardex.costo_promedio;
-    this.costo_ultimo=this.detalle.bodega_producto.kardex.costo_ultimo;
-    if(this.detalle.bodega_producto.caracteristicas.length!=0){
-      this.stock_individual=this.detalle.bodega_producto.caracteristicas.length;
-    } else{
-      this.stock_individual=0;
-    }
-    this.stock_total=this.detalle.producto.stock_total;
+    let producto=this.seleccion_producto.value;
+    this.productoService.consultarBienExistencias(producto).subscribe(
+      res => {
+        this.detalle.producto= res.resultado as Producto;
+        if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
+        if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
+        this.detalle.bodega_producto=this.detalle.producto.bodegas_productos[0];
+        this.costo_promedio=this.detalle.bodega_producto.kardex.costo_promedio;
+        this.costo_ultimo=this.detalle.bodega_producto.kardex.costo_ultimo;
+        if(this.detalle.bodega_producto.caracteristicas.length!=0){
+          this.stock_individual=this.detalle.bodega_producto.caracteristicas.length;
+        } else{
+          this.stock_individual=0;
+        }
+        this.stock_total=this.detalle.producto.stock_total;
+      },
+
+    );
   }
   seleccionar_precio(i: number) {
     if (i != -1) {
@@ -523,9 +527,6 @@ export class FacturaComponent implements OnInit {
     if (i != -1) {
       this.detalle.medida = this.medidas[i];
     }
-  }
-  seleccionar_bodega(i: number){
-    //this.detalle.bodega_producto=this.detalle.producto.bodegas_productos[i];
   }
   seleccionar_cantidad() {
     this.detalle.calcular();
@@ -589,11 +590,11 @@ export class FacturaComponent implements OnInit {
   }
 
   agregar_factura_detalle(){
-    if (this.detalle.bodega_producto==null){
+    if (this.detalle.bodega_producto.id==0){
       Swal.fire('Error', "Seleccione una bodega", 'error');
       return;
     }
-    if (this.detalle.producto.impuesto==null){
+    if (this.detalle.producto.impuesto.id==0){
       Swal.fire('Error', "Seleccione un impuesto", 'error');
       return;
     }
@@ -731,8 +732,8 @@ export class FacturaComponent implements OnInit {
     this.factura.cliente_factura.financiamiento.monto=0;
   }
   eliminar_detalle(i: number){
-    for (let i=0; i<this.detalle.bodega_producto.caracteristicas.length; i++){
-      this.detalle.bodega_producto.caracteristicas[i].seleccionado=false;
+    for (let j=0; j<this.factura.factura_detalles[i].caracteristicas.length; j++){
+      this.factura.factura_detalles[i].bodega_producto.caracteristicas[j].seleccionado=false;
     }
     this.factura.factura_detalles.splice(i, 1);
     this.factura.calcular();
@@ -804,11 +805,5 @@ export class FacturaComponent implements OnInit {
       detalle.calcular();
     });
     this.factura.calcular();
-  }
-
-  cambiar_seccion(){
-    if (this.factura_crear!=null){
-      this.isEditable=false;
-    }
   }
 }

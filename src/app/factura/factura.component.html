@@ -38,7 +38,7 @@
     </ul>
 </nav>
 <div class="contenedor">
-    <mat-horizontal-stepper (selectionChange)="cambiar_seccion()"  [linear]="isLinear" #stepper>
+    <mat-horizontal-stepper  [linear]="isLinear" #stepper>
         <!-- Paso Facturación -->
         <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
             <ng-template matStepLabel>Facturación</ng-template>
@@ -421,11 +421,9 @@
                             <div class="form-group col-2">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Bodega</mat-label>
-                                    <mat-select class="form-control-sm"
-                                        (selectionChange)="seleccionar_bodega($event.value)">
+                                    <mat-select class="form-control-sm" [(ngModel)]="detalle.bodega_producto">
                                         <mat-option
-                                            *ngFor="let bodega_producto of detalle.producto.bodegas_productos; let i=index "
-                                            [value]="i">
+                                            *ngFor="let bodega_producto of detalle.producto.bodegas_productos; let i=index" [value]="bodega_producto">
                                             {{bodega_producto.bodega.codigo}}
                                         </mat-option>
                                     </mat-select>
