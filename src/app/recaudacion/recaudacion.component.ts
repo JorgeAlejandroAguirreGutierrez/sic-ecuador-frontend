@@ -10,7 +10,6 @@ import { TarjetaCredito } from '../modelos/tarjeta-credito';
 import { TarjetaDebito } from '../modelos/tarjeta-debito';
 import { Compensacion } from '../modelos/compensacion';
 import { FacturaService } from '../servicios/factura.service';
-import { SesionService } from '../servicios/sesion.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Factura } from '../modelos/factura';
 import { Banco } from '../modelos/banco';
@@ -30,6 +29,8 @@ import { Transferencia } from '../modelos/transferencia';
 import { FranquiciaTarjeta } from '../modelos/franquicia-tarjeta';
 import { FranquiciaTarjetaService } from '../servicios/franquicia-tarjeta.service';
 import { AppDateAdapter, APP_DATE_FORMATS } from '../modelos/format-date-picker';
+import { OperadorTarjeta } from '../modelos/operador-tarjeta';
+import { Comprobante } from '../modelos/comprobante';
 
 @Component({
   selector: 'app-recaudacion',
@@ -44,7 +45,7 @@ import { AppDateAdapter, APP_DATE_FORMATS } from '../modelos/format-date-picker'
 export class RecaudacionComponent implements OnInit {
 
   constructor(private facturaService: FacturaService, private clienteService: ClienteService, private bancoService: BancoService,
-    private sesionService: SesionService, private plazoCreditoService: PlazoCreditoService, private cuentaPropiaService: CuentaPropiaService, 
+    private plazoCreditoService: PlazoCreditoService, private cuentaPropiaService: CuentaPropiaService, 
     private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, private modalService: NgbModal) { }
 
   @Input() factura: Factura;
@@ -55,11 +56,15 @@ export class RecaudacionComponent implements OnInit {
   tarjeta_debito: TarjetaDebito=new TarjetaDebito();
   tarjeta_credito: TarjetaCredito=new TarjetaCredito();
   compensacion: Compensacion=new Compensacion();
+  compensaciones: Compensacion[]=[];
   plazos_creditos: PlazoCredito[];
   formas_pagos: FormaPago[]=[];
+  comprobantes: Comprobante[]=[];
   clientes: Cliente[]=[];
   cuentas_propias: CuentaPropia[]=[];
   franquicias_tarjetas: FranquiciaTarjeta[];
+  operadores_tarjetas: OperadorTarjeta[]=[];
+
 
   seleccion_razon_social_cliente = new FormControl();
   filtro_razon_social_clientes: Observable<Cliente[]> = new Observable<Cliente[]>();
@@ -493,6 +498,10 @@ export class RecaudacionComponent implements OnInit {
 
   crear_tabla() {
 
+  }
+
+  editar_tarjeta_credito(i: number){
+    
   }
   rellenar_cheque_numero(){
     this.cheque.numero=this.pad(this.cheque.numero, 13);
