@@ -13,7 +13,10 @@ export class Recaudacion {
     comentario: string;
     efectivo: number;
     total_cheques: number;
-    total_depositos_transferencias: number;
+    total_depositos: number;
+    total_transferencias: number;
+    total_debitos: number;
+    total_creditos: number;
     total_compensaciones: number;
     cheques: Cheque[];
     depositos: Deposito[];
@@ -25,12 +28,17 @@ export class Recaudacion {
     cambio: number;
 
     constructor(){
-        this.cheques= [];
-        this.depositos=[];
-        this.transferencias=[];
         this.total=0;
         this.efectivo=0;
         this.cambio=0;
+        this.total_depositos=0;
+        this.total_transferencias=0;
+        this.total_debitos=0;
+        this.total_creditos=0;
+        this.total_compensaciones=0;
+        this.cheques= [];
+        this.depositos=[];
+        this.transferencias=[];
         this.tarjetas_debitos=[]
         this.tarjetas_creditos=[]
         this.compensaciones=[];

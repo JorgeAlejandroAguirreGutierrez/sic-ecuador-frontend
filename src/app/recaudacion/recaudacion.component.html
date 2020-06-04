@@ -63,7 +63,7 @@
                     <div class="form-group col-6">
                         <mat-form-field appearance="standard">
                             <mat-label>Efectivo</mat-label>
-                            <input matInput type="text" [(ngModel)]="recaudacion.efectivo" class="form-control-sm">
+                            <input matInput type="text" [(ngModel)]="recaudacion.efectivo" (change)="seleccionar_efectivo()" class="form-control-sm">
                         </mat-form-field>
                     </div>
                     <div class="form-group col-6">

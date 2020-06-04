@@ -635,18 +635,23 @@ export class FacturaComponent implements OnInit {
     this.indice_detalle=i;
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
       if (result == "confirmar") {
-
-          if (this.factura.factura_detalles[i].caracteristicas.length>this.factura.factura_detalles[i].cantidad){
-            this.factura.factura_detalles[i].caracteristicas=[];
-            Swal.fire('Error', "Series seleccionadas son mayores a la cantidad", 'error');
+        let seleccionados=0;
+        this.factura.factura_detalles[i].bodega_producto.caracteristicas.forEach((caracteristica, index)=> {
+          if(caracteristica.seleccionado){
+            seleccionados++;
           }
+        });
+        if (seleccionados>this.factura.factura_detalles[i].cantidad || seleccionados<this.factura.factura_detalles[i].cantidad){
+          this.factura.factura_detalles[i].caracteristicas=[];
+          Swal.fire('Error', "Series seleccionadas no coinciden con la cantidad", 'error');
+        }
         }
       if (result == "close"){
-        if (this.factura.factura_detalles[i].caracteristicas.length!=this.factura.factura_detalles[i].cantidad){
-          this.factura.factura_detalles[i].caracteristicas.forEach((caracteristica, index)=> {
+        if(!this.factura.factura_detalles[i].producto.serie_autogenerado){
+          this.factura.factura_detalles[i].bodega_producto.caracteristicas.forEach((caracteristica, index)=> {
             caracteristica.seleccionado=false;
           });
-        }
+        }   
       }
     }, (reason) => {
       console.log(`Dismissed ${this.getDismissReason(reason)}`);

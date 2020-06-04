@@ -484,6 +484,17 @@ export class RecaudacionComponent implements OnInit {
     return 0;
   }
 
+  seleccionar_efectivo(){
+    if (this.recaudacion.efectivo>this.factura.total_con_descuento){
+      this.recaudacion.cambio=this.recaudacion.efectivo-this.recaudacion.total
+    }
+  }
+  seleccionar_valor_pago(){
+    this.recaudacion.total=this.recaudacion.efectivo+this.recaudacion.total_cheques+
+    this.recaudacion.total_depositos+this.recaudacion.total_transferencias+
+    this.recaudacion.total_creditos+this.recaudacion.total_debitos+this.recaudacion.total_compensaciones;
+  }
+
   crear(event) {
 
   }
