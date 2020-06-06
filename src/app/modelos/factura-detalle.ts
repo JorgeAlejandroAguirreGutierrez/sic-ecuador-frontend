@@ -3,7 +3,7 @@ import { Precio } from './precio';
 import { Medida } from './medida';
 import { Caracteristica } from './caracteristica';
 import { Producto } from './producto';
-import { BodegaProducto } from './bodega-producto';
+import { Bodega } from './bodega';
 
 export class FacturaDetalle {
   posicion: number;
@@ -35,9 +35,10 @@ export class FacturaDetalle {
   //CARACTERISTICAS SELECCIONADAS
   caracteristicas: Caracteristica[];
   //PRECIO SELECCIONADO
-  producto: Producto;
-  bodega_producto: BodegaProducto;
   precio: Precio;
+  producto: Producto;
+  //BODEGA SELECCIONADO
+  bodega: Bodega;
   
 
   constructor() {
@@ -57,7 +58,7 @@ export class FacturaDetalle {
     this.subtotal_con_descuento=0;
     this.valor_iva_con_descuento=0;
     this.producto=new Producto();
-    this.bodega_producto=new BodegaProducto();
+    this.bodega=new Bodega();
     this.precio=new Precio();
     this.medida=new Medida();
     this.caracteristicas=[];

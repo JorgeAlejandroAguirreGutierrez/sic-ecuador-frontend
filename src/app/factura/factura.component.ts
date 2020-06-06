@@ -21,6 +21,8 @@ import { FacturaService } from '../servicios/factura.service';
 import { AuxiliarService } from '../servicios/auxiliar.service';
 import { Auxiliar } from '../modelos/auxiliar';
 import { Caracteristica } from '../modelos/caracteristica';
+import { Bodega } from '../modelos/bodega';
+import { BodegaService } from '../servicios/bodega.service';
 
 @Component({
   selector: 'app-factura',
@@ -58,7 +60,7 @@ export class FacturaComponent implements OnInit {
 
   constructor(private clienteService: ClienteService, private auxiliarService: AuxiliarService, private sesionService: SesionService, 
     private medidaService: MedidaService, private impuestoService: ImpuestoService, private router: Router,
-    private facturaService: FacturaService, private productoService: ProductoService, 
+    private facturaService: FacturaService, private productoService: ProductoService, private bodegaService: BodegaService,
     private modalService: NgbModal, private _formBuilder: FormBuilder) { }
 
   factura_crear: Factura=new Factura();
@@ -68,6 +70,7 @@ export class FacturaComponent implements OnInit {
   clientes: Cliente[]=[];
   auxiliares: Auxiliar[]=[];
   productos: Producto[] = [];
+  bodegas: Bodega[]=[];
 
   medidas: Medida[];
   sesion: Sesion;
@@ -114,6 +117,7 @@ export class FacturaComponent implements OnInit {
     this.cambiar_productos(this.tipo_producto);
     this.consultar_medidas();
     this.consultar_impuestos();
+    this.consultar_bodegas();
 
     this.firstFormGroup = new FormGroup({
       firstCtrl: new FormControl()
@@ -295,6 +299,13 @@ export class FacturaComponent implements OnInit {
     this.impuestoService.consultar().subscribe(
       res => {
         this.impuestos = res.resultado as Impuesto[]
+      }
+    );
+  }
+  consultar_bodegas(){
+    this.bodegaService.consultar().subscribe(
+      res => {
+        this.bodegas = res.resultado as Bodega[]
       }
     );
   }
@@ -484,7 +495,6 @@ export class FacturaComponent implements OnInit {
 
   limpiar_producto(){
     this.detalle.producto=new Producto();
-    this.detalle.bodega_producto=null;
     this.detalle.cantidad=0;
     this.detalle.valor_descuento_individual=0;
     this.detalle.porcentaje_descuento_individual=0;
@@ -502,11 +512,10 @@ export class FacturaComponent implements OnInit {
         this.detalle.producto= res.resultado as Producto;
         if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
         if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
-        this.detalle.bodega_producto=this.detalle.producto.bodegas_productos[0];
-        this.costo_promedio=this.detalle.bodega_producto.kardex.costo_promedio;
-        this.costo_ultimo=this.detalle.bodega_producto.kardex.costo_ultimo;
-        if(this.detalle.bodega_producto.caracteristicas.length!=0){
-          this.stock_individual=this.detalle.bodega_producto.caracteristicas.length;
+        this.costo_promedio=this.detalle.producto.kardex.costo_promedio;
+        this.costo_ultimo=this.detalle.producto.kardex.costo_ultimo;
+        if(this.detalle.caracteristicas.length!=0){
+          this.stock_individual=this.detalle.caracteristicas.length;
         } else{
           this.stock_individual=0;
         }
@@ -549,7 +558,7 @@ export class FacturaComponent implements OnInit {
     //VALIDO SELECCIONES
     this.factura.factura_detalles.forEach((detalle, index)=> {
       let caracteristicas: Caracteristica[]=[];
-      detalle.bodega_producto.caracteristicas.forEach((caracteristica, index)=> {
+      detalle.caracteristicas.forEach((caracteristica, index)=> {
         if(caracteristica.seleccionado) caracteristicas.push({...caracteristica})
       });
       if (caracteristicas.length != detalle.cantidad){
@@ -590,7 +599,7 @@ export class FacturaComponent implements OnInit {
   }
 
   agregar_factura_detalle(){
-    if (this.detalle.bodega_producto.id==0){
+    if (this.detalle.bodega.id==0){
       Swal.fire('Error', "Seleccione una bodega", 'error');
       return;
     }
@@ -598,15 +607,15 @@ export class FacturaComponent implements OnInit {
       Swal.fire('Error', "Seleccione un impuesto", 'error');
       return;
     }
-    if (this.detalle.cantidad>this.detalle.bodega_producto.caracteristicas.length){
-      Swal.fire("Error", "Cantidad No Existente. Max Cant. "+this.detalle.bodega_producto.caracteristicas.length, "error");
+    if (this.detalle.cantidad>this.detalle.caracteristicas.length){
+      Swal.fire("Error", "Cantidad No Existente. Max Cant. "+this.detalle.caracteristicas.length, "error");
       return;
     }
     this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
     if (this.detalle.producto.serie_autogenerado){
       let suma=0;
-      for(let i=0; i<this.detalle.bodega_producto.caracteristicas.length; i++) {
-        this.detalle.bodega_producto.caracteristicas[i].seleccionado=true;
+      for(let i=0; i<this.detalle.caracteristicas.length; i++) {
+        this.detalle.caracteristicas[i].seleccionado=true;
         suma++;
         if (suma==this.detalle.cantidad) break;
       }
@@ -636,7 +645,7 @@ export class FacturaComponent implements OnInit {
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
       if (result == "confirmar") {
         let seleccionados=0;
-        this.factura.factura_detalles[i].bodega_producto.caracteristicas.forEach((caracteristica, index)=> {
+        this.factura.factura_detalles[i].caracteristicas.forEach((caracteristica, index)=> {
           if(caracteristica.seleccionado){
             seleccionados++;
           }
@@ -648,7 +657,7 @@ export class FacturaComponent implements OnInit {
         }
       if (result == "close"){
         if(!this.factura.factura_detalles[i].producto.serie_autogenerado){
-          this.factura.factura_detalles[i].bodega_producto.caracteristicas.forEach((caracteristica, index)=> {
+          this.factura.factura_detalles[i].caracteristicas.forEach((caracteristica, index)=> {
             caracteristica.seleccionado=false;
           });
         }   
@@ -738,41 +747,14 @@ export class FacturaComponent implements OnInit {
   }
   eliminar_detalle(i: number){
     for (let j=0; j<this.factura.factura_detalles[i].caracteristicas.length; j++){
-      this.factura.factura_detalles[i].bodega_producto.caracteristicas[j].seleccionado=false;
+      this.factura.factura_detalles[i].caracteristicas[j].seleccionado=false;
     }
     this.factura.factura_detalles.splice(i, 1);
     this.factura.calcular();
   }
 
   transferir(i: number, j:number){
-    /*let caracteristica=this.detalles[this.indice_detalle].producto.bodegas_productos[i].caracteristicas[j];
-    if(this.cantidad_transferencia<=caracteristica.cantidad && this.cantidad_transferencia>0){
-      caracteristica.cantidad=caracteristica.cantidad-this.cantidad_transferencia;
-      let caracteristica_transferir= new Caracteristica();
-      caracteristica_transferir.bodega_producto.id=this.detalles[this.indice_detalle].bodega_producto.id;
-      caracteristica_transferir=caracteristica;
-      caracteristica_transferir.cantidad=this.cantidad_transferencia;
-      this.caracteristicaService.actualizar(caracteristica).subscribe(
-        res => {
-          if (res.bandera){
-            this.caracteristicaService.crear(caracteristica_transferir).subscribe(
-              res => {
-                caracteristica_transferir = res.resultado as Caracteristica
-                this.detalles[this.indice_detalle].producto.bodegas_productos[i].caracteristicas[j]=caracteristica_transferir;
-              },
-              err => {
-                Swal.fire('Error', err.error.mensaje, 'error')
-              }
-            );
-          }
-        },
-        err => {
-          Swal.fire('Error', err.error.mensaje, 'error');
-        }
-      );
-    } else {
-      Swal.fire('Error', "CANTIDAD NO TRANSFERIBLE", 'error')
-    }*/
+
   }
 
   seleccionar_valor_descuento_subtotal(){

@@ -3,7 +3,7 @@ import { GrupoProducto } from './grupo-producto';
 import { Precio } from './precio';
 import { Kardex } from './kardex';
 import { Impuesto } from './impuesto';
-import { BodegaProducto } from './bodega-producto';
+import { Caracteristica } from './caracteristica';
 
 export class Producto {
   id: number;
@@ -27,6 +27,7 @@ export class Producto {
   kardex: Kardex;
 
   //HASMANY
+  caracteristicas: Caracteristica[];
   bodegas_productos: BodegaProducto[];
   precios: Precio[];
 
@@ -37,10 +38,10 @@ export class Producto {
     this.serie_autogenerado=false;
     this.stock_total=0;
     this.precios=[];
+    this.caracteristicas=[];
     this.bodegas_productos=[];
     this.tipo_producto=new TipoProducto();
     this.kardex=new Kardex();
     this.impuesto=new Impuesto();
-    
   }
 }

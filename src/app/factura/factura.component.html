@@ -421,10 +421,10 @@
                             <div class="form-group col-2">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Bodega</mat-label>
-                                    <mat-select class="form-control-sm" [(ngModel)]="detalle.bodega_producto">
+                                    <mat-select class="form-control-sm" [(ngModel)]="detalle.bodega">
                                         <mat-option
-                                            *ngFor="let bodega_producto of detalle.producto.bodegas_productos; let i=index" [value]="bodega_producto">
-                                            {{bodega_producto.bodega.codigo}}
+                                            *ngFor="let bodega of bodegas; let i=index" [value]="bodega">
+                                            {{bodega.codigo}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
