@@ -364,6 +364,7 @@ export class RecaudacionComponent implements OnInit {
     this.data_cheques = new MatTableDataSource<Cheque>(this.recaudacion.cheques);
     this.data_cheques.sort = this.sort;
     this.data_cheques.paginator = this.paginator;
+    this.seleccionar_valor_pagado();
   }
 
   total_cheques() {
@@ -387,6 +388,7 @@ export class RecaudacionComponent implements OnInit {
     this.data_depositos = new MatTableDataSource<Deposito>(this.recaudacion.depositos);
     this.data_depositos.sort = this.sort;
     this.data_depositos.paginator = this.paginator;
+    this.seleccionar_valor_pagado();
   }
 
   total_depositos() {
@@ -410,6 +412,7 @@ export class RecaudacionComponent implements OnInit {
     this.data_transferencias = new MatTableDataSource<Transferencia>(this.recaudacion.transferencias);
     this.data_transferencias.sort = this.sort;
     this.data_transferencias.paginator = this.paginator;
+    this.seleccionar_valor_pagado();
   }
 
   total_transferencias() {
@@ -432,6 +435,7 @@ export class RecaudacionComponent implements OnInit {
     this.data_tarjetas_creditos = new MatTableDataSource<TarjetaCredito>(this.recaudacion.tarjetas_creditos);
     this.data_tarjetas_creditos.sort = this.sort;
     this.data_tarjetas_creditos.paginator = this.paginator;
+    this.seleccionar_valor_pagado();
   }
 
   total_tarjetas_creditos() {
@@ -454,6 +458,7 @@ export class RecaudacionComponent implements OnInit {
     this.data_tarjetas_debitos = new MatTableDataSource<TarjetaDebito>(this.recaudacion.tarjetas_debitos);
     this.data_tarjetas_debitos.sort = this.sort;
     this.data_tarjetas_debitos.paginator = this.paginator;
+    this.seleccionar_valor_pagado();
   }
 
   total_tarjetas_debitos() {
@@ -474,6 +479,7 @@ export class RecaudacionComponent implements OnInit {
     this.data_compensaciones = new MatTableDataSource<Compensacion>(this.recaudacion.compensaciones);
     this.data_compensaciones.sort = this.sort;
     this.data_compensaciones.paginator = this.paginator;
+    this.seleccionar_valor_pagado();
   }
 
   total_compensaciones() {
@@ -485,14 +491,19 @@ export class RecaudacionComponent implements OnInit {
   }
 
   seleccionar_efectivo(){
-    if (this.recaudacion.efectivo>this.factura.total_con_descuento){
-      this.recaudacion.cambio=this.recaudacion.efectivo-this.recaudacion.total
+    if (this.recaudacion.efectivo>=this.factura.total_con_descuento){
+      this.recaudacion.cambio=this.recaudacion.efectivo-this.factura.total_con_descuento;
     }
+    this.seleccionar_valor_pagado();
   }
-  seleccionar_valor_pago(){
-    this.recaudacion.total=this.recaudacion.efectivo+this.recaudacion.total_cheques+
-    this.recaudacion.total_depositos+this.recaudacion.total_transferencias+
-    this.recaudacion.total_creditos+this.recaudacion.total_debitos+this.recaudacion.total_compensaciones;
+  seleccionar_valor_pagado(){
+    if (this.recaudacion.efectivo>=this.factura.total_con_descuento){
+      this.recaudacion.total=this.factura.total_con_descuento;
+    } else{
+      this.recaudacion.total=this.recaudacion.efectivo+this.recaudacion.total_cheques+
+      this.recaudacion.total_depositos+this.recaudacion.total_transferencias+
+      this.recaudacion.total_creditos+this.recaudacion.total_debitos+this.recaudacion.total_compensaciones;
+    }
   }
 
   crear(event) {
