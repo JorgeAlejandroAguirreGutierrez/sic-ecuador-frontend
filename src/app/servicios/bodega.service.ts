@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Bodega } from '../modelos/Bodega';
+import { Bodega } from '../modelos/bodega';
 
 @Injectable({
   providedIn: 'root'
