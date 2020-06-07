@@ -763,7 +763,7 @@ export class FacturaComponent implements OnInit {
     this.factura.calcular();
   }
 
-  transferir(i: number, j:number){
+  transferir(caracteristica: Caracteristica){
 
   }
 

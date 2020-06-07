@@ -934,36 +934,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container
-                            *ngFor="let bodega_producto of factura.factura_detalles[indice_detalle].producto.bodegas_productos let i=index">
-                            <ng-container *ngFor="let caracteristica of bodega_producto.caracteristicas let j=index">
-                                <tr *ngIf="caracteristica.cantidad!=0">
-                                    <td>
-                                        {{caracteristica.descripcion}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.marca}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.modelo}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.serie}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.cantidad}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.cantidad}}
-                                    </td>
-                                    <td>
-                                        <button (click)="transferir(i, j)" class="btn btn-primary btn-circle ">
-                                            <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </ng-container>
-                        </ng-container>
+                        <tr *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas let i=index">
+                            <td>
+                                {{caracteristica.descripcion}}
+                            </td>
+                            <td>
+                                {{caracteristica.marca}}
+                            </td>
+                            <td>
+                                {{caracteristica.modelo}}
+                            </td>
+                            <td>
+                                {{caracteristica.serie}}
+                            </td>
+                            <td>
+                                {{caracteristica.cantidad}}
+                            </td>
+                            <td>
+                                {{caracteristica.cantidad}}
+                            </td>
+                            <td>
+                                <button (click)="transferir(caracteristica)" class="btn btn-primary btn-circle ">
+                                    <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1187,61 +1182,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </div>
-    <div class="modal-footer ">
-        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'close') ">Cerrar</button>
-    </div>
-</ng-template>
-<ng-template #modal_bodegas_producto let-modal>
-    <div class="modal-header ">
-        <h5 class="modal-title ">Ver Bodegas Producto</h5>
-        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
-      <span aria-hidden="true ">&times;</span>
-    </button>
-    </div>
-    <div class="modal-body ">
-        <div class="form-group form-row">
-            <div class="col-12 table-responsive" >     
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>BODEGA</th>
-                            <th>DESC</th>
-                            <th>MARCA</th>
-                            <th>MODELO</th>
-                            <th>SERIE</th>
-                            <th>CANT</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ng-container *ngFor="let bodega_producto of detalle.producto.bodegas_productos let i=index">
-                            <ng-container *ngFor="let caracteristica of bodega_producto.caracteristicas let j=index">     
-                                <tr *ngIf="caracteristica.cantidad!=0">
-                                    <td>
-                                        {{bodega_producto.bodega.codigo}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.descripcion}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.marca}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.modelo}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.serie}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.cantidad}}
-                                    </td>
-                                </tr>
-                            </ng-container>
-                        </ng-container>
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
     <div class="modal-footer ">
