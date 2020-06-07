@@ -357,14 +357,20 @@ export class RecaudacionComponent implements OnInit {
   }
 
   agregar_cheque() {
-    this.cheque.banco=this.seleccion_banco_cheque.value;
-    this.recaudacion.cheques.push(this.cheque);
-    this.cheque=new Cheque();
-    this.seleccion_banco_cheque.patchValue("");
-    this.data_cheques = new MatTableDataSource<Cheque>(this.recaudacion.cheques);
-    this.data_cheques.sort = this.sort;
-    this.data_cheques.paginator = this.paginator;
-    this.seleccionar_valor_pagado();
+    if (this.recaudacion.total+Number(this.cheque.valor)<=this.factura.total_con_descuento){
+      this.cheque.banco=this.seleccion_banco_cheque.value;
+      this.recaudacion.cheques.push(this.cheque);
+      this.recaudacion.total_cheques
+      this.cheque=new Cheque();
+      this.seleccion_banco_cheque.patchValue("");
+      this.data_cheques = new MatTableDataSource<Cheque>(this.recaudacion.cheques);
+      this.data_cheques.sort = this.sort;
+      this.data_cheques.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
+    } else {
+      Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
+    }
   }
 
   total_cheques() {
@@ -381,14 +387,20 @@ export class RecaudacionComponent implements OnInit {
   }
 
   agregar_deposito() {
-    this.deposito.banco=this.seleccion_banco_deposito.value;
-    this.recaudacion.depositos.push(this.deposito);
-    this.deposito=new Deposito();
-    this.seleccion_banco_deposito.patchValue("");
-    this.data_depositos = new MatTableDataSource<Deposito>(this.recaudacion.depositos);
-    this.data_depositos.sort = this.sort;
-    this.data_depositos.paginator = this.paginator;
-    this.seleccionar_valor_pagado();
+    if (this.recaudacion.total+Number(this.deposito.valor)<=this.factura.total_con_descuento){
+      this.deposito.banco=this.seleccion_banco_deposito.value;
+      this.recaudacion.depositos.push(this.deposito);
+      this.deposito=new Deposito();
+      this.seleccion_banco_deposito.patchValue("");
+      this.data_depositos = new MatTableDataSource<Deposito>(this.recaudacion.depositos);
+      this.data_depositos.sort = this.sort;
+      this.data_depositos.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
+      
+    } else {
+      Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
+    }
   }
 
   total_depositos() {
@@ -405,14 +417,19 @@ export class RecaudacionComponent implements OnInit {
   }
 
   agregar_transferencia() {
-    this.transferencia.banco=this.seleccion_banco_transferencia.value;
-    this.recaudacion.transferencias.push(this.transferencia);
-    this.transferencia=new Transferencia();
-    this.seleccion_banco_transferencia.patchValue("");
-    this.data_transferencias = new MatTableDataSource<Transferencia>(this.recaudacion.transferencias);
-    this.data_transferencias.sort = this.sort;
-    this.data_transferencias.paginator = this.paginator;
-    this.seleccionar_valor_pagado();
+    if (this.recaudacion.total+Number(this.transferencia.valor)<=this.factura.total_con_descuento){
+      this.transferencia.banco=this.seleccion_banco_transferencia.value;
+      this.recaudacion.transferencias.push(this.transferencia);
+      this.transferencia=new Transferencia();
+      this.seleccion_banco_transferencia.patchValue("");
+      this.data_transferencias = new MatTableDataSource<Transferencia>(this.recaudacion.transferencias);
+      this.data_transferencias.sort = this.sort;
+      this.data_transferencias.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
+    } else {
+      Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
+    }
   }
 
   total_transferencias() {
@@ -429,13 +446,19 @@ export class RecaudacionComponent implements OnInit {
   }
 
   agregar_tarjeta_credito() {
-    this.recaudacion.tarjetas_creditos.push(this.tarjeta_credito);
-    this.tarjeta_credito=new TarjetaCredito();
-    this.seleccion_banco_tarjeta_credito.patchValue("");
-    this.data_tarjetas_creditos = new MatTableDataSource<TarjetaCredito>(this.recaudacion.tarjetas_creditos);
-    this.data_tarjetas_creditos.sort = this.sort;
-    this.data_tarjetas_creditos.paginator = this.paginator;
-    this.seleccionar_valor_pagado();
+    if (this.recaudacion.total+Number(this.tarjeta_credito.valor)<=this.factura.total_con_descuento){
+      this.recaudacion.tarjetas_creditos.push(this.tarjeta_credito);
+      this.tarjeta_credito=new TarjetaCredito();
+      this.seleccion_banco_tarjeta_credito.patchValue("");
+      this.data_tarjetas_creditos = new MatTableDataSource<TarjetaCredito>(this.recaudacion.tarjetas_creditos);
+      this.data_tarjetas_creditos.sort = this.sort;
+      this.data_tarjetas_creditos.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
+    } else {
+      Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
+    }
+    
   }
 
   total_tarjetas_creditos() {
@@ -452,13 +475,18 @@ export class RecaudacionComponent implements OnInit {
   }
 
   agregar_tarjeta_debito() {
-    this.recaudacion.tarjetas_debitos.push(this.tarjeta_debito);
-    this.tarjeta_debito=new TarjetaDebito();
-    this.seleccion_banco_tarjeta_debito.patchValue("");
-    this.data_tarjetas_debitos = new MatTableDataSource<TarjetaDebito>(this.recaudacion.tarjetas_debitos);
-    this.data_tarjetas_debitos.sort = this.sort;
-    this.data_tarjetas_debitos.paginator = this.paginator;
-    this.seleccionar_valor_pagado();
+    if (this.recaudacion.total+Number(this.tarjeta_debito.valor)<=this.factura.total_con_descuento){
+      this.recaudacion.tarjetas_debitos.push(this.tarjeta_debito);
+      this.tarjeta_debito=new TarjetaDebito();
+      this.seleccion_banco_tarjeta_debito.patchValue("");
+      this.data_tarjetas_debitos = new MatTableDataSource<TarjetaDebito>(this.recaudacion.tarjetas_debitos);
+      this.data_tarjetas_debitos.sort = this.sort;
+      this.data_tarjetas_debitos.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
+    } else {
+      Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
+    }
   }
 
   total_tarjetas_debitos() {
@@ -492,7 +520,8 @@ export class RecaudacionComponent implements OnInit {
 
   seleccionar_efectivo(){
     if (this.recaudacion.efectivo>=this.factura.total_con_descuento){
-      this.recaudacion.cambio=this.recaudacion.efectivo-this.factura.total_con_descuento;
+      this.recaudacion.cambio=Number(this.recaudacion.efectivo)-Number(this.factura.total_con_descuento);
+      this.recaudacion.cambio=Number(this.recaudacion.cambio.toFixed(2));
     }
     this.seleccionar_valor_pagado();
   }
@@ -500,9 +529,9 @@ export class RecaudacionComponent implements OnInit {
     if (this.recaudacion.efectivo>=this.factura.total_con_descuento){
       this.recaudacion.total=this.factura.total_con_descuento;
     } else{
-      this.recaudacion.total=this.recaudacion.efectivo+this.recaudacion.total_cheques+
-      this.recaudacion.total_depositos+this.recaudacion.total_transferencias+
-      this.recaudacion.total_creditos+this.recaudacion.total_debitos+this.recaudacion.total_compensaciones;
+      this.recaudacion.total=Number(this.recaudacion.efectivo)+Number(this.recaudacion.total_cheques)+
+      Number(this.recaudacion.total_depositos)+Number(this.recaudacion.total_transferencias)+
+      Number(this.recaudacion.total_credito)+Number(this.recaudacion.total_tarjetas_debitos)+Number(this.recaudacion.total_compensaciones);
     }
   }
 

@@ -15,9 +15,10 @@ export class Recaudacion {
     total_cheques: number;
     total_depositos: number;
     total_transferencias: number;
-    total_debitos: number;
-    total_creditos: number;
+    total_tarjetas_debitos: number;
+    total_tarjetas_creditos: number;
     total_compensaciones: number;
+    total_credito: number;
     cheques: Cheque[];
     depositos: Deposito[];
     transferencias: Transferencia[];
@@ -31,11 +32,13 @@ export class Recaudacion {
         this.total=0;
         this.efectivo=0;
         this.cambio=0;
+        this.total_cheques=0;
         this.total_depositos=0;
         this.total_transferencias=0;
-        this.total_debitos=0;
-        this.total_creditos=0;
+        this.total_tarjetas_debitos=0;
+        this.total_tarjetas_creditos=0;
         this.total_compensaciones=0;
+        this.total_credito=0;
         this.cheques= [];
         this.depositos=[];
         this.transferencias=[];
@@ -43,5 +46,40 @@ export class Recaudacion {
         this.tarjetas_creditos=[]
         this.compensaciones=[];
         this.credito=new Credito();
+    }
+
+    private calcular_total_cheques(){
+        this.total_cheques=0;
+        this.cheques.forEach((cheque, index)=> {
+            this.total_cheques=this.total_cheques=cheque.valor;
+        });  
+    }
+    private calcular_total_depositos(){
+        this.depositos.forEach((deposito, index)=> {
+            this.total_depositos=deposito.valor;
+        });  
+    }
+    private calcular_total_transferencias(){
+        this.transferencias.forEach((transferencia, index)=> {
+            this.total_transferencias=transferencia.valor;
+        });  
+    }
+    private calcular_total_tarjetas_debitos(){
+        this.tarjetas_debitos.forEach((tarjeta_debito, index)=> {
+            this.total_tarjetas_debitos=tarjeta_debito.valor;
+        });  
+    }
+    private calcular_total_tarjetas_creditos(){
+        this.tarjetas_creditos.forEach((tarjeta_credito, index)=> {
+            this.total_tarjetas_creditos=tarjeta_credito.valor;
+        });  
+    }
+
+    calcular_totales(){
+        this.calcular_total_cheques();
+        this.calcular_total_depositos();
+        this.calcular_total_transferencias();
+        this.calcular_total_tarjetas_creditos();
+        this.calcular_total_tarjetas_debitos();
     }
 }
