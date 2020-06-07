@@ -4,6 +4,7 @@ import { Medida } from './medida';
 import { Caracteristica } from './caracteristica';
 import { Producto } from './producto';
 import { Bodega } from './bodega';
+import { Impuesto } from './impuesto';
 
 export class FacturaDetalle {
   posicion: number;
@@ -36,7 +37,10 @@ export class FacturaDetalle {
   caracteristicas: Caracteristica[];
   //PRECIO SELECCIONADO
   precio: Precio;
+  //PRODUCTO SELECCIONADO
   producto: Producto;
+  //IMPUESTO SELECCIONADO
+  impuesto: Impuesto;
   
 
   constructor() {
@@ -58,6 +62,7 @@ export class FacturaDetalle {
     this.producto=new Producto();
     this.precio=new Precio();
     this.medida=new Medida();
+    this.impuesto=new Impuesto();
     this.caracteristicas=[];
   }
 

@@ -497,9 +497,8 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>Medida</mat-label>
-                                        <mat-select (selectionChange)="seleccionar_medida($event.value)"
-                                            class="form-control-sm">
-                                            <mat-option *ngFor="let medida of medidas; let i=index" [value]="i">
+                                        <mat-select [(ngModel)]="detalle.medida" class="form-control-sm">
+                                            <mat-option *ngFor="let medida of medidas" [value]="medida">
                                                 {{medida.descripcion}}
                                             </mat-option>
                                         </mat-select>
@@ -537,9 +536,8 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>IVA</mat-label>
-                                        <mat-select class="form-control-sm" [(ngModel)]="detalle.producto.impuesto">
-                                            <mat-option *ngFor="let impuesto of impuestos; let i=index"
-                                                [value]="impuesto">
+                                        <mat-select class="form-control-sm" [(ngModel)]="detalle.impuesto">
+                                            <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto">
                                                 {{impuesto.porcentaje}}
                                             </mat-option>
                                         </mat-select>

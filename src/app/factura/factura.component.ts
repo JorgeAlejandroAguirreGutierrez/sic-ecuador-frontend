@@ -508,6 +508,12 @@ export class FacturaComponent implements OnInit {
   }
   seleccionar_producto() {
     this.detalle.producto=this.seleccion_producto.value;
+    this.detalle.medida=this.medidas[0];
+    this.impuestos.forEach((impuesto, index)=> {
+      if (impuesto.porcentaje==this.detalle.producto.impuesto.porcentaje){
+        this.detalle.impuesto=impuesto;
+      }
+    });
     this.caracteristicaService.consultarBienExistencias(this.detalle.producto).subscribe(
       res => {
         this.detalle.producto.caracteristicas = res.resultado as Caracteristica[];
@@ -533,11 +539,6 @@ export class FacturaComponent implements OnInit {
       this.detalle.precio=null;
     }
   }
-  seleccionar_medida(i: number) {
-    if (i != -1) {
-      this.detalle.medida = this.medidas[i];
-    }
-  }
   seleccionar_cantidad() {
     this.detalle.calcular();
   }
@@ -559,7 +560,7 @@ export class FacturaComponent implements OnInit {
     //VALIDO SELECCIONES
     this.factura.factura_detalles.forEach((detalle, index)=> {
       let caracteristicas: Caracteristica[]=[];
-      detalle.caracteristicas.forEach((caracteristica, index)=> {
+      detalle.producto.caracteristicas.forEach((caracteristica, index)=> {
         if(caracteristica.seleccionado) caracteristicas.push({...caracteristica})
       });
       if (caracteristicas.length != detalle.cantidad){
@@ -618,8 +619,8 @@ export class FacturaComponent implements OnInit {
         this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
         if (this.detalle.producto.serie_autogenerado){
           let suma=0;
-          for(let i=0; i<this.detalle.caracteristicas.length; i++) {
-            this.detalle.caracteristicas[i].seleccionado=true;
+          for(let i=0; i<this.detalle.producto.caracteristicas.length; i++) {
+            this.detalle.producto.caracteristicas[i].seleccionado=true;
             suma++;
             if (suma==this.detalle.cantidad) break;
           }
@@ -651,19 +652,22 @@ export class FacturaComponent implements OnInit {
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
       if (result == "confirmar") {
         let seleccionados=0;
-        this.factura.factura_detalles[i].caracteristicas.forEach((caracteristica, index)=> {
+        this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
           if(caracteristica.seleccionado){
             seleccionados++;
           }
         });
         if (seleccionados>this.factura.factura_detalles[i].cantidad || seleccionados<this.factura.factura_detalles[i].cantidad){
           this.factura.factura_detalles[i].caracteristicas=[];
+          this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
+            caracteristica.seleccionado=false;
+          });
           Swal.fire('Error', "Series seleccionadas no coinciden con la cantidad", 'error');
         }
         }
       if (result == "close"){
         if(!this.factura.factura_detalles[i].producto.serie_autogenerado){
-          this.factura.factura_detalles[i].caracteristicas.forEach((caracteristica, index)=> {
+          this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
             caracteristica.seleccionado=false;
           });
         }   
