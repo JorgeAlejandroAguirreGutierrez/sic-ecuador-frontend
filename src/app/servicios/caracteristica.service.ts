@@ -7,6 +7,8 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Caracteristica } from '../modelos/caracteristica';
+import { Producto } from '../modelos/producto';
+import { Bodega } from '../modelos/bodega';
 
 @Injectable({
   providedIn: 'root'
@@ -57,5 +59,19 @@ export class CaracteristicaService {
         return throwError(err);
       })
     );
+  }
+  consultarBienExistencias(producto: Producto): Observable<Resultado> {
+    return this.http.get(environment.host + util.ruta + util.caracteristica+util.tipo+util.bien+"/"+producto.id+util.existencias, util.options).pipe(
+      map(response => response as Resultado),
+      catchError(err => {
+        return throwError(err);
+      }));
+  }
+  consultarBienExistenciasBodega(producto: Producto, bodega: Bodega): Observable<Resultado> {
+    return this.http.get(environment.host + util.ruta + util.caracteristica+util.tipo+util.bien+"/"+producto.id+util.existencias+"/"+bodega.id, util.options).pipe(
+      map(response => response as Resultado),
+      catchError(err => {
+        return throwError(err);
+      }));
   }
 }

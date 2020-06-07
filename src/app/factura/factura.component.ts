@@ -23,6 +23,7 @@ import { Auxiliar } from '../modelos/auxiliar';
 import { Caracteristica } from '../modelos/caracteristica';
 import { Bodega } from '../modelos/bodega';
 import { BodegaService } from '../servicios/bodega.service';
+import { CaracteristicaService } from '../servicios/caracteristica.service';
 
 @Component({
   selector: 'app-factura',
@@ -61,7 +62,7 @@ export class FacturaComponent implements OnInit {
   constructor(private clienteService: ClienteService, private auxiliarService: AuxiliarService, private sesionService: SesionService, 
     private medidaService: MedidaService, private impuestoService: ImpuestoService, private router: Router,
     private facturaService: FacturaService, private productoService: ProductoService, private bodegaService: BodegaService,
-    private modalService: NgbModal, private _formBuilder: FormBuilder) { }
+    private caracteristicaService: CaracteristicaService, private modalService: NgbModal, private _formBuilder: FormBuilder) { }
 
   factura_crear: Factura=new Factura();
   factura: Factura = new Factura();
@@ -506,10 +507,10 @@ export class FacturaComponent implements OnInit {
     this.stock_total=0;
   }
   seleccionar_producto() {
-    let producto=this.seleccion_producto.value;
-    this.productoService.consultarBienExistencias(producto).subscribe(
+    this.detalle.producto=this.seleccion_producto.value;
+    this.caracteristicaService.consultarBienExistencias(this.detalle.producto).subscribe(
       res => {
-        this.detalle.producto= res.resultado as Producto;
+        this.detalle.producto.caracteristicas = res.resultado as Caracteristica[];
         if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
         if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
         this.costo_promedio=this.detalle.producto.kardex.costo_promedio;
@@ -521,7 +522,7 @@ export class FacturaComponent implements OnInit {
         }
         this.stock_total=this.detalle.producto.stock_total;
       },
-
+      err => Swal.fire('Error', err.error.mensaje, 'error')
     );
   }
   seleccionar_precio(i: number) {
@@ -599,7 +600,7 @@ export class FacturaComponent implements OnInit {
   }
 
   agregar_factura_detalle(){
-    if (this.detalle.bodega.id==0){
+    if (this.detalle.producto.bodega.id==0){
       Swal.fire('Error', "Seleccione una bodega", 'error');
       return;
     }
@@ -607,25 +608,30 @@ export class FacturaComponent implements OnInit {
       Swal.fire('Error', "Seleccione un impuesto", 'error');
       return;
     }
-    if (this.detalle.cantidad>this.detalle.caracteristicas.length){
-      Swal.fire("Error", "Cantidad No Existente. Max Cant. "+this.detalle.caracteristicas.length, "error");
-      return;
-    }
-    this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
-    if (this.detalle.producto.serie_autogenerado){
-      let suma=0;
-      for(let i=0; i<this.detalle.caracteristicas.length; i++) {
-        this.detalle.caracteristicas[i].seleccionado=true;
-        suma++;
-        if (suma==this.detalle.cantidad) break;
+    this.caracteristicaService.consultarBienExistenciasBodega(this.detalle.producto, this.detalle.producto.bodega).subscribe(
+      res => {
+        this.detalle.producto.caracteristicas = res.resultado as Caracteristica[]
+        if (this.detalle.cantidad>this.detalle.producto.caracteristicas.length){
+          Swal.fire("Error", "Cantidad No Existente. Max Cant. "+this.detalle.producto.caracteristicas.length, "error");
+          return;
+        }
+        this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
+        if (this.detalle.producto.serie_autogenerado){
+          let suma=0;
+          for(let i=0; i<this.detalle.caracteristicas.length; i++) {
+            this.detalle.caracteristicas[i].seleccionado=true;
+            suma++;
+            if (suma==this.detalle.cantidad) break;
+          }
+        }
+        this.detalle.calcular();
+        this.factura.factura_detalles.push(this.detalle);
+        this.factura.calcular();
+        this.detalle=new FacturaDetalle();
+        this.limpiar_producto();
+        Swal.fire('Exito', 'Se agrego el detalle', 'success');
       }
-    }
-    this.detalle.calcular();
-    this.factura.factura_detalles.push(this.detalle);
-    this.factura.calcular();
-    this.detalle=new FacturaDetalle();
-    this.limpiar_producto();
-    Swal.fire('Exito', 'Se agrego el detalle', 'success');
+    );
   }
 
   cambiar_productos(tipo_producto: string){

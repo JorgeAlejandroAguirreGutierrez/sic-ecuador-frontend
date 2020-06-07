@@ -421,7 +421,7 @@
                             <div class="form-group col-2">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Bodega</mat-label>
-                                    <mat-select class="form-control-sm" [(ngModel)]="detalle.bodega">
+                                    <mat-select class="form-control-sm" [(ngModel)]="detalle.producto.bodega">
                                         <mat-option
                                             *ngFor="let bodega of bodegas; let i=index" [value]="bodega">
                                             {{bodega.codigo}}
@@ -880,7 +880,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].bodega_producto.caracteristicas let i=index">
+                    <ng-container *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas let i=index">
                         <tr>
                             <td>
                                 <mat-checkbox [(ngModel)]="caracteristica.seleccionado" class="form-control-sm" color="primary" [disabled]="factura.factura_detalles[indice_detalle].producto.serie_autogenerado"></mat-checkbox>

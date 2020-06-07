@@ -4,6 +4,7 @@ import { Precio } from './precio';
 import { Kardex } from './kardex';
 import { Impuesto } from './impuesto';
 import { Caracteristica } from './caracteristica';
+import { Bodega } from './bodega';
 
 export class Producto {
   id: number;
@@ -22,13 +23,12 @@ export class Producto {
   tipo_producto: TipoProducto;
   grupo_producto: GrupoProducto;
   impuesto: Impuesto;
-
   //HASONE
   kardex: Kardex;
-
+  //BODEGA SELECCIONADO
+  bodega: Bodega;
   //HASMANY
   caracteristicas: Caracteristica[];
-  bodegas_productos: BodegaProducto[];
   precios: Precio[];
 
   constructor() {
@@ -39,9 +39,9 @@ export class Producto {
     this.stock_total=0;
     this.precios=[];
     this.caracteristicas=[];
-    this.bodegas_productos=[];
     this.tipo_producto=new TipoProducto();
     this.kardex=new Kardex();
     this.impuesto=new Impuesto();
+    this.bodega=new Bodega;
   }
 }

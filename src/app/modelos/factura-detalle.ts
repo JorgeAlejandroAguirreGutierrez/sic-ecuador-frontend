@@ -37,8 +37,6 @@ export class FacturaDetalle {
   //PRECIO SELECCIONADO
   precio: Precio;
   producto: Producto;
-  //BODEGA SELECCIONADO
-  bodega: Bodega;
   
 
   constructor() {
@@ -58,7 +56,6 @@ export class FacturaDetalle {
     this.subtotal_con_descuento=0;
     this.valor_iva_con_descuento=0;
     this.producto=new Producto();
-    this.bodega=new Bodega();
     this.precio=new Precio();
     this.medida=new Medida();
     this.caracteristicas=[];
