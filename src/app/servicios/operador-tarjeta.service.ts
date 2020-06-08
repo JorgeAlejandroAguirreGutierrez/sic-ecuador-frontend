@@ -40,6 +40,14 @@ export class OperadorTarjetaService {
       }));
   }
 
+  consultarTipo(tipo: string): Observable<Resultado> {
+    return this.http.get(environment.host + util.ruta + util.operador_tarjeta+util.tipo+"/"+tipo, util.options).pipe(
+      map(response => response as Resultado),
+      catchError(err => {
+        return throwError(err);
+      }));
+  }
+
   actualizar(operador_tarjeta: OperadorTarjeta): Observable<Resultado> {
     return this.http.put(environment.host+util.ruta+util.banco, JSON.stringify(operador_tarjeta), util.options).pipe(
       map(response => response as Resultado),

@@ -540,13 +540,8 @@ export class FacturaComponent implements OnInit {
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
   }
-  seleccionar_precio(i: number) {
-    if (i != -1) {
-      this.detalle.precio = this.detalle.producto.precios[i];
-      this.detalle.calcular();
-    } else {
-      this.detalle.precio=null;
-    }
+  seleccionar_precio() {
+    this.detalle.calcular();
   }
   seleccionar_cantidad() {
     this.detalle.calcular();

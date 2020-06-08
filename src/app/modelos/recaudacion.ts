@@ -51,27 +51,31 @@ export class Recaudacion {
     private calcular_total_cheques(){
         this.total_cheques=0;
         this.cheques.forEach((cheque, index)=> {
-            this.total_cheques=this.total_cheques=cheque.valor;
+            this.total_cheques=this.total_cheques+Number(cheque.valor);
         });  
     }
     private calcular_total_depositos(){
+        this.total_depositos=0;
         this.depositos.forEach((deposito, index)=> {
-            this.total_depositos=deposito.valor;
+            this.total_depositos=this.total_depositos+Number(deposito.valor);
         });  
     }
     private calcular_total_transferencias(){
+        this.total_transferencias=0;
         this.transferencias.forEach((transferencia, index)=> {
-            this.total_transferencias=transferencia.valor;
+            this.total_transferencias=this.total_transferencias+Number(transferencia.valor);
         });  
     }
     private calcular_total_tarjetas_debitos(){
+        this.total_tarjetas_debitos=0;
         this.tarjetas_debitos.forEach((tarjeta_debito, index)=> {
-            this.total_tarjetas_debitos=tarjeta_debito.valor;
+            this.total_tarjetas_debitos=this.total_tarjetas_debitos+Number(tarjeta_debito.valor);
         });  
     }
     private calcular_total_tarjetas_creditos(){
+        this.total_tarjetas_creditos=0;
         this.tarjetas_creditos.forEach((tarjeta_credito, index)=> {
-            this.total_tarjetas_creditos=tarjeta_credito.valor;
+            this.total_tarjetas_creditos=this.total_tarjetas_creditos+Number(tarjeta_credito.valor);
         });  
     }
 
@@ -79,7 +83,8 @@ export class Recaudacion {
         this.calcular_total_cheques();
         this.calcular_total_depositos();
         this.calcular_total_transferencias();
-        this.calcular_total_tarjetas_creditos();
         this.calcular_total_tarjetas_debitos();
+        this.calcular_total_tarjetas_creditos();
+        
     }
 }

@@ -32,6 +32,8 @@ import { AppDateAdapter, APP_DATE_FORMATS } from '../modelos/format-date-picker'
 import { OperadorTarjeta } from '../modelos/operador-tarjeta';
 import { Comprobante } from '../modelos/comprobante';
 import { OperadorTarjetaService } from '../servicios/operador-tarjeta.service';
+import { TipoComprobante } from '../modelos/tipo-comprobante';
+import { TipoComprobanteService } from '../servicios/tipo-comprobante.service';
 
 @Component({
   selector: 'app-recaudacion',
@@ -47,7 +49,8 @@ export class RecaudacionComponent implements OnInit {
 
   constructor(private facturaService: FacturaService, private clienteService: ClienteService, private bancoService: BancoService,
     private plazoCreditoService: PlazoCreditoService, private cuentaPropiaService: CuentaPropiaService, private operadorTarjetaService: OperadorTarjetaService,
-    private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, private modalService: NgbModal) { }
+    private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, 
+    private tipoComprobanteService: TipoComprobanteService, private modalService: NgbModal) { }
 
   @Input() factura: Factura;
   recaudacion: Recaudacion = new Recaudacion();
@@ -64,7 +67,9 @@ export class RecaudacionComponent implements OnInit {
   clientes: Cliente[]=[];
   cuentas_propias: CuentaPropia[]=[];
   franquicias_tarjetas: FranquiciaTarjeta[];
-  operadores_tarjetas: OperadorTarjeta[]=[];
+  operadores_tarjetas_creditos: OperadorTarjeta[]=[];
+  operadores_tarjetas_debitos: OperadorTarjeta[]=[];
+  tipos_comprobantes: TipoComprobante[]=[];
 
   seleccion_razon_social_cliente = new FormControl();
   filtro_razon_social_clientes: Observable<Cliente[]> = new Observable<Cliente[]>();
@@ -121,8 +126,10 @@ export class RecaudacionComponent implements OnInit {
     this.defecto_recaudacion();
     this.consultar_cuentas_propias();
     this.consultar_franquicias_tarjetas();
-    this.consultar_operadores_tarjetas();
+    this.consultar_operadores_tarjetas_creditos();
+    this.consultar_operadores_tarjetas_debitos();
     this.consultar_plazos_creditos();
+    this.consultar_tipos_comprobantes();
     this.consultar_bancos_cheques();
     this.consultar_bancos_depositos();
     this.consultar_bancos_transferencias();
@@ -186,10 +193,18 @@ export class RecaudacionComponent implements OnInit {
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
   }
-  consultar_operadores_tarjetas(){
-    this.operadorTarjetaService.consultar().subscribe(
+  consultar_operadores_tarjetas_creditos(){
+    this.operadorTarjetaService.consultarTipo("CREDITO").subscribe(
       res => {
-        this.operadores_tarjetas = res.resultado as OperadorTarjeta[]
+        this.operadores_tarjetas_creditos = res.resultado as OperadorTarjeta[]
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+  consultar_operadores_tarjetas_debitos(){
+    this.operadorTarjetaService.consultarTipo("DEBITO").subscribe(
+      res => {
+        this.operadores_tarjetas_debitos = res.resultado as OperadorTarjeta[]
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
@@ -198,6 +213,14 @@ export class RecaudacionComponent implements OnInit {
     this.plazoCreditoService.consultar().subscribe(
       res => {
         this.plazos_creditos = res.resultado as PlazoCredito[]
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+  consultar_tipos_comprobantes(){
+    this.tipoComprobanteService.consultar().subscribe(
+      res => {
+        this.tipos_comprobantes = res.resultado as TipoComprobante[]
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
@@ -302,8 +325,8 @@ export class RecaudacionComponent implements OnInit {
     }
     return [];
   }
-  ver_banco_tarjeta_credito(banco_transferencia: Banco): string {
-    return banco_transferencia && banco_transferencia.nombre ? banco_transferencia.nombre : '';
+  ver_banco_tarjeta_credito(banco_tarjeta_credito: Banco): string {
+    return banco_tarjeta_credito && banco_tarjeta_credito.nombre ? banco_tarjeta_credito.nombre : '';
   }
 
   private filtro_banco_tarjeta_debito(value: string): Banco[] {
@@ -456,6 +479,7 @@ export class RecaudacionComponent implements OnInit {
 
   agregar_tarjeta_credito() {
     if (this.recaudacion.total+Number(this.tarjeta_credito.valor)<=this.factura.total_con_descuento){
+      this.tarjeta_credito.banco=this.seleccion_banco_tarjeta_credito.value;
       this.recaudacion.tarjetas_creditos.push(this.tarjeta_credito);
       this.tarjeta_credito=new TarjetaCredito();
       this.seleccion_banco_tarjeta_credito.patchValue("");
@@ -485,6 +509,7 @@ export class RecaudacionComponent implements OnInit {
 
   agregar_tarjeta_debito() {
     if (this.recaudacion.total+Number(this.tarjeta_debito.valor)<=this.factura.total_con_descuento){
+      this.tarjeta_debito.banco=this.seleccion_banco_tarjeta_debito.value;
       this.recaudacion.tarjetas_debitos.push(this.tarjeta_debito);
       this.tarjeta_debito=new TarjetaDebito();
       this.seleccion_banco_tarjeta_debito.patchValue("");
