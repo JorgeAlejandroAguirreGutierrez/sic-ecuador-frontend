@@ -110,7 +110,7 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Número cheq</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="cheque.numero" (blur)="rellenar_cheque_numero()">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="cheque.numero" (blur)="rellenar_numero_cheque()">
                 </mat-form-field>
             </div>
             <div class="form-group col-3">
@@ -246,7 +246,7 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>No. Comprobante</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="deposito.comprobante">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="deposito.comprobante" (blur)="rellenar_numero_deposito()">
                 </mat-form-field>
             </div>
             <div class="form-group col-2">
@@ -300,7 +300,7 @@
                     <ng-container matColumnDef="valor">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
                         <td mat-cell *matCellDef="let deposito"> {{deposito.valor | currency}} </td>
-                        <td mat-footer-cell *matFooterCellDef> {{recaudacion.total_depositos()}} </td>
+                        <td mat-footer-cell *matFooterCellDef> {{recaudacion.total_depositos}} </td>
                     </ng-container>
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
@@ -351,7 +351,7 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Cuenta</mat-label>
-                    <mat-select class="form-control-sm">
+                    <mat-select class="form-control-sm" [(ngModel)]="transferencia.cuenta_propia">
                         <mat-option *ngFor="let cuenta_propia of cuentas_propias" [value]="cuenta_propia">
                             {{cuenta_propia.numero}}
                         </mat-option>
@@ -372,7 +372,7 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>No. Comprobante</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="transferencia.comprobante">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="transferencia.comprobante" (blur)="rellenar_numero_transferencia()">
                 </mat-form-field>
             </div>
             <div class="form-group col-2">
@@ -395,7 +395,7 @@
                     <!-- Posicion Columna -->
                     <ng-container matColumnDef="id">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-                        <td mat-cell *matCellDef="let transferencia"> {{transferencia.id}} </td>
+                        <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
                         <td mat-footer-cell *matFooterCellDef> Total </td>
                     </ng-container>
                     <!-- Fecha Columna -->
@@ -407,13 +407,13 @@
                     <!-- Tipo Columna -->
                     <ng-container matColumnDef="cuenta">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Cuenta </th>
-                        <td mat-cell *matCellDef="let transferencia"> {{transferencia.cuenta}} </td>
+                        <td mat-cell *matCellDef="let transferencia"> {{transferencia.cuenta_propia.numero}} </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
                     <!-- Banco Columna -->
                     <ng-container matColumnDef="banco">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Banco </th>
-                        <td mat-cell *matCellDef="let transferencia"> {{transferencia.banco}} </td>
+                        <td mat-cell *matCellDef="let transferencia"> {{transferencia.banco.nombre}} </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
                     <!-- Numero Columna -->

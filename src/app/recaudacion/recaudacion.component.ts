@@ -31,6 +31,7 @@ import { FranquiciaTarjetaService } from '../servicios/franquicia-tarjeta.servic
 import { AppDateAdapter, APP_DATE_FORMATS } from '../modelos/format-date-picker';
 import { OperadorTarjeta } from '../modelos/operador-tarjeta';
 import { Comprobante } from '../modelos/comprobante';
+import { OperadorTarjetaService } from '../servicios/operador-tarjeta.service';
 
 @Component({
   selector: 'app-recaudacion',
@@ -45,7 +46,7 @@ import { Comprobante } from '../modelos/comprobante';
 export class RecaudacionComponent implements OnInit {
 
   constructor(private facturaService: FacturaService, private clienteService: ClienteService, private bancoService: BancoService,
-    private plazoCreditoService: PlazoCreditoService, private cuentaPropiaService: CuentaPropiaService, 
+    private plazoCreditoService: PlazoCreditoService, private cuentaPropiaService: CuentaPropiaService, private operadorTarjetaService: OperadorTarjetaService,
     private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, private modalService: NgbModal) { }
 
   @Input() factura: Factura;
@@ -64,7 +65,6 @@ export class RecaudacionComponent implements OnInit {
   cuentas_propias: CuentaPropia[]=[];
   franquicias_tarjetas: FranquiciaTarjeta[];
   operadores_tarjetas: OperadorTarjeta[]=[];
-
 
   seleccion_razon_social_cliente = new FormControl();
   filtro_razon_social_clientes: Observable<Cliente[]> = new Observable<Cliente[]>();
@@ -121,6 +121,7 @@ export class RecaudacionComponent implements OnInit {
     this.defecto_recaudacion();
     this.consultar_cuentas_propias();
     this.consultar_franquicias_tarjetas();
+    this.consultar_operadores_tarjetas();
     this.consultar_plazos_creditos();
     this.consultar_bancos_cheques();
     this.consultar_bancos_depositos();
@@ -181,6 +182,14 @@ export class RecaudacionComponent implements OnInit {
     this.franquiciaTarjetaService.consultar().subscribe(
       res => {
         this.franquicias_tarjetas = res.resultado as FranquiciaTarjeta[]
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+  consultar_operadores_tarjetas(){
+    this.operadorTarjetaService.consultar().subscribe(
+      res => {
+        this.operadores_tarjetas = res.resultado as OperadorTarjeta[]
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
@@ -554,11 +563,17 @@ export class RecaudacionComponent implements OnInit {
   editar_tarjeta_credito(i: number){
     
   }
-  rellenar_cheque_numero(){
-    this.cheque.numero=this.pad(this.cheque.numero, 13);
-  }
   pad(numero:string, size:number): string {
     while (numero.length < size) numero = "0" + numero;
     return numero;
+  }
+  rellenar_numero_cheque(){
+    this.cheque.numero= this.pad(this.cheque.numero, 13);
+  }
+  rellenar_numero_deposito(){
+    this.deposito.comprobante= this.pad(this.deposito.comprobante, 13);
+  }
+  rellenar_numero_transferencia(){
+    this.transferencia.comprobante= this.pad(this.transferencia.comprobante, 13);
   }
 }
