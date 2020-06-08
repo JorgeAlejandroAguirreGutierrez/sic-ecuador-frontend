@@ -174,9 +174,6 @@ export class RecaudacionComponent implements OnInit {
       );
   }
 
-  defecto_recaudacion(){
-    this.recaudacion.efectivo=this.factura.total_con_descuento;
-  }
   consultar_cuentas_propias(){
     this.cuentaPropiaService.consultar().subscribe(
       res => {
@@ -377,6 +374,7 @@ export class RecaudacionComponent implements OnInit {
     if (formaPago == 'COMPENSACIONES'){
       this.habilitar_compensaciones = !this.habilitar_compensaciones;
     }
+    this.defecto_recaudacion();
   }
 
   borrar_cheque(cod: number) {
@@ -403,6 +401,7 @@ export class RecaudacionComponent implements OnInit {
     } else {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
+    this.defecto_recaudacion();
   }
 
   total_cheques() {
@@ -429,10 +428,10 @@ export class RecaudacionComponent implements OnInit {
       this.data_depositos.paginator = this.paginator;
       this.recaudacion.calcular_totales();
       this.seleccionar_valor_pagado();
-      
     } else {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
+    this.defecto_recaudacion();
   }
 
   total_depositos() {
@@ -462,6 +461,7 @@ export class RecaudacionComponent implements OnInit {
     } else {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
+    this.defecto_recaudacion();
   }
 
   total_transferencias() {
@@ -491,6 +491,7 @@ export class RecaudacionComponent implements OnInit {
     } else {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
+    this.defecto_recaudacion();
     
   }
 
@@ -521,6 +522,7 @@ export class RecaudacionComponent implements OnInit {
     } else {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
+    this.defecto_recaudacion();
   }
 
   total_tarjetas_debitos() {
@@ -542,6 +544,7 @@ export class RecaudacionComponent implements OnInit {
     this.data_compensaciones.sort = this.sort;
     this.data_compensaciones.paginator = this.paginator;
     this.seleccionar_valor_pagado();
+    this.defecto_recaudacion();
   }
 
   total_compensaciones() {
@@ -550,6 +553,19 @@ export class RecaudacionComponent implements OnInit {
 
   total_creditos() {
     return 0;
+  }
+
+  defecto_recaudacion(){
+    let suma=Number(this.recaudacion.efectivo)+Number(this.recaudacion.total_cheques)+
+      Number(this.recaudacion.total_depositos)+Number(this.recaudacion.total_transferencias)+
+      Number(this.recaudacion.total_credito)+Number(this.recaudacion.total_tarjetas_debitos)+
+      Number(this.recaudacion.total_tarjetas_creditos)+Number(this.recaudacion.total_compensaciones);
+    let pagar=this.factura.total_con_descuento-suma;
+    this.cheque.valor=pagar;
+    this.deposito.valor=pagar;
+    this.transferencia.valor=pagar;
+    this.tarjeta_credito.valor=pagar;
+    this.tarjeta_debito.valor=pagar;
   }
 
   seleccionar_efectivo(){
@@ -565,9 +581,11 @@ export class RecaudacionComponent implements OnInit {
     } else{
       this.recaudacion.total=Number(this.recaudacion.efectivo)+Number(this.recaudacion.total_cheques)+
       Number(this.recaudacion.total_depositos)+Number(this.recaudacion.total_transferencias)+
-      Number(this.recaudacion.total_credito)+Number(this.recaudacion.total_tarjetas_debitos)+Number(this.recaudacion.total_compensaciones);
+      Number(this.recaudacion.total_credito)+Number(this.recaudacion.total_tarjetas_debitos)+
+      Number(this.recaudacion.total_tarjetas_creditos)+Number(this.recaudacion.total_compensaciones);
     }
   }
+
 
   crear(event) {
 
