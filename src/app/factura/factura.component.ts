@@ -478,8 +478,17 @@ export class FacturaComponent implements OnInit {
     }
   }
   asignar_facturar(){
-    this.seleccion_identificacion_cliente_factura.enable();
-    this.seleccion_razon_social_cliente_factura.enable();
+    console.log(this.seleccion_facturar);
+    if (this.seleccion_facturar){
+      this.seleccion_identificacion_cliente_factura.enable();
+      this.seleccion_razon_social_cliente_factura.enable();
+    } else {
+      this.seleccion_identificacion_cliente_factura.patchValue("");
+      this.seleccion_razon_social_cliente_factura.patchValue("");
+      this.seleccion_identificacion_cliente_factura.disable();
+      this.seleccion_razon_social_cliente_factura.disable();
+    }
+    
   }
   
   seleccionar_auxiliar(i: number){

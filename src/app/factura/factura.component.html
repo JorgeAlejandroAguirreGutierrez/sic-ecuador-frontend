@@ -292,7 +292,7 @@
                             <div class="form-group col-1">
                                 <b>Habilitar</b><br>
                                 <mat-checkbox [disabled]="habilitar_facturar" [(ngModel)]="seleccion_facturar"
-                                    [labelPosition]="'before'" (click)="asignar_facturar()" class="form-control-sm"
+                                    [labelPosition]="'before'" (change)="asignar_facturar()" class="form-control-sm"
                                     color="primary"></mat-checkbox>
                             </div>
                             <div class="form-group col-11">
