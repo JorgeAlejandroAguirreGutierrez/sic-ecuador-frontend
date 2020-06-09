@@ -377,12 +377,14 @@ export class RecaudacionComponent implements OnInit {
     this.defecto_recaudacion();
   }
 
-  borrar_cheque(cod: number) {
+  eliminar_cheque(i: number) {
     if (confirm("Realmente quiere eliminar el cheque?")) {
-      this.recaudacion.cheques.splice(cod, 1);
+      this.recaudacion.cheques.splice(i, 1);
       this.data_cheques = new MatTableDataSource<Cheque>(this.recaudacion.cheques);
       this.data_cheques.sort = this.sort;
       this.data_cheques.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
     }
   }
 
@@ -408,12 +410,14 @@ export class RecaudacionComponent implements OnInit {
     return this.recaudacion.cheques.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
-  borrar_deposito(i: number) {
+  eliminar_deposito(i: number) {
     if (confirm("Realmente quiere eliminar el deposito?")) {
       this.recaudacion.depositos.splice(i, 1);
       this.data_depositos = new MatTableDataSource<Deposito>(this.recaudacion.depositos);
       this.data_depositos.sort = this.sort;
       this.data_depositos.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
     }
   }
 
@@ -438,12 +442,14 @@ export class RecaudacionComponent implements OnInit {
     return this.recaudacion.depositos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
-  borrar_transferencia(cod: number) {
+  eliminar_transferencia(i: number) {
     if (confirm("Realmente quiere eliminar la transferencia?")) {
-      this.recaudacion.transferencias.splice(cod, 1);
+      this.recaudacion.transferencias.splice(i, 1);
       this.data_transferencias = new MatTableDataSource<Transferencia>(this.recaudacion.transferencias);
       this.data_transferencias.sort = this.sort;
       this.data_transferencias.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
     }
   }
 
@@ -468,12 +474,14 @@ export class RecaudacionComponent implements OnInit {
     return this.recaudacion.transferencias.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
-  borrar_tarjeta_credito(cod: number) {
+  eliminar_tarjeta_credito(i: number) {
     if (confirm("Realmente quiere eliminar la tarjeta de crédito?")) {
-      this.recaudacion.tarjetas_creditos.splice(cod, 1);
+      this.recaudacion.tarjetas_creditos.splice(i, 1);
       this.data_tarjetas_creditos = new MatTableDataSource<TarjetaCredito>(this.recaudacion.tarjetas_creditos);
       this.data_tarjetas_creditos.sort = this.sort;
       this.data_tarjetas_creditos.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
     }
   }
 
@@ -499,12 +507,14 @@ export class RecaudacionComponent implements OnInit {
     return this.recaudacion.tarjetas_creditos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
-  borrar_tarjeta_debito(cod: number) {
+  eliminar_tarjeta_debito(i: number) {
     if (confirm("Realmente quiere eliminar la tarjeta de débito?")) {
-      this.recaudacion.tarjetas_debitos.splice(cod, 1);
+      this.recaudacion.tarjetas_debitos.splice(i, 1);
       this.data_tarjetas_debitos = new MatTableDataSource<TarjetaDebito>(this.recaudacion.tarjetas_debitos);
       this.data_tarjetas_debitos.sort = this.sort;
       this.data_tarjetas_debitos.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
     }
   }
 
@@ -529,12 +539,14 @@ export class RecaudacionComponent implements OnInit {
     return this.recaudacion.tarjetas_debitos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
-  borrar_compensacion(cod: number) {
+  eliminar_compensacion(i: number) {
     if (confirm("Realmente quiere eliminar la compensacion?")) {
-      this.recaudacion.compensaciones.splice(cod, 1);
+      this.recaudacion.compensaciones.splice(i, 1);
       this.data_compensaciones = new MatTableDataSource<Compensacion>(this.recaudacion.compensaciones);
       this.data_compensaciones.sort = this.sort;
       this.data_compensaciones.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
     }
   }
 
