@@ -66,7 +66,8 @@ export class RecaudacionComponent implements OnInit {
   comprobantes: Comprobante[]=[];
   clientes: Cliente[]=[];
   cuentas_propias: CuentaPropia[]=[];
-  franquicias_tarjetas: FranquiciaTarjeta[];
+  franquicias_tarjetas_creditos: FranquiciaTarjeta[];
+  franquicias_tarjetas_debitos: FranquiciaTarjeta[];
   operadores_tarjetas_creditos: OperadorTarjeta[]=[];
   operadores_tarjetas_debitos: OperadorTarjeta[]=[];
   tipos_comprobantes: TipoComprobante[]=[];
@@ -185,7 +186,8 @@ export class RecaudacionComponent implements OnInit {
   consultar_franquicias_tarjetas(){
     this.franquiciaTarjetaService.consultar().subscribe(
       res => {
-        this.franquicias_tarjetas = res.resultado as FranquiciaTarjeta[]
+        this.franquicias_tarjetas_creditos = res.resultado as FranquiciaTarjeta[]
+        this.franquicias_tarjetas_debitos = res.resultado as FranquiciaTarjeta[]
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
@@ -573,11 +575,11 @@ export class RecaudacionComponent implements OnInit {
       Number(this.recaudacion.total_credito)+Number(this.recaudacion.total_tarjetas_debitos)+
       Number(this.recaudacion.total_tarjetas_creditos)+Number(this.recaudacion.total_compensaciones);
     let pagar=this.factura.total_con_descuento-suma;
-    this.cheque.valor=pagar;
-    this.deposito.valor=pagar;
-    this.transferencia.valor=pagar;
-    this.tarjeta_credito.valor=pagar;
-    this.tarjeta_debito.valor=pagar;
+    this.cheque.valor=Number(pagar.toFixed(2));
+    this.deposito.valor=Number(pagar.toFixed(2));;
+    this.transferencia.valor=Number(pagar.toFixed(2));;
+    this.tarjeta_credito.valor=Number(pagar.toFixed(2));;
+    this.tarjeta_debito.valor=Number(pagar.toFixed(2));;
   }
 
   seleccionar_efectivo(){

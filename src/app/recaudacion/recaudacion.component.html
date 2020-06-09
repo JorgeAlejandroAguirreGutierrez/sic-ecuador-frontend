@@ -470,7 +470,7 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Franquicia</mat-label>
                     <mat-select class="form-control-sm" [(ngModel)]="tarjeta_credito.franquicia_tarjeta">
-                        <mat-option *ngFor="let franquicia_tarjeta of franquicias_tarjetas" [value]="franquicia_tarjeta">
+                        <mat-option *ngFor="let franquicia_tarjeta of franquicias_tarjetas_creditos" [value]="franquicia_tarjeta">
                             {{franquicia_tarjeta.nombre}}
                         </mat-option>
                     </mat-select>
@@ -658,7 +658,7 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Franquicia</mat-label>
                     <mat-select class="form-control-sm" [(ngModel)]="tarjeta_debito.franquicia_tarjeta">
-                        <mat-option *ngFor="let franquicia_tarjeta of franquicias_tarjetas">
+                        <mat-option *ngFor="let franquicia_tarjeta of franquicias_tarjetas_debitos" [value]="franquicia_tarjeta">
                             {{franquicia_tarjeta.nombre}}
                         </mat-option>
                     </mat-select>
@@ -684,14 +684,14 @@
             <div class="form-group col-4">
                 <mat-form-field appearance="standard">
                     <mat-label>Nombre</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="tarjeta_debito.nombre">
+                    <input matInput type="text" [(ngModel)]="tarjeta_debito.nombre" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                 </mat-form-field>
             </div>
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Operador</mat-label>
                     <mat-select class="form-control-sm" [(ngModel)]="tarjeta_debito.operador_tarjeta">
-                        <mat-option *ngFor="let operador_tarjeta of operadores_tarjetas_debitos">
+                        <mat-option *ngFor="let operador_tarjeta of operadores_tarjetas_debitos" [value]="operador_tarjeta">
                             {{operador_tarjeta.nombre}}
                         </mat-option>
                     </mat-select>
@@ -729,7 +729,7 @@
                     <!-- Fecha Columna -->
                     <ng-container matColumnDef="franquicia">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>Franquicia</th>
-                        <td mat-cell *matCellDef="let tarjeta_debito"> {{tarjeta_debito.franquicia.nombre}} </td>
+                        <td mat-cell *matCellDef="let tarjeta_debito"> {{tarjeta_debito.franquicia_tarjeta.nombre}} </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
                     <!-- Banco Columna -->
