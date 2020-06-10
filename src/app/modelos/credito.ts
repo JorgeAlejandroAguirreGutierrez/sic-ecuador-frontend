@@ -1,6 +1,6 @@
 import { PlazoCredito } from './plazo-credito';
 import { ModeloTabla } from './modelo-tabla';
-import { Amortizacion } from './Amortizacion';
+import { Amortizacion } from './amortizacion';
 
 export class Credito {
   id:number;

@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Amortizacion } from '../modelos/Amortizacion';
+import { Amortizacion } from '../modelos/amortizacion';
 
 @Injectable({
   providedIn: 'root'
