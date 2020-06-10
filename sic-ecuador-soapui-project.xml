@@ -96,4 +96,290 @@
 	"descripcion": "NO PAGA",
 	"abreviatura": "NP"
 }
-</con:request><con:originalUri>http://localhost/api/datosadicionales/obtenerDatosAdicionales</con:originalUri><con:credentials><con:username>admin</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder/></con:request></con:method></con:resource></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+</con:request><con:originalUri>http://localhost/api/datosadicionales/obtenerDatosAdicionales</con:originalUri><con:credentials><con:username>admin</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder/></con:request></con:method></con:resource><con:resource name="CrearRecaudacion" path="/api/sicecuador/recaudacion" id="d44d24b5-3bd6-4f40-bdf4-478236b8899c"><con:settings/><con:parameters/><con:method name="Crear" id="af63be66-9fd0-4d2f-9108-104209fcc618" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html; charset=UTF-8</con:mediaType><con:status>405 500 404</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200 201</con:status><con:params/><con:element xmlns:obt="http://localhost/api/datosadicionales/obtenerDatosAdicionales">obt:Response</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>application/json</con:mediaType><con:status>404 400 500 401</con:status><con:params/><con:element xmlns:obt="http://localhost/api/datosadicionales/obtenerDatosAdicionales">obt:Fault</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" id="4e04462f-3728-4a87-99e4-fdf828c1ae0a" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:5000</con:endpoint><con:request>{
+  "total": 50.4,
+  "efectivo": 0,
+  "cambio": 0,
+  "estado": false,
+  "total_cheques": 20.4,
+  "total_depositos": 30,
+  "total_transferencias": 0,
+  "total_tarjetas_debitos": 0,
+  "total_tarjetas_creditos": 0,
+  "total_compensaciones": 0,
+  "total_credito": 0,
+  "cheques": [
+    {
+      "numero": "0000000000452",
+      "tipo": "VISTA",
+      "fecha": "2020-06-10T02:27:50.036Z",
+      "fecha_efectivizacion": "2020-06-10T02:27:50.036Z",
+      "valor": "20.4",
+      "banco": {
+        "id": 1,
+        "codigo": null,
+        "fecha_creacion": 1591488250158,
+        "fecha_actualizacion": 1591488250158,
+        "tipo": "BANCO",
+        "nombre": "BANCO PRODUBANCO",
+        "abreviatura": "PB"
+      }
+    }
+  ],
+  "depositos": [
+    {
+      "tipo": "",
+      "fecha": "2020-06-10T02:27:50.036Z",
+      "comprobante": "0000000000745",
+      "valor": 30,
+      "cuenta_propia": {
+        "id": 1,
+        "codigo": "CP000001",
+        "fecha_creacion": 1591488250191,
+        "fecha_actualizacion": 1591488250191,
+        "numero": "0000000001",
+        "banco": {
+          "id": 1,
+          "codigo": null,
+          "fecha_creacion": 1591488250158,
+          "fecha_actualizacion": 1591488250158,
+          "tipo": "BANCO",
+          "nombre": "BANCO PRODUBANCO",
+          "abreviatura": "PB"
+        }
+      },
+      "banco": {
+        "id": 2,
+        "codigo": null,
+        "fecha_creacion": 1591488250161,
+        "fecha_actualizacion": 1591488250161,
+        "tipo": "BANCO",
+        "nombre": "BANCO PICHINCHA",
+        "abreviatura": "BPI"
+      }
+    }
+  ],
+  "transferencias": [],
+  "tarjetas_debitos": [],
+  "tarjetas_creditos": [],
+  "compensaciones": [],
+  "credito": {
+    "id": 0,
+    "plazo_credito": {
+      "id": 0
+    },
+    "amortizacion": "",
+    "modelo": "",
+    "fecha_primera_cuota": "2020-06-10T02:27:50.036Z",
+    "interes_mensual": 0,
+    "interes_anual": 0,
+    "valor_seguro": 0,
+    "recargos": 0,
+    "saldo": 0
+  },
+  "factura": {
+    "valor_descuento_subtotal": 0,
+    "porcentaje_descuento_subtotal": 0,
+    "valor_descuento_total": 0,
+    "porcentaje_descuento_total": 0,
+    "valor_porcentaje_descuento_total": 0,
+    "id": 0,
+    "fecha": "2020-06-10T02:27:50.036Z",
+    "estado": true,
+    "eliminado": false,
+    "cliente": {
+      "obligado_contabilidad": false,
+      "id": 0,
+      "estado": true,
+      "especial": false,
+      "punto_venta": {
+        "establecimiento": {}
+      },
+      "grupo_cliente": {
+        "id": 0
+      },
+      "tipo_contribuyente": {
+        "id": 0,
+        "tipo": "",
+        "subtipo": "",
+        "obligado_contabilidad": false
+      },
+      "direccion": {
+        "id": null,
+        "ubicacion": {
+          "id": 0,
+          "provincia": "",
+          "canton": "",
+          "parroquia": ""
+        }
+      },
+      "financiamiento": {
+        "id": 0,
+        "monto": 0,
+        "tipo_pago": {
+          "id": 0
+        },
+        "forma_pago": {
+          "id": 0
+        },
+        "plazo_credito": {
+          "id": 0
+        }
+      },
+      "genero": {
+        "id": 0
+      },
+      "estado_civil": {
+        "id": 0
+      },
+      "categoria_cliente": {
+        "id": 0
+      },
+      "origen_ingreso": {
+        "id": 0
+      },
+      "telefonos": [],
+      "celulares": [],
+      "correos": [],
+      "auxiliares": [],
+      "retenciones_cliente": [
+        {
+          "id": 0,
+          "codigo": "",
+          "tipo_retencion": {
+            "id": 0
+          }
+        },
+        {
+          "id": 0,
+          "codigo": "",
+          "tipo_retencion": {
+            "id": 0
+          }
+        },
+        {
+          "id": 0,
+          "codigo": "",
+          "tipo_retencion": {
+            "id": 0
+          }
+        },
+        {
+          "id": 0,
+          "codigo": "",
+          "tipo_retencion": {
+            "id": 0
+          }
+        }
+      ]
+    },
+    "cliente_factura": {
+      "obligado_contabilidad": false,
+      "id": 0,
+      "estado": true,
+      "especial": false,
+      "punto_venta": {
+        "establecimiento": {}
+      },
+      "grupo_cliente": {
+        "id": 0
+      },
+      "tipo_contribuyente": {
+        "id": 0,
+        "tipo": "",
+        "subtipo": "",
+        "obligado_contabilidad": false
+      },
+      "direccion": {
+        "id": null,
+        "ubicacion": {
+          "id": 0,
+          "provincia": "",
+          "canton": "",
+          "parroquia": ""
+        }
+      },
+      "financiamiento": {
+        "id": 0,
+        "monto": 0,
+        "tipo_pago": {
+          "id": 0
+        },
+        "forma_pago": {
+          "id": 0
+        },
+        "plazo_credito": {
+          "id": 0
+        }
+      },
+      "genero": {
+        "id": 0
+      },
+      "estado_civil": {
+        "id": 0
+      },
+      "categoria_cliente": {
+        "id": 0
+      },
+      "origen_ingreso": {
+        "id": 0
+      },
+      "telefonos": [],
+      "celulares": [],
+      "correos": [],
+      "auxiliares": [],
+      "retenciones_cliente": [
+        {
+          "id": 0,
+          "codigo": "",
+          "tipo_retencion": {
+            "id": 0
+          }
+        },
+        {
+          "id": 0,
+          "codigo": "",
+          "tipo_retencion": {
+            "id": 0
+          }
+        },
+        {
+          "id": 0,
+          "codigo": "",
+          "tipo_retencion": {
+            "id": 0
+          }
+        },
+        {
+          "id": 0,
+          "codigo": "",
+          "tipo_retencion": {
+            "id": 0
+          }
+        }
+      ]
+    },
+    "auxiliar": null,
+    "vendedor": {
+      "punto_venta": {
+        "establecimiento": {}
+      },
+      "perfil": {
+        "permisos": []
+      }
+    },
+    "factura_detalles": [],
+    "comentario": "",
+    "subtotal_sin_descuento": 0,
+    "subtotal_con_descuento": 0,
+    "descuento_total": 0,
+    "subtotal_base12_sin_descuento": 0,
+    "subtotal_base0_sin_descuento": 0,
+    "subtotal_base12_con_descuento": 0,
+    "subtotal_base0_con_descuento": 0,
+    "importe_iva_sin_descuento": 0,
+    "importe_iva_con_descuento": 0,
+    "total_sin_descuento": 0,
+    "total_con_descuento": 0
+  }
+}</con:request><con:originalUri>http://localhost/api/datosadicionales/obtenerDatosAdicionales</con:originalUri><con:credentials><con:username>admin</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder/></con:request></con:method></con:resource></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

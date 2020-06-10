@@ -50,6 +50,9 @@ export const existencias: string= '/existencias';
 export const bodega: string= '/bodega';
 export const operador_tarjeta: string= '/operadortarjeta';
 export const tipo_comprobante: string= "/tipocomprobante"
+export const recaudacion: string= "/recaudacion"
+export const modelo_tabla: string= "/modelotabla"
+export const amortizacion: string= "/amortizacion"
 
 export const credencial_usuario='admin';
 export const credencial_password='admin';

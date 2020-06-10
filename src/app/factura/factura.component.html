@@ -1,46 +1,46 @@
-<nav class="navbar-light nav-fijo">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
-                <fa-icon [icon]="['fas', 'file']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="crear($event)">
-                <fa-icon [icon]="['fas', 'save']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="consultar_bienes($event)">
-                <fa-icon [icon]="['fas', 'box']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="consultar_servicios($event)">
-                <fa-icon [icon]="['fas', 'concierge-bell']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="consultar_activos_fijos($event)">
-                <fa-icon [icon]="['fas', 'building']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
-                <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
-                <fa-icon [icon]="['fas', 'file-export']"></fa-icon>
-            </a>
-        </li>
-    </ul>
-</nav>
 <div class="contenedor">
     <mat-horizontal-stepper  [linear]="isLinear" #stepper>
         <!-- Paso Facturación -->
         <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+            <nav class="navbar-light nav-fijo">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
+                            <fa-icon [icon]="['fas', 'file']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="crear($event)">
+                            <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="consultar_bienes($event)">
+                            <fa-icon [icon]="['fas', 'box']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="consultar_servicios($event)">
+                            <fa-icon [icon]="['fas', 'concierge-bell']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="consultar_activos_fijos($event)">
+                            <fa-icon [icon]="['fas', 'building']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                            <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                            <fa-icon [icon]="['fas', 'file-export']"></fa-icon>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
             <ng-template matStepLabel>Facturación</ng-template>
             <mat-accordion class="headers-align">
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"

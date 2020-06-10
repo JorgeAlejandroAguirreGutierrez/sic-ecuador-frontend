@@ -5,12 +5,16 @@ import { Compensacion } from './compensacion';
 import { Credito } from './credito';
 import { Deposito } from './deposito';
 import { Transferencia } from './transferencia';
+import { Sesion } from './sesion';
+import { Factura } from './factura';
 
 export class Recaudacion {
     id:number;
     fecha: Date;
     total: number;
     comentario: string;
+    cambio: number;
+    estado: boolean;
     efectivo: number;
     total_cheques: number;
     total_depositos: number;
@@ -26,12 +30,14 @@ export class Recaudacion {
     tarjetas_debitos: TarjetaDebito[];
     compensaciones: Compensacion[];
     credito: Credito;
-    cambio: number;
+    sesion: Sesion;
+    factura: Factura;
 
     constructor(){
         this.total=0;
         this.efectivo=0;
         this.cambio=0;
+        this.estado=false;
         this.total_cheques=0;
         this.total_depositos=0;
         this.total_transferencias=0;
@@ -46,6 +52,8 @@ export class Recaudacion {
         this.tarjetas_creditos=[]
         this.compensaciones=[];
         this.credito=new Credito();
+        this.sesion=new Sesion();
+        this.factura=new Factura();
     }
 
     private calcular_total_cheques(){

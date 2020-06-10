@@ -1,4 +1,28 @@
 <div class="container">
+    <nav class="navbar-light nav-fijo">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
+                    <fa-icon [icon]="['fas', 'file']"></fa-icon>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="button" (click)="crear($event)">
+                    <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                    <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                    <fa-icon [icon]="['fas', 'file-export']"></fa-icon>
+                </a>
+            </li>
+        </ul>
+    </nav>
     <div class="form-row col-12">
         <div class="form-row col-9">
             <div class="form-group col-3">
@@ -22,9 +46,9 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Estado</mat-label>
-                    <mat-select class="form-control-sm" [(ngModel)]="factura.estado" [ngModelOptions]="{standalone: true}">
-                        <mat-option value="true">RECAUDADO</mat-option>
-                        <mat-option value="false">NO RECAUDADO</mat-option>
+                    <mat-select class="form-control-sm" [(ngModel)]="estado" [ngModelOptions]="{standalone: true}">
+                        <mat-option value="RECAUDADO">RECAUDADO</mat-option>
+                        <mat-option value="NORECAUDADO">NO RECAUDADO</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -984,18 +1008,19 @@
                     <mat-form-field appearance="standard">
                         <mat-label>Amortización</mat-label>
                         <mat-select class="form-control-sm" [(ngModel)]="recaudacion.credito.amortizacion">
-                            <mat-option value="QUINCENAL">QUINCENAL</mat-option>
-                            <mat-option value="MENSUAL">MENSUAL</mat-option>
-                            <mat-option value="TRIMESTRAL">TRIMESTRAL</mat-option>
+                            <mat-option *ngFor="let amortizacion of amortizaciones" [value]="amortizacion">
+                                {{amortizacion.descripcion}}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-3">
                     <mat-form-field appearance="standard">
                         <mat-label>Modelo Tabla</mat-label>
-                        <mat-select class="form-control-sm" [(ngModel)]="recaudacion.credito.modelo">
-                            <mat-option value="FRANCESA">FRANCESA</mat-option>
-                            <mat-option value="ALEMANA">ALEMANA</mat-option>
+                        <mat-select class="form-control-sm" [(ngModel)]="recaudacion.credito.modelo_tabla">
+                            <mat-option *ngFor="let modelo_tabla of modelos_tablas" [value]="modelo_tabla">
+                                {{modelo_tabla.descripcion}}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -1036,12 +1061,6 @@
                         <mat-label>Saldo</mat-label>
                         <input matInput type="text" class="form-control-sm" [(ngModel)]="recaudacion.credito.saldo">
                     </mat-form-field>
-                </div>
-                <div class="form-group col-1">
-                    <br>
-                    <button class="btn btn-primary btn-circle " (click)="crear_tabla()">
-                        <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
-                    </button>
                 </div>
             </div>
             <div class="form-row col-5">

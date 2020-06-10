@@ -34,6 +34,15 @@ import { Comprobante } from '../modelos/comprobante';
 import { OperadorTarjetaService } from '../servicios/operador-tarjeta.service';
 import { TipoComprobante } from '../modelos/tipo-comprobante';
 import { TipoComprobanteService } from '../servicios/tipo-comprobante.service';
+import { SesionService } from '../servicios/sesion.service';
+import { Sesion } from '../modelos/sesion';
+import { Router } from '@angular/router';
+import { Caracteristica } from '../modelos/caracteristica';
+import { RecaudacionService } from '../servicios/recaudacion.service';
+import { ModeloTabla } from '../modelos/modelo-tabla';
+import { Amortizacion } from '../modelos/Amortizacion';
+import { ModeloTablaService } from '../servicios/modelo-tabla.service';
+import { AmortizacionService } from '../servicios/amortizacion.service';
 
 @Component({
   selector: 'app-recaudacion',
@@ -47,13 +56,14 @@ import { TipoComprobanteService } from '../servicios/tipo-comprobante.service';
 
 export class RecaudacionComponent implements OnInit {
 
-  constructor(private facturaService: FacturaService, private clienteService: ClienteService, private bancoService: BancoService,
+  constructor(private facturaService: FacturaService, private clienteService: ClienteService, private bancoService: BancoService, private sesionService: SesionService,
     private plazoCreditoService: PlazoCreditoService, private cuentaPropiaService: CuentaPropiaService, private operadorTarjetaService: OperadorTarjetaService,
-    private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, 
-    private tipoComprobanteService: TipoComprobanteService, private modalService: NgbModal) { }
+    private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, private modeloTablaService: ModeloTablaService, private amortizacionService: AmortizacionService, 
+    private tipoComprobanteService: TipoComprobanteService, private recaudacionService: RecaudacionService, private modalService: NgbModal, private router: Router) { }
 
   @Input() factura: Factura;
   recaudacion: Recaudacion = new Recaudacion();
+  recaudacion_crear: Recaudacion;
   cheque: Cheque=new Cheque();
   deposito: Deposito=new Deposito();
   transferencia: Transferencia=new Transferencia();
@@ -71,6 +81,8 @@ export class RecaudacionComponent implements OnInit {
   operadores_tarjetas_creditos: OperadorTarjeta[]=[];
   operadores_tarjetas_debitos: OperadorTarjeta[]=[];
   tipos_comprobantes: TipoComprobante[]=[];
+  modelos_tablas: ModeloTabla[]=[];
+  amortizaciones: Amortizacion[]=[];
 
   seleccion_razon_social_cliente = new FormControl();
   filtro_razon_social_clientes: Observable<Cliente[]> = new Observable<Cliente[]>();
@@ -123,7 +135,10 @@ export class RecaudacionComponent implements OnInit {
   columnasCompensaciones: string[] = ['id', 'tipo', 'comprobante', 'fecha', 'origen', 'motivo', 'fechaVencimiento', 'valorInicial', 'valorCompensado', 'acciones'];
   data_compensaciones = new MatTableDataSource<Compensacion>(this.recaudacion.compensaciones);
 
+  sesion: Sesion;
+  estado: string="";
   ngOnInit() {
+    this.validar_sesion();
     this.defecto_recaudacion();
     this.consultar_cuentas_propias();
     this.consultar_franquicias_tarjetas();
@@ -131,6 +146,8 @@ export class RecaudacionComponent implements OnInit {
     this.consultar_operadores_tarjetas_debitos();
     this.consultar_plazos_creditos();
     this.consultar_tipos_comprobantes();
+    this.consultar_modelos_tablas();
+    this.consultar_amortizaciones();
     this.consultar_bancos_cheques();
     this.consultar_bancos_depositos();
     this.consultar_bancos_transferencias();
@@ -220,6 +237,22 @@ export class RecaudacionComponent implements OnInit {
     this.tipoComprobanteService.consultar().subscribe(
       res => {
         this.tipos_comprobantes = res.resultado as TipoComprobante[]
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+  consultar_modelos_tablas(){
+    this.modeloTablaService.consultar().subscribe(
+      res => {
+        this.modelos_tablas = res.resultado as ModeloTabla[]
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+  consultar_amortizaciones(){
+    this.amortizacionService.consultar().subscribe(
+      res => {
+        this.amortizaciones = res.resultado as Amortizacion[]
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
@@ -394,7 +427,7 @@ export class RecaudacionComponent implements OnInit {
     if (this.recaudacion.total+Number(this.cheque.valor)<=this.factura.total_con_descuento){
       this.cheque.banco=this.seleccion_banco_cheque.value;
       this.recaudacion.cheques.push(this.cheque);
-      this.recaudacion.total_cheques
+      this.recaudacion.total_cheques;
       this.cheque=new Cheque();
       this.seleccion_banco_cheque.patchValue("");
       this.data_cheques = new MatTableDataSource<Cheque>(this.recaudacion.cheques);
@@ -600,20 +633,30 @@ export class RecaudacionComponent implements OnInit {
     }
   }
 
+  nuevo(event){
+    if (event!=null)
+      event.preventDefault();
+  }
 
   crear(event) {
-
+    if (event!=null)
+      event.preventDefault();
+    this.recaudacion.sesion = this.sesion;
+    this.recaudacion.estado = this.estado=="RECAUDADO"? true: false;
+    console.log(this.recaudacion);
+    this.recaudacionService.crear(this.recaudacion).subscribe(
+      res => {
+        this.recaudacion_crear = res.resultado as Recaudacion
+        if (res.mensaje){
+          Swal.fire('Exito', 'Se creo la Recaudacion', 'success');
+        } else {
+          Swal.fire('Error', res.mensaje, 'error');
+        }
+      }
+    );
   }
 
-  crear_deposito() {
-
-  }
-
-  crear_retencion() {
-
-  }
-
-  crear_tabla() {
+  agregar_retencion() {
 
   }
 
@@ -632,5 +675,10 @@ export class RecaudacionComponent implements OnInit {
   }
   rellenar_numero_transferencia(){
     this.transferencia.comprobante= this.pad(this.transferencia.comprobante, 13);
+  }
+  validar_sesion(){
+    this.sesion = this.sesionService.getSesion();
+    if (this.sesion == undefined)
+      this.router.navigate(['/iniciosesion']);
   }
 }

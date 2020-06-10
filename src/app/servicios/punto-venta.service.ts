@@ -52,7 +52,7 @@ export class PuntoVentaService {
   }
 
   eliminar(punto_venta: PuntoVenta): Observable<Resultado> {
-    return this.http.delete(environment.host+util.ruta+util.servicio + '/' + punto_venta.id, util.options).pipe(
+    return this.http.delete(environment.host+util.ruta+util.punto_venta + '/' + punto_venta.id, util.options).pipe(
       map(response => response as Resultado),
       catchError(err => {
         return throwError(err);
