@@ -6,7 +6,7 @@ export class RetencionVenta {
     id:number;
     codigo: string;
     secuencia: string;
-    numero_autorizacion: string;
+    autorizacion: string;
     base_imponible: number;
     valor: number;
     porcentaje: number;
@@ -18,7 +18,7 @@ export class RetencionVenta {
         this.id=0;
         this.codigo="";
         this.secuencia="";
-        this.numero_autorizacion="";
+        this.autorizacion="";
         this.base_imponible=0;
         this.valor=0;
         this.porcentaje=0;
