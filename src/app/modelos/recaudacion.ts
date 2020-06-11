@@ -49,6 +49,7 @@ export class Recaudacion {
         this.total_tarjetas_creditos=0;
         this.total_compensaciones=0;
         this.total_credito=0;
+        this.total_retenciones_ventas=0;
         this.cheques= [];
         this.depositos=[];
         this.transferencias=[];

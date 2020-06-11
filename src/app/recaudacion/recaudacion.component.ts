@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, EventEmitter } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { MatTableDataSource, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { Recaudacion } from '../modelos/recaudacion';
 import { Cheque } from '../modelos/cheque';
@@ -37,7 +37,6 @@ import { TipoComprobanteService } from '../servicios/tipo-comprobante.service';
 import { SesionService } from '../servicios/sesion.service';
 import { Sesion } from '../modelos/sesion';
 import { Router } from '@angular/router';
-import { Caracteristica } from '../modelos/caracteristica';
 import { RecaudacionService } from '../servicios/recaudacion.service';
 import { ModeloTabla } from '../modelos/modelo-tabla';
 import { Amortizacion } from '../modelos/amortizacion';
@@ -634,6 +633,30 @@ export class RecaudacionComponent implements OnInit {
     return this.recaudacion.compensaciones.map(t => Number(t.valor_compensado)).reduce((acc, value) => acc + value, 0);
   }
 
+  agregar_retencion_venta(){
+    this.recaudacion.retenciones_ventas.push(this.retencion_venta);
+    this.data_retenciones_ventas = new MatTableDataSource<RetencionVenta>(this.recaudacion.retenciones_ventas);
+    this.data_retenciones_ventas.sort = this.sort;
+    this.data_retenciones_ventas.paginator = this.paginator;
+    this.seleccionar_valor_pagado();
+    this.defecto_recaudacion();
+  }
+
+  total_retenciones_ventas() {
+    return this.recaudacion.retenciones_ventas.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
+  }
+
+  eliminar_retencion_venta(i: number) {
+    if (confirm("Realmente quiere eliminar la retencion en la venta?")) {
+      this.recaudacion.retenciones_ventas.splice(i, 1);
+      this.data_retenciones_ventas = new MatTableDataSource<RetencionVenta>(this.recaudacion.retenciones_ventas);
+      this.data_compensaciones.sort = this.sort;
+      this.data_compensaciones.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
+    }
+  }
+
   total_creditos() {
     return 0;
   }
@@ -692,13 +715,10 @@ export class RecaudacionComponent implements OnInit {
     );
   }
 
-  agregar_retencion() {
-
-  }
-
   editar_tarjeta_credito(i: number){
     
   }
+  
   pad(numero:string, size:number): string {
     while (numero.length < size) numero = "0" + numero;
     return numero;

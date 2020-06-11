@@ -7,7 +7,9 @@ export class RetencionVenta {
     codigo: string;
     secuencia: string;
     numero_autorizacion: string;
-    total: number;
+    base_imponible: number;
+    valor: number;
+    porcentaje: number;
     retencion_cliente: RetencionCliente;
     establecimiento: Establecimiento;
     punto_venta: PuntoVenta;
@@ -17,7 +19,9 @@ export class RetencionVenta {
         this.codigo="";
         this.secuencia="";
         this.numero_autorizacion="";
-        this.total=0;
+        this.base_imponible=0;
+        this.valor=0;
+        this.porcentaje=0;
         this.retencion_cliente=new RetencionCliente();
         this.punto_venta=new PuntoVenta();
     }
