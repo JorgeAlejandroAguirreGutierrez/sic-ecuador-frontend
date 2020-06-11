@@ -40,7 +40,7 @@ import { Router } from '@angular/router';
 import { Caracteristica } from '../modelos/caracteristica';
 import { RecaudacionService } from '../servicios/recaudacion.service';
 import { ModeloTabla } from '../modelos/modelo-tabla';
-import { Amortizacion } from '../modelos/Amortizacion';
+import { Amortizacion } from '../modelos/amortizacion';
 import { ModeloTablaService } from '../servicios/modelo-tabla.service';
 import { AmortizacionService } from '../servicios/amortizacion.service';
 import { RetencionVenta } from '../modelos/retencion-venta';
