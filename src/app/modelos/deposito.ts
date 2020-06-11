@@ -4,7 +4,6 @@ import { Banco } from './banco';
 export class Deposito {
     id:number;
     codigo: string;
-    tipo: string;
     fecha: Date;
     comprobante: string;
     valor: number;
@@ -12,7 +11,6 @@ export class Deposito {
     banco: Banco;
 
     constructor(){
-        this.tipo="";
         this.fecha=new Date();
         this.comprobante="";
         this.valor=0;

@@ -702,6 +702,7 @@ export class RecaudacionComponent implements OnInit {
       event.preventDefault();
     this.recaudacion.sesion = this.sesion;
     this.recaudacion.estado = this.estado=="RECAUDADO"? true: false;
+    this.recaudacion.factura=this.factura;
     console.log(this.recaudacion);
     this.recaudacionService.crear(this.recaudacion).subscribe(
       res => {
@@ -718,7 +719,7 @@ export class RecaudacionComponent implements OnInit {
   editar_tarjeta_credito(i: number){
     
   }
-  
+
   pad(numero:string, size:number): string {
     while (numero.length < size) numero = "0" + numero;
     return numero;
