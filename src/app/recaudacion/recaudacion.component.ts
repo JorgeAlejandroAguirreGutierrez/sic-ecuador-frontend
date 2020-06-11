@@ -43,6 +43,11 @@ import { ModeloTabla } from '../modelos/modelo-tabla';
 import { Amortizacion } from '../modelos/Amortizacion';
 import { ModeloTablaService } from '../servicios/modelo-tabla.service';
 import { AmortizacionService } from '../servicios/amortizacion.service';
+import { RetencionVenta } from '../modelos/retencion-venta';
+import { EstablecimientoService } from '../servicios/establecimiento.service';
+import { Establecimiento } from '../modelos/establecimiento';
+import { PuntoVenta } from '../modelos/punto-venta';
+import { PuntoVentaService } from '../servicios/punto-venta.service';
 
 @Component({
   selector: 'app-recaudacion',
@@ -58,7 +63,8 @@ export class RecaudacionComponent implements OnInit {
 
   constructor(private facturaService: FacturaService, private clienteService: ClienteService, private bancoService: BancoService, private sesionService: SesionService,
     private plazoCreditoService: PlazoCreditoService, private cuentaPropiaService: CuentaPropiaService, private operadorTarjetaService: OperadorTarjetaService,
-    private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, private modeloTablaService: ModeloTablaService, private amortizacionService: AmortizacionService, 
+    private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, private modeloTablaService: ModeloTablaService, 
+    private amortizacionService: AmortizacionService, private establecimientoService: EstablecimientoService, private puntoVentaService: PuntoVentaService,
     private tipoComprobanteService: TipoComprobanteService, private recaudacionService: RecaudacionService, private modalService: NgbModal, private router: Router) { }
 
   @Input() factura: Factura;
@@ -70,6 +76,7 @@ export class RecaudacionComponent implements OnInit {
   tarjeta_debito: TarjetaDebito=new TarjetaDebito();
   tarjeta_credito: TarjetaCredito=new TarjetaCredito();
   compensacion: Compensacion=new Compensacion();
+  retencion_venta: RetencionVenta= new RetencionVenta();
   compensaciones: Compensacion[]=[];
   plazos_creditos: PlazoCredito[];
   formas_pagos: FormaPago[]=[];
@@ -83,6 +90,8 @@ export class RecaudacionComponent implements OnInit {
   tipos_comprobantes: TipoComprobante[]=[];
   modelos_tablas: ModeloTabla[]=[];
   amortizaciones: Amortizacion[]=[];
+  establecimientos: Establecimiento[]=[];
+  puntos_ventas: PuntoVenta[]=[];
 
   seleccion_razon_social_cliente = new FormControl();
   filtro_razon_social_clientes: Observable<Cliente[]> = new Observable<Cliente[]>();
@@ -102,7 +111,7 @@ export class RecaudacionComponent implements OnInit {
   seleccion_banco_tarjeta_debito = new FormControl();
   filtro_bancos_tarjetas_debitos: Observable<Banco[]> = new Observable<Banco[]>();
   formasPago = new FormControl();
-  formasPagoLista: string[] = ['CHEQUES', 'DEPOSITOS', 'TRANSFERENCIAS', 'TARJETA DE CREDITO', 'TARJETA DE DEBITO', 'COMPENSACIONES'];
+  formasPagoLista: string[] = ['CHEQUES', 'DEPOSITOS', 'TRANSFERENCIAS', 'TARJETA DE CREDITO', 'TARJETA DE DEBITO', 'COMPENSACIONES', 'RETENCION VENTAS'];
   formasPagoSelecionadas;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -134,12 +143,18 @@ export class RecaudacionComponent implements OnInit {
   habilitar_compensaciones: boolean = false;
   columnasCompensaciones: string[] = ['id', 'tipo', 'comprobante', 'fecha', 'origen', 'motivo', 'fechaVencimiento', 'valorInicial', 'valorCompensado', 'acciones'];
   data_compensaciones = new MatTableDataSource<Compensacion>(this.recaudacion.compensaciones);
+  
+  // Variables para RetencionesVentas
+  habilitar_retenciones_ventas: boolean = false;
+  columnasRetencionesVentas: string[] = ['id', 'secuencia', 'autorizacion', 'cod Ret', 'denominacion', 'base', '%', 'valor', 'acciones'];
+  data_retenciones_ventas = new MatTableDataSource<RetencionVenta>(this.recaudacion.retenciones_ventas);
 
   sesion: Sesion;
   estado: string="";
   ngOnInit() {
     this.validar_sesion();
     this.defecto_recaudacion();
+    this.consultar_establecimientos();
     this.consultar_cuentas_propias();
     this.consultar_franquicias_tarjetas();
     this.consultar_operadores_tarjetas_creditos();
@@ -190,6 +205,24 @@ export class RecaudacionComponent implements OnInit {
         map(value => typeof value === 'string' || value==null ? value : value.id),
         map(banco_tarjeta_debito => typeof banco_tarjeta_debito === 'string' ? this.filtro_banco_tarjeta_debito(banco_tarjeta_debito) : this.bancos_tarjetas_debitos.slice())
       );
+  }
+
+  consultar_establecimientos(){
+    this.establecimientoService.consultar().subscribe(
+      res => {
+        this.establecimientos = res.resultado as Establecimiento[]
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+
+  consultar_puntos_ventas(){
+    this.puntoVentaService.consultarEstablecimiento(this.retencion_venta.establecimiento.id).subscribe(
+      res => {
+        this.puntos_ventas = res.resultado as PuntoVenta[]
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
   }
 
   consultar_cuentas_propias(){
@@ -408,6 +441,9 @@ export class RecaudacionComponent implements OnInit {
     }
     if (formaPago == 'COMPENSACIONES'){
       this.habilitar_compensaciones = !this.habilitar_compensaciones;
+    }
+    if (formaPago == 'RETENCION VENTAS'){
+      this.habilitar_retenciones_ventas = !this.habilitar_retenciones_ventas;
     }
     this.defecto_recaudacion();
   }

@@ -97,12 +97,12 @@
 	"abreviatura": "NP"
 }
 </con:request><con:originalUri>http://localhost/api/datosadicionales/obtenerDatosAdicionales</con:originalUri><con:credentials><con:username>admin</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder/></con:request></con:method></con:resource><con:resource name="CrearRecaudacion" path="/api/sicecuador/recaudacion" id="d44d24b5-3bd6-4f40-bdf4-478236b8899c"><con:settings/><con:parameters/><con:method name="Crear" id="af63be66-9fd0-4d2f-9108-104209fcc618" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html; charset=UTF-8</con:mediaType><con:status>405 500 404</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200 201</con:status><con:params/><con:element xmlns:obt="http://localhost/api/datosadicionales/obtenerDatosAdicionales">obt:Response</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>application/json</con:mediaType><con:status>404 400 500 401</con:status><con:params/><con:element xmlns:obt="http://localhost/api/datosadicionales/obtenerDatosAdicionales">obt:Fault</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" id="4e04462f-3728-4a87-99e4-fdf828c1ae0a" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:5000</con:endpoint><con:request>{
-  "total": 50.4,
+  "total": 364,
   "efectivo": 0,
   "cambio": 0,
   "estado": false,
-  "total_cheques": 20.4,
-  "total_depositos": 30,
+  "total_cheques": 300,
+  "total_depositos": 64,
   "total_transferencias": 0,
   "total_tarjetas_debitos": 0,
   "total_tarjetas_creditos": 0,
@@ -110,52 +110,52 @@
   "total_credito": 0,
   "cheques": [
     {
-      "numero": "0000000000452",
+      "numero": "0000000007452",
       "tipo": "VISTA",
-      "fecha": "2020-06-10T02:27:50.036Z",
-      "fecha_efectivizacion": "2020-06-10T02:27:50.036Z",
-      "valor": "20.4",
+      "fecha": "2020-06-10T12:47:40.445Z",
+      "fecha_efectivizacion": "2020-06-10T12:47:40.445Z",
+      "valor": "300",
       "banco": {
-        "id": 1,
+        "id": 2,
         "codigo": null,
-        "fecha_creacion": 1591488250158,
-        "fecha_actualizacion": 1591488250158,
+        "fecha_creacion": 1591793132842,
+        "fecha_actualizacion": 1591793132842,
         "tipo": "BANCO",
-        "nombre": "BANCO PRODUBANCO",
-        "abreviatura": "PB"
+        "nombre": "BANCO PICHINCHA",
+        "abreviatura": "BPI"
       }
     }
   ],
   "depositos": [
     {
       "tipo": "",
-      "fecha": "2020-06-10T02:27:50.036Z",
-      "comprobante": "0000000000745",
-      "valor": 30,
+      "fecha": "2020-06-10T12:47:40.445Z",
+      "comprobante": "0000000000854",
+      "valor": 64,
       "cuenta_propia": {
-        "id": 1,
-        "codigo": "CP000001",
-        "fecha_creacion": 1591488250191,
-        "fecha_actualizacion": 1591488250191,
-        "numero": "0000000001",
+        "id": 4,
+        "codigo": "CP000004",
+        "fecha_creacion": 1591793132888,
+        "fecha_actualizacion": 1591793132888,
+        "numero": "0000000004",
         "banco": {
-          "id": 1,
+          "id": 2,
           "codigo": null,
-          "fecha_creacion": 1591488250158,
-          "fecha_actualizacion": 1591488250158,
+          "fecha_creacion": 1591793132842,
+          "fecha_actualizacion": 1591793132842,
           "tipo": "BANCO",
-          "nombre": "BANCO PRODUBANCO",
-          "abreviatura": "PB"
+          "nombre": "BANCO PICHINCHA",
+          "abreviatura": "BPI"
         }
       },
       "banco": {
-        "id": 2,
+        "id": 4,
         "codigo": null,
-        "fecha_creacion": 1591488250161,
-        "fecha_actualizacion": 1591488250161,
-        "tipo": "BANCO",
-        "nombre": "BANCO PICHINCHA",
-        "abreviatura": "BPI"
+        "fecha_creacion": 1591793132847,
+        "fecha_actualizacion": 1591793132847,
+        "tipo": "COOPERATIVA",
+        "nombre": "COOPROGRESO",
+        "abreviatura": "CP"
       }
     }
   ],
@@ -168,14 +168,562 @@
     "plazo_credito": {
       "id": 0
     },
-    "amortizacion": "",
-    "modelo": "",
-    "fecha_primera_cuota": "2020-06-10T02:27:50.036Z",
+    "fecha_primera_cuota": "2020-06-10T12:47:40.445Z",
     "interes_mensual": 0,
     "interes_anual": 0,
     "valor_seguro": 0,
     "recargos": 0,
-    "saldo": 0
+    "saldo": 0,
+    "amortizacion": {
+      "id": 0,
+      "codigo": "",
+      "descripcion": "",
+      "valor": 0
+    },
+    "modelo_tabla": {
+      "id": 0,
+      "codigo": "",
+      "descripcion": "",
+      "valor": 0
+    }
+  },
+  "sesion": {
+    "id": 1,
+    "codigo": "SES1205000001",
+    "fecha_creacion": 1591793169796,
+    "fecha_actualizacion": 1591793169796,
+    "fecha_apertura": null,
+    "fecha_cierre": null,
+    "nombre_pc": null,
+    "sesion_ip": "186.179.100.100",
+    "activa": false,
+    "usuario": {
+      "id": 3,
+      "codigo": "USR1205000002",
+      "fecha_creacion": 1591793132808,
+      "fecha_actualizacion": 1591793132808,
+      "nombre": "MARIO DELGADO",
+      "correo": "mastermariodelgado@gmail.com",
+      "contrasena": "12345",
+      "identificacion": "0603467226",
+      "avatar": "/storage/img/imagen3",
+      "activo": true,
+      "punto_venta": {
+        "id": 1,
+        "codigo": "EM1ES1CA001",
+        "fecha_creacion": 1591793132219,
+        "fecha_actualizacion": 1591793132219,
+        "descripcion": "CAJA1",
+        "establecimiento": {
+          "id": 1,
+          "codigo": "EST001",
+          "fecha_creacion": 1591793132206,
+          "fecha_actualizacion": 1591793132206,
+          "direccion": "CALLE 10 CARRERA 15 #27",
+          "empresa": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1591793131890,
+            "fecha_actualizacion": 1591793131890,
+            "identificacion": "RioTour S.A.",
+            "razon_social": "0660001840001",
+            "logo": "empresa1.jpg"
+          },
+          "ubicacion": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1591793131835,
+            "fecha_actualizacion": 1591793131835,
+            "codigo_norma": "1",
+            "provincia": "AZUAY",
+            "canton": "CUENCA",
+            "parroquia": "BELLAVISTA"
+          }
+        }
+      },
+      "perfil": {
+        "id": 1,
+        "codigo": null,
+        "fecha_creacion": 1591793132422,
+        "fecha_actualizacion": 1591793132422,
+        "descripcion": "ADMINISTRADOR",
+        "abreviatura": "ADM",
+        "permisos": [
+          {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1591793132535,
+            "fecha_actualizacion": 1591793132535,
+            "modulo": "CLIENTES",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 2,
+            "codigo": null,
+            "fecha_creacion": 1591793132539,
+            "fecha_actualizacion": 1591793132539,
+            "modulo": "CLIENTES",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 3,
+            "codigo": null,
+            "fecha_creacion": 1591793132543,
+            "fecha_actualizacion": 1591793132543,
+            "modulo": "CLIENTES",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 4,
+            "codigo": null,
+            "fecha_creacion": 1591793132546,
+            "fecha_actualizacion": 1591793132546,
+            "modulo": "CLIENTES",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 5,
+            "codigo": null,
+            "fecha_creacion": 1591793132549,
+            "fecha_actualizacion": 1591793132549,
+            "modulo": "PROVEEDORES",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 6,
+            "codigo": null,
+            "fecha_creacion": 1591793132552,
+            "fecha_actualizacion": 1591793132552,
+            "modulo": "PROVEEDORES",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 7,
+            "codigo": null,
+            "fecha_creacion": 1591793132557,
+            "fecha_actualizacion": 1591793132557,
+            "modulo": "PROVEEDORES",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 8,
+            "codigo": null,
+            "fecha_creacion": 1591793132560,
+            "fecha_actualizacion": 1591793132560,
+            "modulo": "PROVEEDORES",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 9,
+            "codigo": null,
+            "fecha_creacion": 1591793132563,
+            "fecha_actualizacion": 1591793132563,
+            "modulo": "FACTURACION",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 10,
+            "codigo": null,
+            "fecha_creacion": 1591793132566,
+            "fecha_actualizacion": 1591793132566,
+            "modulo": "FACTURACION",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 11,
+            "codigo": null,
+            "fecha_creacion": 1591793132569,
+            "fecha_actualizacion": 1591793132569,
+            "modulo": "FACTURACION",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 12,
+            "codigo": null,
+            "fecha_creacion": 1591793132572,
+            "fecha_actualizacion": 1591793132572,
+            "modulo": "FACTURACION",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 13,
+            "codigo": null,
+            "fecha_creacion": 1591793132575,
+            "fecha_actualizacion": 1591793132575,
+            "modulo": "CONTABILIDAD",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 14,
+            "codigo": null,
+            "fecha_creacion": 1591793132578,
+            "fecha_actualizacion": 1591793132578,
+            "modulo": "CONTABILIDAD",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 15,
+            "codigo": null,
+            "fecha_creacion": 1591793132582,
+            "fecha_actualizacion": 1591793132582,
+            "modulo": "CONTABILIDAD",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 16,
+            "codigo": null,
+            "fecha_creacion": 1591793132585,
+            "fecha_actualizacion": 1591793132585,
+            "modulo": "CONTABILIDAD",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 17,
+            "codigo": null,
+            "fecha_creacion": 1591793132589,
+            "fecha_actualizacion": 1591793132589,
+            "modulo": "FINANCIERO",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 18,
+            "codigo": null,
+            "fecha_creacion": 1591793132592,
+            "fecha_actualizacion": 1591793132592,
+            "modulo": "FINANCIERO",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 19,
+            "codigo": null,
+            "fecha_creacion": 1591793132595,
+            "fecha_actualizacion": 1591793132595,
+            "modulo": "FINANCIERO",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 20,
+            "codigo": null,
+            "fecha_creacion": 1591793132597,
+            "fecha_actualizacion": 1591793132597,
+            "modulo": "INVENTARIOS",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 21,
+            "codigo": null,
+            "fecha_creacion": 1591793132600,
+            "fecha_actualizacion": 1591793132600,
+            "modulo": "INVENTARIOS",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 22,
+            "codigo": null,
+            "fecha_creacion": 1591793132603,
+            "fecha_actualizacion": 1591793132603,
+            "modulo": "INVENTARIOS",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 23,
+            "codigo": null,
+            "fecha_creacion": 1591793132607,
+            "fecha_actualizacion": 1591793132607,
+            "modulo": "INVENTARIOS",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 24,
+            "codigo": null,
+            "fecha_creacion": 1591793132610,
+            "fecha_actualizacion": 1591793132610,
+            "modulo": "ACTIVOS_FIJOS",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 25,
+            "codigo": null,
+            "fecha_creacion": 1591793132614,
+            "fecha_actualizacion": 1591793132614,
+            "modulo": "ACTIVOS_FIJOS",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 26,
+            "codigo": null,
+            "fecha_creacion": 1591793132617,
+            "fecha_actualizacion": 1591793132617,
+            "modulo": "ACTIVOS_FIJOS",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 27,
+            "codigo": null,
+            "fecha_creacion": 1591793132620,
+            "fecha_actualizacion": 1591793132620,
+            "modulo": "ACTIVOS_FIJOS",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 28,
+            "codigo": null,
+            "fecha_creacion": 1591793132625,
+            "fecha_actualizacion": 1591793132625,
+            "modulo": "TALENTO_HUMANO",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 29,
+            "codigo": null,
+            "fecha_creacion": 1591793132628,
+            "fecha_actualizacion": 1591793132628,
+            "modulo": "TALENTO_HUMANO",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 30,
+            "codigo": null,
+            "fecha_creacion": 1591793132631,
+            "fecha_actualizacion": 1591793132631,
+            "modulo": "TALENTO_HUMANO",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 31,
+            "codigo": null,
+            "fecha_creacion": 1591793132634,
+            "fecha_actualizacion": 1591793132634,
+            "modulo": "TALENTO_HUMANO",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 32,
+            "codigo": null,
+            "fecha_creacion": 1591793132637,
+            "fecha_actualizacion": 1591793132637,
+            "modulo": "PRODUCCION",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 33,
+            "codigo": null,
+            "fecha_creacion": 1591793132641,
+            "fecha_actualizacion": 1591793132641,
+            "modulo": "PRODUCCION",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 34,
+            "codigo": null,
+            "fecha_creacion": 1591793132645,
+            "fecha_actualizacion": 1591793132645,
+            "modulo": "PRODUCCION",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 35,
+            "codigo": null,
+            "fecha_creacion": 1591793132648,
+            "fecha_actualizacion": 1591793132648,
+            "modulo": "PRODUCCION",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 36,
+            "codigo": null,
+            "fecha_creacion": 1591793132651,
+            "fecha_actualizacion": 1591793132651,
+            "modulo": "IMPORTACION",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 37,
+            "codigo": null,
+            "fecha_creacion": 1591793132655,
+            "fecha_actualizacion": 1591793132655,
+            "modulo": "IMPORTACION",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 38,
+            "codigo": null,
+            "fecha_creacion": 1591793132659,
+            "fecha_actualizacion": 1591793132659,
+            "modulo": "IMPORTACION",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 39,
+            "codigo": null,
+            "fecha_creacion": 1591793132662,
+            "fecha_actualizacion": 1591793132662,
+            "modulo": "IMPORTACION",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 40,
+            "codigo": null,
+            "fecha_creacion": 1591793132665,
+            "fecha_actualizacion": 1591793132665,
+            "modulo": "ESTADISTICAS",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 41,
+            "codigo": null,
+            "fecha_creacion": 1591793132669,
+            "fecha_actualizacion": 1591793132669,
+            "modulo": "ESTADISTICAS",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 42,
+            "codigo": null,
+            "fecha_creacion": 1591793132672,
+            "fecha_actualizacion": 1591793132672,
+            "modulo": "ESTADISTICAS",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 43,
+            "codigo": null,
+            "fecha_creacion": 1591793132676,
+            "fecha_actualizacion": 1591793132676,
+            "modulo": "ESTADISTICAS",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 44,
+            "codigo": null,
+            "fecha_creacion": 1591793132679,
+            "fecha_actualizacion": 1591793132679,
+            "modulo": "ORGANISMOS_CONTROL",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 45,
+            "codigo": null,
+            "fecha_creacion": 1591793132683,
+            "fecha_actualizacion": 1591793132683,
+            "modulo": "ORGANISMOS_CONTROL",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 46,
+            "codigo": null,
+            "fecha_creacion": 1591793132687,
+            "fecha_actualizacion": 1591793132687,
+            "modulo": "ORGANISMOS_CONTROL",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 47,
+            "codigo": null,
+            "fecha_creacion": 1591793132691,
+            "fecha_actualizacion": 1591793132691,
+            "modulo": "ORGANISMOS_CONTROL",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 48,
+            "codigo": null,
+            "fecha_creacion": 1591793132694,
+            "fecha_actualizacion": 1591793132694,
+            "modulo": "AUDITORIA",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 49,
+            "codigo": null,
+            "fecha_creacion": 1591793132698,
+            "fecha_actualizacion": 1591793132698,
+            "modulo": "AUDITORIA",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 50,
+            "codigo": null,
+            "fecha_creacion": 1591793132701,
+            "fecha_actualizacion": 1591793132701,
+            "modulo": "AUDITORIA",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 51,
+            "codigo": null,
+            "fecha_creacion": 1591793132705,
+            "fecha_actualizacion": 1591793132705,
+            "modulo": "AUDITORIA",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 52,
+            "codigo": null,
+            "fecha_creacion": 1591793132709,
+            "fecha_actualizacion": 1591793132709,
+            "modulo": "TUTORIALES",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 53,
+            "codigo": null,
+            "fecha_creacion": 1591793132712,
+            "fecha_actualizacion": 1591793132712,
+            "modulo": "TUTORIALES",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 54,
+            "codigo": null,
+            "fecha_creacion": 1591793132716,
+            "fecha_actualizacion": 1591793132716,
+            "modulo": "TUTORIALES",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 55,
+            "codigo": null,
+            "fecha_creacion": 1591793132719,
+            "fecha_actualizacion": 1591793132719,
+            "modulo": "TUTORIALES",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 56,
+            "codigo": null,
+            "fecha_creacion": 1591793132723,
+            "fecha_actualizacion": 1591793132723,
+            "modulo": "CONFIGURACIONES",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 57,
+            "codigo": null,
+            "fecha_creacion": 1591793132726,
+            "fecha_actualizacion": 1591793132726,
+            "modulo": "CONFIGURACIONES",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 58,
+            "codigo": null,
+            "fecha_creacion": 1591793132730,
+            "fecha_actualizacion": 1591793132730,
+            "modulo": "CONFIGURACIONES",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 59,
+            "codigo": null,
+            "fecha_creacion": 1591793132733,
+            "fecha_actualizacion": 1591793132733,
+            "modulo": "CONFIGURACIONES",
+            "operacion": "ELIMINAR"
+          }
+        ]
+      }
+    }
   },
   "factura": {
     "valor_descuento_subtotal": 0,
@@ -184,7 +732,7 @@
     "porcentaje_descuento_total": 0,
     "valor_porcentaje_descuento_total": 0,
     "id": 0,
-    "fecha": "2020-06-10T02:27:50.036Z",
+    "fecha": "2020-06-10T12:47:40.445Z",
     "estado": true,
     "eliminado": false,
     "cliente": {

@@ -7,6 +7,7 @@ import { Deposito } from './deposito';
 import { Transferencia } from './transferencia';
 import { Sesion } from './sesion';
 import { Factura } from './factura';
+import { RetencionVenta } from './retencion-venta';
 
 export class Recaudacion {
     id:number;
@@ -22,6 +23,7 @@ export class Recaudacion {
     total_tarjetas_debitos: number;
     total_tarjetas_creditos: number;
     total_compensaciones: number;
+    total_retenciones_ventas: number;
     total_credito: number;
     cheques: Cheque[];
     depositos: Deposito[];
@@ -29,11 +31,13 @@ export class Recaudacion {
     tarjetas_creditos: TarjetaCredito[];
     tarjetas_debitos: TarjetaDebito[];
     compensaciones: Compensacion[];
+    retenciones_ventas: RetencionVenta[];
     credito: Credito;
     sesion: Sesion;
     factura: Factura;
 
     constructor(){
+        this.fecha=new Date();
         this.total=0;
         this.efectivo=0;
         this.cambio=0;
@@ -51,6 +55,7 @@ export class Recaudacion {
         this.tarjetas_debitos=[]
         this.tarjetas_creditos=[]
         this.compensaciones=[];
+        this.retenciones_ventas=[];
         this.credito=new Credito();
         this.sesion=new Sesion();
         this.factura=new Factura();

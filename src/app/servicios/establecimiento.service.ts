@@ -25,21 +25,23 @@ export class EstablecimientoService {
     );
   }
 
-  consultar(establecimiento_id: number): Observable<Resultado> {
+  consultar(): Observable<Resultado> {
+    return this.http.get(environment.host + util.ruta + util.establecimiento, util.options).pipe(
+      map(response => response as Resultado),
+      catchError(err => {
+        return throwError(err);
+      }
+    ));
+  }
+
+  obtener(establecimiento_id: number): Observable<Resultado> {
     return this.http.get<Resultado>(environment.host + util.ruta + util.establecimiento + '/' + establecimiento_id, util.options).pipe(
       map(response => response as Resultado),
       catchError(err => {
         return throwError(err);
       })
     );
-  }
-
-  obtener(): Observable<Resultado> {
-    return this.http.get(environment.host + util.ruta + util.establecimiento, util.options).pipe(
-      map(response => response as Resultado),
-      catchError(err => {
-        return throwError(err);
-      }));
+    
   }
 
   actualizar(establecimiento: Establecimiento): Observable<Resultado> {
