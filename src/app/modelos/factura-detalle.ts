@@ -83,7 +83,7 @@ export class FacturaDetalle {
   }
   private calcular_valor_iva_sin_descuento(){
     this.valor_iva_sin_descuento=0;
-    this.valor_iva_sin_descuento=this.subtotal_sin_descuento*this.producto.impuesto.porcentaje/100;
+    this.valor_iva_sin_descuento=this.subtotal_sin_descuento*this.impuesto.porcentaje/100;
     this.valor_iva_sin_descuento= Number(this.valor_iva_sin_descuento.toFixed(2));
   }
   private calcular_subtotal_con_descuento(){
@@ -93,7 +93,7 @@ export class FacturaDetalle {
   }
   private calcular_valor_iva_con_descuento(){
     this.valor_iva_con_descuento=0;
-    this.valor_iva_con_descuento=Number(this.subtotal_con_descuento)*Number(this.producto.impuesto.porcentaje/100);
+    this.valor_iva_con_descuento=Number(this.subtotal_con_descuento)*Number(this.impuesto.porcentaje/100);
     this.valor_iva_con_descuento= Number(this.valor_iva_con_descuento.toFixed(2));
   }
 
@@ -109,16 +109,16 @@ export class FacturaDetalle {
     this.porcentaje_descuento_individual= Number(this.porcentaje_descuento_individual.toFixed(2));
   }
   private calcular_valor_descuento_totales(factura: Factura){
-    if (this.producto.impuesto.porcentaje>0){
-      this.valor_descuento_totales=((Number(factura.valor_descuento_total)*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento)/((100+this.producto.impuesto.porcentaje)/100);
+    if (this.impuesto.porcentaje>0){
+      this.valor_descuento_totales=((Number(factura.valor_descuento_total)*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento)/((100+this.impuesto.porcentaje)/100);
     } else{
       this.valor_descuento_totales=((Number(factura.valor_descuento_total)*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento);
     }
     this.valor_descuento_totales=Number(this.valor_descuento_totales.toFixed(2));
   }
   private calcular_valor_porcentaje_descuento_totales(factura: Factura){
-    if (this.producto.impuesto.porcentaje>0){
-      this.valor_porcentaje_descuento_totales=((factura.valor_porcentaje_descuento_total*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento)/((100+this.producto.impuesto.porcentaje)/100);
+    if (this.impuesto.porcentaje>0){
+      this.valor_porcentaje_descuento_totales=((factura.valor_porcentaje_descuento_total*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento)/((100+this.impuesto.porcentaje)/100);
     } else {
       this.valor_porcentaje_descuento_totales=((factura.valor_porcentaje_descuento_total*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento);
     }
