@@ -150,6 +150,17 @@ export class RecaudacionComponent implements OnInit {
 
   sesion: Sesion;
   estado: string="";
+
+  indice_editar: number=-1;
+  habilitar_editar_cheque: boolean= true;
+  habilitar_editar_deposito: boolean= true;
+  habilitar_editar_transferencia: boolean= true;
+  habilitar_editar_tarjeta_credito: boolean= true;
+  habilitar_editar_tarjeta_debito: boolean= true;
+  habilitar_editar_compensacion: boolean = true;
+  habilitar_editar_retencion_venta: boolean = true;
+  
+
   ngOnInit() {
     this.validar_sesion();
     this.defecto_recaudacion();
@@ -447,17 +458,6 @@ export class RecaudacionComponent implements OnInit {
     this.defecto_recaudacion();
   }
 
-  eliminar_cheque(i: number) {
-    if (confirm("Realmente quiere eliminar el cheque?")) {
-      this.recaudacion.cheques.splice(i, 1);
-      this.data_cheques = new MatTableDataSource<Cheque>(this.recaudacion.cheques);
-      this.data_cheques.sort = this.sort;
-      this.data_cheques.paginator = this.paginator;
-      this.recaudacion.calcular_totales();
-      this.seleccionar_valor_pagado();
-    }
-  }
-
   agregar_cheque() {
     if (this.recaudacion.total+Number(this.cheque.valor)<=this.factura.total_con_descuento){
       this.cheque.banco=this.seleccion_banco_cheque.value;
@@ -476,19 +476,33 @@ export class RecaudacionComponent implements OnInit {
     this.defecto_recaudacion();
   }
 
-  total_cheques() {
-    return this.recaudacion.cheques.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
+  editar_cheque(i: number){
+    this.indice_editar=i;
+    this.cheque=this.recaudacion.cheques[this.indice_editar];
+    this.habilitar_editar_cheque=true;
   }
 
-  eliminar_deposito(i: number) {
-    if (confirm("Realmente quiere eliminar el deposito?")) {
-      this.recaudacion.depositos.splice(i, 1);
-      this.data_depositos = new MatTableDataSource<Deposito>(this.recaudacion.depositos);
-      this.data_depositos.sort = this.sort;
-      this.data_depositos.paginator = this.paginator;
+  confirmar_editar_cheque(){
+    this.recaudacion.cheques[this.indice_editar]=this.cheque;
+    this.cheque=new Cheque();
+    this.habilitar_editar_cheque=false;
+  }
+
+  eliminar_cheque(i: number) {
+    if (confirm("Realmente quiere eliminar el cheque?")) {
+      this.recaudacion.cheques.splice(i, 1);
+      this.data_cheques = new MatTableDataSource<Cheque>(this.recaudacion.cheques);
+      this.data_cheques.sort = this.sort;
+      this.data_cheques.paginator = this.paginator;
       this.recaudacion.calcular_totales();
       this.seleccionar_valor_pagado();
+      this.defecto_recaudacion();
     }
+  }
+
+
+  total_cheques() {
+    return this.recaudacion.cheques.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
   agregar_deposito() {
@@ -508,19 +522,31 @@ export class RecaudacionComponent implements OnInit {
     this.defecto_recaudacion();
   }
 
-  total_depositos() {
-    return this.recaudacion.depositos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
+  editar_deposito(i: number){
+    this.indice_editar=i;
+    this.deposito=this.recaudacion.depositos[this.indice_editar];
+    this.habilitar_editar_deposito=true;
+  }
+  confirmar_editar_deposito(){
+    this.recaudacion.depositos[this.indice_editar]=this.deposito;
+    this.deposito=new Deposito();
+    this.habilitar_editar_deposito=false;
   }
 
-  eliminar_transferencia(i: number) {
-    if (confirm("Realmente quiere eliminar la transferencia?")) {
-      this.recaudacion.transferencias.splice(i, 1);
-      this.data_transferencias = new MatTableDataSource<Transferencia>(this.recaudacion.transferencias);
-      this.data_transferencias.sort = this.sort;
-      this.data_transferencias.paginator = this.paginator;
+  eliminar_deposito(i: number) {
+    if (confirm("Realmente quiere eliminar el deposito?")) {
+      this.recaudacion.depositos.splice(i, 1);
+      this.data_depositos = new MatTableDataSource<Deposito>(this.recaudacion.depositos);
+      this.data_depositos.sort = this.sort;
+      this.data_depositos.paginator = this.paginator;
       this.recaudacion.calcular_totales();
       this.seleccionar_valor_pagado();
+      this.defecto_recaudacion();
     }
+  }
+
+  total_depositos() {
+    return this.recaudacion.depositos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
   agregar_transferencia() {
@@ -540,19 +566,31 @@ export class RecaudacionComponent implements OnInit {
     this.defecto_recaudacion();
   }
 
-  total_transferencias() {
-    return this.recaudacion.transferencias.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
+  editar_transferencia(i: number){
+    this.indice_editar=i;
+    this.transferencia=this.recaudacion.transferencias[this.indice_editar];
+    this.habilitar_editar_transferencia=true;
+  }
+  confirmar_editar_transferencia(){
+    this.recaudacion.transferencias[this.indice_editar]=this.transferencia;
+    this.transferencia=new Deposito();
+    this.habilitar_editar_transferencia=false;
   }
 
-  eliminar_tarjeta_credito(i: number) {
-    if (confirm("Realmente quiere eliminar la tarjeta de crédito?")) {
-      this.recaudacion.tarjetas_creditos.splice(i, 1);
-      this.data_tarjetas_creditos = new MatTableDataSource<TarjetaCredito>(this.recaudacion.tarjetas_creditos);
-      this.data_tarjetas_creditos.sort = this.sort;
-      this.data_tarjetas_creditos.paginator = this.paginator;
+  eliminar_transferencia(i: number) {
+    if (confirm("Realmente quiere eliminar la transferencia?")) {
+      this.recaudacion.transferencias.splice(i, 1);
+      this.data_transferencias = new MatTableDataSource<Transferencia>(this.recaudacion.transferencias);
+      this.data_transferencias.sort = this.sort;
+      this.data_transferencias.paginator = this.paginator;
       this.recaudacion.calcular_totales();
       this.seleccionar_valor_pagado();
+      this.defecto_recaudacion();
     }
+  }
+
+  total_transferencias() {
+    return this.recaudacion.transferencias.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
   agregar_tarjeta_credito() {
@@ -570,22 +608,33 @@ export class RecaudacionComponent implements OnInit {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
     this.defecto_recaudacion();
-    
+  }
+  editar_tarjeta_credito(i: number){
+    this.indice_editar=i;
+    this.tarjeta_credito=this.recaudacion.tarjetas_creditos[this.indice_editar];
+    this.habilitar_editar_tarjeta_credito=true;
+  }
+
+  confirmar_editar_tarjeta_credito(){
+    this.recaudacion.tarjetas_creditos[this.indice_editar]=this.tarjeta_credito;
+    this.tarjeta_credito=new TarjetaCredito();
+    this.habilitar_editar_tarjeta_credito=false;
+  }
+
+  eliminar_tarjeta_credito(i: number) {
+    if (confirm("Realmente quiere eliminar la tarjeta de crédito?")) {
+      this.recaudacion.tarjetas_creditos.splice(i, 1);
+      this.data_tarjetas_creditos = new MatTableDataSource<TarjetaCredito>(this.recaudacion.tarjetas_creditos);
+      this.data_tarjetas_creditos.sort = this.sort;
+      this.data_tarjetas_creditos.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
+      this.defecto_recaudacion();
+    }
   }
 
   total_tarjetas_creditos() {
     return this.recaudacion.tarjetas_creditos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
-  }
-
-  eliminar_tarjeta_debito(i: number) {
-    if (confirm("Realmente quiere eliminar la tarjeta de débito?")) {
-      this.recaudacion.tarjetas_debitos.splice(i, 1);
-      this.data_tarjetas_debitos = new MatTableDataSource<TarjetaDebito>(this.recaudacion.tarjetas_debitos);
-      this.data_tarjetas_debitos.sort = this.sort;
-      this.data_tarjetas_debitos.paginator = this.paginator;
-      this.recaudacion.calcular_totales();
-      this.seleccionar_valor_pagado();
-    }
   }
 
   agregar_tarjeta_debito() {
@@ -605,8 +654,51 @@ export class RecaudacionComponent implements OnInit {
     this.defecto_recaudacion();
   }
 
+  editar_tarjeta_debito(i: number){
+    this.indice_editar=i;
+    this.tarjeta_debito=this.recaudacion.tarjetas_debitos[this.indice_editar];
+    this.habilitar_editar_tarjeta_debito=true;
+  }
+  confirmar_editar_tarjeta_debito(){
+    this.recaudacion.tarjetas_debitos[this.indice_editar]=this.tarjeta_debito;
+    this.tarjeta_debito=new TarjetaDebito();
+    this.habilitar_editar_tarjeta_debito=false;
+  }
+
+  eliminar_tarjeta_debito(i: number) {
+    if (confirm("Realmente quiere eliminar la tarjeta de débito?")) {
+      this.recaudacion.tarjetas_debitos.splice(i, 1);
+      this.data_tarjetas_debitos = new MatTableDataSource<TarjetaDebito>(this.recaudacion.tarjetas_debitos);
+      this.data_tarjetas_debitos.sort = this.sort;
+      this.data_tarjetas_debitos.paginator = this.paginator;
+      this.recaudacion.calcular_totales();
+      this.seleccionar_valor_pagado();
+      this.defecto_recaudacion();
+    }
+  }
+
   total_tarjetas_debitos() {
     return this.recaudacion.tarjetas_debitos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
+  }
+
+  agregar_compensacion() {
+    this.recaudacion.compensaciones.push(this.compensacion);
+    this.data_compensaciones = new MatTableDataSource<Compensacion>(this.recaudacion.compensaciones);
+    this.data_compensaciones.sort = this.sort;
+    this.data_compensaciones.paginator = this.paginator;
+    this.seleccionar_valor_pagado();
+    this.defecto_recaudacion();
+  }
+
+  editar_compensacion(i: number){
+    this.indice_editar=i;
+    this.compensacion=this.recaudacion.compensaciones[this.indice_editar];
+    this.habilitar_editar_compensacion=true;
+  }
+  confirmar_editar_compensacion(){
+    this.recaudacion.compensaciones[this.indice_editar]=this.compensacion;
+    this.compensacion=new Compensacion();
+    this.habilitar_editar_compensacion=false;
   }
 
   eliminar_compensacion(i: number) {
@@ -617,16 +709,8 @@ export class RecaudacionComponent implements OnInit {
       this.data_compensaciones.paginator = this.paginator;
       this.recaudacion.calcular_totales();
       this.seleccionar_valor_pagado();
+      this.defecto_recaudacion();
     }
-  }
-
-  agregar_compensacion() {
-    this.recaudacion.compensaciones.push(this.compensacion);
-    this.data_compensaciones = new MatTableDataSource<Compensacion>(this.recaudacion.compensaciones);
-    this.data_compensaciones.sort = this.sort;
-    this.data_compensaciones.paginator = this.paginator;
-    this.seleccionar_valor_pagado();
-    this.defecto_recaudacion();
   }
 
   total_compensaciones() {
@@ -642,8 +726,16 @@ export class RecaudacionComponent implements OnInit {
     this.defecto_recaudacion();
   }
 
-  total_retenciones_ventas() {
-    return this.recaudacion.retenciones_ventas.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
+  editar_retencion_venta(i: number){
+    this.indice_editar=i;
+    this.retencion_venta=this.recaudacion.retenciones_ventas[this.indice_editar];
+    this.habilitar_editar_retencion_venta=true;
+  }
+
+  confirmar_editar_retencion_venta(){
+    this.recaudacion.retenciones_ventas[this.indice_editar]=this.retencion_venta;
+    this.retencion_venta=new RetencionVenta();
+    this.habilitar_editar_retencion_venta=false;
   }
 
   eliminar_retencion_venta(i: number) {
@@ -654,7 +746,12 @@ export class RecaudacionComponent implements OnInit {
       this.data_compensaciones.paginator = this.paginator;
       this.recaudacion.calcular_totales();
       this.seleccionar_valor_pagado();
+      this.defecto_recaudacion();
     }
+  }
+
+  total_retenciones_ventas() {
+    return this.recaudacion.retenciones_ventas.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
   total_creditos() {
@@ -714,10 +811,6 @@ export class RecaudacionComponent implements OnInit {
         }
       }
     );
-  }
-
-  editar_tarjeta_credito(i: number){
-    
   }
 
   pad(numero:string, size:number): string {

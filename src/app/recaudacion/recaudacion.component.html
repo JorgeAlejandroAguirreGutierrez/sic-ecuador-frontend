@@ -156,9 +156,16 @@
             </div>
             <div class="form-group col-1">
                 <br>
-                <button class="btn btn-primary btn-circle " (click)="agregar_cheque()">
-                    <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
-                </button>
+                <ng-container *ngIf="!habilitar_editar_cheque">
+                    <button class="btn btn-primary btn-circle " (click)="agregar_cheque()">
+                        <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="habilitar_editar_cheque">
+                    <button class="btn btn-primary btn-circle " (click)="confirmar_editar_cheque()">
+                        <fa-icon [icon]="[ 'fas', 'edit'] "></fa-icon>
+                    </button>
+                </ng-container>
             </div>
         </div>
         <mat-divider></mat-divider>
@@ -204,7 +211,7 @@
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                         <td mat-cell *matCellDef="let i=index">
-                            <button mat-raised-button color="primary" focusable="false">
+                            <button mat-raised-button color="primary" focusable="false" (click)="editar_cheque(i)">
                                 Editar
                             </button>&nbsp;
                             <button mat-raised-button color="warn" focusable="false" (click)="eliminar_cheque(i)">
@@ -281,9 +288,16 @@
             </div>
             <div class="form-group col-1">
                 <br>
-                <button class="btn btn-primary btn-circle " (click)="agregar_deposito()">
-                    <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
-                </button>
+                <ng-container *ngIf="!habilitar_editar_deposito">
+                    <button class="btn btn-primary btn-circle " (click)="agregar_deposito()">
+                        <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="habilitar_editar_deposito">
+                    <button class="btn btn-primary btn-circle " (click)="confirmar_editar_deposito()">
+                        <fa-icon [icon]="[ 'fas', 'edit'] "></fa-icon>
+                    </button>
+                </ng-container>
             </div>
         </div>
         <mat-divider></mat-divider>
@@ -329,7 +343,7 @@
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                         <td mat-cell *matCellDef="let i=index">
-                            <button mat-raised-button color="primary" focusable="false">
+                            <button mat-raised-button color="primary" focusable="false" (click)="editar_deposito(i)">
                                 Editar
                             </button>&nbsp;
                             <button mat-raised-button color="warn" focusable="false" (click)="eliminar_deposito(i)">
@@ -407,9 +421,16 @@
             </div>
             <div class="form-group col-1">
                 <br>
-                <button class="btn btn-primary btn-circle " (click)="agregar_transferencia()">
-                    <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
-                </button>
+                <ng-container *ngIf="!habilitar_editar_transferencia">
+                    <button class="btn btn-primary btn-circle " (click)="agregar_transferencia()">
+                        <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="habilitar_editar_transferencia">
+                    <button class="btn btn-primary btn-circle " (click)="confirmar_editar_transferencia()">
+                        <fa-icon [icon]="[ 'fas', 'edit'] "></fa-icon>
+                    </button>
+                </ng-container>
             </div>
         </div>
         <mat-divider></mat-divider>
@@ -455,7 +476,7 @@
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                         <td mat-cell *matCellDef="let i=index">
-                            <button mat-raised-button color="primary" focusable="false">
+                            <button mat-raised-button color="primary" focusable="false" (click)="editar_transferencia(i)">
                                 Editar
                             </button>&nbsp;
                             <button mat-raised-button color="warn" focusable="false" (click)="eliminar_transferencia(i)">
@@ -557,9 +578,16 @@
             </div>
             <div class="form-group col-1">
                 <br>
-                <button class="btn btn-primary btn-circle " (click)="agregar_tarjeta_credito()">
-                    <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
-                </button>
+                <ng-container *ngIf="!habilitar_editar_transferencia">
+                    <button class="btn btn-primary btn-circle " (click)="agregar_tarjeta_credito()">
+                        <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="habilitar_editar_transferencia">
+                    <button class="btn btn-primary btn-circle" (click)="confirmar_editar_tarjeta_credito()">
+                        <fa-icon [icon]="[ 'fas', 'edit'] "></fa-icon>
+                    </button>
+                </ng-container>
             </div>
         </div>
         <mat-divider></mat-divider>
@@ -735,9 +763,16 @@
             </div>
             <div class="form-group col-1">
                 <br>
-                <button class="btn btn-primary btn-circle " (click)="agregar_tarjeta_debito()">
-                    <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
-                </button>
+                <ng-container *ngIf="!habilitar_editar_tarjeta_debito">
+                    <button class="btn btn-primary btn-circle " (click)="agregar_tarjeta_debito()">
+                        <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="habilitar_editar_tarjeta_debito">
+                    <button class="btn btn-primary btn-circle" (click)="confirmar_editar_tarjeta_debito()">
+                        <fa-icon [icon]="[ 'fas', 'edit'] "></fa-icon>
+                    </button>
+                </ng-container>
             </div>
         </div>
         <mat-divider></mat-divider>
@@ -795,7 +830,7 @@
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                         <td mat-cell *matCellDef="let i=index">
-                            <button mat-raised-button color="primary" focusable="false">
+                            <button mat-raised-button color="primary" focusable="false" (click)="editar_tarjeta_debito(i)">
                                 Editar
                             </button>&nbsp;
                             <button mat-raised-button color="warn" focusable="false" (click)="eliminar_tarjeta_debito(i)">
@@ -901,9 +936,16 @@
             </div>
             <div class="form-group col-1">
                 <br>
-                <button class="btn btn-primary btn-circle " (click)="agregar_retencion_venta()">
-                    <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
-                </button>
+                <ng-container *ngIf="!habilitar_editar_tarjeta_debito">
+                    <button class="btn btn-primary btn-circle " (click)="agregar_retencion_venta()">
+                        <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="habilitar_editar_tarjeta_debito">
+                    <button class="btn btn-primary btn-circle" (click)="confirmar_editar_tarjeta_credito()">
+                        <fa-icon [icon]="[ 'fas', 'edit'] "></fa-icon>
+                    </button>
+                </ng-container>
             </div>
         </div>
         <mat-divider></mat-divider>
@@ -961,7 +1003,7 @@
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                         <td mat-cell *matCellDef="let i=index">
-                            <button mat-raised-button color="primary" focusable="false">
+                            <button mat-raised-button color="primary" focusable="false" (click)="editar_tarjeta_debito(i)">
                                 Editar
                             </button>&nbsp;
                             <button mat-raised-button color="warn" focusable="false" (click)="eliminar_tarjeta_debito(i)">
@@ -1058,9 +1100,16 @@
             </div>
             <div class="form-group col-1">
                 <br>
-                <button class="btn btn-primary btn-circle " (click)="agregar_compensacion()">
-                    <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
-                </button>
+                <ng-container *ngIf="!habilitar_editar_tarjeta_debito">
+                    <button class="btn btn-primary btn-circle " (click)="agregar_compensacion()">
+                        <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="habilitar_editar_tarjeta_debito">
+                    <button class="btn btn-primary btn-circle" (click)="confirmar_editar_compensacion()">
+                        <fa-icon [icon]="[ 'fas', 'edit'] "></fa-icon>
+                    </button>
+                </ng-container>
             </div>
         </div>
         <mat-divider></mat-divider>
@@ -1125,11 +1174,11 @@
                     </ng-container>
                     <ng-container matColumnDef="acciones">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
-                        <td mat-cell *matCellDef="let o=index">
-                            <button mat-raised-button color="primary" focusable="false">
+                        <td mat-cell *matCellDef="let i=index">
+                            <button mat-raised-button color="primary" focusable="false" (click)="editar_compensacion(i)">
                                 Editar
                             </button>&nbsp;
-                            <button mat-raised-button color="warn" focusable="false">
+                            <button mat-raised-button color="warn" focusable="false" (click)="eliminar_compensacion(i)">
                                 Eliminar
                             </button>
                         </td>
