@@ -154,7 +154,18 @@ th.mat-sort-header-sorted {
 
 tr.mat-footer-row {
     font-weight: bold;
-  }
+}
+
+.modal{
+    display: block !important;
+}
+.modal-dialog{
+      overflow-y: initial !important
+}
+.modal-body{
+  height: 300px;
+  overflow-y: auto;
+}
 
 /*para el acodion*/
 .mat-accordion{padding: 0px!important;}

@@ -139,6 +139,8 @@ import { MainComponent } from './main/main.component';
 import { EntregaComponent } from './entrega/entrega.component';
 import { SliderComponent } from './tienda/slider/slider.component';
 
+import { FiltroSerie } from './pipes/filtro-serie';
+
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
   {path: 'iniciosesion', component: InicioSesionComponent},
@@ -252,7 +254,8 @@ const routes: Routes = [
     ContenidoComponent,
     SortFiltersComponent,
     UrlFormComponent,
-    SliderComponent
+    SliderComponent,
+    FiltroSerie
   ],
   imports: [
     BrowserModule,

@@ -418,7 +418,7 @@
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-1 "></div>
-                            <div class="form-group col-2">
+                            <div class="form-group col-3">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Bodega</mat-label>
                                     <mat-select class="form-control-sm" [(ngModel)]="detalle.producto.bodega">
@@ -428,12 +428,6 @@
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
-                            </div>
-                            <div class="form-group col-1 ">
-                                <br>
-                                <button class="btn btn-primary btn-circle ">
-                                    <fa-icon [icon]="[ 'fas', 'eye'] "></fa-icon>
-                                </button>
                             </div>
                             <mat-divider></mat-divider>
                         </div>
@@ -864,7 +858,17 @@
         </button>
     </div>
     <div class="modal-body ">
-        <div class="form-group form-row table-responsive ">
+        <ng-container *ngIf="!factura.factura_detalles[indice_detalle].producto.serie_autogenerado">
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Buscar Serie</mat-label>
+                        <input matInput type="text" [(ngModel)]="buscar_serie" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+            </div>
+        </ng-container>
+        <div class="form-group form-row table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -876,7 +880,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas let i=index">
+                    <ng-container *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas | filtro_serie:buscar_serie">
                         <tr>
                             <td>
                                 <mat-checkbox [(ngModel)]="caracteristica.seleccionado" class="form-control-sm" color="primary" [disabled]="factura.factura_detalles[indice_detalle].producto.serie_autogenerado"></mat-checkbox>
@@ -900,7 +904,7 @@
         </div>
     </div>
     <div class="modal-footer ">
-        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'close') ">Cerrar</button>
+        <button type="button " class="btn btn-outline-dark " (click)="modal.close('close') ">Cerrar</button>
         <button type="button " class="btn btn-outline-success " (click)="modal.close('confirmar') ">Confirmar</button>
     </div>
 </ng-template>
@@ -1042,8 +1046,8 @@
     </div>
 </ng-template>
 <ng-template #modal_celulares_cliente let-modal>
-    <div class="modal-header ">
-        <h5 class="modal-title ">Ver Celulares</h5>
+    <div class="modal-header">
+        <h5 class="modal-title">Ver Celulares</h5>
         <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
             <span aria-hidden="true ">&times;</span>
         </button>
@@ -1071,7 +1075,7 @@
     </div>
 </ng-template>
 <ng-template #modal_telefonos_cliente let-modal>
-    <div class="modal-header ">
+    <div class="modal-header">
         <h5 class="modal-title ">Ver Telefonos</h5>
         <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
             <span aria-hidden="true ">&times;</span>

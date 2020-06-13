@@ -103,7 +103,7 @@ export class Factura {
   private calcular_subtotal_base12_sin_descuento(){
     this.subtotal_base12_sin_descuento=0;
     this.factura_detalles.forEach((detalle, index)=> {
-      if (detalle.producto.impuesto.porcentaje==12){
+      if (detalle.impuesto.porcentaje==12){
         this.subtotal_base12_sin_descuento+=detalle.subtotal_sin_descuento;
       }
     });
@@ -113,7 +113,7 @@ export class Factura {
   private calcular_subtotal_base0_sin_descuento(){
     this.subtotal_base0_sin_descuento=0;
     this.factura_detalles.forEach((detalle, index)=> {
-      if (detalle.producto.impuesto.porcentaje==0){
+      if (detalle.impuesto.porcentaje==0){
         this.subtotal_base0_sin_descuento+=detalle.subtotal_sin_descuento;
       }
     });
@@ -123,7 +123,7 @@ export class Factura {
   private calcular_subtotal_base12_con_descuento(){
     this.subtotal_base12_con_descuento=0;
     this.factura_detalles.forEach((detalle, index)=> {
-      if (detalle.producto.impuesto.porcentaje==12){
+      if (detalle.impuesto.porcentaje==12){
         this.subtotal_base12_con_descuento+=detalle.subtotal_con_descuento;
       }
     });
@@ -133,7 +133,7 @@ export class Factura {
   private calcular_subtotal_base0_con_descuento(){
     this.subtotal_base0_con_descuento=0;
     this.factura_detalles.forEach((detalle, index)=> {
-      if (detalle.producto.impuesto.porcentaje==0){
+      if (detalle.impuesto.porcentaje==0){
         this.subtotal_base0_con_descuento+=detalle.subtotal_con_descuento;
       }
     });

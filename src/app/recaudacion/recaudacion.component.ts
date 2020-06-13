@@ -164,6 +164,7 @@ export class RecaudacionComponent implements OnInit {
   ngOnInit() {
     this.validar_sesion();
     this.defecto_recaudacion();
+    this.modificar_estado();
     this.consultar_establecimientos();
     this.consultar_cuentas_propias();
     this.consultar_franquicias_tarjetas();
@@ -470,10 +471,12 @@ export class RecaudacionComponent implements OnInit {
       this.data_cheques.paginator = this.paginator;
       this.recaudacion.calcular_totales();
       this.seleccionar_valor_pagado();
+      this.modificar_estado();
     } else {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
     this.defecto_recaudacion();
+    this.modificar_estado();
   }
 
   editar_cheque(i: number){
@@ -528,6 +531,7 @@ export class RecaudacionComponent implements OnInit {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
     this.defecto_recaudacion();
+    this.modificar_estado();
   }
 
   editar_deposito(i: number){
@@ -580,6 +584,7 @@ export class RecaudacionComponent implements OnInit {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
     this.defecto_recaudacion();
+    this.modificar_estado();
   }
 
   editar_transferencia(i: number){
@@ -632,6 +637,7 @@ export class RecaudacionComponent implements OnInit {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
     this.defecto_recaudacion();
+    this.modificar_estado();
   }
   editar_tarjeta_credito(i: number){
     this.indice_editar=i;
@@ -684,6 +690,7 @@ export class RecaudacionComponent implements OnInit {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
     this.defecto_recaudacion();
+    this.modificar_estado();
   }
 
   editar_tarjeta_debito(i: number){
@@ -727,6 +734,7 @@ export class RecaudacionComponent implements OnInit {
     this.data_compensaciones.paginator = this.paginator;
     this.seleccionar_valor_pagado();
     this.defecto_recaudacion();
+    this.modificar_estado();
   }
 
   editar_compensacion(i: number){
@@ -769,6 +777,7 @@ export class RecaudacionComponent implements OnInit {
     this.data_retenciones_ventas.paginator = this.paginator;
     this.seleccionar_valor_pagado();
     this.defecto_recaudacion();
+    this.modificar_estado();
   }
 
   editar_retencion_venta(i: number){
@@ -838,6 +847,15 @@ export class RecaudacionComponent implements OnInit {
       Number(this.recaudacion.total_credito)+Number(this.recaudacion.total_tarjetas_debitos)+
       Number(this.recaudacion.total_tarjetas_creditos)+Number(this.recaudacion.total_compensaciones);
     }
+  }
+
+  modificar_estado(){
+    if (this.recaudacion.total==this.factura.total_con_descuento && this.factura.id!=0){
+      this.recaudacion.estado=true;
+    }else {
+      this.recaudacion.estado=false;
+    }
+    this.estado=this.recaudacion.estado? "RECAUDADO": "NORECAUDADO";
   }
 
   nuevo(event){

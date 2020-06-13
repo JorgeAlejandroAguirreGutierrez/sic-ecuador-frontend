@@ -38,6 +38,7 @@ export class FacturaComponent implements OnInit {
   estado="EMITIDA";
   indice_detalle=0;
   detalle_entregado="";
+  buscar_serie:string="";
 
   seleccion_auxiliar: boolean =false;
   seleccion_facturar: boolean =false;
@@ -270,6 +271,7 @@ export class FacturaComponent implements OnInit {
             this.primer_celular_cliente_factura= this.factura.cliente_factura.celulares.length>0? this.factura.cliente_factura.celulares[0].numero: "";
             this.primer_correo_cliente_factura= this.factura.cliente_factura.correos.length>0? this.factura.cliente_factura.correos[0].email: "";
           }
+          this.factura_crear=this.factura;
           this.facturaService.enviar(0);
         },
         err => {
@@ -655,6 +657,7 @@ export class FacturaComponent implements OnInit {
     this.indice_detalle=i;
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
       if (result == "confirmar") {
+        this.buscar_serie="";
         let seleccionados=0;
         this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
           if(caracteristica.seleccionado){
@@ -668,22 +671,17 @@ export class FacturaComponent implements OnInit {
           });
           Swal.fire('Error', "Series seleccionadas no coinciden con la cantidad", 'error');
         }
-        }
+      }
       if (result == "close"){
+        this.buscar_serie="";
         if(!this.factura.factura_detalles[i].producto.serie_autogenerado){
           this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
             caracteristica.seleccionado=false;
           });
-        }   
+        }
       }
     }, (reason) => {
-      console.log(`Dismissed ${this.getDismissReason(reason)}`);
-    });
-  }
-
-  asignar_bodegas_producto(content: any){
-    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
-    }, (reason) => {
+      this.buscar_serie="";
       console.log(`Dismissed ${this.getDismissReason(reason)}`);
     });
   }

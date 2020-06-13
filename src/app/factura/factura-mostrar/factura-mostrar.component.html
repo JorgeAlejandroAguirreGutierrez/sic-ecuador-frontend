@@ -68,8 +68,8 @@
                         <td>{{factura.codigo}}</td>
                         <td>{{factura.numero}}</td>
                         <td>{{factura.cliente.razon_social}}</td>
-                        <td>{{factura.fecha}}</td>
-                        <td>{{factura.total}}</td>
+                        <td>{{factura.fecha | date:'yyyy-MM-dd'}}</td>
+                        <td>{{factura.total_con_descuento}}</td>
                         <td>{{factura.comentario}}</td>
                     </tr>
                 </tbody>

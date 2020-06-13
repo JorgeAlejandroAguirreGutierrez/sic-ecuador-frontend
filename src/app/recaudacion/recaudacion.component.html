@@ -46,7 +46,7 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Estado</mat-label>
-                    <mat-select class="form-control-sm" [(ngModel)]="estado" [ngModelOptions]="{standalone: true}">
+                    <mat-select class="form-control-sm" [(ngModel)]="estado" [ngModelOptions]="{standalone: true}" [disabled]="true">
                         <mat-option value="RECAUDADO">RECAUDADO</mat-option>
                         <mat-option value="NORECAUDADO">NO RECAUDADO</mat-option>
                     </mat-select>
