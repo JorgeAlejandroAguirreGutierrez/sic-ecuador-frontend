@@ -56,6 +56,7 @@ export class FacturaDetalle {
     this.total_descuento_individual=0;
     this.valor_descuento_individual_totales=0;
     this.porcentaje_descuento_individual_totales=0;
+    this.valor_porcentaje_descuento_individual_totales=0;
     this.valor_descuento_totales=0;
     this.porcentaje_descuento_totales=0;
     this.valor_porcentaje_descuento_totales=0;
@@ -83,7 +84,7 @@ export class FacturaDetalle {
   private calcular_total_descuento(){
     this.total_descuento_individual=0;
     this.total_descuento_individual=Number(this.valor_descuento_individual)+Number(this.valor_porcentaje_descuento_individual)+Number(this.valor_descuento_individual_totales)+Number(this.valor_porcentaje_descuento_individual_totales)+Number(this.valor_descuento_totales)+Number(this.valor_porcentaje_descuento_totales);    
-    this.total_descuento_individual= Number(this.total_descuento_individual.toFixed(2));
+    this.total_descuento_individual=Number(this.total_descuento_individual.toFixed(2));
   }
   private calcular_valor_iva_sin_descuento(){
     this.valor_iva_sin_descuento=0;
