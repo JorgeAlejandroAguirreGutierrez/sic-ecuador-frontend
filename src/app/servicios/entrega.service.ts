@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
+import { ModeloTabla } from '../modelos/modelo-tabla';
 import { Resultado } from '../resultado';
 import * as util from '../util';
 import {HttpClient} from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Amortizacion } from '../modelos/amortizacion';
+import { Entrega } from '../modelos/entrega';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AmortizacionService {
+export class EntregaService {
 
   constructor(private http: HttpClient) { }
 
-  crear(amortizacion: Amortizacion): Observable<Resultado> {
-    return this.http.post(environment.host + util.ruta + util.amortizacion, JSON.stringify(amortizacion), util.options).pipe(
+  crear(entrega: Entrega): Observable<Resultado> {
+    return this.http.post(environment.host + util.ruta + util.entrega, JSON.stringify(entrega), util.options).pipe(
       map(response => response as Resultado),
       catchError(err => {
         return throwError(err);
@@ -23,8 +24,8 @@ export class AmortizacionService {
     );
   }
 
-  obtener(amortizacion_id: number): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.amortizacion + '/' + amortizacion_id, util.options).pipe(
+  obtener(entrega_id: number): Observable<Resultado> {
+    return this.http.get<Resultado>(environment.host + util.ruta + util.entrega + '/' + entrega_id, util.options).pipe(
       map(response => response as Resultado),
       catchError(err => {
         return throwError(err);
@@ -33,15 +34,15 @@ export class AmortizacionService {
   }
 
   consultar(): Observable<Resultado> {
-    return this.http.get(environment.host + util.ruta + util.amortizacion, util.options).pipe(
+    return this.http.get(environment.host + util.ruta + util.entrega, util.options).pipe(
       map(response => response as Resultado),
       catchError(err => {
         return throwError(err);
       }));
   }
 
-  actualizar(amortizacion: Amortizacion): Observable<Resultado> {
-    return this.http.put(environment.host+util.ruta+util.amortizacion, JSON.stringify(amortizacion), util.options).pipe(
+  actualizar(entrega: Entrega): Observable<Resultado> {
+    return this.http.put(environment.host+util.ruta+util.entrega, JSON.stringify(entrega), util.options).pipe(
       map(response => response as Resultado),
       catchError(err => {
         return throwError(err);
@@ -49,8 +50,8 @@ export class AmortizacionService {
     );
   }
 
-  eliminar(amortizacion: Amortizacion): Observable<Resultado> {
-    return this.http.delete(environment.host+util.ruta+util.amortizacion + '/' + amortizacion.id, util.options).pipe(
+  eliminar(entrega: Entrega): Observable<Resultado> {
+    return this.http.delete(environment.host+util.ruta+util.amortizacion + '/' + entrega.id, util.options).pipe(
       map(response => response as Resultado),
       catchError(err => {
         return throwError(err);

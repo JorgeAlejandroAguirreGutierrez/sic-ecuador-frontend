@@ -1,9 +1,33 @@
 <div class="container">
+    <nav class="navbar-light nav-fijo">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
+                    <fa-icon [icon]="['fas', 'file']"></fa-icon>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="button" (click)="crear($event)">
+                    <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                    <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                    <fa-icon [icon]="['fas', 'file-export']"></fa-icon>
+                </a>
+            </li>
+        </ul>
+    </nav>
     <div class="form-row col-12">
         <div class="form-row col-7">
             <div class="form-group col-4">
                 <mat-form-field appearance="standard">
-                    <mat-label>Fecha COmpra</mat-label>
+                    <mat-label>Fecha Compra</mat-label>
                     <input matInput type="date" value="{{factura.fecha | date:'yyyy-MM-dd'}}" class="form-control-sm"
                         disabled>
                 </mat-form-field>
@@ -18,37 +42,25 @@
             <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>Estado</mat-label>
-                    <mat-select class="form-control-sm" [(ngModel)]="factura.estado"
-                        [ngModelOptions]="{standalone: true}">
-                        <mat-option value="true">ENTREGADO</mat-option>
-                        <mat-option value="false">PENDIENTE</mat-option>
+                    <mat-select class="form-control-sm" [(ngModel)]="estado"
+                        [ngModelOptions]="{standalone: true}" disabled>
+                        <mat-option value="ENTREGADO">ENTREGADO</mat-option>
+                        <mat-option value="PENDIENTE">PENDIENTE</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
             <div class="form-group col-4">
                 <mat-form-field appearance="standard" class="grande">
                     <mat-label>Identificación</mat-label>
-                    <mat-autocomplete #identificacion_cliente="matAutocomplete"
-                        [displayWith]="ver_identificacion_cliente" (optionSelected)="seleccionar_cliente()">
-                        <mat-option *ngFor="let cliente of filtro_identificacion_clientes | async" [value]="cliente">
-                            {{cliente.identificacion}}
-                        </mat-option>
-                    </mat-autocomplete>
-                    <input matInput type="text" class="form-control-sm" placeholder="Cédula/RUC"
-                        [formControl]="seleccion_identificacion_cliente" [matAutocomplete]="identificacion_cliente">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="factura.cliente.identificacion"
+                        [ngModelOptions]="{standalone: true}" disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-8">
                 <mat-form-field appearance="standard" class="grande">
                     <mat-label>Cliente</mat-label>
-                    <mat-autocomplete #razon_social_cliente="matAutocomplete" [displayWith]="ver_razon_social_cliente"
-                        (optionSelected)="seleccionar_cliente()">
-                        <mat-option *ngFor="let cliente of filtro_razon_social_clientes | async" [value]="cliente">
-                            {{cliente.razon_social}}
-                        </mat-option>
-                    </mat-autocomplete>
-                    <input type="text" class="form-control-sm" placeholder="Clientes" matInput
-                        [formControl]="seleccion_razon_social_cliente" [matAutocomplete]="razon_social_cliente">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="factura.cliente.razon_social"
+                        [ngModelOptions]="{standalone: true}" disabled>
                 </mat-form-field>
             </div>
         </div>
@@ -58,10 +70,11 @@
                     <div class="form-group col-7">
                         <mat-form-field appearance="standard">
                             <mat-label>Transportista</mat-label>
-                            <mat-select class="form-control-sm" [(ngModel)]="factura.estado"
+                            <mat-select class="form-control-sm" [(ngModel)]="guia_remision.transportista"
                                 [ngModelOptions]="{standalone: true}">
-                                <mat-option value="true">JUAN PEREZ</mat-option>
-                                <mat-option value="false">PEPITO PIGUAVE</mat-option>
+                                <mat-option *ngFor="let transportista of transportistas" [value]="transportista">
+                                    {{transportista.nombre}}
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -74,20 +87,18 @@
                     <div class="form-group col-3">
                         <mat-form-field appearance="standard">
                             <mat-label>No.</mat-label>
-                            <mat-select class="form-control-sm" [(ngModel)]="factura.estado"
-                                [ngModelOptions]="{standalone: true}">
-                                <mat-option value="true">12</mat-option>
-                                <mat-option value="false">8</mat-option>
-                            </mat-select>
+                            <input matInput type="text" class="form-control-sm" [(ngModel)]="entrega.transportista.vehiculo_transporte.numero"
+                            [ngModelOptions]="{standalone: true}" disabled>
                         </mat-form-field>
                     </div>
                     <div class="form-group col-7">
                         <mat-form-field appearance="standard">
                             <mat-label>Placa</mat-label>
-                            <mat-select class="form-control-sm" [(ngModel)]="factura.estado"
+                            <mat-select class="form-control-sm" [(ngModel)]="guia_remision.transportista"
                                 [ngModelOptions]="{standalone: true}">
-                                <mat-option value="true">HEI-0123</mat-option>
-                                <mat-option value="false">PBJ-0123</mat-option>
+                                <mat-option *ngFor="let transportista of transportistas" [value]="transportista">
+                                    {{transportista.vehiculo_transporte.placa}}
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -100,11 +111,8 @@
                     <div class="form-group col-3">
                         <mat-form-field appearance="standard">
                             <mat-label>Propio</mat-label>
-                            <mat-select class="form-control-sm" [(ngModel)]="factura.estado"
-                                [ngModelOptions]="{standalone: true}">
-                                <mat-option value="true">SI</mat-option>
-                                <mat-option value="false">NO</mat-option>
-                            </mat-select>
+                            <input matInput type="text" class="form-control-sm" [(ngModel)]="propio"
+                            [ngModelOptions]="{standalone: true}" disabled>
                         </mat-form-field>
                     </div>
                 </div>
@@ -124,17 +132,14 @@
             <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>No. Guia</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="numeroCheque">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="guia_remision.numero">
                 </mat-form-field>
             </div>
             <div class="form-group col-7">
                 <mat-form-field appearance="standard">
                     <mat-label>Direccion</mat-label>
-                    <input matInput type="text" [(ngModel)]="cliente.direccion.direccion"
+                    <input matInput type="text" [(ngModel)]="factura.cliente.direccion.direccion"
                         oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                    <button mat-button matSuffix mat-icon-button (click)="cliente.direccion.direccion=''">
-                        <mat-icon>close</mat-icon>
-                    </button>
                 </mat-form-field>
             </div>
             <div class="form-group col-2">
@@ -148,7 +153,7 @@
                         <div class="form-group col-4">
                             <mat-form-field appearance="standard">
                                 <mat-label>Provincia</mat-label>
-                                <mat-select type="text" [(ngModel)]="cliente.direccion.ubicacion.provincia"
+                                <mat-select type="text" [(ngModel)]="factura.cliente.direccion.ubicacion.provincia"
                                     (selectionChange)="provincia($event.value)" class="form-control-sm">
                                     <mat-option *ngFor="let provincia of provincias" [value]="provincia.provincia">
                                         {{provincia.provincia}}
@@ -159,7 +164,7 @@
                         <div class="form-group col-4">
                             <mat-form-field appearance="standard">
                                 <mat-label>Canton</mat-label>
-                                <mat-select type="text" [(ngModel)]="cliente.direccion.ubicacion.canton"
+                                <mat-select type="text" [(ngModel)]="factura.cliente.direccion.ubicacion.canton"
                                     (selectionChange)="canton($event.value)" class="form-control-sm">
                                     <mat-option *ngFor="let canton of cantones" [value]="canton.canton">
                                         {{canton.canton}}
@@ -170,7 +175,7 @@
                         <div class="form-group col-4">
                             <mat-form-field appearance="standard">
                                 <mat-label>Parroquia</mat-label>
-                                <mat-select type="text" [(ngModel)]="cliente.direccion.ubicacion.parroquia"
+                                <mat-select type="text" [(ngModel)]="factura.cliente.direccion.ubicacion.parroquia"
                                     class="form-control-sm">
                                     <mat-option *ngFor="let parroquia of parroquias" [value]="parroquia.parroquia">
                                         {{parroquia.parroquia}}
@@ -181,7 +186,7 @@
                         <div class="form-group col-12">
                             <mat-form-field appearance="standard" class="grande">
                                 <mat-label>Referencia</mat-label>
-                                <input matInput type="text" class="form-control-sm" [(ngModel)]="numeroCheque">
+                                <input matInput type="text" class="form-control-sm">
                             </mat-form-field>
                         </div>
                     </div>

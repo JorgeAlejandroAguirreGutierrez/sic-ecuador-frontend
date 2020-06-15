@@ -21,6 +21,11 @@ import { Celular } from '../modelos/celular';
 import { Correo } from '../modelos/correo';
 import { Observable } from 'rxjs';
 import { Banco } from '../modelos/banco';
+import { TransportistaService } from '../servicios/transportista.service';
+import { Transportista } from '../modelos/transportista';
+import { VehiculoTransporte } from '../modelos/vehiculo-transporte';
+import { VehiculoTransporteService } from '../servicios/vehiculo-transporte.service';
+import { GuiaRemision } from '../modelos/guia-remision';
 
 @Component({
   selector: 'app-entrega',
@@ -29,8 +34,18 @@ import { Banco } from '../modelos/banco';
 })
 export class EntregaComponent implements OnInit {
 
+  @Input() factura: Factura;
+  estado: string="";
+  propio: string="";
+  transportistas: Transportista[];
+  vehiculos_transportes: VehiculoTransporte[];
+  guia_remision: GuiaRemision=new GuiaRemision();
+
+  
+
   constructor(private facturaService: FacturaService, private clienteService: ClienteService, 
-    private sesionService: SesionService, private modalService: NgbModal,
+    private sesionService: SesionService, private transportistaService: TransportistaService,
+    private vehiculoTransporteService: VehiculoTransporteService, private modalService: NgbModal,
     private ubicacionService: UbicacionService, private empresaService: EmpresaService) { }
 
   cliente: Cliente;
@@ -43,7 +58,6 @@ export class EntregaComponent implements OnInit {
   filtro_identificacion_clientes: Observable<Cliente[]> = new Observable<Cliente[]>();
   filtro_razon_social_clientes: Observable<Cliente[]> = new Observable<Cliente[]>();
 
-  factura: Factura = new Factura();
   cheque: Cheque = new Cheque();
 
   formas_pagos: FormaPago[]=[];
@@ -106,9 +120,25 @@ export class EntregaComponent implements OnInit {
   ]);
 
   ngOnInit() {
-    this.cliente= new Cliente();
-    //this.contruir_cliente();
-    this.consultar_clientes();
+    this.consultar_transportistas();
+    this.consultar_vehiculos_transportes();
+  }
+
+  consultar_transportistas(){
+    this.transportistaService.consultar().subscribe(
+      res => {
+        this.transportistas = res.resultado as Transportista[]
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+  consultar_vehiculos_transportes(){
+    this.vehiculoTransporteService.consultar().subscribe(
+      res => {
+        this.vehiculos_transportes = res.resultado as VehiculoTransporte[]
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
   }
 
   contruir_cliente() {

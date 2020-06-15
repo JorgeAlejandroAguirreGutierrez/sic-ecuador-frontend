@@ -741,7 +741,7 @@
         <!-- Pasos Entrega -->
         <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable">
             <ng-template matStepLabel>Entrega</ng-template>
-                <app-entrega></app-entrega>
+                <app-entrega [factura]="factura_crear"></app-entrega>
                 <mat-divider></mat-divider>
             <div>
                 <button mat-button matStepperPrevious>Atras</button>

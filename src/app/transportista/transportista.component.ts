@@ -18,7 +18,7 @@ export class TransportistaComponent implements OnInit {
   constructor(private transportistaService: TransportistaService, private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.transportistaService.obtener().subscribe(
+    this.transportistaService.consultar().subscribe(
       res=>{
         this.transportistas= res.resultado as Transportista[]
       }
