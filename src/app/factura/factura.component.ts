@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Observable} from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -24,6 +24,7 @@ import { Caracteristica } from '../modelos/caracteristica';
 import { Bodega } from '../modelos/bodega';
 import { BodegaService } from '../servicios/bodega.service';
 import { CaracteristicaService } from '../servicios/caracteristica.service';
+import { MatStepper } from '@angular/material';
 
 @Component({
   selector: 'app-factura',
@@ -32,8 +33,12 @@ import { CaracteristicaService } from '../servicios/caracteristica.service';
 })
 export class FacturaComponent implements OnInit {
 
+  @ViewChild('stepper',{static: false}) stepper: MatStepper;
+
   collapsed = true;
-  isEditable=true;
+  isLinear = false;
+  isEditable=false;
+  completed=false;
   tipo_producto="B";
   estado="EMITIDA";
   indice_detalle=0;
@@ -43,7 +48,7 @@ export class FacturaComponent implements OnInit {
   seleccion_auxiliar: boolean =false;
   seleccion_facturar: boolean =false;
 
-  isLinear = false;
+  
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -581,6 +586,7 @@ export class FacturaComponent implements OnInit {
       this.facturaService.crear(this.factura).subscribe(
         res => {
           this.factura_crear = res.resultado as Factura
+          this.stepper.next();
           if (res.mensaje){
             Swal.fire('Exito', 'Se creo el la factura', 'success');
           } else {
