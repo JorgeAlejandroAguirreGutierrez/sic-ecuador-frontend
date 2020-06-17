@@ -7,6 +7,7 @@ import { Bodega } from './bodega';
 import { Impuesto } from './impuesto';
 
 export class FacturaDetalle {
+  id: number;
   posicion: number;
   comentario: string;
   entregado: boolean;
@@ -47,6 +48,7 @@ export class FacturaDetalle {
   
 
   constructor() {
+    this.id=0;
     this.entregado=false;
     this.comentario="";
     this.cantidad=0;

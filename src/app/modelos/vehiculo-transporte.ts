@@ -1,14 +1,28 @@
 export class VehiculoTransporte {
     id:number;
     codigo:string;
-    modelo:number;
+    modelo:string;
     placa:string;
     marca:string;
-    cilindraje:number;
+    cilindraje:string;
     clase:string;
     color:string;
-    fabricacion:number;
-    numero:number;
+    fabricacion:string;
+    numero:string;
     activo:boolean;
+
+    constructor(){
+        this.id=0;
+        this.codigo="";
+        this.modelo="";
+        this.placa="";
+        this.marca="";
+        this.cilindraje="";
+        this.clase="";
+        this.color="";
+        this.fabricacion="";
+        this.numero="";
+        this.activo=false;
+    }
 
 }
