@@ -13,7 +13,7 @@ import { MenuItems } from '../shared/menu-items/menu-items';
 @Component({
   selector: 'app-appsidebar',
   templateUrl: './appsidebar.component.html',
-  styleUrls: []
+  styleUrls: ['/appsidebar.component.scss']
 })
 export class AppSidebarComponent implements OnDestroy {
   mobileQuery: MediaQueryList;

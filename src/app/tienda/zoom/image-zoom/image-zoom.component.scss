@@ -1,0 +1,15 @@
+.image-zoom {
+    /*Adjust relative container to image size*/
+    //display: table-cell;
+    position: relative;
+  }
+
+  .image-zoom .overlay {
+    position: absolute;
+  }
+
+  .image-zoom .glass {
+    border: 1px solid #888888;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgb(49, 49, 49);
+    background-repeat: no-repeat;
+  }

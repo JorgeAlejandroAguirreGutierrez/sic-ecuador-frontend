@@ -1,14 +1,14 @@
 <!-- ============================================================== -->
 <!-- sidebar -->
 <!-- ============================================================== -->
- <div class="user-profile" style="background: url(assets/images/background/user-info.jpg) no-repeat;">
+<!--div class="user-profile" style="background: url(assets/images/background/user-info.jpg) no-repeat;"-->
     <!-- User profile image -->
-    <div class="profile-img"> <img src="assets/images/users/profile.png" alt="user"> </div>
+    <!--div class="profile-img"> <img src="assets/images/users/profile.png" alt="user"> </div-->
     <!-- User profile text-->
     <!-- ============================================================== -->
     <!-- Profile - style you can find in header.scss -->
     <!-- ============================================================== -->
-    <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> Markarn Doe <i class="ti-angle-down font-12 m-l-5"></i></a></div>
+    <!--div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> Markarn Doe <i class="ti-angle-down font-12 m-l-5"></i></a></div>
     <mat-menu #sdprofile="matMenu" class="mymegamenu">
         <button mat-menu-item>
             <mat-icon>settings</mat-icon> Settings </button>
@@ -19,18 +19,61 @@
         <button mat-menu-item>
             <mat-icon>exit_to_app</mat-icon> Sign Out </button>
     </mat-menu>
-    
+</div-->
+<div class="filters">
+<h5>CATEGORIAS</h5>
 </div>
-<mat-nav-list appAccordion>
-    <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected" group="{{menuitem.state}}">
+<!--mat-nav-list appAccordion class="navigation navlist" role="list">
+    <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected"
+        group="{{menuitem.state}}">
         <a class="" appAccordionToggle [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'">
-            <mat-icon>{{ menuitem.icon }}</mat-icon> 
-            <span>{{ menuitem.name }}</span> 
-            <span fxFlex></span> 
-            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span> 
+            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <span>{{ menuitem.name }}</span>
+            <span fxFlex></span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
         </a>
-
-        
     </mat-list-item>
-
+</mat-nav-list-->
+<mat-nav-list appAccordion class="navigation navlist" role="list">
+    <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" [group]="menuitem.state"
+        class="module-link" role="listitem">
+        <!-- LINK  -->
+        <a appAccordionToggle class="relative" [id]="menuitem.state" [routerLink]="['/', menuitem.state]"
+            *ngIf="menuitem.type === 'link'">
+            <mat-icon *ngIf="menuitem.iconType==='icon'" class="material-icons-round">{{ menuitem.icon }}
+            </mat-icon>
+            <!--mat-icon *ngIf="menuitem.iconType==='svg'"><svg class="svg-24" viewBox="0 0 24 24">
+                    <path fill="currentColor" [attr.d]="menuitem.icon" /></svg></mat-icon-->
+            <span>{{ menuitem.name }}</span>
+            <span fxFlex></span>
+        </a>
+        <!-- SUB LINK  -->
+        <mat-expansion-panel [class.mat-elevation-z0]="true" *ngIf="menuitem.type === 'sub'" dense>
+            <mat-expansion-panel-header fxLayoutAlign="space-between center" >
+                <a class="relative" [id]="menuitem.state" href="javascript:;" >
+                    <mat-icon *ngIf="menuitem.iconType==='icon'" class="material-icons-round">{{ menuitem.icon }}
+                    </mat-icon>
+                    <!--mat-icon *ngIf="menuitem.iconType==='svg'"><svg class="svg-24" viewBox="0 0 24 24">
+                        <path fill="currentColor" [attr.d]="menuitem.icon" /></svg></mat-icon-->
+                    <span>{{ menuitem.name}}</span>
+                    <span fxFlex></span>
+                    <!--span class="menu-badge mat-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span-->
+                    <!--mat-icon class="menu-caret">arrow_drop_down</mat-icon-->
+                </a>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="sub-menu" *ngIf="menuitem.type === 'sub' && menuitem.children.length > 0">
+                <mat-list-item appAccordionLink *ngFor="let childitem of menuitem.children" routerLinkActive="open" [group]="menuitem.state">
+                    <a appAccordionToggle [id]="menuitem.state" [routerLink]="['/', childitem.state ]"
+                        class="relative">
+                        <mat-icon *ngIf="childitem.iconType==='icon'" class="material-icons-round">
+                            {{ childitem.icon }}</mat-icon>
+                        <!--mat-icon *ngIf="childitem.iconType==='svg'"><svg class="svg-24" viewBox="0 0 24 24">
+                                <path fill="currentColor" [attr.d]="childitem.icon" /></svg></mat-icon-->
+                        <span>{{ childitem.name }}</span>
+                        <span fxFlex></span>
+                    </a>
+                </mat-list-item>
+            </mat-nav-list>
+        </mat-expansion-panel>
+    </mat-list-item>
 </mat-nav-list>
