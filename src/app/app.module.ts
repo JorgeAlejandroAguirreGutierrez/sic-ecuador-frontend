@@ -263,7 +263,7 @@ const routes: Routes = [
     SortFiltersComponent,
     UrlFormComponent,
     SliderComponent,
-    FiltroSerie
+    FiltroSerie,
     ZoomComponent,
     ImageZoomComponent,
     SliderLightboxComponent,
