@@ -16,7 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatButtonModule, MatSelectModule, MatAutocompleteModule, MatNativeDateModule, MatTableModule, MatPaginatorModule } from '@angular/material';
 import { MatTabsModule, MatInputModule, MatCheckboxModule, MatExpansionModule, MatIconModule, MatSortModule } from '@angular/material';
 import { MatFormFieldModule, MatCardModule, MatDividerModule, MatStepperModule, MatDatepickerModule} from '@angular/material';
-import { MatToolbarModule, MatSidenavModule, MatMenuModule, MatListModule, MatGridListModule } from '@angular/material';
+import { MatToolbarModule, MatSidenavModule, MatMenuModule, MatListModule, MatGridListModule, MatBadgeModule } from '@angular/material';
 import { TabContentComponent } from "./tab-content.component";
 import { ContentContainerDirective } from "./content-container.directive";
 import { TabService } from "./services/tab.service";
@@ -66,6 +66,12 @@ import { DataService } from './tienda/service/data.service';
 import { CartService } from './tienda/service/cart.service';
 import { UrlFormComponent } from './tienda/url-form/url-form.component';
 
+//Zoom y Slider
+import { ImageZoomComponent } from './tienda/zoom/image-zoom/image-zoom.component';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { SliderLightboxComponent } from './tienda/lib/slider-lightbox/slider-lightbox.component';
+import { SliderCustomImageComponent } from './tienda/lib/slider-custom-image/slider-custom-image.component';
+import { NgImageSliderService } from './tienda/lib/ng-image-slider.service';
 
 import { RouterModule, Routes } from '@angular/router';
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
@@ -138,6 +144,7 @@ import { MercaderiaComponent } from './mercaderia/mercaderia.component';
 import { MainComponent } from './main/main.component';
 import { EntregaComponent } from './entrega/entrega.component';
 import { SliderComponent } from './tienda/slider/slider.component';
+import { ZoomComponent } from './tienda/zoom/zoom.component';
 
 import { FiltroSerie } from './pipes/filtro-serie';
 
@@ -169,6 +176,7 @@ const routes: Routes = [
   {path: 'main', component: MainComponent},
   {path: 'tienda', component: TiendaComponent},
   {path: 'tienda/detalle-producto/:id', component: DetalleProductoComponent},
+  {path: 'zoom', component: ZoomComponent},
 ]
 
 @NgModule({
@@ -256,6 +264,10 @@ const routes: Routes = [
     UrlFormComponent,
     SliderComponent,
     FiltroSerie
+    ZoomComponent,
+    ImageZoomComponent,
+    SliderLightboxComponent,
+    SliderCustomImageComponent
   ],
   imports: [
     BrowserModule,
@@ -291,17 +303,19 @@ const routes: Routes = [
     MatMenuModule,
     MatListModule,
     MatGridListModule,
+    MatBadgeModule,
     DemoMaterialModule,
     FlexLayoutModule,
     SharedModule,
     HttpClientJsonpModule,
+    NgImageSliderModule,
     RouterModule.forRoot(routes)
   ],
   providers: [DatoAdicionalService, PlazoCreditoService, ImpuestoService, RetencionService,
               TransportistaService, UbicacionService, TipoContribuyenteService, VehiculoTransporteService,
               EmpresaService, EstablecimientoService, PuntoVentaService, UsuarioService,
               ClienteService, FacturaService, TabService, UsuariosService, DatabaseService, ProductosService,
-              DataService, CartService, 
+              DataService, CartService, NgImageSliderService,
               {
                 provide: LocationStrategy,
                 useClass: PathLocationStrategy

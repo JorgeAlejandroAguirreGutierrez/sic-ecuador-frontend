@@ -5,7 +5,7 @@
     <!-- ============================================================== -->
     <!-- Topbar - style you can find in header.scss -->
     <!-- ============================================================== -->
-    <mat-toolbar class="topbar telative">
+    <mat-toolbar color="warn" class="topbar telative">
         <!-- ============================================================== -->
         <!-- Logo - style you can find in header.scss -->
         <!-- ============================================================== -->
@@ -45,8 +45,7 @@
         <!-- ============================================================== -->
         <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
             fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches">
-            <!--app-appsidebar></app-appsidebar-->
-            <br>
+            <app-appsidebar fxShow="true" fxHide.gt-sm></app-appsidebar>
             <app-filters #filtersComponent [categories]='originalData.categories' [customFilters]='customFilters'
                 [priceFilters]='priceFilters' (filterChange)='onFilterChange($event)'></app-filters>
         </mat-sidenav>
@@ -59,9 +58,9 @@
         <!-- ============================================================== -->
         <mat-sidenav-content class="page-wrapper imagen-fondo-principal">
             <div fxLayout="row wrap">
-                <div class="row col-12 color">
+                <div fxFlex="100" class="color">
                     <div fxFlex.gt-lg="5" fxFlex.gt-md="5" fxFlex.gt-xs="20" fxFlex="20" class="m-t-5">
-                        <app-cart></app-cart> 
+                        <app-cart></app-cart>
                     </div>
                     <div fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-xs="80" fxFlex="80" class="m-t-5">
                         <app-url-form (urlChange)='onURLChange($event)'></app-url-form>
@@ -78,18 +77,46 @@
                         </div>
                     </div>
                 </div>
-                <div class="row col-12">
-                    <app-slider fxFlex="100"></app-slider>
-                </div>
+                <app-slider fxFlex="100"></app-slider>
                 <br>
-                <div class="row col-12">
-                    <app-contenido [product]="product" (productoAgregar)="agregarProductoAlCarrito($event)"
-                        *ngFor="let product of products" fxFlex.gt-lg="20" fxFlex.gt-md="25" fxFlex.gt-xs="33" fxFlex="50">
-                    </app-contenido>
-                </div>
+                <mat-toolbar color="primary" fxShow="true" fxHide.lt-md="true">
+                    <mat-toolbar-row fxLayoutAlign="space-between center">
+                        <a href="#" mat-button>
+                            <mat-icon>homepage</mat-icon>Inicio
+                        </a>
+                        <!--span fxShow="true" fxHide.gt-sm>Inicio</span> //Se mantiene oculto hasta llegar a sm-->
+                        <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+                        <a href="#" mat-button>
+                            <mat-icon>notifications</mat-icon>
+                            Bebidas
+                        </a>
+                        <a href="#" mat-button>
+                            <mat-icon>message</mat-icon>
+                            Alimentos
+                        </a>
+                        <a href="#" mat-button>
+                            <mat-icon>account_box</mat-icon>
+                            Comida
+                        </a>
+                        <a href="#" mat-button>
+                            <mat-icon>account_box</mat-icon>
+                            Mar
+                        </a>
+                        <a href="#" mat-button>
+                            <mat-icon>message</mat-icon>
+                            Alimentos
+                        </a>
+                        <a href="#" mat-button>
+                            <mat-icon>message</mat-icon>
+                            Alimentos
+                        </a>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+                <app-contenido [product]="product" (productoAgregar)="agregarProductoAlCarrito($event)"
+                    *ngFor="let product of products" fxFlex.gt-lg="20" fxFlex.gt-md="25" fxFlex.gt-sm="33" fxFlex.gt-xs="50" fxFlex="100">
+                </app-contenido>
+                <!--router-outlet ><app-spinner></app-spinner></router-outlet-->
                 <!--app-showcase [products]='products'></app-showcase-->
-                <!--app-tienda-online><app-spinner></app-spinner></app-tienda-online-->
-                <!--router-outlet><app-spinner></app-spinner></router-outlet-->
             </div>
         </mat-sidenav-content>
         <!-- ============================================================== -->

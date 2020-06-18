@@ -2,9 +2,9 @@
 <!-- Profile - style you can find in header.scss -->
 <!-- ============================================================== -->
 
-<button mat-icon-button class="m-r-5" routerLink="/pedidos"><mat-icon>shopping_cart</mat-icon>
+<button mat-icon-button class="m-r-5" routerLink="/pedidos">
+    <mat-icon matBadge="{{cantidadAgregados}}" matBadgeColor="warn" *ngIf="cantidadAgregados!=0">shopping_cart</mat-icon>
     <!-- <span class="badge badge-pill ba dge-danger">3</span> -->
-    <span class="badge badge-pill ba dge-danger" *ngIf="cantidadAgregados!=0">{{cantidadAgregados}}</span>
 </button>
 <button mat-icon-button class="m-r-5"><mat-icon>add_alert</mat-icon>
     <!-- <span class="badge badge-pill ba dge-danger">3</span> -->
