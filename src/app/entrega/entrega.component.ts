@@ -3,7 +3,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
-import { FacturaService } from '../servicios/factura.service';
 import { SesionService } from '../servicios/sesion.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Factura } from '../modelos/factura';
@@ -18,6 +17,9 @@ import { VehiculoTransporteService } from '../servicios/vehiculo-transporte.serv
 import { GuiaRemision } from '../modelos/guia-remision';
 import { FacturaDetalle } from '../modelos/factura-detalle';
 import { Direccion } from '../modelos/direccion';
+import { GuiaRemisionService } from '../servicios/guia-remision.service';
+import { Sesion } from '../modelos/sesion';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-entrega',
@@ -32,14 +34,16 @@ export class EntregaComponent implements OnInit {
   transportistas: Transportista[];
   vehiculos_transportes: VehiculoTransporte[];
   guia_remision: GuiaRemision=new GuiaRemision();
+  guia_remision_crear: GuiaRemision;
+  sesion: Sesion;
   provincias: Ubicacion[];
   cantones: Ubicacion[];
   parroquias: Ubicacion[];
   bandera_opcion: boolean=false;
 
-  constructor(private facturaService: FacturaService, private transportistaService: TransportistaService,
+  constructor(private transportistaService: TransportistaService, private sesionService: SesionService, private router: Router,
     private vehiculoTransporteService: VehiculoTransporteService, private modalService: NgbModal,
-    private ubicacionService: UbicacionService, private empresaService: EmpresaService) { }
+    private ubicacionService: UbicacionService, private guiaRemisionService: GuiaRemisionService, private empresaService: EmpresaService) { }
 
   
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -72,11 +76,19 @@ export class EntregaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.validar_sesion();
     this.consultar_transportistas();
     this.consultar_vehiculos_transportes();
     this.consultar_ubicaciones();
     this.data_factura_detalles=new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
   }
+
+  validar_sesion(){
+    this.sesion = this.sesionService.getSesion();
+    if (this.sesion == undefined)
+      this.router.navigate(['/iniciosesion']);
+  }
+
   consultar_ubicaciones(){
     this.ubicacionService.obtenerProvincias().subscribe(
       res => {
@@ -110,6 +122,19 @@ export class EntregaComponent implements OnInit {
   }
 
   crear(event) {
+    if (event!=null)
+      event.preventDefault();
+    this.guia_remision.factura=this.factura;
+    this.guiaRemisionService.crear(this.guia_remision).subscribe(
+      res => {
+        this.guia_remision_crear = res.resultado as GuiaRemision
+        if (res.mensaje){
+          Swal.fire('Exito', 'Se creo la guia de remision', 'success');
+        } else {
+          Swal.fire('Error', res.mensaje, 'error');
+        }
+      }
+    );
 
   }
 

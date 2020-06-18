@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { MatTableDataSource, DateAdapter, MAT_DATE_FORMATS, MatStepper } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { Recaudacion } from '../modelos/recaudacion';
 import { Cheque } from '../modelos/cheque';
@@ -59,6 +59,8 @@ import { PuntoVentaService } from '../servicios/punto-venta.service';
 })
 
 export class RecaudacionComponent implements OnInit {
+
+  @Output()propagar = new EventEmitter<boolean>();
 
   constructor(private facturaService: FacturaService, private clienteService: ClienteService, private bancoService: BancoService, private sesionService: SesionService,
     private plazoCreditoService: PlazoCreditoService, private cuentaPropiaService: CuentaPropiaService, private operadorTarjetaService: OperadorTarjetaService,
@@ -873,6 +875,7 @@ export class RecaudacionComponent implements OnInit {
     this.recaudacionService.crear(this.recaudacion).subscribe(
       res => {
         this.recaudacion_crear = res.resultado as Recaudacion
+        this.propagar.emit(true);
         if (res.mensaje){
           Swal.fire('Exito', 'Se creo la Recaudacion', 'success');
         } else {

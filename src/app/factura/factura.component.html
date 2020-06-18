@@ -731,7 +731,7 @@
         <!-- Paso Recaudación -->
         <mat-step [stepControl]="secondFormGroup" [completed]="false" [editable]="isEditable" >
                 <ng-template matStepLabel>Recaudación</ng-template>
-                    <app-recaudacion [factura]="factura_crear"></app-recaudacion>
+                    <app-recaudacion [factura]="factura_crear" (propagar)="procesaPropagar($event)"></app-recaudacion>
                     <mat-divider></mat-divider>
                 <div>
                     <button mat-button matStepperPrevious>Atras</button>

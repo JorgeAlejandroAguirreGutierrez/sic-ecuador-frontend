@@ -811,4 +811,10 @@ export class FacturaComponent implements OnInit {
     });
     this.factura.calcular();
   }
+
+  procesaPropagar(mensaje: boolean){
+    if (mensaje){
+      this.stepper.next();
+    }
+  }
 }
