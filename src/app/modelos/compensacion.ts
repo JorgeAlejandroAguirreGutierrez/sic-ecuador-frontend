@@ -1,16 +1,21 @@
+import { TipoComprobante } from './tipo-comprobante';
+
 export class Compensacion {
     id:number;
-    //codigo: string;
-    tipo_comprobante:string;
+    codigo: string;
+    tipo:string;
     comprobante:string;
-    fecha_comprobante: Date;
+    fecha: Date;
     origen: string;
     motivo:string;
     fecha_vencimiento: Date;
     valor_inicial: number;
-//    saldo_anterior: number;
     valor_compensado: number;
-//    saldo: number;
-//    compensado: boolean;
-    //cliente: number;
+    tipo_comprobante: TipoComprobante;
+
+    constructor(){
+        this.id=0;
+        this.codigo="";
+        this.tipo_comprobante=new TipoComprobante();
+    }
 }

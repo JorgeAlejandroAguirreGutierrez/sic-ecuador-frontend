@@ -1,46 +1,46 @@
-<nav class="navbar-light nav-fijo">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
-                <fa-icon [icon]="['fas', 'file']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="crear($event)">
-                <fa-icon [icon]="['fas', 'save']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="consultar_bienes($event)">
-                <fa-icon [icon]="['fas', 'box']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="consultar_servicios($event)">
-                <fa-icon [icon]="['fas', 'concierge-bell']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="consultar_activos_fijos($event)">
-                <fa-icon [icon]="['fas', 'building']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
-                <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
-                <fa-icon [icon]="['fas', 'file-export']"></fa-icon>
-            </a>
-        </li>
-    </ul>
-</nav>
 <div class="contenedor">
-    <mat-horizontal-stepper (selectionChange)="cambiar_seccion()"  [linear]="isLinear" #stepper>
+    <mat-horizontal-stepper  [linear]="isLinear" #stepper>
         <!-- Paso Facturación -->
-        <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+        <mat-step [stepControl]="firstFormGroup" [editable]="isEditable" [completed]="false">
+            <nav class="navbar-light nav-fijo">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
+                            <fa-icon [icon]="['fas', 'file']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="crear($event)">
+                            <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="consultar_bienes($event)">
+                            <fa-icon [icon]="['fas', 'box']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="consultar_servicios($event)">
+                            <fa-icon [icon]="['fas', 'concierge-bell']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="consultar_activos_fijos($event)">
+                            <fa-icon [icon]="['fas', 'building']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                            <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                            <fa-icon [icon]="['fas', 'file-export']"></fa-icon>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
             <ng-template matStepLabel>Facturación</ng-template>
             <mat-accordion class="headers-align">
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
@@ -292,7 +292,7 @@
                             <div class="form-group col-1">
                                 <b>Habilitar</b><br>
                                 <mat-checkbox [disabled]="habilitar_facturar" [(ngModel)]="seleccion_facturar"
-                                    [labelPosition]="'before'" (click)="asignar_facturar()" class="form-control-sm"
+                                    [labelPosition]="'before'" (change)="asignar_facturar()" class="form-control-sm"
                                     color="primary"></mat-checkbox>
                             </div>
                             <div class="form-group col-11">
@@ -418,24 +418,16 @@
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-1 "></div>
-                            <div class="form-group col-2">
+                            <div class="form-group col-3">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Bodega</mat-label>
-                                    <mat-select class="form-control-sm"
-                                        (selectionChange)="seleccionar_bodega($event.value)">
+                                    <mat-select class="form-control-sm" [(ngModel)]="detalle.producto.bodega">
                                         <mat-option
-                                            *ngFor="let bodega_producto of detalle.producto.bodegas_productos; let i=index "
-                                            [value]="i">
-                                            {{bodega_producto.bodega.codigo}}
+                                            *ngFor="let bodega of bodegas; let i=index" [value]="bodega">
+                                            {{bodega.codigo}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
-                            </div>
-                            <div class="form-group col-1 ">
-                                <br>
-                                <button class="btn btn-primary btn-circle ">
-                                    <fa-icon [icon]="[ 'fas', 'eye'] "></fa-icon>
-                                </button>
                             </div>
                             <mat-divider></mat-divider>
                         </div>
@@ -499,9 +491,8 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>Medida</mat-label>
-                                        <mat-select (selectionChange)="seleccionar_medida($event.value)"
-                                            class="form-control-sm">
-                                            <mat-option *ngFor="let medida of medidas; let i=index" [value]="i">
+                                        <mat-select [(ngModel)]="detalle.medida" class="form-control-sm">
+                                            <mat-option *ngFor="let medida of medidas" [value]="medida">
                                                 {{medida.descripcion}}
                                             </mat-option>
                                         </mat-select>
@@ -510,10 +501,8 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>P. Unit.</mat-label>
-                                        <mat-select (selectionChange)="seleccionar_precio($event.value)"
-                                            class="form-control-sm">
-                                            <mat-option *ngFor="let precio of detalle.producto.precios; let i=index"
-                                                [value]="i">
+                                        <mat-select (selectionChange)="seleccionar_precio()" [(ngModel)]="detalle.precio" class="form-control-sm">
+                                            <mat-option *ngFor="let precio of detalle.producto.precios" [value]="precio">
                                                 {{precio.valor}}
                                             </mat-option>
                                         </mat-select>
@@ -539,9 +528,8 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>IVA</mat-label>
-                                        <mat-select class="form-control-sm" [(ngModel)]="detalle.producto.impuesto">
-                                            <mat-option *ngFor="let impuesto of impuestos; let i=index"
-                                                [value]="impuesto">
+                                        <mat-select class="form-control-sm" [(ngModel)]="detalle.impuesto">
+                                            <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto">
                                                 {{impuesto.porcentaje}}
                                             </mat-option>
                                         </mat-select>
@@ -586,6 +574,8 @@
                                         <th rowspan="2 " class="col-1 ">P/U</th>
                                         <th rowspan="2 " class="col-1 ">DESC</th>
                                         <th rowspan="2 " class="col-1 ">%DESC</th>
+                                        <th rowspan="2 " class="col-1 ">DESC ST</th>
+                                        <th rowspan="2 " class="col-1 ">%DESC ST</th>
                                         <th rowspan="2 " class="col-1 ">DESC T</th>
                                         <th rowspan="2 " class="col-1 ">%DESC T</th>
                                         <th rowspan="2 " class="col-1 ">IVA</th>
@@ -608,9 +598,11 @@
                                         <td>{{detalle.precio.valor}}</td>
                                         <td>{{detalle.valor_descuento_individual}}</td>
                                         <td>{{detalle.porcentaje_descuento_individual}}</td>
+                                        <td>{{detalle.valor_descuento_individual_totales}}</td>
+                                        <td>{{detalle.porcentaje_descuento_individual_totales}}</td>
                                         <td>{{detalle.valor_descuento_totales}}</td>
                                         <td>{{detalle.porcentaje_descuento_totales}}</td>
-                                        <td>{{detalle.producto.impuesto.porcentaje}}</td>
+                                        <td>{{detalle.impuesto.porcentaje}}</td>
                                         <td>{{detalle.subtotal_con_descuento}}</td>
                                         <td>
                                             <button (click)="asignar_series(modal_series, i)"
@@ -737,9 +729,9 @@
             </div>
         </mat-step>
         <!-- Paso Recaudación -->
-        <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+        <mat-step [stepControl]="secondFormGroup" [completed]="false" [editable]="isEditable" >
                 <ng-template matStepLabel>Recaudación</ng-template>
-                    <app-recaudacion [factura]="factura_crear"></app-recaudacion>
+                    <app-recaudacion [factura]="factura_crear" (propagar)="procesaPropagar($event)"></app-recaudacion>
                     <mat-divider></mat-divider>
                 <div>
                     <button mat-button matStepperPrevious>Atras</button>
@@ -747,9 +739,9 @@
                 </div>
         </mat-step>
         <!-- Pasos Entrega -->
-        <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable">
+        <mat-step [stepControl]="thirdFormGroup" [completed]="false" [editable]="isEditable">
             <ng-template matStepLabel>Entrega</ng-template>
-                <app-entrega></app-entrega>
+                <app-entrega [factura]="factura_crear"></app-entrega>
                 <mat-divider></mat-divider>
             <div>
                 <button mat-button matStepperPrevious>Atras</button>
@@ -870,7 +862,17 @@
         </button>
     </div>
     <div class="modal-body ">
-        <div class="form-group form-row table-responsive ">
+        <ng-container *ngIf="!factura.factura_detalles[indice_detalle].producto.serie_autogenerado">
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Buscar Serie</mat-label>
+                        <input matInput type="text" [(ngModel)]="buscar_serie" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+            </div>
+        </ng-container>
+        <div class="form-group form-row table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -882,7 +884,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].bodega_producto.caracteristicas let i=index">
+                    <ng-container *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas | filtro_serie:buscar_serie">
                         <tr>
                             <td>
                                 <mat-checkbox [(ngModel)]="caracteristica.seleccionado" class="form-control-sm" color="primary" [disabled]="factura.factura_detalles[indice_detalle].producto.serie_autogenerado"></mat-checkbox>
@@ -906,7 +908,7 @@
         </div>
     </div>
     <div class="modal-footer ">
-        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'close') ">Cerrar</button>
+        <button type="button " class="btn btn-outline-dark " (click)="modal.close('close') ">Cerrar</button>
         <button type="button " class="btn btn-outline-success " (click)="modal.close('confirmar') ">Confirmar</button>
     </div>
 </ng-template>
@@ -938,36 +940,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container
-                            *ngFor="let bodega_producto of factura.factura_detalles[indice_detalle].producto.bodegas_productos let i=index">
-                            <ng-container *ngFor="let caracteristica of bodega_producto.caracteristicas let j=index">
-                                <tr *ngIf="caracteristica.cantidad!=0">
-                                    <td>
-                                        {{caracteristica.descripcion}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.marca}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.modelo}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.serie}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.cantidad}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.cantidad}}
-                                    </td>
-                                    <td>
-                                        <button (click)="transferir(i, j)" class="btn btn-primary btn-circle ">
-                                            <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </ng-container>
-                        </ng-container>
+                        <tr *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas let i=index">
+                            <td>
+                                {{caracteristica.descripcion}}
+                            </td>
+                            <td>
+                                {{caracteristica.marca}}
+                            </td>
+                            <td>
+                                {{caracteristica.modelo}}
+                            </td>
+                            <td>
+                                {{caracteristica.serie}}
+                            </td>
+                            <td>
+                                {{caracteristica.cantidad}}
+                            </td>
+                            <td>
+                                {{caracteristica.cantidad}}
+                            </td>
+                            <td>
+                                <button (click)="transferir(caracteristica)" class="btn btn-primary btn-circle ">
+                                    <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1053,8 +1050,8 @@
     </div>
 </ng-template>
 <ng-template #modal_celulares_cliente let-modal>
-    <div class="modal-header ">
-        <h5 class="modal-title ">Ver Celulares</h5>
+    <div class="modal-header">
+        <h5 class="modal-title">Ver Celulares</h5>
         <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
             <span aria-hidden="true ">&times;</span>
         </button>
@@ -1082,7 +1079,7 @@
     </div>
 </ng-template>
 <ng-template #modal_telefonos_cliente let-modal>
-    <div class="modal-header ">
+    <div class="modal-header">
         <h5 class="modal-title ">Ver Telefonos</h5>
         <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
             <span aria-hidden="true ">&times;</span>
@@ -1191,61 +1188,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </div>
-    <div class="modal-footer ">
-        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'close') ">Cerrar</button>
-    </div>
-</ng-template>
-<ng-template #modal_bodegas_producto let-modal>
-    <div class="modal-header ">
-        <h5 class="modal-title ">Ver Bodegas Producto</h5>
-        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
-      <span aria-hidden="true ">&times;</span>
-    </button>
-    </div>
-    <div class="modal-body ">
-        <div class="form-group form-row">
-            <div class="col-12 table-responsive" >     
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>BODEGA</th>
-                            <th>DESC</th>
-                            <th>MARCA</th>
-                            <th>MODELO</th>
-                            <th>SERIE</th>
-                            <th>CANT</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ng-container *ngFor="let bodega_producto of detalle.producto.bodegas_productos let i=index">
-                            <ng-container *ngFor="let caracteristica of bodega_producto.caracteristicas let j=index">     
-                                <tr *ngIf="caracteristica.cantidad!=0">
-                                    <td>
-                                        {{bodega_producto.bodega.codigo}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.descripcion}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.marca}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.modelo}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.serie}}
-                                    </td>
-                                    <td>
-                                        {{caracteristica.cantidad}}
-                                    </td>
-                                </tr>
-                            </ng-container>
-                        </ng-container>
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
     <div class="modal-footer ">

@@ -18,7 +18,7 @@ export class EstablecimientoComponent implements OnInit {
   constructor(private establecimientoService: EstablecimientoService, private modalService: NgbModal) { }
 
   ngOnInit() {
-    this.establecimientoService.obtener().subscribe(
+    this.establecimientoService.consultar().subscribe(
       res=>this.empresas=res.resultado as Establecimiento[]
     );
   }

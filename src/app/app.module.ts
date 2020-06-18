@@ -146,6 +146,8 @@ import { EntregaComponent } from './entrega/entrega.component';
 import { SliderComponent } from './tienda/slider/slider.component';
 import { ZoomComponent } from './tienda/zoom/zoom.component';
 
+import { FiltroSerie } from './pipes/filtro-serie';
+
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
   {path: 'iniciosesion', component: InicioSesionComponent},
@@ -261,6 +263,7 @@ const routes: Routes = [
     SortFiltersComponent,
     UrlFormComponent,
     SliderComponent,
+    FiltroSerie
     ZoomComponent,
     ImageZoomComponent,
     SliderLightboxComponent,

@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Observable} from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -21,6 +21,8 @@ import { FacturaService } from '../servicios/factura.service';
 import { AuxiliarService } from '../servicios/auxiliar.service';
 import { Auxiliar } from '../modelos/auxiliar';
 import { Caracteristica } from '../modelos/caracteristica';
+import { Bodega } from '../modelos/bodega';
+import { BodegaService } from '../servicios/bodega.service';
 import { CaracteristicaService } from '../servicios/caracteristica.service';
 import { MatStepper } from '@angular/material';
 
@@ -31,17 +33,22 @@ import { MatStepper } from '@angular/material';
 })
 export class FacturaComponent implements OnInit {
 
+  @ViewChild('stepper',{static: false}) stepper: MatStepper;
+
   collapsed = true;
-  isEditable=true;
+  isLinear = false;
+  isEditable=false;
+  completed=false;
   tipo_producto="B";
   estado="EMITIDA";
   indice_detalle=0;
   detalle_entregado="";
+  buscar_serie:string="";
 
   seleccion_auxiliar: boolean =false;
   seleccion_facturar: boolean =false;
 
-  isLinear = false;
+  
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -60,8 +67,8 @@ export class FacturaComponent implements OnInit {
 
   constructor(private clienteService: ClienteService, private auxiliarService: AuxiliarService, private sesionService: SesionService, 
     private medidaService: MedidaService, private impuestoService: ImpuestoService, private router: Router,
-    private facturaService: FacturaService, private productoService: ProductoService, private caracteristicaService: CaracteristicaService, 
-    private modalService: NgbModal, private _formBuilder: FormBuilder) { }
+    private facturaService: FacturaService, private productoService: ProductoService, private bodegaService: BodegaService,
+    private caracteristicaService: CaracteristicaService, private modalService: NgbModal, private _formBuilder: FormBuilder) { }
 
   factura_crear: Factura=new Factura();
   factura: Factura = new Factura();
@@ -70,6 +77,7 @@ export class FacturaComponent implements OnInit {
   clientes: Cliente[]=[];
   auxiliares: Auxiliar[]=[];
   productos: Producto[] = [];
+  bodegas: Bodega[]=[];
 
   medidas: Medida[];
   sesion: Sesion;
@@ -116,6 +124,7 @@ export class FacturaComponent implements OnInit {
     this.cambiar_productos(this.tipo_producto);
     this.consultar_medidas();
     this.consultar_impuestos();
+    this.consultar_bodegas();
 
     this.firstFormGroup = new FormGroup({
       firstCtrl: new FormControl()
@@ -267,6 +276,7 @@ export class FacturaComponent implements OnInit {
             this.primer_celular_cliente_factura= this.factura.cliente_factura.celulares.length>0? this.factura.cliente_factura.celulares[0].numero: "";
             this.primer_correo_cliente_factura= this.factura.cliente_factura.correos.length>0? this.factura.cliente_factura.correos[0].email: "";
           }
+          this.factura_crear=this.factura;
           this.facturaService.enviar(0);
         },
         err => {
@@ -297,6 +307,13 @@ export class FacturaComponent implements OnInit {
     this.impuestoService.consultar().subscribe(
       res => {
         this.impuestos = res.resultado as Impuesto[]
+      }
+    );
+  }
+  consultar_bodegas(){
+    this.bodegaService.consultar().subscribe(
+      res => {
+        this.bodegas = res.resultado as Bodega[]
       }
     );
   }
@@ -468,8 +485,17 @@ export class FacturaComponent implements OnInit {
     }
   }
   asignar_facturar(){
-    this.seleccion_identificacion_cliente_factura.enable();
-    this.seleccion_razon_social_cliente_factura.enable();
+    console.log(this.seleccion_facturar);
+    if (this.seleccion_facturar){
+      this.seleccion_identificacion_cliente_factura.enable();
+      this.seleccion_razon_social_cliente_factura.enable();
+    } else {
+      this.seleccion_identificacion_cliente_factura.patchValue("");
+      this.seleccion_razon_social_cliente_factura.patchValue("");
+      this.seleccion_identificacion_cliente_factura.disable();
+      this.seleccion_razon_social_cliente_factura.disable();
+    }
+    
   }
   
   seleccionar_auxiliar(i: number){
@@ -486,7 +512,6 @@ export class FacturaComponent implements OnInit {
 
   limpiar_producto(){
     this.detalle.producto=new Producto();
-    this.detalle.bodega_producto=null;
     this.detalle.cantidad=0;
     this.detalle.valor_descuento_individual=0;
     this.detalle.porcentaje_descuento_individual=0;
@@ -499,33 +524,31 @@ export class FacturaComponent implements OnInit {
   }
   seleccionar_producto() {
     this.detalle.producto=this.seleccion_producto.value;
-    if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
-    if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
-    this.detalle.bodega_producto=this.detalle.producto.bodegas_productos[0];
-    this.costo_promedio=this.detalle.bodega_producto.kardex.costo_promedio;
-    this.costo_ultimo=this.detalle.bodega_producto.kardex.costo_ultimo;
-    if(this.detalle.bodega_producto.caracteristicas.length!=0){
-      this.stock_individual=this.detalle.bodega_producto.caracteristicas.length;
-    } else{
-      this.stock_individual=0;
-    }
-    this.stock_total=this.detalle.producto.stock_total;
+    this.detalle.medida=this.medidas[0];
+    this.impuestos.forEach((impuesto, index)=> {
+      if (impuesto.porcentaje==this.detalle.producto.impuesto.porcentaje){
+        this.detalle.impuesto=impuesto;
+      }
+    });
+    this.caracteristicaService.consultarBienExistencias(this.detalle.producto).subscribe(
+      res => {
+        this.detalle.producto.caracteristicas = res.resultado as Caracteristica[];
+        if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
+        if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
+        this.costo_promedio=this.detalle.producto.kardex.costo_promedio;
+        this.costo_ultimo=this.detalle.producto.kardex.costo_ultimo;
+        if(this.detalle.caracteristicas.length!=0){
+          this.stock_individual=this.detalle.caracteristicas.length;
+        } else{
+          this.stock_individual=0;
+        }
+        this.stock_total=this.detalle.producto.stock_total;
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
   }
-  seleccionar_precio(i: number) {
-    if (i != -1) {
-      this.detalle.precio = this.detalle.producto.precios[i];
-      this.detalle.calcular();
-    } else {
-      this.detalle.precio=null;
-    }
-  }
-  seleccionar_medida(i: number) {
-    if (i != -1) {
-      this.detalle.medida = this.medidas[i];
-    }
-  }
-  seleccionar_bodega(i: number){
-    //this.detalle.bodega_producto=this.detalle.producto.bodegas_productos[i];
+  seleccionar_precio() {
+    this.detalle.calcular();
   }
   seleccionar_cantidad() {
     this.detalle.calcular();
@@ -548,7 +571,7 @@ export class FacturaComponent implements OnInit {
     //VALIDO SELECCIONES
     this.factura.factura_detalles.forEach((detalle, index)=> {
       let caracteristicas: Caracteristica[]=[];
-      detalle.bodega_producto.caracteristicas.forEach((caracteristica, index)=> {
+      detalle.producto.caracteristicas.forEach((caracteristica, index)=> {
         if(caracteristica.seleccionado) caracteristicas.push({...caracteristica})
       });
       if (caracteristicas.length != detalle.cantidad){
@@ -563,6 +586,7 @@ export class FacturaComponent implements OnInit {
       this.facturaService.crear(this.factura).subscribe(
         res => {
           this.factura_crear = res.resultado as Factura
+          this.stepper.next();
           if (res.mensaje){
             Swal.fire('Exito', 'Se creo el la factura', 'success');
           } else {
@@ -589,33 +613,38 @@ export class FacturaComponent implements OnInit {
   }
 
   agregar_factura_detalle(){
-    if (this.detalle.bodega_producto==null){
+    if (this.detalle.producto.bodega.id==0){
       Swal.fire('Error', "Seleccione una bodega", 'error');
       return;
     }
-    if (this.detalle.producto.impuesto==null){
+    if (this.detalle.producto.impuesto.id==0){
       Swal.fire('Error', "Seleccione un impuesto", 'error');
       return;
     }
-    if (this.detalle.cantidad>this.detalle.bodega_producto.caracteristicas.length){
-      Swal.fire("Error", "Cantidad No Existente. Max Cant. "+this.detalle.bodega_producto.caracteristicas.length, "error");
-      return;
-    }
-    this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
-    if (this.detalle.producto.serie_autogenerado){
-      let suma=0;
-      for(let i=0; i<this.detalle.bodega_producto.caracteristicas.length; i++) {
-        this.detalle.bodega_producto.caracteristicas[i].seleccionado=true;
-        suma++;
-        if (suma==this.detalle.cantidad) break;
+    this.caracteristicaService.consultarBienExistenciasBodega(this.detalle.producto, this.detalle.producto.bodega).subscribe(
+      res => {
+        this.detalle.producto.caracteristicas = res.resultado as Caracteristica[]
+        if (this.detalle.cantidad>this.detalle.producto.caracteristicas.length){
+          Swal.fire("Error", "Cantidad No Existente. Max Cant. "+this.detalle.producto.caracteristicas.length, "error");
+          return;
+        }
+        this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
+        if (this.detalle.producto.serie_autogenerado){
+          let suma=0;
+          for(let i=0; i<this.detalle.producto.caracteristicas.length; i++) {
+            this.detalle.producto.caracteristicas[i].seleccionado=true;
+            suma++;
+            if (suma==this.detalle.cantidad) break;
+          }
+        }
+        this.detalle.calcular();
+        this.factura.factura_detalles.push(this.detalle);
+        this.factura.calcular();
+        this.detalle=new FacturaDetalle();
+        this.limpiar_producto();
+        Swal.fire('Exito', 'Se agrego el detalle', 'success');
       }
-    }
-    this.detalle.calcular();
-    this.factura.factura_detalles.push(this.detalle);
-    this.factura.calcular();
-    this.detalle=new FacturaDetalle();
-    this.limpiar_producto();
-    Swal.fire('Exito', 'Se agrego el detalle', 'success');
+    );
   }
 
   cambiar_productos(tipo_producto: string){
@@ -634,27 +663,31 @@ export class FacturaComponent implements OnInit {
     this.indice_detalle=i;
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
       if (result == "confirmar") {
-
-          if (this.factura.factura_detalles[i].caracteristicas.length>this.factura.factura_detalles[i].cantidad){
-            this.factura.factura_detalles[i].caracteristicas=[];
-            Swal.fire('Error', "Series seleccionadas son mayores a la cantidad", 'error');
+        this.buscar_serie="";
+        let seleccionados=0;
+        this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
+          if(caracteristica.seleccionado){
+            seleccionados++;
           }
+        });
+        if (seleccionados>this.factura.factura_detalles[i].cantidad || seleccionados<this.factura.factura_detalles[i].cantidad){
+          this.factura.factura_detalles[i].caracteristicas=[];
+          this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
+            caracteristica.seleccionado=false;
+          });
+          Swal.fire('Error', "Series seleccionadas no coinciden con la cantidad", 'error');
         }
+      }
       if (result == "close"){
-        if (this.factura.factura_detalles[i].caracteristicas.length!=this.factura.factura_detalles[i].cantidad){
-          this.factura.factura_detalles[i].caracteristicas.forEach((caracteristica, index)=> {
+        this.buscar_serie="";
+        if(!this.factura.factura_detalles[i].producto.serie_autogenerado){
+          this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
             caracteristica.seleccionado=false;
           });
         }
       }
     }, (reason) => {
-      console.log(`Dismissed ${this.getDismissReason(reason)}`);
-    });
-  }
-
-  asignar_bodegas_producto(content: any){
-    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
-    }, (reason) => {
+      this.buscar_serie="";
       console.log(`Dismissed ${this.getDismissReason(reason)}`);
     });
   }
@@ -731,42 +764,15 @@ export class FacturaComponent implements OnInit {
     this.factura.cliente_factura.financiamiento.monto=0;
   }
   eliminar_detalle(i: number){
-    for (let i=0; i<this.detalle.bodega_producto.caracteristicas.length; i++){
-      this.detalle.bodega_producto.caracteristicas[i].seleccionado=false;
+    for (let j=0; j<this.factura.factura_detalles[i].caracteristicas.length; j++){
+      this.factura.factura_detalles[i].caracteristicas[j].seleccionado=false;
     }
     this.factura.factura_detalles.splice(i, 1);
     this.factura.calcular();
   }
 
-  transferir(i: number, j:number){
-    /*let caracteristica=this.detalles[this.indice_detalle].producto.bodegas_productos[i].caracteristicas[j];
-    if(this.cantidad_transferencia<=caracteristica.cantidad && this.cantidad_transferencia>0){
-      caracteristica.cantidad=caracteristica.cantidad-this.cantidad_transferencia;
-      let caracteristica_transferir= new Caracteristica();
-      caracteristica_transferir.bodega_producto.id=this.detalles[this.indice_detalle].bodega_producto.id;
-      caracteristica_transferir=caracteristica;
-      caracteristica_transferir.cantidad=this.cantidad_transferencia;
-      this.caracteristicaService.actualizar(caracteristica).subscribe(
-        res => {
-          if (res.bandera){
-            this.caracteristicaService.crear(caracteristica_transferir).subscribe(
-              res => {
-                caracteristica_transferir = res.resultado as Caracteristica
-                this.detalles[this.indice_detalle].producto.bodegas_productos[i].caracteristicas[j]=caracteristica_transferir;
-              },
-              err => {
-                Swal.fire('Error', err.error.mensaje, 'error')
-              }
-            );
-          }
-        },
-        err => {
-          Swal.fire('Error', err.error.mensaje, 'error');
-        }
-      );
-    } else {
-      Swal.fire('Error', "CANTIDAD NO TRANSFERIBLE", 'error')
-    }*/
+  transferir(caracteristica: Caracteristica){
+
   }
 
   seleccionar_valor_descuento_subtotal(){
@@ -806,9 +812,9 @@ export class FacturaComponent implements OnInit {
     this.factura.calcular();
   }
 
-  cambiar_seccion(){
-    if (this.factura_crear!=null){
-      this.isEditable=false;
+  procesaPropagar(mensaje: boolean){
+    if (mensaje){
+      this.stepper.next();
     }
   }
 }

@@ -3,9 +3,11 @@ import { Precio } from './precio';
 import { Medida } from './medida';
 import { Caracteristica } from './caracteristica';
 import { Producto } from './producto';
-import { BodegaProducto } from './bodega-producto';
+import { Bodega } from './bodega';
+import { Impuesto } from './impuesto';
 
 export class FacturaDetalle {
+  id: number;
   posicion: number;
   comentario: string;
   entregado: boolean;
@@ -20,10 +22,13 @@ export class FacturaDetalle {
   total_descuento_individual: number;
   //FIN INDIVIDUALES
   //TOTALES
+  valor_descuento_individual_totales: number;
+  porcentaje_descuento_individual_totales: number;
+  valor_porcentaje_descuento_individual_totales: number;
+
   valor_descuento_totales: number;
   porcentaje_descuento_totales: number;
   valor_porcentaje_descuento_totales: number;
-  total_descuento_totales: number;
   //FIN TOTALES
   subtotal_sin_descuento: number;
   subtotal_con_descuento: number;
@@ -35,12 +40,15 @@ export class FacturaDetalle {
   //CARACTERISTICAS SELECCIONADAS
   caracteristicas: Caracteristica[];
   //PRECIO SELECCIONADO
-  producto: Producto;
-  bodega_producto: BodegaProducto;
   precio: Precio;
+  //PRODUCTO SELECCIONADO
+  producto: Producto;
+  //IMPUESTO SELECCIONADO
+  impuesto: Impuesto;
   
 
   constructor() {
+    this.id=0;
     this.entregado=false;
     this.comentario="";
     this.cantidad=0;
@@ -48,18 +56,20 @@ export class FacturaDetalle {
     this.porcentaje_descuento_individual=0;
     this.valor_porcentaje_descuento_individual=0;
     this.total_descuento_individual=0;
+    this.valor_descuento_individual_totales=0;
+    this.porcentaje_descuento_individual_totales=0;
+    this.valor_porcentaje_descuento_individual_totales=0;
     this.valor_descuento_totales=0;
     this.porcentaje_descuento_totales=0;
     this.valor_porcentaje_descuento_totales=0;
-    this.total_descuento_totales=0;
     this.subtotal_sin_descuento=0;
     this.valor_iva_sin_descuento=0;
     this.subtotal_con_descuento=0;
     this.valor_iva_con_descuento=0;
     this.producto=new Producto();
-    this.bodega_producto=new BodegaProducto();
     this.precio=new Precio();
     this.medida=new Medida();
+    this.impuesto=new Impuesto();
     this.caracteristicas=[];
   }
 
@@ -75,12 +85,12 @@ export class FacturaDetalle {
   }
   private calcular_total_descuento(){
     this.total_descuento_individual=0;
-    this.total_descuento_individual=Number(this.valor_descuento_individual)+Number(this.valor_porcentaje_descuento_individual)+Number(this.valor_descuento_totales)+Number(this.valor_porcentaje_descuento_totales);    
-    this.total_descuento_individual= Number(this.total_descuento_individual.toFixed(2));
+    this.total_descuento_individual=Number(this.valor_descuento_individual)+Number(this.valor_porcentaje_descuento_individual)+Number(this.valor_descuento_individual_totales)+Number(this.valor_porcentaje_descuento_individual_totales)+Number(this.valor_descuento_totales)+Number(this.valor_porcentaje_descuento_totales);    
+    this.total_descuento_individual=Number(this.total_descuento_individual.toFixed(2));
   }
   private calcular_valor_iva_sin_descuento(){
     this.valor_iva_sin_descuento=0;
-    this.valor_iva_sin_descuento=this.subtotal_sin_descuento*this.producto.impuesto.porcentaje/100;
+    this.valor_iva_sin_descuento=this.subtotal_sin_descuento*this.impuesto.porcentaje/100;
     this.valor_iva_sin_descuento= Number(this.valor_iva_sin_descuento.toFixed(2));
   }
   private calcular_subtotal_con_descuento(){
@@ -90,32 +100,32 @@ export class FacturaDetalle {
   }
   private calcular_valor_iva_con_descuento(){
     this.valor_iva_con_descuento=0;
-    this.valor_iva_con_descuento=Number(this.subtotal_con_descuento)*Number(this.producto.impuesto.porcentaje/100);
+    this.valor_iva_con_descuento=Number(this.subtotal_con_descuento)*Number(this.impuesto.porcentaje/100);
     this.valor_iva_con_descuento= Number(this.valor_iva_con_descuento.toFixed(2));
   }
 
   //CALCULAR TOTALES
-  private calcular_valor_descuento_individual_general(factura:Factura){
+  private calcular_valor_descuento_individual_totales(factura:Factura){
     if (factura.subtotal_sin_descuento>0){
-      this.valor_descuento_individual=factura.valor_descuento_subtotal*this.subtotal_sin_descuento/factura.subtotal_sin_descuento;
-      this.valor_descuento_individual= Number(this.valor_descuento_individual.toFixed(2));
+      this.valor_descuento_individual_totales=factura.valor_descuento_subtotal*this.subtotal_sin_descuento/factura.subtotal_sin_descuento;
+      this.valor_descuento_individual_totales= Number(this.valor_descuento_individual_totales.toFixed(2));
     }
   }
-  private calcular_porcentaje_descuento_individual_general(factura: Factura){
-    this.porcentaje_descuento_individual=Number(factura.porcentaje_descuento_subtotal);
-    this.porcentaje_descuento_individual= Number(this.porcentaje_descuento_individual.toFixed(2));
-  }
+  private calcular_porcentaje_descuento_individual_totales(factura: Factura){
+    this.porcentaje_descuento_individual_totales=Number(factura.porcentaje_descuento_subtotal);
+    this.porcentaje_descuento_individual_totales= Number(this.porcentaje_descuento_individual_totales.toFixed(2));
+  }  
   private calcular_valor_descuento_totales(factura: Factura){
-    if (this.producto.impuesto.porcentaje>0){
-      this.valor_descuento_totales=((Number(factura.valor_descuento_total)*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento)/((100+this.producto.impuesto.porcentaje)/100);
+    if (this.impuesto.porcentaje>0){
+      this.valor_descuento_totales=((Number(factura.valor_descuento_total)*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento)/((100+this.impuesto.porcentaje)/100);
     } else{
       this.valor_descuento_totales=((Number(factura.valor_descuento_total)*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento);
     }
     this.valor_descuento_totales=Number(this.valor_descuento_totales.toFixed(2));
   }
   private calcular_valor_porcentaje_descuento_totales(factura: Factura){
-    if (this.producto.impuesto.porcentaje>0){
-      this.valor_porcentaje_descuento_totales=((factura.valor_porcentaje_descuento_total*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento)/((100+this.producto.impuesto.porcentaje)/100);
+    if (this.impuesto.porcentaje>0){
+      this.valor_porcentaje_descuento_totales=((factura.valor_porcentaje_descuento_total*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento)/((100+this.impuesto.porcentaje)/100);
     } else {
       this.valor_porcentaje_descuento_totales=((factura.valor_porcentaje_descuento_total*this.subtotal_sin_descuento)/factura.subtotal_sin_descuento);
     }
@@ -136,8 +146,8 @@ export class FacturaDetalle {
     this.calcular_valor_iva_con_descuento();
   }
   calcular_totales(factura: Factura){
-    this.calcular_valor_descuento_individual_general(factura);
-    this.calcular_porcentaje_descuento_individual_general(factura);
+    this.calcular_valor_descuento_individual_totales(factura);
+    this.calcular_porcentaje_descuento_individual_totales(factura);
     this.calcular_valor_descuento_totales(factura);
     this.calcular_valor_porcentaje_descuento_totales(factura);
     this.calcular_porcentaje_descuento_totales(factura);

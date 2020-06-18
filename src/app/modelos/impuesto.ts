@@ -6,6 +6,7 @@ export class Impuesto {
 
     constructor() {
         this.codigo="";
+        this.codigo_norma="";
         this.porcentaje=0;
     }
 }

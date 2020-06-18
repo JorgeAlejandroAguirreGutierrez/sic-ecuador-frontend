@@ -25,8 +25,17 @@ export class PuntoVentaService {
     );
   }
 
-  consultar(usuario_id: number): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.punto_venta + '/' + usuario_id, util.options).pipe(
+  consultar(punto_venta_id: number): Observable<Resultado> {
+    return this.http.get<Resultado>(environment.host + util.ruta + util.punto_venta + '/' + punto_venta_id, util.options).pipe(
+      map(response => response as Resultado),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
+
+  consultarEstablecimiento(establecimiento_id: number): Observable<Resultado> {
+    return this.http.get<Resultado>(environment.host + util.ruta + util.punto_venta+util.establecimiento + '/' + establecimiento_id, util.options).pipe(
       map(response => response as Resultado),
       catchError(err => {
         return throwError(err);
@@ -52,7 +61,7 @@ export class PuntoVentaService {
   }
 
   eliminar(punto_venta: PuntoVenta): Observable<Resultado> {
-    return this.http.delete(environment.host+util.ruta+util.servicio + '/' + punto_venta.id, util.options).pipe(
+    return this.http.delete(environment.host+util.ruta+util.punto_venta + '/' + punto_venta.id, util.options).pipe(
       map(response => response as Resultado),
       catchError(err => {
         return throwError(err);

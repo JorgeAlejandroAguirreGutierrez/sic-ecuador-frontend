@@ -154,7 +154,18 @@ th.mat-sort-header-sorted {
 
 tr.mat-footer-row {
     font-weight: bold;
-  }
+}
+
+.modal{
+    display: block !important;
+}
+.modal-dialog{
+      overflow-y: initial !important
+}
+.modal-body{
+  height: 300px;
+  overflow-y: auto;
+}
 
 /*para el acodion*/
 .mat-accordion{padding: 0px!important;}
@@ -174,3 +185,7 @@ tr.mat-footer-row {
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix { border-top:0px !important; padding-top: 10px !important;}
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-label{ margin-top: 3px !important; }
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex { padding:0px !important; }
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}

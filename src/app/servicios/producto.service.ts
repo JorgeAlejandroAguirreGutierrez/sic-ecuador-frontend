@@ -7,6 +7,7 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Producto } from '../modelos/producto';
+import { Bodega } from '../modelos/bodega';
 
 @Injectable({
   providedIn: 'root'

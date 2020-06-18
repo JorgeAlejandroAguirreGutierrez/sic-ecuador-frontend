@@ -24,8 +24,8 @@ export class VehiculoTransporteService {
     );
   }
 
-  consultar(transportista_id: number): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.vehiculo_transporte + '/' + transportista_id, util.options).pipe(
+  consultar(): Observable<Resultado> {
+    return this.http.get<Resultado>(environment.host + util.ruta + util.vehiculo_transporte, util.options).pipe(
       map(response => response as Resultado),
       catchError(err => {
         return throwError(err);
@@ -33,8 +33,8 @@ export class VehiculoTransporteService {
     );
   }
 
-  obtener(): Observable<Resultado> {
-    return this.http.get(environment.host + util.ruta + util.vehiculo_transporte, util.options).pipe(
+  obtener(vehiculo_transporte_id: number): Observable<Resultado> {
+    return this.http.get(environment.host + util.ruta + util.vehiculo_transporte+'/' + vehiculo_transporte_id, util.options).pipe(
       map(response => response as Resultado),
       catchError(err => {
         return throwError(err);
