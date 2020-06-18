@@ -16,7 +16,7 @@
     <ng-image-slider #nav *ngIf="showSlider" [imageSize]="{width: '33%', height: '200px', space: 4}"
       [images]="imageObject" [infinite]="sliderInfinite"
       [imagePopup]="sliderImagePopup" [showArrow]="sliderArrowShow" [autoSlide]="sliderAutoSlide ? 1 : 0"
-      [slideImage]="+sliderSlideImage" [animationSpeed]="sliderAnimationSpeed" [manageImageRatio]="false"
+      [slideImage]="sliderSlideImage" [animationSpeed]="sliderAnimationSpeed" [manageImageRatio]="false"
       [videoAutoPlay]="true" [showVideoControls]="true" [paginationShow]="false" (imageClick)="imageOnClick($event)"
       (arrowClick)="arrowOnClick($event)" (lightboxClose)="lightboxClose()"
       (lightboxArrowClick)="lightboxArrowClick($event)">

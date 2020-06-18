@@ -149,6 +149,9 @@ prevImageClick() {
 nextImageClick() {
     this.ds.next();
 }
+lightboxArrowClickHandler($event){
+
+}
 
 
 //for lightbox
