@@ -125,6 +125,7 @@ export class EntregaComponent implements OnInit {
     if (event!=null)
       event.preventDefault();
     this.guia_remision.factura=this.factura;
+    console.log(this.guia_remision);
     this.guiaRemisionService.crear(this.guia_remision).subscribe(
       res => {
         this.guia_remision_crear = res.resultado as GuiaRemision

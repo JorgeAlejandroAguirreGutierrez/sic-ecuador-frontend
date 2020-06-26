@@ -530,9 +530,9 @@ export class FacturaComponent implements OnInit {
         this.detalle.impuesto=impuesto;
       }
     });
-    this.caracteristicaService.consultarBienExistencias(this.detalle.producto).subscribe(
-      res => {
-        this.detalle.producto.caracteristicas = res.resultado as Caracteristica[];
+    //this.caracteristicaService.consultarBienExistencias(this.detalle.producto).subscribe(
+      //res => {
+        //this.detalle.producto.caracteristicas = res.resultado as Caracteristica[];
         if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
         if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
         this.costo_promedio=this.detalle.producto.kardex.costo_promedio;
@@ -543,10 +543,11 @@ export class FacturaComponent implements OnInit {
           this.stock_individual=0;
         }
         this.stock_total=this.detalle.producto.stock_total;
-      },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
-    );
+      //},
+      //err => Swal.fire('Error', err.error.mensaje, 'error')
+    //);
   }
+
   seleccionar_precio() {
     this.detalle.calcular();
   }
@@ -621,30 +622,69 @@ export class FacturaComponent implements OnInit {
       Swal.fire('Error', "Seleccione un impuesto", 'error');
       return;
     }
-    this.caracteristicaService.consultarBienExistenciasBodega(this.detalle.producto, this.detalle.producto.bodega).subscribe(
+    /*this.caracteristicaService.consultarBienExistenciasBodega(this.detalle.producto, this.detalle.producto.bodega).subscribe(
       res => {
         this.detalle.producto.caracteristicas = res.resultado as Caracteristica[]
-        if (this.detalle.cantidad>this.detalle.producto.caracteristicas.length){
-          Swal.fire("Error", "Cantidad No Existente. Max Cant. "+this.detalle.producto.caracteristicas.length, "error");
-          return;
-        }
         this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
+        let bandera=false;
         if (this.detalle.producto.serie_autogenerado){
           let suma=0;
           for(let i=0; i<this.detalle.producto.caracteristicas.length; i++) {
-            this.detalle.producto.caracteristicas[i].seleccionado=true;
-            suma++;
-            if (suma==this.detalle.cantidad) break;
+            if (!this.detalle.producto.caracteristicas[i].seleccionado){
+              this.detalle.producto.caracteristicas[i].seleccionado=true;
+              suma++;
+              if (suma==this.detalle.cantidad){
+                bandera=true;
+                break;
+              }
+            }
+          }
+        } else{
+          if (this.detalle.cantidad<=this.detalle.producto.caracteristicas.length){
+            bandera=true;
           }
         }
-        this.detalle.calcular();
-        this.factura.factura_detalles.push(this.detalle);
-        this.factura.calcular();
-        this.detalle=new FacturaDetalle();
-        this.limpiar_producto();
-        Swal.fire('Exito', 'Se agrego el detalle', 'success');
+        if (bandera){
+          this.detalle.calcular();
+          this.factura.factura_detalles.push(this.detalle);
+          this.factura.calcular();
+          this.detalle=new FacturaDetalle();
+          this.limpiar_producto();
+          Swal.fire('Exito', 'Se agrego el detalle', 'success');
+        } else{
+          Swal.fire("Error", "Cantidad No Existente.", "error");
+        }
       }
-    );
+    );*/
+    this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
+    let bandera=false;
+    if (this.detalle.producto.serie_autogenerado){
+      let suma=0;
+      for(let i=0; i<this.detalle.producto.caracteristicas.length; i++) {
+        if (!this.detalle.producto.caracteristicas[i].seleccionado && this.detalle.producto.caracteristicas[i].bodega.id==this.detalle.producto.bodega.id){
+          this.detalle.producto.caracteristicas[i].seleccionado=true;
+          suma++;
+          if (suma==this.detalle.cantidad){
+            bandera=true;
+            break;
+          }
+        }
+      }
+    } else{
+      if (this.detalle.cantidad<=this.detalle.producto.caracteristicas.length){
+        bandera=true;
+      }
+    }
+    if (bandera){
+      this.detalle.calcular();
+      this.factura.factura_detalles.push(this.detalle);
+      this.factura.calcular();
+      this.detalle=new FacturaDetalle();
+      this.limpiar_producto();
+      Swal.fire('Exito', 'Se agrego el detalle', 'success');
+    } else{
+      Swal.fire("Error", "Cantidad No Existente.", "error");
+    }
   }
 
   cambiar_productos(tipo_producto: string){

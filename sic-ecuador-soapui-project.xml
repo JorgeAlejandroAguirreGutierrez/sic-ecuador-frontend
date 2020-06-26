@@ -16908,4 +16908,2673 @@
         "id": 1
         }
       }
-    }</con:request><con:originalUri>http://localhost/api/datosadicionales/obtenerDatosAdicionales</con:originalUri><con:credentials><con:username>admin</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder/></con:request></con:method></con:resource></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+    }</con:request><con:originalUri>http://localhost/api/datosadicionales/obtenerDatosAdicionales</con:originalUri><con:credentials><con:username>admin</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder/></con:request></con:method></con:resource><con:resource name="CrearEntrega" path="/api/sicecuador/guiaremision" id="d44d24b5-3bd6-4f40-bdf4-478236b8899c"><con:settings/><con:parameters/><con:method name="Crear" id="af63be66-9fd0-4d2f-9108-104209fcc618" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html; charset=UTF-8</con:mediaType><con:status>405 500 404</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200 201</con:status><con:params/><con:element xmlns:obt="http://localhost/api/datosadicionales/obtenerDatosAdicionales">obt:Response</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>application/json</con:mediaType><con:status>404 400 500 401</con:status><con:params/><con:element xmlns:obt="http://localhost/api/datosadicionales/obtenerDatosAdicionales">obt:Fault</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" id="4e04462f-3728-4a87-99e4-fdf828c1ae0a" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5000</con:endpoint><con:request>{
+  "id": 0,
+  "codigo": "",
+  "numero": "7452123",
+  "direccion": {
+    "id": null,
+    "ubicacion": {
+      "id": 0,
+      "provincia": "",
+      "canton": "",
+      "parroquia": ""
+    }
+  },
+  "telefono": {
+    "id": 0,
+    "codigo": "",
+    "numero": ""
+  },
+  "celular": {
+    "id": 0,
+    "codigo": "",
+    "numero": ""
+  },
+  "correo": {
+    "id": 0,
+    "codigo": "",
+    "email": ""
+  },
+  "transportista": {
+    "id": 1,
+    "codigo": "TRAN1205000000",
+    "fecha_creacion": 1592965002865,
+    "fecha_actualizacion": 1592965002865,
+    "nombre": "ABAD NIETO PABLO MARCELO",
+    "identificacion": "1303753618",
+    "vehiculo_propio": true,
+    "vehiculo_transporte": {
+      "id": 1,
+      "codigo": "VEH1205000000",
+      "fecha_creacion": 1592965002849,
+      "fecha_actualizacion": 1592965002849,
+      "placa": "AAA-4521",
+      "numero": "001",
+      "marca": "FORD",
+      "modelo": "FIESTA",
+      "anio": "2020",
+      "cilindraje": "1500",
+      "clase": "ALTA",
+      "color": "ROJA",
+      "fabricacion": "2019",
+      "activo": true,
+      "transportista": null
+    }
+  },
+  "factura": {
+    "id": 4,
+    "codigo": "FAC1205000003",
+    "fecha_creacion": 1592967181271,
+    "fecha_actualizacion": 1592967181271,
+    "numero": "EST001-EM1ES1CA001-000003",
+    "fecha": 1592967134839,
+    "estado": true,
+    "subtotal_sin_descuento": 5.62,
+    "subtotal_con_descuento": 5.62,
+    "descuento_total": 0,
+    "subtotal_base12_sin_descuento": 0,
+    "subtotal_base0_sin_descuento": 5.62,
+    "subtotal_base12_con_descuento": 0,
+    "subtotal_base0_con_descuento": 5.62,
+    "importe_iva_sin_descuento": 0,
+    "importe_iva_con_descuento": 0,
+    "total_sin_descuento": 5.62,
+    "total_con_descuento": 5.62,
+    "valor_descuento_subtotal": 0,
+    "porcentaje_descuento_subtotal": 0,
+    "valor_descuento_total": 0,
+    "porcentaje_descuento_total": 0,
+    "valor_porcentaje_descuento_total": 0,
+    "comentario": "",
+    "cliente": {
+      "id": 1,
+      "codigo": "CLI1205000000",
+      "fecha_creacion": 1592965002181,
+      "fecha_actualizacion": 1592965002181,
+      "tipo_identificacion": "C",
+      "identificacion": "1768038860001",
+      "razon_social": "CLIENTE A",
+      "especial": true,
+      "estado": true,
+      "eliminado": false,
+      "tipo_contribuyente": {
+        "id": 1,
+        "codigo": "TCO011907000001",
+        "fecha_creacion": 1592965001777,
+        "fecha_actualizacion": 1592965001777,
+        "tipo": "NATURAL",
+        "subtipo": "NATURAL",
+        "obligado_contabilidad": false
+      },
+      "punto_venta": {
+        "id": 1,
+        "codigo": "EM1ES1CA001",
+        "fecha_creacion": 1592965002140,
+        "fecha_actualizacion": 1592965002140,
+        "descripcion": "CAJA1",
+        "establecimiento": {
+          "id": 1,
+          "codigo": "EST001",
+          "fecha_creacion": 1592965002120,
+          "fecha_actualizacion": 1592965002120,
+          "direccion": "CALLE 10 CARRERA 15 #27",
+          "empresa": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965001808,
+            "fecha_actualizacion": 1592965001808,
+            "identificacion": "RioTour S.A.",
+            "razon_social": "0660001840001",
+            "logo": "empresa1.jpg"
+          },
+          "ubicacion": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965001757,
+            "fecha_actualizacion": 1592965001757,
+            "codigo_norma": "1",
+            "provincia": "AZUAY",
+            "canton": "CUENCA",
+            "parroquia": "BELLAVISTA"
+          }
+        }
+      },
+      "grupo_cliente": {
+        "id": 1,
+        "codigo": "GCL011907000001",
+        "fecha_creacion": 1592965001707,
+        "fecha_actualizacion": 1592965001707,
+        "descripcion": "CLIENTES NACIONALES",
+        "abreviatura": "NAC"
+      },
+      "direccion": {
+        "id": 1,
+        "codigo": "DIR011907000001",
+        "fecha_creacion": 1592965002171,
+        "fecha_actualizacion": 1592965002171,
+        "direccion": "CALLE 1 Y CALLE 2",
+        "referencia": "FRENTE AL PARQUE CENTRAL",
+        "latitudgeo": "40.75793",
+        "longitudgeo": "-73.98551",
+        "ubicacion": {
+          "id": 1,
+          "codigo": null,
+          "fecha_creacion": 1592965001757,
+          "fecha_actualizacion": 1592965001757,
+          "codigo_norma": "1",
+          "provincia": "AZUAY",
+          "canton": "CUENCA",
+          "parroquia": "BELLAVISTA"
+        }
+      },
+      "financiamiento": {
+        "id": 1,
+        "codigo": "FIN011907000001",
+        "fecha_creacion": 1592965002179,
+        "fecha_actualizacion": 1592965002179,
+        "monto": 100.2,
+        "tipo_pago": {
+          "id": 1,
+          "codigo": null,
+          "fecha_creacion": 1592965001798,
+          "fecha_actualizacion": 1592965001798,
+          "descripcion": "PREPAGO",
+          "abreviatura": "PRE"
+        },
+        "forma_pago": {
+          "id": 1,
+          "codigo": null,
+          "fecha_creacion": 1592965001677,
+          "fecha_actualizacion": 1592965001677,
+          "descripcion": "EFECTIVO",
+          "abreviatura": "EF"
+        },
+        "plazo_credito": {
+          "id": 1,
+          "codigo": null,
+          "fecha_creacion": 1592965001735,
+          "fecha_actualizacion": 1592965001735,
+          "descripcion": "CORTO PLAZO",
+          "plazo": 30
+        }
+      },
+      "genero": {
+        "id": 2,
+        "codigo": "GEN011908000002",
+        "fecha_creacion": 1592965001697,
+        "fecha_actualizacion": 1592965001697,
+        "descripcion": "FEMENINO",
+        "abreviatura": "F"
+      },
+      "estado_civil": {
+        "id": 2,
+        "codigo": "ECV011907000002",
+        "fecha_creacion": 1592965001555,
+        "fecha_actualizacion": 1592965001555,
+        "descripcion": "CASADO",
+        "abreviatura": "C"
+      },
+      "categoria_cliente": {
+        "id": 1,
+        "codigo": "CCL011909000001",
+        "fecha_creacion": 1592965001515,
+        "fecha_actualizacion": 1592965001515,
+        "descripcion": "EXELENTE",
+        "abreviatura": "E"
+      },
+      "origen_ingreso": {
+        "id": 1,
+        "codigo": "OIN011907000001",
+        "fecha_creacion": 1592965001717,
+        "fecha_actualizacion": 1592965001717,
+        "descripcion": "SALARIO",
+        "abreviatura": "S"
+      },
+      "auxiliares": [
+        {
+          "id": 1,
+          "codigo": "AUX011907000001",
+          "fecha_creacion": 1592965002231,
+          "fecha_actualizacion": 1592965002231,
+          "razon_social": "AUXILIAR 1 DE CLIENTE A",
+          "estado": true,
+          "eliminado": false,
+          "direccion": {
+            "id": 4,
+            "codigo": "DIR011907000004",
+            "fecha_creacion": 1592965002231,
+            "fecha_actualizacion": 1592965002231,
+            "direccion": "CALLE 7 Y CALLE 8",
+            "referencia": "JUNTO AL TERMINAL",
+            "latitudgeo": "-77.5000000",
+            "longitudgeo": "-2.0000000",
+            "ubicacion": {
+              "id": 1,
+              "codigo": null,
+              "fecha_creacion": 1592965001757,
+              "fecha_actualizacion": 1592965001757,
+              "codigo_norma": "1",
+              "provincia": "AZUAY",
+              "canton": "CUENCA",
+              "parroquia": "BELLAVISTA"
+            }
+          },
+          "telefonos": [
+            {
+              "id": 1,
+              "codigo": "TEA011908000001",
+              "fecha_creacion": 1592965002442,
+              "fecha_actualizacion": 1592965002442,
+              "numero": "032964121"
+            },
+            {
+              "id": 2,
+              "codigo": "TEA011908000002",
+              "fecha_creacion": 1592965002442,
+              "fecha_actualizacion": 1592965002442,
+              "numero": "032964122"
+            }
+          ],
+          "celulares": [
+            {
+              "id": 1,
+              "codigo": "CEA011908000001",
+              "fecha_creacion": 1592965002380,
+              "fecha_actualizacion": 1592965002380,
+              "numero": "0987654322"
+            },
+            {
+              "id": 2,
+              "codigo": "CEA011908000002",
+              "fecha_creacion": 1592965002382,
+              "fecha_actualizacion": 1592965002382,
+              "numero": "0981234563"
+            }
+          ],
+          "correos": [
+            {
+              "id": 1,
+              "codigo": "COA011908000001",
+              "fecha_creacion": 1592965002410,
+              "fecha_actualizacion": 1592965002410,
+              "email": "AUXILIAR1@GMAIL.COM"
+            },
+            {
+              "id": 2,
+              "codigo": "COA011908000002",
+              "fecha_creacion": 1592965002412,
+              "fecha_actualizacion": 1592965002412,
+              "email": "AUXILIAR11@GMAIL.COM"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "codigo": "AUX011908000002",
+          "fecha_creacion": 1592965002231,
+          "fecha_actualizacion": 1592965002231,
+          "razon_social": "AUXILIAR 2 DE CLIENTE A",
+          "estado": true,
+          "eliminado": false,
+          "direccion": {
+            "id": 5,
+            "codigo": "DIR011907000005",
+            "fecha_creacion": 1592965002231,
+            "fecha_actualizacion": 1592965002231,
+            "direccion": "CALLE 7 Y CALLE 8",
+            "referencia": "JUNTO AL COLISEO",
+            "latitudgeo": "-77.5000000",
+            "longitudgeo": "-2.0000000",
+            "ubicacion": {
+              "id": 2,
+              "codigo": null,
+              "fecha_creacion": 1592965001757,
+              "fecha_actualizacion": 1592965001757,
+              "codigo_norma": "2",
+              "provincia": "AZUAY",
+              "canton": "CUENCA",
+              "parroquia": "CAÑARIBAMBA"
+            }
+          },
+          "telefonos": [
+            {
+              "id": 3,
+              "codigo": "TEA011909000003",
+              "fecha_creacion": 1592965002442,
+              "fecha_actualizacion": 1592965002442,
+              "numero": "032964123"
+            }
+          ],
+          "celulares": [
+            {
+              "id": 3,
+              "codigo": "CEA011909000003",
+              "fecha_creacion": 1592965002382,
+              "fecha_actualizacion": 1592965002382,
+              "numero": "0965431235"
+            },
+            {
+              "id": 4,
+              "codigo": "CEA011909000004",
+              "fecha_creacion": 1592965002382,
+              "fecha_actualizacion": 1592965002382,
+              "numero": "0965431236"
+            }
+          ],
+          "correos": [
+            {
+              "id": 3,
+              "codigo": "COA011909000003",
+              "fecha_creacion": 1592965002412,
+              "fecha_actualizacion": 1592965002412,
+              "email": "AUXILIAR2@GMAIL.COM"
+            }
+          ]
+        }
+      ],
+      "telefonos": [
+        {
+          "id": 1,
+          "codigo": "TEL011907000001",
+          "fecha_creacion": 1592965002332,
+          "fecha_actualizacion": 1592965002332,
+          "numero": "032964123"
+        }
+      ],
+      "celulares": [
+        {
+          "id": 1,
+          "codigo": "CEL011908000001",
+          "fecha_creacion": 1592965002269,
+          "fecha_actualizacion": 1592965002269,
+          "numero": "0987654321"
+        },
+        {
+          "id": 2,
+          "codigo": "CEL011908000002",
+          "fecha_creacion": 1592965002271,
+          "fecha_actualizacion": 1592965002271,
+          "numero": "0981234567"
+        }
+      ],
+      "correos": [
+        {
+          "id": 1,
+          "codigo": "COR011907000001",
+          "fecha_creacion": 1592965015650,
+          "fecha_actualizacion": 1592965015650,
+          "email": "je.hidalgob@hotmail.com"
+        }
+      ],
+      "retenciones_cliente": [
+        {
+          "id": 1,
+          "codigo": "RCL011907000001",
+          "fecha_creacion": 1592965002291,
+          "fecha_actualizacion": 1592965002291,
+          "tipo_retencion": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965002110,
+            "fecha_actualizacion": 1592965002110,
+            "impuesto_retencion": "IVA",
+            "tipo_retencion": "BIEN",
+            "codigo_norma": "103",
+            "homologacion_f_e": "3",
+            "descripcion": "IVA_100%",
+            "porcentaje": 100
+          }
+        },
+        {
+          "id": 2,
+          "codigo": "RCL011907000002",
+          "fecha_creacion": 1592965002299,
+          "fecha_actualizacion": 1592965002299,
+          "tipo_retencion": {
+            "id": 3,
+            "codigo": null,
+            "fecha_creacion": 1592965002110,
+            "fecha_actualizacion": 1592965002110,
+            "impuesto_retencion": "RENTA",
+            "tipo_retencion": "BIEN",
+            "codigo_norma": "303",
+            "homologacion_f_e": null,
+            "descripcion": "IR_10%",
+            "porcentaje": 10
+          }
+        },
+        {
+          "id": 3,
+          "codigo": "RCL011907000003",
+          "fecha_creacion": 1592965002301,
+          "fecha_actualizacion": 1592965002301,
+          "tipo_retencion": {
+            "id": 2,
+            "codigo": null,
+            "fecha_creacion": 1592965002110,
+            "fecha_actualizacion": 1592965002110,
+            "impuesto_retencion": "IVA",
+            "tipo_retencion": "SERVICIO",
+            "codigo_norma": "104",
+            "homologacion_f_e": "4",
+            "descripcion": "IVA_15%",
+            "porcentaje": 15
+          }
+        },
+        {
+          "id": 4,
+          "codigo": "RCL011907000004",
+          "fecha_creacion": 1592965002301,
+          "fecha_actualizacion": 1592965002301,
+          "tipo_retencion": {
+            "id": 4,
+            "codigo": null,
+            "fecha_creacion": 1592965002120,
+            "fecha_actualizacion": 1592965002120,
+            "impuesto_retencion": "RENTA",
+            "tipo_retencion": "SERVICIO",
+            "codigo_norma": "304",
+            "homologacion_f_e": null,
+            "descripcion": "IR_5%",
+            "porcentaje": 5
+          }
+        }
+      ]
+    },
+    "cliente_factura": {
+      "id": 2,
+      "codigo": "CLI1205000001",
+      "fecha_creacion": 1592965002191,
+      "fecha_actualizacion": 1592965002191,
+      "tipo_identificacion": "C",
+      "identificacion": "1160000240001",
+      "razon_social": "CLIENTE B",
+      "especial": true,
+      "estado": true,
+      "eliminado": false,
+      "tipo_contribuyente": {
+        "id": 2,
+        "codigo": "TCO011908000002",
+        "fecha_creacion": 1592965001788,
+        "fecha_actualizacion": 1592965001788,
+        "tipo": "JURIDICA",
+        "subtipo": "PUBLICA",
+        "obligado_contabilidad": true
+      },
+      "punto_venta": {
+        "id": 1,
+        "codigo": "EM1ES1CA001",
+        "fecha_creacion": 1592965002140,
+        "fecha_actualizacion": 1592965002140,
+        "descripcion": "CAJA1",
+        "establecimiento": {
+          "id": 1,
+          "codigo": "EST001",
+          "fecha_creacion": 1592965002120,
+          "fecha_actualizacion": 1592965002120,
+          "direccion": "CALLE 10 CARRERA 15 #27",
+          "empresa": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965001808,
+            "fecha_actualizacion": 1592965001808,
+            "identificacion": "RioTour S.A.",
+            "razon_social": "0660001840001",
+            "logo": "empresa1.jpg"
+          },
+          "ubicacion": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965001757,
+            "fecha_actualizacion": 1592965001757,
+            "codigo_norma": "1",
+            "provincia": "AZUAY",
+            "canton": "CUENCA",
+            "parroquia": "BELLAVISTA"
+          }
+        }
+      },
+      "grupo_cliente": {
+        "id": 2,
+        "codigo": "GCL011908000002",
+        "fecha_creacion": 1592965001707,
+        "fecha_actualizacion": 1592965001707,
+        "descripcion": "CLIENTES INTERNACIONALES",
+        "abreviatura": "INTER"
+      },
+      "direccion": {
+        "id": 2,
+        "codigo": "DIR011907000002",
+        "fecha_creacion": 1592965002191,
+        "fecha_actualizacion": 1592965002191,
+        "direccion": "CALLE 3 Y CALLE 4",
+        "referencia": "TRAS UE",
+        "latitudgeo": "-77.5000000",
+        "longitudgeo": "-2.0000000",
+        "ubicacion": {
+          "id": 2,
+          "codigo": null,
+          "fecha_creacion": 1592965001757,
+          "fecha_actualizacion": 1592965001757,
+          "codigo_norma": "2",
+          "provincia": "AZUAY",
+          "canton": "CUENCA",
+          "parroquia": "CAÑARIBAMBA"
+        }
+      },
+      "financiamiento": {
+        "id": 2,
+        "codigo": "FIN011908000002",
+        "fecha_creacion": 1592965002191,
+        "fecha_actualizacion": 1592965002191,
+        "monto": 80.2,
+        "tipo_pago": {
+          "id": 2,
+          "codigo": null,
+          "fecha_creacion": 1592965001798,
+          "fecha_actualizacion": 1592965001798,
+          "descripcion": "POSTPAGO",
+          "abreviatura": "POST"
+        },
+        "forma_pago": {
+          "id": 2,
+          "codigo": null,
+          "fecha_creacion": 1592965001687,
+          "fecha_actualizacion": 1592965001687,
+          "descripcion": "CREDITO",
+          "abreviatura": "CR"
+        },
+        "plazo_credito": {
+          "id": 2,
+          "codigo": null,
+          "fecha_creacion": 1592965001737,
+          "fecha_actualizacion": 1592965001737,
+          "descripcion": "MEDIANO PLAZO",
+          "plazo": 45
+        }
+      },
+      "genero": {
+        "id": 1,
+        "codigo": "GEN011907000001",
+        "fecha_creacion": 1592965001697,
+        "fecha_actualizacion": 1592965001697,
+        "descripcion": "MASCULINO",
+        "abreviatura": "M"
+      },
+      "estado_civil": {
+        "id": 1,
+        "codigo": "ECV011907000001",
+        "fecha_creacion": 1592965001555,
+        "fecha_actualizacion": 1592965001555,
+        "descripcion": "SOLTERO",
+        "abreviatura": "S"
+      },
+      "categoria_cliente": {
+        "id": 1,
+        "codigo": "CCL011909000001",
+        "fecha_creacion": 1592965001515,
+        "fecha_actualizacion": 1592965001515,
+        "descripcion": "EXELENTE",
+        "abreviatura": "E"
+      },
+      "origen_ingreso": {
+        "id": 1,
+        "codigo": "OIN011907000001",
+        "fecha_creacion": 1592965001717,
+        "fecha_actualizacion": 1592965001717,
+        "descripcion": "SALARIO",
+        "abreviatura": "S"
+      },
+      "auxiliares": [
+        {
+          "id": 3,
+          "codigo": "AUX011908000003",
+          "fecha_creacion": 1592965002239,
+          "fecha_actualizacion": 1592965002239,
+          "razon_social": "AUXILIAR 1 DE CLIENTE B",
+          "estado": true,
+          "eliminado": false,
+          "direccion": {
+            "id": 6,
+            "codigo": "DIR011907000006",
+            "fecha_creacion": 1592965002239,
+            "fecha_actualizacion": 1592965002239,
+            "direccion": "CALLE 7 Y CALLE 8",
+            "referencia": "JUNTO A LA PISICINA",
+            "latitudgeo": "-77.5000000",
+            "longitudgeo": "-2.0000000",
+            "ubicacion": {
+              "id": 3,
+              "codigo": null,
+              "fecha_creacion": 1592965001767,
+              "fecha_actualizacion": 1592965001767,
+              "codigo_norma": "3",
+              "provincia": "CHIMBORAZO",
+              "canton": "ALAUSI",
+              "parroquia": "ALAUSI"
+            }
+          },
+          "telefonos": [
+            {
+              "id": 4,
+              "codigo": "TEA011909000004",
+              "fecha_creacion": 1592965002442,
+              "fecha_actualizacion": 1592965002442,
+              "numero": "032964124"
+            }
+          ],
+          "celulares": [
+            {
+              "id": 5,
+              "codigo": "CEA011909000005",
+              "fecha_creacion": 1592965002382,
+              "fecha_actualizacion": 1592965002382,
+              "numero": "0965431237"
+            }
+          ],
+          "correos": [
+            {
+              "id": 4,
+              "codigo": "COA011909000004",
+              "fecha_creacion": 1592965002412,
+              "fecha_actualizacion": 1592965002412,
+              "email": "AUXILIAR3@GMAIL.COM"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "codigo": "AUX011908000004",
+          "fecha_creacion": 1592965002241,
+          "fecha_actualizacion": 1592965002241,
+          "razon_social": "AUXILIAR 2 DE CLIENTE B",
+          "estado": true,
+          "eliminado": false,
+          "direccion": {
+            "id": 7,
+            "codigo": "DIR011907000007",
+            "fecha_creacion": 1592965002241,
+            "fecha_actualizacion": 1592965002241,
+            "direccion": "CALLE 7 Y CALLE 8",
+            "referencia": "JUNTO A LA CAFETERIA",
+            "latitudgeo": "-77.5000000",
+            "longitudgeo": "-2.0000000",
+            "ubicacion": {
+              "id": 1,
+              "codigo": null,
+              "fecha_creacion": 1592965001757,
+              "fecha_actualizacion": 1592965001757,
+              "codigo_norma": "1",
+              "provincia": "AZUAY",
+              "canton": "CUENCA",
+              "parroquia": "BELLAVISTA"
+            }
+          },
+          "telefonos": [
+            {
+              "id": 5,
+              "codigo": "TEA011909000005",
+              "fecha_creacion": 1592965002451,
+              "fecha_actualizacion": 1592965002451,
+              "numero": "032964125"
+            }
+          ],
+          "celulares": [
+            {
+              "id": 6,
+              "codigo": "CEA011909000006",
+              "fecha_creacion": 1592965002382,
+              "fecha_actualizacion": 1592965002382,
+              "numero": "0965431238"
+            }
+          ],
+          "correos": [
+            {
+              "id": 5,
+              "codigo": "COA011909000005",
+              "fecha_creacion": 1592965002412,
+              "fecha_actualizacion": 1592965002412,
+              "email": "AUXILIAR4@GMAIL.COM"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "codigo": "AUX011908000005",
+          "fecha_creacion": 1592965002241,
+          "fecha_actualizacion": 1592965002241,
+          "razon_social": "AUXILIAR 2 DE CLIENTE B",
+          "estado": true,
+          "eliminado": false,
+          "direccion": {
+            "id": 8,
+            "codigo": "DIR01190700008",
+            "fecha_creacion": 1592965002241,
+            "fecha_actualizacion": 1592965002241,
+            "direccion": "CALLE 7 Y CALLE 8",
+            "referencia": "JUNTO A LA POLICIA",
+            "latitudgeo": "-77.5000000",
+            "longitudgeo": "-2.0000000",
+            "ubicacion": {
+              "id": 1,
+              "codigo": null,
+              "fecha_creacion": 1592965001757,
+              "fecha_actualizacion": 1592965001757,
+              "codigo_norma": "1",
+              "provincia": "AZUAY",
+              "canton": "CUENCA",
+              "parroquia": "BELLAVISTA"
+            }
+          },
+          "telefonos": [],
+          "celulares": [],
+          "correos": []
+        },
+        {
+          "id": 6,
+          "codigo": "AUX011908000006",
+          "fecha_creacion": 1592965002241,
+          "fecha_actualizacion": 1592965002241,
+          "razon_social": "AUXILIAR 2 DE CLIENTE B",
+          "estado": true,
+          "eliminado": false,
+          "direccion": {
+            "id": 9,
+            "codigo": "DIR01190700009",
+            "fecha_creacion": 1592965002241,
+            "fecha_actualizacion": 1592965002241,
+            "direccion": "CALLE 7 Y CALLE 8",
+            "referencia": "JUNTO A LA ALCALDIA",
+            "latitudgeo": "-77.5000000",
+            "longitudgeo": "-2.0000000",
+            "ubicacion": {
+              "id": 1,
+              "codigo": null,
+              "fecha_creacion": 1592965001757,
+              "fecha_actualizacion": 1592965001757,
+              "codigo_norma": "1",
+              "provincia": "AZUAY",
+              "canton": "CUENCA",
+              "parroquia": "BELLAVISTA"
+            }
+          },
+          "telefonos": [],
+          "celulares": [],
+          "correos": []
+        }
+      ],
+      "telefonos": [
+        {
+          "id": 2,
+          "codigo": "TEL011907000002",
+          "fecha_creacion": 1592965002332,
+          "fecha_actualizacion": 1592965002332,
+          "numero": "032424344"
+        }
+      ],
+      "celulares": [
+        {
+          "id": 3,
+          "codigo": "CEL011909000003",
+          "fecha_creacion": 1592965002271,
+          "fecha_actualizacion": 1592965002271,
+          "numero": "0965431234"
+        }
+      ],
+      "correos": [
+        {
+          "id": 2,
+          "codigo": "COR011908000002",
+          "fecha_creacion": 1592965015650,
+          "fecha_actualizacion": 1592965015650,
+          "email": "alejo@gmail.com"
+        }
+      ],
+      "retenciones_cliente": [
+        {
+          "id": 5,
+          "codigo": "RCL011907000005",
+          "fecha_creacion": 1592965002301,
+          "fecha_actualizacion": 1592965002301,
+          "tipo_retencion": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965002110,
+            "fecha_actualizacion": 1592965002110,
+            "impuesto_retencion": "IVA",
+            "tipo_retencion": "BIEN",
+            "codigo_norma": "103",
+            "homologacion_f_e": "3",
+            "descripcion": "IVA_100%",
+            "porcentaje": 100
+          }
+        },
+        {
+          "id": 6,
+          "codigo": "RCL011908000006",
+          "fecha_creacion": 1592965002301,
+          "fecha_actualizacion": 1592965002301,
+          "tipo_retencion": {
+            "id": 3,
+            "codigo": null,
+            "fecha_creacion": 1592965002110,
+            "fecha_actualizacion": 1592965002110,
+            "impuesto_retencion": "RENTA",
+            "tipo_retencion": "BIEN",
+            "codigo_norma": "303",
+            "homologacion_f_e": null,
+            "descripcion": "IR_10%",
+            "porcentaje": 10
+          }
+        },
+        {
+          "id": 7,
+          "codigo": "RCL011908000007",
+          "fecha_creacion": 1592965002301,
+          "fecha_actualizacion": 1592965002301,
+          "tipo_retencion": {
+            "id": 2,
+            "codigo": null,
+            "fecha_creacion": 1592965002110,
+            "fecha_actualizacion": 1592965002110,
+            "impuesto_retencion": "IVA",
+            "tipo_retencion": "SERVICIO",
+            "codigo_norma": "104",
+            "homologacion_f_e": "4",
+            "descripcion": "IVA_15%",
+            "porcentaje": 15
+          }
+        },
+        {
+          "id": 8,
+          "codigo": "RCL011908000008",
+          "fecha_creacion": 1592965002301,
+          "fecha_actualizacion": 1592965002301,
+          "tipo_retencion": {
+            "id": 4,
+            "codigo": null,
+            "fecha_creacion": 1592965002120,
+            "fecha_actualizacion": 1592965002120,
+            "impuesto_retencion": "RENTA",
+            "tipo_retencion": "SERVICIO",
+            "codigo_norma": "304",
+            "homologacion_f_e": null,
+            "descripcion": "IR_5%",
+            "porcentaje": 5
+          }
+        }
+      ]
+    },
+    "auxiliar": null,
+    "vendedor": {
+      "id": 3,
+      "codigo": "USR1205000002",
+      "fecha_creacion": 1592965002734,
+      "fecha_actualizacion": 1592965002734,
+      "nombre": "MARIO DELGADO",
+      "correo": "mastermariodelgado@gmail.com",
+      "contrasena": "12345",
+      "identificacion": "0603467226",
+      "avatar": "/storage/img/imagen3",
+      "activo": true,
+      "punto_venta": {
+        "id": 1,
+        "codigo": "EM1ES1CA001",
+        "fecha_creacion": 1592965002140,
+        "fecha_actualizacion": 1592965002140,
+        "descripcion": "CAJA1",
+        "establecimiento": {
+          "id": 1,
+          "codigo": "EST001",
+          "fecha_creacion": 1592965002120,
+          "fecha_actualizacion": 1592965002120,
+          "direccion": "CALLE 10 CARRERA 15 #27",
+          "empresa": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965001808,
+            "fecha_actualizacion": 1592965001808,
+            "identificacion": "RioTour S.A.",
+            "razon_social": "0660001840001",
+            "logo": "empresa1.jpg"
+          },
+          "ubicacion": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965001757,
+            "fecha_actualizacion": 1592965001757,
+            "codigo_norma": "1",
+            "provincia": "AZUAY",
+            "canton": "CUENCA",
+            "parroquia": "BELLAVISTA"
+          }
+        }
+      },
+      "perfil": {
+        "id": 1,
+        "codigo": null,
+        "fecha_creacion": 1592965002342,
+        "fecha_actualizacion": 1592965002342,
+        "descripcion": "ADMINISTRADOR",
+        "abreviatura": "ADM",
+        "permisos": [
+          {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965002461,
+            "fecha_actualizacion": 1592965002461,
+            "modulo": "CLIENTES",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 2,
+            "codigo": null,
+            "fecha_creacion": 1592965002463,
+            "fecha_actualizacion": 1592965002463,
+            "modulo": "CLIENTES",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 3,
+            "codigo": null,
+            "fecha_creacion": 1592965002463,
+            "fecha_actualizacion": 1592965002463,
+            "modulo": "CLIENTES",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 4,
+            "codigo": null,
+            "fecha_creacion": 1592965002471,
+            "fecha_actualizacion": 1592965002471,
+            "modulo": "CLIENTES",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 5,
+            "codigo": null,
+            "fecha_creacion": 1592965002473,
+            "fecha_actualizacion": 1592965002473,
+            "modulo": "PROVEEDORES",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 6,
+            "codigo": null,
+            "fecha_creacion": 1592965002473,
+            "fecha_actualizacion": 1592965002473,
+            "modulo": "PROVEEDORES",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 7,
+            "codigo": null,
+            "fecha_creacion": 1592965002481,
+            "fecha_actualizacion": 1592965002481,
+            "modulo": "PROVEEDORES",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 8,
+            "codigo": null,
+            "fecha_creacion": 1592965002483,
+            "fecha_actualizacion": 1592965002483,
+            "modulo": "PROVEEDORES",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 9,
+            "codigo": null,
+            "fecha_creacion": 1592965002483,
+            "fecha_actualizacion": 1592965002483,
+            "modulo": "FACTURACION",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 10,
+            "codigo": null,
+            "fecha_creacion": 1592965002483,
+            "fecha_actualizacion": 1592965002483,
+            "modulo": "FACTURACION",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 11,
+            "codigo": null,
+            "fecha_creacion": 1592965002493,
+            "fecha_actualizacion": 1592965002493,
+            "modulo": "FACTURACION",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 12,
+            "codigo": null,
+            "fecha_creacion": 1592965002493,
+            "fecha_actualizacion": 1592965002493,
+            "modulo": "FACTURACION",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 13,
+            "codigo": null,
+            "fecha_creacion": 1592965002493,
+            "fecha_actualizacion": 1592965002493,
+            "modulo": "CONTABILIDAD",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 14,
+            "codigo": null,
+            "fecha_creacion": 1592965002501,
+            "fecha_actualizacion": 1592965002501,
+            "modulo": "CONTABILIDAD",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 15,
+            "codigo": null,
+            "fecha_creacion": 1592965002503,
+            "fecha_actualizacion": 1592965002503,
+            "modulo": "CONTABILIDAD",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 16,
+            "codigo": null,
+            "fecha_creacion": 1592965002503,
+            "fecha_actualizacion": 1592965002503,
+            "modulo": "CONTABILIDAD",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 17,
+            "codigo": null,
+            "fecha_creacion": 1592965002511,
+            "fecha_actualizacion": 1592965002511,
+            "modulo": "FINANCIERO",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 18,
+            "codigo": null,
+            "fecha_creacion": 1592965002513,
+            "fecha_actualizacion": 1592965002513,
+            "modulo": "FINANCIERO",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 19,
+            "codigo": null,
+            "fecha_creacion": 1592965002513,
+            "fecha_actualizacion": 1592965002513,
+            "modulo": "FINANCIERO",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 20,
+            "codigo": null,
+            "fecha_creacion": 1592965002521,
+            "fecha_actualizacion": 1592965002521,
+            "modulo": "INVENTARIOS",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 21,
+            "codigo": null,
+            "fecha_creacion": 1592965002523,
+            "fecha_actualizacion": 1592965002523,
+            "modulo": "INVENTARIOS",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 22,
+            "codigo": null,
+            "fecha_creacion": 1592965002523,
+            "fecha_actualizacion": 1592965002523,
+            "modulo": "INVENTARIOS",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 23,
+            "codigo": null,
+            "fecha_creacion": 1592965002533,
+            "fecha_actualizacion": 1592965002533,
+            "modulo": "INVENTARIOS",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 24,
+            "codigo": null,
+            "fecha_creacion": 1592965002533,
+            "fecha_actualizacion": 1592965002533,
+            "modulo": "ACTIVOS_FIJOS",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 25,
+            "codigo": null,
+            "fecha_creacion": 1592965002533,
+            "fecha_actualizacion": 1592965002533,
+            "modulo": "ACTIVOS_FIJOS",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 26,
+            "codigo": null,
+            "fecha_creacion": 1592965002541,
+            "fecha_actualizacion": 1592965002541,
+            "modulo": "ACTIVOS_FIJOS",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 27,
+            "codigo": null,
+            "fecha_creacion": 1592965002543,
+            "fecha_actualizacion": 1592965002543,
+            "modulo": "ACTIVOS_FIJOS",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 28,
+            "codigo": null,
+            "fecha_creacion": 1592965002543,
+            "fecha_actualizacion": 1592965002543,
+            "modulo": "TALENTO_HUMANO",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 29,
+            "codigo": null,
+            "fecha_creacion": 1592965002551,
+            "fecha_actualizacion": 1592965002551,
+            "modulo": "TALENTO_HUMANO",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 30,
+            "codigo": null,
+            "fecha_creacion": 1592965002553,
+            "fecha_actualizacion": 1592965002553,
+            "modulo": "TALENTO_HUMANO",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 31,
+            "codigo": null,
+            "fecha_creacion": 1592965002553,
+            "fecha_actualizacion": 1592965002553,
+            "modulo": "TALENTO_HUMANO",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 32,
+            "codigo": null,
+            "fecha_creacion": 1592965002561,
+            "fecha_actualizacion": 1592965002561,
+            "modulo": "PRODUCCION",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 33,
+            "codigo": null,
+            "fecha_creacion": 1592965002563,
+            "fecha_actualizacion": 1592965002563,
+            "modulo": "PRODUCCION",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 34,
+            "codigo": null,
+            "fecha_creacion": 1592965002563,
+            "fecha_actualizacion": 1592965002563,
+            "modulo": "PRODUCCION",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 35,
+            "codigo": null,
+            "fecha_creacion": 1592965002574,
+            "fecha_actualizacion": 1592965002574,
+            "modulo": "PRODUCCION",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 36,
+            "codigo": null,
+            "fecha_creacion": 1592965002574,
+            "fecha_actualizacion": 1592965002574,
+            "modulo": "IMPORTACION",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 37,
+            "codigo": null,
+            "fecha_creacion": 1592965002582,
+            "fecha_actualizacion": 1592965002582,
+            "modulo": "IMPORTACION",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 38,
+            "codigo": null,
+            "fecha_creacion": 1592965002584,
+            "fecha_actualizacion": 1592965002584,
+            "modulo": "IMPORTACION",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 39,
+            "codigo": null,
+            "fecha_creacion": 1592965002584,
+            "fecha_actualizacion": 1592965002584,
+            "modulo": "IMPORTACION",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 40,
+            "codigo": null,
+            "fecha_creacion": 1592965002592,
+            "fecha_actualizacion": 1592965002592,
+            "modulo": "ESTADISTICAS",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 41,
+            "codigo": null,
+            "fecha_creacion": 1592965002594,
+            "fecha_actualizacion": 1592965002594,
+            "modulo": "ESTADISTICAS",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 42,
+            "codigo": null,
+            "fecha_creacion": 1592965002594,
+            "fecha_actualizacion": 1592965002594,
+            "modulo": "ESTADISTICAS",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 43,
+            "codigo": null,
+            "fecha_creacion": 1592965002604,
+            "fecha_actualizacion": 1592965002604,
+            "modulo": "ESTADISTICAS",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 44,
+            "codigo": null,
+            "fecha_creacion": 1592965002604,
+            "fecha_actualizacion": 1592965002604,
+            "modulo": "ORGANISMOS_CONTROL",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 45,
+            "codigo": null,
+            "fecha_creacion": 1592965002604,
+            "fecha_actualizacion": 1592965002604,
+            "modulo": "ORGANISMOS_CONTROL",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 46,
+            "codigo": null,
+            "fecha_creacion": 1592965002614,
+            "fecha_actualizacion": 1592965002614,
+            "modulo": "ORGANISMOS_CONTROL",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 47,
+            "codigo": null,
+            "fecha_creacion": 1592965002614,
+            "fecha_actualizacion": 1592965002614,
+            "modulo": "ORGANISMOS_CONTROL",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 48,
+            "codigo": null,
+            "fecha_creacion": 1592965002622,
+            "fecha_actualizacion": 1592965002622,
+            "modulo": "AUDITORIA",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 49,
+            "codigo": null,
+            "fecha_creacion": 1592965002624,
+            "fecha_actualizacion": 1592965002624,
+            "modulo": "AUDITORIA",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 50,
+            "codigo": null,
+            "fecha_creacion": 1592965002624,
+            "fecha_actualizacion": 1592965002624,
+            "modulo": "AUDITORIA",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 51,
+            "codigo": null,
+            "fecha_creacion": 1592965002634,
+            "fecha_actualizacion": 1592965002634,
+            "modulo": "AUDITORIA",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 52,
+            "codigo": null,
+            "fecha_creacion": 1592965002639,
+            "fecha_actualizacion": 1592965002639,
+            "modulo": "TUTORIALES",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 53,
+            "codigo": null,
+            "fecha_creacion": 1592965002643,
+            "fecha_actualizacion": 1592965002643,
+            "modulo": "TUTORIALES",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 54,
+            "codigo": null,
+            "fecha_creacion": 1592965002647,
+            "fecha_actualizacion": 1592965002647,
+            "modulo": "TUTORIALES",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 55,
+            "codigo": null,
+            "fecha_creacion": 1592965002651,
+            "fecha_actualizacion": 1592965002651,
+            "modulo": "TUTORIALES",
+            "operacion": "ELIMINAR"
+          },
+          {
+            "id": 56,
+            "codigo": null,
+            "fecha_creacion": 1592965002654,
+            "fecha_actualizacion": 1592965002654,
+            "modulo": "CONFIGURACIONES",
+            "operacion": "CREAR"
+          },
+          {
+            "id": 57,
+            "codigo": null,
+            "fecha_creacion": 1592965002659,
+            "fecha_actualizacion": 1592965002659,
+            "modulo": "CONFIGURACIONES",
+            "operacion": "OBTENER"
+          },
+          {
+            "id": 58,
+            "codigo": null,
+            "fecha_creacion": 1592965002664,
+            "fecha_actualizacion": 1592965002664,
+            "modulo": "CONFIGURACIONES",
+            "operacion": "ACTUALIZAR"
+          },
+          {
+            "id": 59,
+            "codigo": null,
+            "fecha_creacion": 1592965002668,
+            "fecha_actualizacion": 1592965002668,
+            "modulo": "CONFIGURACIONES",
+            "operacion": "ELIMINAR"
+          }
+        ]
+      }
+    },
+    "sesion": {
+      "id": 2,
+      "codigo": "SES1205000001",
+      "fecha_creacion": 1592965102742,
+      "fecha_actualizacion": 1592965102742,
+      "fecha_apertura": null,
+      "fecha_cierre": null,
+      "nombre_pc": null,
+      "sesion_ip": "186.96.120.130",
+      "activa": false,
+      "usuario": {
+        "id": 3,
+        "codigo": "USR1205000002",
+        "fecha_creacion": 1592965002734,
+        "fecha_actualizacion": 1592965002734,
+        "nombre": "MARIO DELGADO",
+        "correo": "mastermariodelgado@gmail.com",
+        "contrasena": "12345",
+        "identificacion": "0603467226",
+        "avatar": "/storage/img/imagen3",
+        "activo": true,
+        "punto_venta": {
+          "id": 1,
+          "codigo": "EM1ES1CA001",
+          "fecha_creacion": 1592965002140,
+          "fecha_actualizacion": 1592965002140,
+          "descripcion": "CAJA1",
+          "establecimiento": {
+            "id": 1,
+            "codigo": "EST001",
+            "fecha_creacion": 1592965002120,
+            "fecha_actualizacion": 1592965002120,
+            "direccion": "CALLE 10 CARRERA 15 #27",
+            "empresa": {
+              "id": 1,
+              "codigo": null,
+              "fecha_creacion": 1592965001808,
+              "fecha_actualizacion": 1592965001808,
+              "identificacion": "RioTour S.A.",
+              "razon_social": "0660001840001",
+              "logo": "empresa1.jpg"
+            },
+            "ubicacion": {
+              "id": 1,
+              "codigo": null,
+              "fecha_creacion": 1592965001757,
+              "fecha_actualizacion": 1592965001757,
+              "codigo_norma": "1",
+              "provincia": "AZUAY",
+              "canton": "CUENCA",
+              "parroquia": "BELLAVISTA"
+            }
+          }
+        },
+        "perfil": {
+          "id": 1,
+          "codigo": null,
+          "fecha_creacion": 1592965002342,
+          "fecha_actualizacion": 1592965002342,
+          "descripcion": "ADMINISTRADOR",
+          "abreviatura": "ADM",
+          "permisos": [
+            {
+              "id": 1,
+              "codigo": null,
+              "fecha_creacion": 1592965002461,
+              "fecha_actualizacion": 1592965002461,
+              "modulo": "CLIENTES",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 2,
+              "codigo": null,
+              "fecha_creacion": 1592965002463,
+              "fecha_actualizacion": 1592965002463,
+              "modulo": "CLIENTES",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 3,
+              "codigo": null,
+              "fecha_creacion": 1592965002463,
+              "fecha_actualizacion": 1592965002463,
+              "modulo": "CLIENTES",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 4,
+              "codigo": null,
+              "fecha_creacion": 1592965002471,
+              "fecha_actualizacion": 1592965002471,
+              "modulo": "CLIENTES",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 5,
+              "codigo": null,
+              "fecha_creacion": 1592965002473,
+              "fecha_actualizacion": 1592965002473,
+              "modulo": "PROVEEDORES",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 6,
+              "codigo": null,
+              "fecha_creacion": 1592965002473,
+              "fecha_actualizacion": 1592965002473,
+              "modulo": "PROVEEDORES",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 7,
+              "codigo": null,
+              "fecha_creacion": 1592965002481,
+              "fecha_actualizacion": 1592965002481,
+              "modulo": "PROVEEDORES",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 8,
+              "codigo": null,
+              "fecha_creacion": 1592965002483,
+              "fecha_actualizacion": 1592965002483,
+              "modulo": "PROVEEDORES",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 9,
+              "codigo": null,
+              "fecha_creacion": 1592965002483,
+              "fecha_actualizacion": 1592965002483,
+              "modulo": "FACTURACION",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 10,
+              "codigo": null,
+              "fecha_creacion": 1592965002483,
+              "fecha_actualizacion": 1592965002483,
+              "modulo": "FACTURACION",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 11,
+              "codigo": null,
+              "fecha_creacion": 1592965002493,
+              "fecha_actualizacion": 1592965002493,
+              "modulo": "FACTURACION",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 12,
+              "codigo": null,
+              "fecha_creacion": 1592965002493,
+              "fecha_actualizacion": 1592965002493,
+              "modulo": "FACTURACION",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 13,
+              "codigo": null,
+              "fecha_creacion": 1592965002493,
+              "fecha_actualizacion": 1592965002493,
+              "modulo": "CONTABILIDAD",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 14,
+              "codigo": null,
+              "fecha_creacion": 1592965002501,
+              "fecha_actualizacion": 1592965002501,
+              "modulo": "CONTABILIDAD",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 15,
+              "codigo": null,
+              "fecha_creacion": 1592965002503,
+              "fecha_actualizacion": 1592965002503,
+              "modulo": "CONTABILIDAD",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 16,
+              "codigo": null,
+              "fecha_creacion": 1592965002503,
+              "fecha_actualizacion": 1592965002503,
+              "modulo": "CONTABILIDAD",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 17,
+              "codigo": null,
+              "fecha_creacion": 1592965002511,
+              "fecha_actualizacion": 1592965002511,
+              "modulo": "FINANCIERO",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 18,
+              "codigo": null,
+              "fecha_creacion": 1592965002513,
+              "fecha_actualizacion": 1592965002513,
+              "modulo": "FINANCIERO",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 19,
+              "codigo": null,
+              "fecha_creacion": 1592965002513,
+              "fecha_actualizacion": 1592965002513,
+              "modulo": "FINANCIERO",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 20,
+              "codigo": null,
+              "fecha_creacion": 1592965002521,
+              "fecha_actualizacion": 1592965002521,
+              "modulo": "INVENTARIOS",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 21,
+              "codigo": null,
+              "fecha_creacion": 1592965002523,
+              "fecha_actualizacion": 1592965002523,
+              "modulo": "INVENTARIOS",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 22,
+              "codigo": null,
+              "fecha_creacion": 1592965002523,
+              "fecha_actualizacion": 1592965002523,
+              "modulo": "INVENTARIOS",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 23,
+              "codigo": null,
+              "fecha_creacion": 1592965002533,
+              "fecha_actualizacion": 1592965002533,
+              "modulo": "INVENTARIOS",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 24,
+              "codigo": null,
+              "fecha_creacion": 1592965002533,
+              "fecha_actualizacion": 1592965002533,
+              "modulo": "ACTIVOS_FIJOS",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 25,
+              "codigo": null,
+              "fecha_creacion": 1592965002533,
+              "fecha_actualizacion": 1592965002533,
+              "modulo": "ACTIVOS_FIJOS",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 26,
+              "codigo": null,
+              "fecha_creacion": 1592965002541,
+              "fecha_actualizacion": 1592965002541,
+              "modulo": "ACTIVOS_FIJOS",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 27,
+              "codigo": null,
+              "fecha_creacion": 1592965002543,
+              "fecha_actualizacion": 1592965002543,
+              "modulo": "ACTIVOS_FIJOS",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 28,
+              "codigo": null,
+              "fecha_creacion": 1592965002543,
+              "fecha_actualizacion": 1592965002543,
+              "modulo": "TALENTO_HUMANO",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 29,
+              "codigo": null,
+              "fecha_creacion": 1592965002551,
+              "fecha_actualizacion": 1592965002551,
+              "modulo": "TALENTO_HUMANO",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 30,
+              "codigo": null,
+              "fecha_creacion": 1592965002553,
+              "fecha_actualizacion": 1592965002553,
+              "modulo": "TALENTO_HUMANO",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 31,
+              "codigo": null,
+              "fecha_creacion": 1592965002553,
+              "fecha_actualizacion": 1592965002553,
+              "modulo": "TALENTO_HUMANO",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 32,
+              "codigo": null,
+              "fecha_creacion": 1592965002561,
+              "fecha_actualizacion": 1592965002561,
+              "modulo": "PRODUCCION",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 33,
+              "codigo": null,
+              "fecha_creacion": 1592965002563,
+              "fecha_actualizacion": 1592965002563,
+              "modulo": "PRODUCCION",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 34,
+              "codigo": null,
+              "fecha_creacion": 1592965002563,
+              "fecha_actualizacion": 1592965002563,
+              "modulo": "PRODUCCION",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 35,
+              "codigo": null,
+              "fecha_creacion": 1592965002574,
+              "fecha_actualizacion": 1592965002574,
+              "modulo": "PRODUCCION",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 36,
+              "codigo": null,
+              "fecha_creacion": 1592965002574,
+              "fecha_actualizacion": 1592965002574,
+              "modulo": "IMPORTACION",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 37,
+              "codigo": null,
+              "fecha_creacion": 1592965002582,
+              "fecha_actualizacion": 1592965002582,
+              "modulo": "IMPORTACION",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 38,
+              "codigo": null,
+              "fecha_creacion": 1592965002584,
+              "fecha_actualizacion": 1592965002584,
+              "modulo": "IMPORTACION",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 39,
+              "codigo": null,
+              "fecha_creacion": 1592965002584,
+              "fecha_actualizacion": 1592965002584,
+              "modulo": "IMPORTACION",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 40,
+              "codigo": null,
+              "fecha_creacion": 1592965002592,
+              "fecha_actualizacion": 1592965002592,
+              "modulo": "ESTADISTICAS",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 41,
+              "codigo": null,
+              "fecha_creacion": 1592965002594,
+              "fecha_actualizacion": 1592965002594,
+              "modulo": "ESTADISTICAS",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 42,
+              "codigo": null,
+              "fecha_creacion": 1592965002594,
+              "fecha_actualizacion": 1592965002594,
+              "modulo": "ESTADISTICAS",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 43,
+              "codigo": null,
+              "fecha_creacion": 1592965002604,
+              "fecha_actualizacion": 1592965002604,
+              "modulo": "ESTADISTICAS",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 44,
+              "codigo": null,
+              "fecha_creacion": 1592965002604,
+              "fecha_actualizacion": 1592965002604,
+              "modulo": "ORGANISMOS_CONTROL",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 45,
+              "codigo": null,
+              "fecha_creacion": 1592965002604,
+              "fecha_actualizacion": 1592965002604,
+              "modulo": "ORGANISMOS_CONTROL",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 46,
+              "codigo": null,
+              "fecha_creacion": 1592965002614,
+              "fecha_actualizacion": 1592965002614,
+              "modulo": "ORGANISMOS_CONTROL",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 47,
+              "codigo": null,
+              "fecha_creacion": 1592965002614,
+              "fecha_actualizacion": 1592965002614,
+              "modulo": "ORGANISMOS_CONTROL",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 48,
+              "codigo": null,
+              "fecha_creacion": 1592965002622,
+              "fecha_actualizacion": 1592965002622,
+              "modulo": "AUDITORIA",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 49,
+              "codigo": null,
+              "fecha_creacion": 1592965002624,
+              "fecha_actualizacion": 1592965002624,
+              "modulo": "AUDITORIA",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 50,
+              "codigo": null,
+              "fecha_creacion": 1592965002624,
+              "fecha_actualizacion": 1592965002624,
+              "modulo": "AUDITORIA",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 51,
+              "codigo": null,
+              "fecha_creacion": 1592965002634,
+              "fecha_actualizacion": 1592965002634,
+              "modulo": "AUDITORIA",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 52,
+              "codigo": null,
+              "fecha_creacion": 1592965002639,
+              "fecha_actualizacion": 1592965002639,
+              "modulo": "TUTORIALES",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 53,
+              "codigo": null,
+              "fecha_creacion": 1592965002643,
+              "fecha_actualizacion": 1592965002643,
+              "modulo": "TUTORIALES",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 54,
+              "codigo": null,
+              "fecha_creacion": 1592965002647,
+              "fecha_actualizacion": 1592965002647,
+              "modulo": "TUTORIALES",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 55,
+              "codigo": null,
+              "fecha_creacion": 1592965002651,
+              "fecha_actualizacion": 1592965002651,
+              "modulo": "TUTORIALES",
+              "operacion": "ELIMINAR"
+            },
+            {
+              "id": 56,
+              "codigo": null,
+              "fecha_creacion": 1592965002654,
+              "fecha_actualizacion": 1592965002654,
+              "modulo": "CONFIGURACIONES",
+              "operacion": "CREAR"
+            },
+            {
+              "id": 57,
+              "codigo": null,
+              "fecha_creacion": 1592965002659,
+              "fecha_actualizacion": 1592965002659,
+              "modulo": "CONFIGURACIONES",
+              "operacion": "OBTENER"
+            },
+            {
+              "id": 58,
+              "codigo": null,
+              "fecha_creacion": 1592965002664,
+              "fecha_actualizacion": 1592965002664,
+              "modulo": "CONFIGURACIONES",
+              "operacion": "ACTUALIZAR"
+            },
+            {
+              "id": 59,
+              "codigo": null,
+              "fecha_creacion": 1592965002668,
+              "fecha_actualizacion": 1592965002668,
+              "modulo": "CONFIGURACIONES",
+              "operacion": "ELIMINAR"
+            }
+          ]
+        }
+      }
+    },
+    "factura_detalles": [
+      {
+        "id": 4,
+        "codigo": "FDE1205000003",
+        "fecha_creacion": 1592967181276,
+        "fecha_actualizacion": 1592967181276,
+        "posicion": 0,
+        "comentario": 0,
+        "entregado": true,
+        "consignacion": false,
+        "cantidad": 1,
+        "subsidio": 0,
+        "sin_subsidio": 0,
+        "valor_descuento_individual": 0,
+        "porcentaje_descuento_individual": 0,
+        "valor_porcentaje_descuento_individual": 0,
+        "valor_descuento_totales": 0,
+        "porcentaje_descuento_totales": 0,
+        "valor_porcentaje_descuento_totales": 0,
+        "subtotal_sin_descuento": 5.62,
+        "subtotal_con_descuento": 5.62,
+        "valor_iva_sin_descuento": 0,
+        "valor_iva_con_descuento": 0,
+        "medida": {
+          "id": 1,
+          "codigo": null,
+          "fecha_creacion": 1592965002925,
+          "fecha_actualizacion": 1592965002925,
+          "codigo_norma": "UNIDAD",
+          "descripcion": "UNIDAD"
+        },
+        "producto": {
+          "id": 1,
+          "codigo": "PRO1205000000",
+          "fecha_creacion": 1592965003208,
+          "fecha_actualizacion": 1592965003208,
+          "nombre": "ARROZ",
+          "categoria": "",
+          "linea": "",
+          "sublinea": "",
+          "presentacion": "",
+          "costo": 0,
+          "consignacion": false,
+          "estado": true,
+          "tipo_gasto": "",
+          "serie_autogenerado": true,
+          "tipo_producto": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965002935,
+            "fecha_actualizacion": 1592965002935,
+            "descripcion": "BIEN",
+            "tipo": "BIEN",
+            "abreviatura": "B"
+          },
+          "grupo_producto": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965002895,
+            "fecha_actualizacion": 1592965002895,
+            "grupo": "",
+            "subgrupo": ""
+          },
+          "impuesto": {
+            "id": 1,
+            "codigo": "IMP1205000000",
+            "fecha_creacion": 1592965002915,
+            "fecha_actualizacion": 1592965002915,
+            "codigo_norma": "IVA_12%",
+            "porcentaje": 12
+          },
+          "kardex": {
+            "id": 1,
+            "codigo": null,
+            "fecha_creacion": 1592965002986,
+            "fecha_actualizacion": 1592965002986,
+            "fecha": 1580274000000,
+            "documento": "FACTURA DE COMPRA",
+            "numero": "001-001-000001",
+            "operacion": "COMPRA",
+            "entrada": 2,
+            "salida": 0,
+            "saldo": 90,
+            "debe": 80,
+            "haber": 0,
+            "costo_promedio": 100,
+            "costo_ultimo": 50,
+            "total": 90000
+          },
+          "precios": [
+            {
+              "id": 1,
+              "codigo": null,
+              "fecha_creacion": 1592965003379,
+              "fecha_actualizacion": 1592965003379,
+              "nombre": "",
+              "descuento": 0,
+              "valor": 5.62
+            }
+          ],
+          "caracteristicas": [
+            {
+              "id": 4,
+              "codigo": null,
+              "fecha_creacion": 1592965003571,
+              "fecha_actualizacion": 1592965003571,
+              "descripcion": "ARROZ ROA-3",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-3",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 78,
+              "codigo": null,
+              "fecha_creacion": 1592965003803,
+              "fecha_actualizacion": 1592965003803,
+              "descripcion": "ARROZ ROA",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 79,
+              "codigo": null,
+              "fecha_creacion": 1592965003807,
+              "fecha_actualizacion": 1592965003807,
+              "descripcion": "ARROZ ROA-1",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-1",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 80,
+              "codigo": null,
+              "fecha_creacion": 1592965003810,
+              "fecha_actualizacion": 1592965003810,
+              "descripcion": "ARROZ ROA-2",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-2",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 81,
+              "codigo": null,
+              "fecha_creacion": 1592965003814,
+              "fecha_actualizacion": 1592965003814,
+              "descripcion": "ARROZ ROA-3",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-3",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 127,
+              "codigo": null,
+              "fecha_creacion": 1592965003983,
+              "fecha_actualizacion": 1592965003983,
+              "descripcion": "ARROZ ROA",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 128,
+              "codigo": null,
+              "fecha_creacion": 1592965003991,
+              "fecha_actualizacion": 1592965003991,
+              "descripcion": "ARROZ ROA-1",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-1",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 129,
+              "codigo": null,
+              "fecha_creacion": 1592965003993,
+              "fecha_actualizacion": 1592965003993,
+              "descripcion": "ARROZ ROA-2",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-2",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 130,
+              "codigo": null,
+              "fecha_creacion": 1592965003993,
+              "fecha_actualizacion": 1592965003993,
+              "descripcion": "ARROZ ROA-3",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-3",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 176,
+              "codigo": null,
+              "fecha_creacion": 1592965004204,
+              "fecha_actualizacion": 1592965004204,
+              "descripcion": "ARROZ ROA",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 177,
+              "codigo": null,
+              "fecha_creacion": 1592965004215,
+              "fecha_actualizacion": 1592965004215,
+              "descripcion": "ARROZ ROA-1",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-1",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 178,
+              "codigo": null,
+              "fecha_creacion": 1592965004215,
+              "fecha_actualizacion": 1592965004215,
+              "descripcion": "ARROZ ROA-2",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-2",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 179,
+              "codigo": null,
+              "fecha_creacion": 1592965004223,
+              "fecha_actualizacion": 1592965004223,
+              "descripcion": "ARROZ ROA-3",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-3",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 225,
+              "codigo": null,
+              "fecha_creacion": 1592965004424,
+              "fecha_actualizacion": 1592965004424,
+              "descripcion": "ARROZ ROA",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 226,
+              "codigo": null,
+              "fecha_creacion": 1592965004426,
+              "fecha_actualizacion": 1592965004426,
+              "descripcion": "ARROZ ROA-1",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-1",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 227,
+              "codigo": null,
+              "fecha_creacion": 1592965004426,
+              "fecha_actualizacion": 1592965004426,
+              "descripcion": "ARROZ ROA-2",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-2",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 228,
+              "codigo": null,
+              "fecha_creacion": 1592965004436,
+              "fecha_actualizacion": 1592965004436,
+              "descripcion": "ARROZ ROA-3",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-3",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 274,
+              "codigo": null,
+              "fecha_creacion": 1592965004670,
+              "fecha_actualizacion": 1592965004670,
+              "descripcion": "ARROZ ROA",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 275,
+              "codigo": null,
+              "fecha_creacion": 1592965004675,
+              "fecha_actualizacion": 1592965004675,
+              "descripcion": "ARROZ ROA-1",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-1",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 276,
+              "codigo": null,
+              "fecha_creacion": 1592965004677,
+              "fecha_actualizacion": 1592965004677,
+              "descripcion": "ARROZ ROA-2",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-2",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 277,
+              "codigo": null,
+              "fecha_creacion": 1592965004677,
+              "fecha_actualizacion": 1592965004677,
+              "descripcion": "ARROZ ROA-3",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-3",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 323,
+              "codigo": null,
+              "fecha_creacion": 1592965004939,
+              "fecha_actualizacion": 1592965004939,
+              "descripcion": "ARROZ ROA",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 324,
+              "codigo": null,
+              "fecha_creacion": 1592965004949,
+              "fecha_actualizacion": 1592965004949,
+              "descripcion": "ARROZ ROA-1",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-1",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 325,
+              "codigo": null,
+              "fecha_creacion": 1592965004949,
+              "fecha_actualizacion": 1592965004949,
+              "descripcion": "ARROZ ROA-2",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-2",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 326,
+              "codigo": null,
+              "fecha_creacion": 1592965004959,
+              "fecha_actualizacion": 1592965004959,
+              "descripcion": "ARROZ ROA-3",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-3",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 372,
+              "codigo": null,
+              "fecha_creacion": 1592965005252,
+              "fecha_actualizacion": 1592965005252,
+              "descripcion": "ARROZ ROA",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 373,
+              "codigo": null,
+              "fecha_creacion": 1592965005252,
+              "fecha_actualizacion": 1592965005252,
+              "descripcion": "ARROZ ROA-1",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-1",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 374,
+              "codigo": null,
+              "fecha_creacion": 1592965005262,
+              "fecha_actualizacion": 1592965005262,
+              "descripcion": "ARROZ ROA-2",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-2",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 375,
+              "codigo": null,
+              "fecha_creacion": 1592965005270,
+              "fecha_actualizacion": 1592965005270,
+              "descripcion": "ARROZ ROA-3",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-3",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 421,
+              "codigo": null,
+              "fecha_creacion": 1592965005584,
+              "fecha_actualizacion": 1592965005584,
+              "descripcion": "ARROZ ROA",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 422,
+              "codigo": null,
+              "fecha_creacion": 1592965005594,
+              "fecha_actualizacion": 1592965005594,
+              "descripcion": "ARROZ ROA-1",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-1",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 423,
+              "codigo": null,
+              "fecha_creacion": 1592965005602,
+              "fecha_actualizacion": 1592965005602,
+              "descripcion": "ARROZ ROA-2",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-2",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            },
+            {
+              "id": 424,
+              "codigo": null,
+              "fecha_creacion": 1592965005604,
+              "fecha_actualizacion": 1592965005604,
+              "descripcion": "ARROZ ROA-3",
+              "color": "BLANCO",
+              "marca": "ROA",
+              "modelo": "2019",
+              "serie": "000000001-3",
+              "bodega": {
+                "id": 1,
+                "codigo": "BOD1205000000",
+                "fecha_creacion": 1592965002885,
+                "fecha_actualizacion": 1592965002885
+              }
+            }
+          ],
+          "stock_total": 0
+        },
+        "impuesto": {
+          "id": 2,
+          "codigo": "IMP1205000001",
+          "fecha_creacion": 1592965002923,
+          "fecha_actualizacion": 1592965002923,
+          "codigo_norma": "IVA_0%",
+          "porcentaje": 0
+        },
+        "precio": {
+          "id": 1,
+          "codigo": null,
+          "fecha_creacion": 1592965003379,
+          "fecha_actualizacion": 1592965003379,
+          "nombre": "",
+          "descuento": 0,
+          "valor": 5.62
+        },
+        "caracteristicas": [
+          {
+            "id": 4,
+            "codigo": null,
+            "fecha_creacion": 1592965003571,
+            "fecha_actualizacion": 1592965003571,
+            "descripcion": "ARROZ ROA-3",
+            "color": "BLANCO",
+            "marca": "ROA",
+            "modelo": "2019",
+            "serie": "000000001-3",
+            "bodega": {
+              "id": 1,
+              "codigo": "BOD1205000000",
+              "fecha_creacion": 1592965002885,
+              "fecha_actualizacion": 1592965002885
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "referencia": "CARRERA 10 #30-20"
+}</con:request><con:originalUri>http://localhost/api/datosadicionales/obtenerDatosAdicionales</con:originalUri><con:credentials><con:username>admin</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder/></con:request></con:method></con:resource></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

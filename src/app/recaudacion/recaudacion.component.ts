@@ -872,17 +872,21 @@ export class RecaudacionComponent implements OnInit {
     this.recaudacion.estado = this.estado=="RECAUDADO"? true: false;
     this.recaudacion.factura=this.factura;
     console.log(this.recaudacion);
-    this.recaudacionService.crear(this.recaudacion).subscribe(
-      res => {
-        this.recaudacion_crear = res.resultado as Recaudacion
-        this.propagar.emit(true);
-        if (res.mensaje){
-          Swal.fire('Exito', 'Se creo la Recaudacion', 'success');
-        } else {
-          Swal.fire('Error', res.mensaje, 'error');
+    if (this.factura.total_con_descuento==this.recaudacion.total) {
+      this.recaudacionService.crear(this.recaudacion).subscribe(
+        res => {
+          this.recaudacion_crear = res.resultado as Recaudacion
+          this.propagar.emit(true);
+          if (res.mensaje){
+            Swal.fire('Exito', 'Se creo la Recaudacion', 'success');
+          } else {
+            Swal.fire('Error', res.mensaje, 'error');
+          }
         }
-      }
-    );
+      );
+    } else {
+      Swal.fire('Error', 'Por favor completar la recaudacion', 'error');
+    }
   }
 
   pad(numero:string, size:number): string {
