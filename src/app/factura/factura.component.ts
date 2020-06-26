@@ -522,6 +522,7 @@ export class FacturaComponent implements OnInit {
     this.stock_individual=0;
     this.stock_total=0;
   }
+
   seleccionar_producto() {
     this.detalle.producto=this.seleccion_producto.value;
     this.detalle.medida=this.medidas[0];
@@ -530,22 +531,16 @@ export class FacturaComponent implements OnInit {
         this.detalle.impuesto=impuesto;
       }
     });
-    //this.caracteristicaService.consultarBienExistencias(this.detalle.producto).subscribe(
-      //res => {
-        //this.detalle.producto.caracteristicas = res.resultado as Caracteristica[];
-        if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
-        if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
-        this.costo_promedio=this.detalle.producto.kardex.costo_promedio;
-        this.costo_ultimo=this.detalle.producto.kardex.costo_ultimo;
-        if(this.detalle.caracteristicas.length!=0){
-          this.stock_individual=this.detalle.caracteristicas.length;
-        } else{
-          this.stock_individual=0;
-        }
-        this.stock_total=this.detalle.producto.stock_total;
-      //},
-      //err => Swal.fire('Error', err.error.mensaje, 'error')
-    //);
+    if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
+    if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
+    this.costo_promedio=this.detalle.producto.kardex.costo_promedio;
+    this.costo_ultimo=this.detalle.producto.kardex.costo_ultimo;
+    if(this.detalle.caracteristicas.length!=0){
+      this.stock_individual=this.detalle.caracteristicas.length;
+    } else{
+      this.stock_individual=0;
+    }
+    this.stock_total=this.detalle.producto.stock_total;
   }
 
   seleccionar_precio() {
@@ -622,40 +617,6 @@ export class FacturaComponent implements OnInit {
       Swal.fire('Error', "Seleccione un impuesto", 'error');
       return;
     }
-    /*this.caracteristicaService.consultarBienExistenciasBodega(this.detalle.producto, this.detalle.producto.bodega).subscribe(
-      res => {
-        this.detalle.producto.caracteristicas = res.resultado as Caracteristica[]
-        this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
-        let bandera=false;
-        if (this.detalle.producto.serie_autogenerado){
-          let suma=0;
-          for(let i=0; i<this.detalle.producto.caracteristicas.length; i++) {
-            if (!this.detalle.producto.caracteristicas[i].seleccionado){
-              this.detalle.producto.caracteristicas[i].seleccionado=true;
-              suma++;
-              if (suma==this.detalle.cantidad){
-                bandera=true;
-                break;
-              }
-            }
-          }
-        } else{
-          if (this.detalle.cantidad<=this.detalle.producto.caracteristicas.length){
-            bandera=true;
-          }
-        }
-        if (bandera){
-          this.detalle.calcular();
-          this.factura.factura_detalles.push(this.detalle);
-          this.factura.calcular();
-          this.detalle=new FacturaDetalle();
-          this.limpiar_producto();
-          Swal.fire('Exito', 'Se agrego el detalle', 'success');
-        } else{
-          Swal.fire("Error", "Cantidad No Existente.", "error");
-        }
-      }
-    );*/
     this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
     let bandera=false;
     if (this.detalle.producto.serie_autogenerado){
@@ -837,11 +798,11 @@ export class FacturaComponent implements OnInit {
     this.factura.calcular();
   }
   seleccionar_porcentaje_descuento_total(){
-    this.factura.calcular();
     this.factura.factura_detalles.forEach((detalle, index)=> {
       detalle.calcular_totales(this.factura);
       detalle.calcular();
     });
+    this.factura.calcular();
     
   }
   seleccionar_valor_porcentaje_descuento_total(){
