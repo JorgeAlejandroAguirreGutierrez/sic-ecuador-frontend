@@ -49,6 +49,7 @@ export class FacturaDetalle {
 
   constructor() {
     this.id=0;
+    this.posicion=-1;
     this.entregado=false;
     this.comentario="";
     this.cantidad=0;

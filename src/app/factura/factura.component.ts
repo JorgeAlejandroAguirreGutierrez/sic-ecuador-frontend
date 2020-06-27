@@ -568,7 +568,7 @@ export class FacturaComponent implements OnInit {
     this.factura.factura_detalles.forEach((detalle, index)=> {
       let caracteristicas: Caracteristica[]=[];
       for (let i=0; i<detalle.producto.caracteristicas.length; i++) {
-        if(detalle.producto.caracteristicas[i].seleccionado) {
+        if(detalle.producto.caracteristicas[i].seleccionado && (detalle.producto.serie_autogenerado || detalle.producto.caracteristicas[i].factura_detalle.posicion==index)) {
           caracteristicas.push({... detalle.producto.caracteristicas[i]});
           detalle.producto.caracteristicas[i].seleccionado=false;
         }
@@ -670,16 +670,20 @@ export class FacturaComponent implements OnInit {
       if (result == "confirmar") {
         this.buscar_serie="";
         let seleccionados=0;
-        this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
-          if(caracteristica.seleccionado){
+        this.factura.factura_detalles[this.indice_detalle].producto.caracteristicas.forEach((caracteristica, index)=> {
+          if(caracteristica.seleccionado && (caracteristica.factura_detalle==null || caracteristica.factura_detalle.posicion==-1)){
+            caracteristica.factura_detalle=new FacturaDetalle();
+            caracteristica.factura_detalle.posicion=this.indice_detalle;
             seleccionados++;
           }
         });
-        if (!this.factura.factura_detalles[i].producto.serie_autogenerado) {
-          if (seleccionados>this.factura.factura_detalles[i].cantidad || seleccionados<this.factura.factura_detalles[i].cantidad){
-            this.factura.factura_detalles[i].caracteristicas=[];
-            this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
+        if (!this.factura.factura_detalles[this.indice_detalle].producto.serie_autogenerado) {
+          if (seleccionados>this.factura.factura_detalles[this.indice_detalle].cantidad || seleccionados<this.factura.factura_detalles[this.indice_detalle].cantidad){
+            this.factura.factura_detalles[this.indice_detalle].caracteristicas=[];
+            this.factura.factura_detalles[this.indice_detalle].producto.caracteristicas.forEach((caracteristica, index)=> {
               caracteristica.seleccionado=false;
+              caracteristica.factura_detalle=new FacturaDetalle();
+              caracteristica.factura_detalle.posicion=-1;
             });
             Swal.fire('Error', "Series seleccionadas no coinciden con la cantidad", 'error');
           }
@@ -687,9 +691,11 @@ export class FacturaComponent implements OnInit {
       }
       if (result == "close"){
         this.buscar_serie="";
-        if(!this.factura.factura_detalles[i].producto.serie_autogenerado){
-          this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
+        if(!this.factura.factura_detalles[this.indice_detalle].producto.serie_autogenerado){
+          this.factura.factura_detalles[this.indice_detalle].producto.caracteristicas.forEach((caracteristica, index)=> {
             caracteristica.seleccionado=false;
+            caracteristica.factura_detalle=new FacturaDetalle();
+            caracteristica.factura_detalle.posicion=-1;
           });
         }
       }

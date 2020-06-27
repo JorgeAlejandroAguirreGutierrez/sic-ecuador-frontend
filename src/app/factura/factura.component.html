@@ -885,23 +885,25 @@
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas | filtro_serie:buscar_serie">
-                        <tr>
-                            <td>
-                                <mat-checkbox [(ngModel)]="caracteristica.seleccionado" class="form-control-sm" color="primary" [disabled]="factura.factura_detalles[indice_detalle].producto.serie_autogenerado"></mat-checkbox>
-                            </td>
-                            <td>
-                                {{caracteristica.descripcion}}
-                            </td>
-                            <td>
-                                {{caracteristica.marca}}
-                            </td>
-                            <td>
-                                {{caracteristica.modelo}}
-                            </td>
-                            <td>
-                                {{caracteristica.serie}}
-                            </td>
-                        </tr>
+                        <ng-container *ngIf="caracteristica.factura_detalle==null || caracteristica.factura_detalle.posicion==indice_detalle || caracteristica.factura_detalle.posicion==-1">
+                            <tr>
+                                <td>
+                                    <mat-checkbox [(ngModel)]="caracteristica.seleccionado" class="form-control-sm" color="primary" [disabled]="factura.factura_detalles[indice_detalle].producto.serie_autogenerado"></mat-checkbox>
+                                </td>
+                                <td>
+                                    {{caracteristica.descripcion}}
+                                </td>
+                                <td>
+                                    {{caracteristica.marca}}
+                                </td>
+                                <td>
+                                    {{caracteristica.modelo}}
+                                </td>
+                                <td>
+                                    {{caracteristica.serie}}
+                                </td>
+                            </tr>
+                        </ng-container>
                     </ng-container>
                 </tbody>
             </table>
