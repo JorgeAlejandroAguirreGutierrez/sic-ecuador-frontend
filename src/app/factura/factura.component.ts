@@ -675,12 +675,14 @@ export class FacturaComponent implements OnInit {
             seleccionados++;
           }
         });
-        if (seleccionados>this.factura.factura_detalles[i].cantidad || seleccionados<this.factura.factura_detalles[i].cantidad){
-          this.factura.factura_detalles[i].caracteristicas=[];
-          this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
-            caracteristica.seleccionado=false;
-          });
-          Swal.fire('Error', "Series seleccionadas no coinciden con la cantidad", 'error');
+        if (!this.factura.factura_detalles[i].producto.serie_autogenerado) {
+          if (seleccionados>this.factura.factura_detalles[i].cantidad || seleccionados<this.factura.factura_detalles[i].cantidad){
+            this.factura.factura_detalles[i].caracteristicas=[];
+            this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
+              caracteristica.seleccionado=false;
+            });
+            Swal.fire('Error', "Series seleccionadas no coinciden con la cantidad", 'error');
+          }
         }
       }
       if (result == "close"){

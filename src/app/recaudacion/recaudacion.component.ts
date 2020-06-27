@@ -519,6 +519,7 @@ export class RecaudacionComponent implements OnInit {
   }
 
   agregar_deposito() {
+    console.log(this.recaudacion.total+Number(this.deposito.valor));
     if (this.recaudacion.total+Number(this.deposito.valor)<=this.factura.total_con_descuento){
       this.deposito.banco=this.seleccion_banco_deposito.value;
       this.recaudacion.depositos.push(this.deposito);
