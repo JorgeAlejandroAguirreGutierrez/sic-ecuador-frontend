@@ -567,9 +567,13 @@ export class FacturaComponent implements OnInit {
     //VALIDO SELECCIONES
     this.factura.factura_detalles.forEach((detalle, index)=> {
       let caracteristicas: Caracteristica[]=[];
-      detalle.producto.caracteristicas.forEach((caracteristica, index)=> {
-        if(caracteristica.seleccionado) caracteristicas.push({...caracteristica})
-      });
+      for (let i=0; i<detalle.producto.caracteristicas.length; i++) {
+        if(detalle.producto.caracteristicas[i].seleccionado) {
+          caracteristicas.push({... detalle.producto.caracteristicas[i]});
+          detalle.producto.caracteristicas[i].seleccionado=false;
+        }
+        if(caracteristicas.length == detalle.cantidad) break;
+      };
       if (caracteristicas.length != detalle.cantidad){
           Swal.fire('Error', "Series No Seleccionadas", 'error');
           validacion=false;
