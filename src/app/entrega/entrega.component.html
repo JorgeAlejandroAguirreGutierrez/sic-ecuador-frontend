@@ -167,7 +167,7 @@
                             <div class="form-group col-4">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Parroquia</mat-label>
-                                    <mat-select type="text" [(ngModel)]="guia_remision.direccion.ubicacion.parroquia" class="form-control-sm">
+                                    <mat-select type="text" (selectionChange)="parroquia()" [(ngModel)]="guia_remision.direccion.ubicacion.parroquia" class="form-control-sm">
                                         <mat-option *ngFor="let parroquia of parroquias" [value]="parroquia.parroquia">
                                             {{parroquia.parroquia}}
                                         </mat-option>
@@ -239,7 +239,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Teléfono</mat-label>
                                     <b matPrefix>+593 &nbsp;</b>
-                                    <input matInput type="tel" [(ngModel)]="guia_remision.telefono.numero" class="form-control-sm"
+                                    <input matInput type="tel" [(ngModel)]="guia_remision.telefono" class="form-control-sm"
                                         (change)="validar_telefono()" placeholder="03-2999-123" oninput="this.value = this.value.replace
                                         ( /^(\d{2})(\d{4})(\d{3})$/, '$1-$2-$3')">
                                 </mat-form-field>
@@ -248,7 +248,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Celular</mat-label>
                                     <b matPrefix>+593 </b>
-                                    <input matInput type="tel" [(ngModel)]="guia_remision.celular.numero" class="form-control-sm"
+                                    <input matInput type="tel" [(ngModel)]="guia_remision.celular" class="form-control-sm"
                                         (change)="validar_celular()" placeholder="09-9999-1234" oninput="this.value = this.value.replace
                                         ( /^(\d{2})(\d{4})(\d{4})$/, '$1-$2-$3')">
                                 </mat-form-field>
@@ -256,7 +256,7 @@
                             <div class="form-group col-3">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Correo electrónico</mat-label>
-                                    <input matInput type="text" [(ngModel)]="guia_remision.correo.email"
+                                    <input matInput type="text" [(ngModel)]="guia_remision.correo"
                                         oninput="this.value = this.value.toLowerCase()" class="form-control-sm "
                                         (change)="validar_correo()"  placeholder="ejemplo@siice.com">
                                 </mat-form-field>

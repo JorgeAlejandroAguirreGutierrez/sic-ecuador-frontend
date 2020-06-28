@@ -125,6 +125,7 @@ export class EntregaComponent implements OnInit {
     if (event!=null)
       event.preventDefault();
     this.guia_remision.factura=this.factura;
+    this.guia_remision.estado=true;
     console.log(this.guia_remision);
     this.guiaRemisionService.crear(this.guia_remision).subscribe(
       res => {
@@ -162,27 +163,40 @@ export class EntregaComponent implements OnInit {
       }
     );
   }
+  parroquia(){
+    if (this.guia_remision.direccion.ubicacion.provincia != "" && this.guia_remision.direccion.ubicacion.canton != "" && this.guia_remision.direccion.ubicacion.parroquia != ""){
+      this.ubicacionService.obtenerUbicacionIDAsync(this.guia_remision.direccion.ubicacion).subscribe(
+        res => {
+          if (res.resultado!= null) {
+            this.guia_remision.direccion.ubicacion=res.resultado as Ubicacion;
+          } else {
+            Swal.fire('Error', res.mensaje, 'error');
+          }
+        }
+      );
+    }
+  }
 
   validar_telefono() {
-    let digito=this.guia_remision.telefono.numero.substr(0,1);
-    if (this.guia_remision.telefono.numero.length!=11 || digito!="0") {
-      this.guia_remision.telefono.numero="";
+    let digito=this.guia_remision.telefono.substr(0,1);
+    if (this.guia_remision.telefono.length!=11 || digito!="0") {
+      this.guia_remision.telefono="";
       Swal.fire('Error', "Telefono Invalido", 'error');
     }
   }
 
   validar_celular() {
-    let digito=this.guia_remision.celular.numero.substr(0,2);
-    if (this.guia_remision.celular.numero.length!=12 || digito!="09") {
-      this.guia_remision.celular.numero="";
+    let digito=this.guia_remision.celular.substr(0,2);
+    if (this.guia_remision.celular.length!=12 || digito!="09") {
+      this.guia_remision.celular="";
       Swal.fire('Error', "Celular Invalido", 'error');
     }
   }
 
   validar_correo() {
-    let arroba=this.guia_remision.correo.email.includes("@");
+    let arroba=this.guia_remision.correo.includes("@");
     if (!arroba) {
-      this.guia_remision.correo.email="";
+      this.guia_remision.correo="";
       Swal.fire('Error', "Correo Invalido", 'error');
     }
   }

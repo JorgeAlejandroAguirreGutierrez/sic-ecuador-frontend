@@ -8,23 +8,27 @@ import { Factura } from './factura';
 export class GuiaRemision {
     id: number;
     codigo: string;
+    fecha: Date;
     numero: string;
     direccion: Direccion;
-    telefono: Telefono;
-    celular: Celular;
-    correo: Correo;
+    telefono: string;
+    celular: string;
+    correo: string;
     referencia: string;
+    estado: boolean;
     transportista: Transportista;
     factura: Factura;
 
     constructor(){
         this.id=0;
         this.codigo="";
+        this.fecha=new Date();
         this.numero="";
         this.direccion=new Direccion();
-        this.telefono=new Telefono();
-        this.celular=new Celular();
-        this.correo=new Correo();
+        this.telefono="";
+        this.celular="";
+        this.correo="";
+        this.estado=true;
         this.transportista=new Transportista();
         this.factura=new Factura();
     }

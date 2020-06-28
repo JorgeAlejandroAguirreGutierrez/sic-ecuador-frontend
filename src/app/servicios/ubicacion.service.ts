@@ -86,6 +86,15 @@ export class UbicacionService {
     );
   }
 
+  obtenerUbicacionIDAsync(ubicacion: Ubicacion): Observable<Resultado> {
+    return this.http.get(environment.host + util.ruta + util.ubicacion + '/'+ubicacion.provincia+'/'+ubicacion.canton+'/'+ubicacion.parroquia+'/id', util.options).pipe(
+      map(response => response as Resultado),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
+
   async obtenerUbicacionID(ubicacion: Ubicacion): Promise<Resultado> {
     return await this.http.get<Resultado>(environment.host + util.ruta + util.ubicacion + '/'+ubicacion.provincia+'/'+ubicacion.canton+'/'+ubicacion.parroquia+'/id', util.options).pipe(
       map(response => response as Resultado),
