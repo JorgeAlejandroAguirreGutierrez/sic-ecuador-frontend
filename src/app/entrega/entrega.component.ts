@@ -139,9 +139,8 @@ export class EntregaComponent implements OnInit {
 
   }
 
-  provincia(provincia: string) {
-    this.guia_remision.direccion.ubicacion.provincia=provincia;
-    this.ubicacionService.obtenerCantones(provincia).subscribe(
+  provincia() {
+    this.ubicacionService.obtenerCantones(this.guia_remision.direccion.ubicacion.provincia).subscribe(
       res => {
         if (res.resultado!= null) {
           this.cantones = res.resultado as Ubicacion[];
@@ -152,9 +151,8 @@ export class EntregaComponent implements OnInit {
     );
   }
 
-  canton(canton: string) {
-    this.guia_remision.direccion.ubicacion.canton=canton;
-    this.ubicacionService.obtenerParroquias(canton).subscribe(
+  canton() {
+    this.ubicacionService.obtenerParroquias(this.guia_remision.direccion.ubicacion.canton).subscribe(
       res => {
         if (res.resultado!= null) {
           this.parroquias = res.resultado as Ubicacion[];
@@ -163,10 +161,6 @@ export class EntregaComponent implements OnInit {
         }
       }
     );
-  }
-
-  parroquia(parroquia: string) {
-    this.guia_remision.direccion.ubicacion.parroquia=parroquia;
   }
 
   validar_telefono() {

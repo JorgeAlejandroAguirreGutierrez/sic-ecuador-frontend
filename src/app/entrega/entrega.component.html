@@ -130,8 +130,14 @@
             <div class="form-row col-8">
                 <mat-form-field appearance="standard">
                     <mat-label>Direccion</mat-label>
-                    <input matInput type="text" [value]="factura.cliente.direccion.direccion" [(ngModel)]="guia_remision.direccion.direccion"
-                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    <ng-container *ngIf="bandera_opcion">
+                        <input matInput type="text" [(ngModel)]="guia_remision.direccion.direccion"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </ng-container>
+                    <ng-container *ngIf="!bandera_opcion">
+                        <input matInput type="text" [value]="factura.cliente.direccion.direccion" [(ngModel)]="guia_remision.direccion.direccion" disabled
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </ng-container>
                 </mat-form-field>
             </div>
             <div class="row">
@@ -141,8 +147,8 @@
                             <div class="form-group col-4">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Provincia</mat-label>
-                                    <mat-select type="text" (selectionChange)="provincia($event.value)" [(ngModel)]="guia_remision.direccion.ubicacion.provincia" class="form-control-sm">
-                                        <mat-option *ngFor="let provincia of provincias" [value]="provincia">
+                                    <mat-select type="text" (selectionChange)="provincia()" [(ngModel)]="guia_remision.direccion.ubicacion.provincia" class="form-control-sm">
+                                        <mat-option *ngFor="let provincia of provincias" [value]="provincia.provincia">
                                             {{provincia.provincia}}
                                         </mat-option>
                                     </mat-select>
@@ -151,8 +157,8 @@
                             <div class="form-group col-4">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Canton</mat-label>
-                                    <mat-select type="text" (selectionChange)="parroquia($event.value)" [(ngModel)]="guia_remision.direccion.ubicacion.canton" class="form-control-sm">
-                                        <mat-option *ngFor="let canton of cantones" [value]="canton">
+                                    <mat-select type="text" (selectionChange)="canton()" [(ngModel)]="guia_remision.direccion.ubicacion.canton" class="form-control-sm">
+                                        <mat-option *ngFor="let canton of cantones" [value]="canton.canton">
                                             {{canton.canton}}
                                         </mat-option>
                                     </mat-select>
@@ -161,8 +167,8 @@
                             <div class="form-group col-4">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Parroquia</mat-label>
-                                    <mat-select type="text" (selectionChange)="parroquia($event.value)" [(ngModel)]="guia_remision.direccion.ubicacion.parroquia" class="form-control-sm">
-                                        <mat-option *ngFor="let parroquia of parroquias" [value]="parroquia">
+                                    <mat-select type="text" [(ngModel)]="guia_remision.direccion.ubicacion.parroquia" class="form-control-sm">
+                                        <mat-option *ngFor="let parroquia of parroquias" [value]="parroquia.parroquia">
                                             {{parroquia.parroquia}}
                                         </mat-option>
                                     </mat-select>
