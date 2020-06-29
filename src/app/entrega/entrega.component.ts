@@ -125,6 +125,7 @@ export class EntregaComponent implements OnInit {
     if (event!=null)
       event.preventDefault();
     this.guia_remision.factura=this.factura;
+    this.guia_remision.normalizar();
     console.log(this.guia_remision);
     this.guiaRemisionService.crear(this.guia_remision).subscribe(
       res => {
@@ -134,6 +135,11 @@ export class EntregaComponent implements OnInit {
         } else {
           Swal.fire('Error', res.mensaje, 'error');
         }
+      },
+      err => {
+        console.log('HTTP Error', err)
+        Swal.fire('Error', err.error.mensaje, 'error');
+        this.guia_remision.des_normalizar();
       }
     );
 

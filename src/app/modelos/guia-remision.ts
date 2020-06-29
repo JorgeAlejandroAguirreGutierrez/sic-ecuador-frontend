@@ -4,6 +4,7 @@ import { Celular } from './celular';
 import { Correo } from './correo';
 import { Transportista } from './transportista';
 import { Factura } from './factura';
+import { Ubicacion } from './ubicacion';
 
 export class GuiaRemision {
     id: number;
@@ -31,5 +32,14 @@ export class GuiaRemision {
         this.estado=true;
         this.transportista=new Transportista();
         this.factura=new Factura();
+    }
+
+    normalizar(){
+        if (this.direccion.ubicacion.id==0){
+            this.direccion=null;
+        }
+    }
+    des_normalizar(){
+        this.direccion=new Direccion();
     }
 }

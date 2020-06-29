@@ -178,4 +178,17 @@ export class Factura {
     this.calcular_total_con_descuento();
     this.calcular_valor_porcentaje_descuento_total();
   }
+
+  normalizar(){
+    if (this.cliente.id==0){
+      this.cliente=null;
+    }
+    if (this.cliente_factura.id==0){
+      this.cliente_factura=null;
+    }
+  }
+  des_normalizar(){
+    this.cliente=new Cliente();
+    this.cliente_factura=new Cliente();
+  }
 }

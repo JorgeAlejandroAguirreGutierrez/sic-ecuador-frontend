@@ -50,13 +50,13 @@
             <div class="form-group col-4">
                 <mat-form-field appearance="standard" class="grande">
                     <mat-label>Identificación</mat-label>
-                    <input matInput type="text" class="form-control-sm" [value]="factura.cliente.identificacion" disabled>
+                    <input matInput type="text" class="form-control-sm" [value]="factura.cliente?.identificacion" disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-8">
                 <mat-form-field appearance="standard" class="grande">
                     <mat-label>Cliente</mat-label>
-                    <input matInput type="text" class="form-control-sm" [value]="factura.cliente.razon_social" disabled>
+                    <input matInput type="text" class="form-control-sm" [value]="factura.cliente?.razon_social" disabled>
                 </mat-form-field>
             </div>
         </div>
@@ -131,23 +131,23 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Direccion</mat-label>
                     <ng-container *ngIf="bandera_opcion">
-                        <input matInput type="text" [(ngModel)]="guia_remision.direccion.direccion"
+                        <input matInput type="text" [(ngModel)]="guia_remision.direccion?.direccion"
                             oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                     </ng-container>
                     <ng-container *ngIf="!bandera_opcion">
-                        <input matInput type="text" [value]="factura.cliente.direccion.direccion" [(ngModel)]="guia_remision.direccion.direccion" disabled
+                        <input matInput type="text" [value]="factura.cliente?.direccion.direccion" disabled
                             oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                     </ng-container>
                 </mat-form-field>
             </div>
             <div class="row">
                 <div class="col-8">
-                    <ng-container *ngIf="factura.cliente.direccion.ubicacion==null || bandera_opcion">
+                    <ng-container *ngIf="factura.cliente?.direccion.ubicacion==null || bandera_opcion">
                         <div class="form-row">
                             <div class="form-group col-4">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Provincia</mat-label>
-                                    <mat-select type="text" (selectionChange)="provincia()" [(ngModel)]="guia_remision.direccion.ubicacion.provincia" class="form-control-sm">
+                                    <mat-select type="text" (selectionChange)="provincia()" [(ngModel)]="guia_remision.direccion?.ubicacion.provincia" class="form-control-sm">
                                         <mat-option *ngFor="let provincia of provincias" [value]="provincia.provincia">
                                             {{provincia.provincia}}
                                         </mat-option>
@@ -157,7 +157,7 @@
                             <div class="form-group col-4">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Canton</mat-label>
-                                    <mat-select type="text" (selectionChange)="canton()" [(ngModel)]="guia_remision.direccion.ubicacion.canton" class="form-control-sm">
+                                    <mat-select type="text" (selectionChange)="canton()" [(ngModel)]="guia_remision.direccion?.ubicacion.canton" class="form-control-sm">
                                         <mat-option *ngFor="let canton of cantones" [value]="canton.canton">
                                             {{canton.canton}}
                                         </mat-option>
@@ -167,7 +167,7 @@
                             <div class="form-group col-4">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Parroquia</mat-label>
-                                    <mat-select type="text" (selectionChange)="parroquia()" [(ngModel)]="guia_remision.direccion.ubicacion.parroquia" class="form-control-sm">
+                                    <mat-select type="text" (selectionChange)="parroquia()" [(ngModel)]="guia_remision.direccion?.ubicacion.parroquia" class="form-control-sm">
                                         <mat-option *ngFor="let parroquia of parroquias" [value]="parroquia.parroquia">
                                             {{parroquia.parroquia}}
                                         </mat-option>
@@ -182,24 +182,24 @@
                             </div>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="factura.cliente.direccion.ubicacion!=null && !bandera_opcion">
+                    <ng-container *ngIf="factura.cliente?.direccion.ubicacion!=null && !bandera_opcion">
                         <div class="form-row">
                             <div class="form-group col-4">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Provincia</mat-label>
-                                    <input matInput type="text" [value]="factura.cliente.direccion.ubicacion.provincia" class="form-control-sm" disabled>
+                                    <input matInput type="text" [value]="factura.cliente?.direccion.ubicacion.provincia" class="form-control-sm" disabled>
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-4">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Canton</mat-label>
-                                    <input matInput type="text" [value]="factura.cliente.direccion.ubicacion.canton" class="form-control-sm" disabled>
+                                    <input matInput type="text" [value]="factura.cliente?.direccion.ubicacion.canton" class="form-control-sm" disabled>
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-4">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Parroquia</mat-label>
-                                    <input matInput type="text" [value]="factura.cliente.direccion.ubicacion.parroquia" class="form-control-sm" disabled>
+                                    <input matInput type="text" [value]="factura.cliente?.direccion.ubicacion.parroquia" class="form-control-sm" disabled>
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-12">
@@ -269,7 +269,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Teléfono</mat-label>
                                     <b matPrefix>+593 &nbsp;</b>
-                                    <input matInput type="tel" [value]="factura.cliente.telefonos[0]?.numero" [(ngModel)]="guia_remision.telefono.numero" class="form-control-sm" disabled
+                                    <input matInput type="tel" [value]="factura.cliente?.telefonos[0]?.numero" [(ngModel)]="guia_remision.telefono.numero" class="form-control-sm" disabled
                                         (change)="validar_telefono()" placeholder="03-2999-123" oninput="this.value = this.value.replace
                                         ( /^(\d{2})(\d{4})(\d{3})$/, '$1-$2-$3')">
                                 </mat-form-field>
@@ -278,7 +278,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Celular</mat-label>
                                     <b matPrefix>+593 </b>
-                                    <input matInput type="tel" [value]="factura.cliente.celulares[0]?.numero" [(ngModel)]="guia_remision.celular.numero" class="form-control-sm" disabled
+                                    <input matInput type="tel" [value]="factura.cliente?.celulares[0]?.numero" [(ngModel)]="guia_remision.celular.numero" class="form-control-sm" disabled
                                         (change)="validar_celular()" placeholder="09-9999-1234" oninput="this.value = this.value.replace
                                         ( /^(\d{2})(\d{4})(\d{4})$/, '$1-$2-$3')">
                                 </mat-form-field>
@@ -286,7 +286,7 @@
                             <div class="form-group col-3">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Correo electrónico</mat-label>
-                                    <input matInput type="text " [value]="factura.cliente.correos[0]?.email" [(ngModel)]="guia_remision.correo.email" disabled
+                                    <input matInput type="text " [value]="factura.cliente?.correos[0]?.email" [(ngModel)]="guia_remision.correo.email" disabled
                                         oninput="this.value = this.value.toLowerCase()" class="form-control-sm "
                                         (change)="validar_correo()"  placeholder="ejemplo@siice.com">
                                 </mat-form-field>

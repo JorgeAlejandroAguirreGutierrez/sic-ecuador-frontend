@@ -149,10 +149,10 @@
                                         <mat-form-field appearance="standard">
                                             <mat-label>Direccion</mat-label>
                                             <input matInput type="text"
-                                                [(ngModel)]="factura.cliente.direccion.direccion"
+                                                [(ngModel)]="factura.cliente?.direccion.direccion"
                                                 class="form-control-sm" disabled>
-                                            <button mat-button *ngIf="factura.cliente.direccion.direccion" matSuffix
-                                                mat-icon-button (click)="factura.cliente.direccion.direccion=''"
+                                            <button mat-button *ngIf="factura.cliente?.direccion.direccion" matSuffix
+                                                mat-icon-button (click)="factura.cliente?.direccion.direccion=''"
                                                 disabled>
                                                 <mat-icon>close</mat-icon>
                                             </button>
@@ -210,7 +210,7 @@
                                             <div class="form-group col-12">
                                                 <mat-form-field appearance="standard">
                                                     <input matInput type="text" class="form-control-sm resaltar"
-                                                        [(ngModel)]="factura.cliente.financiamiento.forma_pago.abreviatura"
+                                                        [(ngModel)]="factura.cliente?.financiamiento.forma_pago.abreviatura"
                                                         disabled>
                                                 </mat-form-field>
                                             </div>
@@ -218,7 +218,7 @@
                                                 <mat-form-field appearance="standard">
                                                     <mat-label>Tipo</mat-label>
                                                     <input matInput type="text" class="form-control-sm"
-                                                        [(ngModel)]="factura.cliente.financiamiento.tipo_pago.abreviatura"
+                                                        [(ngModel)]="factura.cliente?.financiamiento.tipo_pago.abreviatura"
                                                         disabled>
                                                 </mat-form-field>
                                             </div>
@@ -226,7 +226,7 @@
                                                 <mat-form-field appearance="standard">
                                                     <mat-label>Saldo Prep.</mat-label>
                                                     <input matInput type="text" class="form-control-sm"
-                                                        [(ngModel)]="factura.cliente.financiamiento.monto" disabled>
+                                                        [(ngModel)]="factura.cliente?.financiamiento.monto" disabled>
                                                 </mat-form-field>
                                             </div>
                                         </div>
@@ -299,7 +299,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Dirección</mat-label>
                                     <input matInput type="text"
-                                        [(ngModel)]="factura.cliente_factura.direccion.direccion"
+                                        [(ngModel)]="factura.cliente_factura?.direccion.direccion"
                                         class="form-control-sm" [disabled]="habilitar">
                                 </mat-form-field>
                             </div>
@@ -760,14 +760,14 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Ced/RUC</mat-label>
                     <input matInput type="text"
-                        [(ngModel)]="factura.cliente.identificacion" class="form-control-sm" [disabled]="true">
+                        [value]="factura.cliente?.identificacion" class="form-control-sm" disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-8">
                 <mat-form-field appearance="standard">
                     <mat-label>Cliente/Pista</mat-label>
                     <input matInput type="text"
-                        [(ngModel)]="factura.auxiliar.razon_social" class="form-control-sm" [disabled]="true">
+                        [value]="factura.auxiliar.razon_social" class="form-control-sm" disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-2">
@@ -832,7 +832,7 @@
                     <div class="form-group col-12">
                         <mat-form-field appearance="standard">
                             <mat-label>Forma de Pago</mat-label>
-                            <input matInput type="text" [(ngModel)]="factura.cliente.financiamiento.forma_pago.abreviatura" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text" [(ngModel)]="factura.cliente?.financiamiento.forma_pago.abreviatura" class="form-control-sm" [disabled]="true">
                         </mat-form-field>
                     </div>
                 </div>
@@ -840,13 +840,13 @@
                     <div class="form-group col-6">
                         <mat-form-field appearance="standard">
                             <mat-label>Tipo</mat-label>
-                            <input matInput type="text" [(ngModel)]="factura.cliente.financiamiento.tipo_pago.abreviatura" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text" [(ngModel)]="factura.cliente?.financiamiento.tipo_pago.abreviatura" class="form-control-sm" [disabled]="true">
                         </mat-form-field>
                     </div>
                     <div class="form-group col-6">
                         <mat-form-field appearance="standard">
                             <mat-label>Pre Saldo.</mat-label>
-                            <input matInput type="text" [(ngModel)]="factura.cliente.financiamiento.monto" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text" [(ngModel)]="factura.cliente?.financiamiento.monto" class="form-control-sm" [disabled]="true">
                         </mat-form-field>
                     </div>
                 </div>
@@ -1038,7 +1038,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let correo of factura.cliente.correos; let i=i ndex ">
+                    <tr *ngFor="let correo of factura.cliente?.correos; let i=i ndex ">
                         <td>
                             {{correo.email}}
                         </td>
@@ -1067,7 +1067,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let celular of factura.cliente.celulares; let i=i ndex ">
+                    <tr *ngFor="let celular of factura.cliente?.celulares; let i=i ndex ">
                         <td>
                             {{celular.numero}}
                         </td>
@@ -1096,7 +1096,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let telefono of factura.cliente.telefonos; let i=index ">
+                    <tr *ngFor="let telefono of factura.cliente?.telefonos; let i=index ">
                         <td>
                             {{telefono.numero}}
                         </td>
@@ -1125,7 +1125,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let correo of factura.cliente_factura.correos; let i=i ndex ">
+                    <tr *ngFor="let correo of factura.cliente_factura?.correos; let i=i ndex ">
                         <td>
                             {{correo.email}}
                         </td>
@@ -1154,7 +1154,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let celular of factura.cliente_factura.celulares; let i=i ndex ">
+                    <tr *ngFor="let celular of factura.cliente_factura?.celulares; let i=i ndex ">
                         <td>
                             {{celular.numero}}
                         </td>
@@ -1183,7 +1183,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let telefono of factura.cliente_factura.telefonos; let i=index ">
+                    <tr *ngFor="let telefono of factura.cliente_factura?.telefonos; let i=index ">
                         <td>
                             {{telefono.numero}}
                         </td>

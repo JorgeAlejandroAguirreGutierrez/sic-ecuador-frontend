@@ -582,6 +582,7 @@ export class FacturaComponent implements OnInit {
     });
     if (validacion){
       //FIN VALIDACION SELECCIONES
+      this.factura.normalizar();
       console.log(this.factura);
       this.facturaService.crear(this.factura).subscribe(
         res => {
@@ -592,6 +593,11 @@ export class FacturaComponent implements OnInit {
           } else {
             Swal.fire('Error', res.mensaje, 'error');
           }
+        },
+        err => {
+          console.log('HTTP Error', err)
+          Swal.fire('Error', err.error.mensaje, 'error');
+          this.factura.des_normalizar();
         }
       );
     }
