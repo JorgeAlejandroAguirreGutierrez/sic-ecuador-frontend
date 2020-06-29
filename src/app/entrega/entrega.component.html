@@ -7,9 +7,16 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" role="button" (click)="crear($event)">
-                    <fa-icon [icon]="['fas', 'save']"></fa-icon>
-                </a>
+                <ng-container *ngIf="guia_remision.id==0">
+                    <a class="nav-link" href="#" role="button" (click)="crear($event)">
+                        <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                    </a>
+                </ng-container>
+                <ng-container *ngIf="guia_remision.id!=0">
+                    <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
+                        <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                    </a>
+                </ng-container>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
@@ -131,7 +138,7 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Direccion</mat-label>
                     <ng-container *ngIf="bandera_opcion">
-                        <input matInput type="text" [(ngModel)]="guia_remision.direccion?.direccion"
+                        <input matInput type="text" [(ngModel)]="guia_remision.direccion.direccion"
                             oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                     </ng-container>
                     <ng-container *ngIf="!bandera_opcion">
@@ -205,7 +212,7 @@
                             <div class="form-group col-12">
                                 <mat-form-field appearance="standard" class="grande">
                                     <mat-label>Referencia</mat-label>
-                                    <input matInput type="text" [(ngModel)]="guia_remision.referencia" class="form-control-sm">
+                                    <input matInput type="text" [(ngModel)]="guia_remision.referencia" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                 </mat-form-field>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auxiliar } from '../modelos/auxiliar';
-import { Resultado } from '../resultado';
+import { Respuesta } from '../respuesta';
 import * as util from '../util';
 import {HttpClient} from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
@@ -14,61 +14,61 @@ export class AuxiliarService {
 
   constructor(private http: HttpClient) { }
 
-  crear(auxiliar: Auxiliar): Observable<Resultado> {
+  crear(auxiliar: Auxiliar): Observable<Respuesta> {
     return this.http.post(environment.host + util.ruta + util.auxiliar, JSON.stringify(auxiliar), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  obtener(auxiliar_id: number): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.auxiliar + '/' + auxiliar_id, util.options).pipe(
-      map(response => response as Resultado),
+  obtener(auxiliar_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.auxiliar + '/' + auxiliar_id, util.options).pipe(
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  consultar(): Observable<Resultado> {
+  consultar(): Observable<Respuesta> {
     return this.http.get(environment.host + util.ruta + util.auxiliar, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));
   }
 
-  actualizar(auxiliar: Auxiliar): Observable<Resultado> {
+  actualizar(auxiliar: Auxiliar): Observable<Respuesta> {
     return this.http.put(environment.host+util.ruta+util.auxiliar, JSON.stringify(auxiliar), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  eliminar(auxiliar: Auxiliar): Observable<Resultado> {
+  eliminar(auxiliar: Auxiliar): Observable<Respuesta> {
     return this.http.delete(environment.host+util.ruta+util.auxiliar + '/' + auxiliar.id, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
-  consultarRazonSocial(auxiliar: Auxiliar): Observable<Resultado> {
+  consultarRazonSocial(auxiliar: Auxiliar): Observable<Respuesta> {
     return this.http.get(environment.host + util.ruta + util.auxiliar+util.buscar+
       util.razon_social+"/"+auxiliar.razon_social+"/"+auxiliar.cliente.id, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));
   }
-  consultarClienteID(auxiliar: Auxiliar): Observable<Resultado> {
+  consultarClienteID(auxiliar: Auxiliar): Observable<Respuesta> {
     return this.http.get(environment.host + util.ruta + util.auxiliar+util.cliente+
       "/"+auxiliar.cliente.id, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));

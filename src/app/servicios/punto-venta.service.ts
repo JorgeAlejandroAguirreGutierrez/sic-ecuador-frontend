@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PuntoVenta } from '../modelos/punto-venta';
-import { Resultado } from '../resultado';
+import { Respuesta } from '../respuesta';
 import * as util from '../util';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { map, catchError, switchAll } from 'rxjs/operators';
@@ -16,53 +16,53 @@ export class PuntoVentaService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  crear(punto_venta: PuntoVenta): Observable<Resultado> {
+  crear(punto_venta: PuntoVenta): Observable<Respuesta> {
     return this.http.post(environment.host + util.ruta + util.punto_venta, JSON.stringify(punto_venta), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  consultar(punto_venta_id: number): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.punto_venta + '/' + punto_venta_id, util.options).pipe(
-      map(response => response as Resultado),
+  consultar(punto_venta_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.punto_venta + '/' + punto_venta_id, util.options).pipe(
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  consultarEstablecimiento(establecimiento_id: number): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.punto_venta+util.establecimiento + '/' + establecimiento_id, util.options).pipe(
-      map(response => response as Resultado),
+  consultarEstablecimiento(establecimiento_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.punto_venta+util.establecimiento + '/' + establecimiento_id, util.options).pipe(
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  obtener(): Observable<Resultado> {
+  obtener(): Observable<Respuesta> {
     return this.http.get(environment.host + util.ruta + util.punto_venta, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));
   }
 
-  actualizar(punto_venta: PuntoVenta): Observable<Resultado> {
+  actualizar(punto_venta: PuntoVenta): Observable<Respuesta> {
     return this.http.put(environment.host+util.ruta+util.punto_venta, JSON.stringify(punto_venta), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  eliminar(punto_venta: PuntoVenta): Observable<Resultado> {
+  eliminar(punto_venta: PuntoVenta): Observable<Respuesta> {
     return this.http.delete(environment.host+util.ruta+util.punto_venta + '/' + punto_venta.id, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })

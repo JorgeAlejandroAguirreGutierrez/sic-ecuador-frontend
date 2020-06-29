@@ -1,8 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnInit, Input } from '@angular/core';
 import { SesionService } from '../servicios/sesion.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Factura } from '../modelos/factura';
@@ -15,7 +11,6 @@ import { Transportista } from '../modelos/transportista';
 import { VehiculoTransporte } from '../modelos/vehiculo-transporte';
 import { VehiculoTransporteService } from '../servicios/vehiculo-transporte.service';
 import { GuiaRemision } from '../modelos/guia-remision';
-import { FacturaDetalle } from '../modelos/factura-detalle';
 import { Direccion } from '../modelos/direccion';
 import { GuiaRemisionService } from '../servicios/guia-remision.service';
 import { Sesion } from '../modelos/sesion';
@@ -45,42 +40,12 @@ export class EntregaComponent implements OnInit {
     private vehiculoTransporteService: VehiculoTransporteService, private modalService: NgbModal,
     private ubicacionService: UbicacionService, private guiaRemisionService: GuiaRemisionService, private empresaService: EmpresaService) { }
 
-  
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-
-  // Variables para ingreso de cheques
-  columnas_factura_detalles: string[] = ['select', 'id', 'producto', 'cantidad', 'P/U', 'IVA', 'total'];
-  data_factura_detalles: MatTableDataSource<FacturaDetalle>;
-
-  selection = new SelectionModel<FacturaDetalle>(true, []);
-
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numero_seleccionado = this.selection.selected.length;
-    const numero_filas = this.data_factura_detalles.data.length;
-    return numero_seleccionado === numero_filas;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ? this.selection.clear() : this.data_factura_detalles.data.forEach(row => this.selection.select(row));
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: FacturaDetalle): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   ngOnInit() {
+    this.estado= this.guia_remision.estado? "ENTREGADO": "PENDIENTE";
     this.validar_sesion();
     this.consultar_transportistas();
     this.consultar_vehiculos_transportes();
     this.consultar_ubicaciones();
-    this.data_factura_detalles=new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
   }
 
   validar_sesion(){
@@ -105,7 +70,10 @@ export class EntregaComponent implements OnInit {
       res => {
         this.transportistas = res.resultado as Transportista[]
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => {
+        console.log('HTTP Error', err)
+        Swal.fire('Error', err.error.mensaje, 'error');
+      }
     );
   }
   consultar_vehiculos_transportes(){
@@ -113,7 +81,10 @@ export class EntregaComponent implements OnInit {
       res => {
         this.vehiculos_transportes = res.resultado as VehiculoTransporte[]
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => {
+        console.log('HTTP Error', err)
+        Swal.fire('Error', err.error.mensaje, 'error');
+      }
     );
   }
 
@@ -125,15 +96,37 @@ export class EntregaComponent implements OnInit {
     if (event!=null)
       event.preventDefault();
     this.guia_remision.factura=this.factura;
+    this.guia_remision.estado=true;
     this.guia_remision.normalizar();
     console.log(this.guia_remision);
     this.guiaRemisionService.crear(this.guia_remision).subscribe(
       res => {
-        this.guia_remision_crear = res.resultado as GuiaRemision
+        this.guia_remision_crear = res.resultado as GuiaRemision;
+        this.estado=this.guia_remision_crear.estado? "ENTREGADO": "NO ENTREGADO";
         if (res.mensaje){
           Swal.fire('Exito', 'Se creo la guia de remision', 'success');
-        } else {
-          Swal.fire('Error', res.mensaje, 'error');
+        }
+      },
+      err => {
+        console.log('HTTP Error', err)
+        Swal.fire('Error', err.error.mensaje, 'error');
+        this.guia_remision.des_normalizar();
+      }
+    );
+  }
+
+  actualizar(event) {
+    if (event!=null)
+      event.preventDefault();
+    this.guia_remision.estado=true;
+    this.guia_remision.normalizar();
+    console.log(this.guia_remision);
+    this.guiaRemisionService.actualizar(this.guia_remision).subscribe(
+      res => {
+        this.guia_remision_crear = res.resultado as GuiaRemision;
+        this.estado=this.guia_remision_crear.estado? "ENTREGADO": "NO ENTREGADO";
+        if (res.mensaje){
+          Swal.fire('Exito', 'Se creo la guia de remision', 'success');
         }
       },
       err => {
@@ -148,11 +141,11 @@ export class EntregaComponent implements OnInit {
   provincia() {
     this.ubicacionService.obtenerCantones(this.guia_remision.direccion.ubicacion.provincia).subscribe(
       res => {
-        if (res.resultado!= null) {
           this.cantones = res.resultado as Ubicacion[];
-        } else {
-          Swal.fire('Error', res.mensaje, 'error');
-        }
+      },
+      err => {
+        console.log('HTTP Error', err)
+        Swal.fire('Error', err.error.mensaje, 'error');
       }
     );
   }
@@ -160,11 +153,11 @@ export class EntregaComponent implements OnInit {
   canton() {
     this.ubicacionService.obtenerParroquias(this.guia_remision.direccion.ubicacion.canton).subscribe(
       res => {
-        if (res.resultado!= null) {
           this.parroquias = res.resultado as Ubicacion[];
-        } else {
-          Swal.fire('Error', res.mensaje, 'error');
-        }
+      },
+      err => {
+        console.log('HTTP Error', err)
+        Swal.fire('Error', err.error.mensaje, 'error');
       }
     );
   }
@@ -172,11 +165,11 @@ export class EntregaComponent implements OnInit {
     if (this.guia_remision.direccion.ubicacion.provincia != "" && this.guia_remision.direccion.ubicacion.canton != "" && this.guia_remision.direccion.ubicacion.parroquia != ""){
       this.ubicacionService.obtenerUbicacionIDAsync(this.guia_remision.direccion.ubicacion).subscribe(
         res => {
-          if (res.resultado!= null) {
-            this.guia_remision.direccion.ubicacion=res.resultado as Ubicacion;
-          } else {
-            Swal.fire('Error', res.mensaje, 'error');
-          }
+          this.guia_remision.direccion.ubicacion=res.resultado as Ubicacion;
+        },
+        err => {
+          console.log('HTTP Error', err)
+          Swal.fire('Error', err.error.mensaje, 'error');
         }
       );
     }
@@ -226,7 +219,7 @@ export class EntregaComponent implements OnInit {
   }
 
   nuevo(event){
-
+    this.guia_remision=new GuiaRemision();
   }
 
   despachar(){

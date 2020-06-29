@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TipoRetencion } from '../modelos/tipo-retencion';
-import { Resultado } from '../resultado';
+import { Respuesta } from '../respuesta';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { of, Observable, throwError } from 'rxjs';
@@ -15,34 +15,34 @@ export class TipoRetencionService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  obtenerIvaBien(): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.tipo_retencion + '/ivabien', util.options).pipe(
-      map(response => response as Resultado),
+  obtenerIvaBien(): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.tipo_retencion + '/ivabien', util.options).pipe(
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  obtenerIvaServicio(): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.tipo_retencion + '/ivaservicio', util.options).pipe(
-      map(response => response as Resultado),
+  obtenerIvaServicio(): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.tipo_retencion + '/ivaservicio', util.options).pipe(
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
-  obtenerRentaBien(): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.tipo_retencion + '/rentabien', util.options).pipe(
-      map(response => response as Resultado),
+  obtenerRentaBien(): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.tipo_retencion + '/rentabien', util.options).pipe(
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
-  obtenerRentaServicio(): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.tipo_retencion + '/rentaservicio', util.options).pipe(
-      map(response => response as Resultado),
+  obtenerRentaServicio(): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.tipo_retencion + '/rentaservicio', util.options).pipe(
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })

@@ -1,7 +1,7 @@
-import { Resultado } from './resultado';
+import { Respuesta } from './respuesta';
 
-describe('Resultado', () => {
+describe('Respuesta', () => {
   it('should create an instance', () => {
-    expect(new Resultado()).toBeTruthy();
+    expect(new Respuesta()).toBeTruthy();
   });
 });

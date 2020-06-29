@@ -29,7 +29,7 @@ export class GuiaRemision {
         this.telefono="";
         this.celular="";
         this.correo="";
-        this.estado=true;
+        this.estado=false;
         this.transportista=new Transportista();
         this.factura=new Factura();
     }
