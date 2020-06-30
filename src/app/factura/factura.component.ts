@@ -75,7 +75,7 @@ export class FacturaComponent implements OnInit {
   auxiliar_buscar: Auxiliar=new Auxiliar();
 
   clientes: Cliente[]=[];
-  auxiliares: Auxiliar[]=[];
+  auxiliares: Auxiliar[]= [];
   productos: Producto[] = [];
   bodegas: Bodega[]=[];
 
@@ -278,6 +278,7 @@ export class FacturaComponent implements OnInit {
           }
           this.factura_crear=this.factura;
           this.facturaService.enviar(0);
+          console.log(this.factura);
         },
         err => {
           Swal.fire('Error', err.error.mensaje, 'error')
@@ -676,14 +677,14 @@ export class FacturaComponent implements OnInit {
       if (result == "confirmar") {
         this.buscar_serie="";
         let seleccionados=0;
-        this.factura.factura_detalles[this.indice_detalle].producto.caracteristicas.forEach((caracteristica, index)=> {
-          if(caracteristica.seleccionado && (caracteristica.factura_detalle==null || caracteristica.factura_detalle.posicion==-1)){
-            caracteristica.factura_detalle=new FacturaDetalle();
-            caracteristica.factura_detalle.posicion=this.indice_detalle;
-            seleccionados++;
-          }
-        });
         if (!this.factura.factura_detalles[this.indice_detalle].producto.serie_autogenerado) {
+          this.factura.factura_detalles[this.indice_detalle].producto.caracteristicas.forEach((caracteristica, index)=> {
+            if(caracteristica.seleccionado && (caracteristica.factura_detalle==null || caracteristica.factura_detalle.posicion==-1)){
+              caracteristica.factura_detalle=new FacturaDetalle();
+              caracteristica.factura_detalle.posicion=this.indice_detalle;
+              seleccionados++;
+            }
+          });
           if (seleccionados>this.factura.factura_detalles[this.indice_detalle].cantidad || seleccionados<this.factura.factura_detalles[this.indice_detalle].cantidad){
             this.factura.factura_detalles[this.indice_detalle].caracteristicas=[];
             this.factura.factura_detalles[this.indice_detalle].producto.caracteristicas.forEach((caracteristica, index)=> {
