@@ -276,7 +276,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Teléfono</mat-label>
                                     <b matPrefix>+593 &nbsp;</b>
-                                    <input matInput type="tel" [value]="factura.cliente?.telefonos[0]?.numero" [(ngModel)]="guia_remision.telefono.numero" class="form-control-sm" disabled
+                                    <input matInput type="tel" [value]="factura.cliente?.telefonos[0].numero" [(ngModel)]="guia_remision.telefono" class="form-control-sm" disabled
                                         (change)="validar_telefono()" placeholder="03-2999-123" oninput="this.value = this.value.replace
                                         ( /^(\d{2})(\d{4})(\d{3})$/, '$1-$2-$3')">
                                 </mat-form-field>
@@ -285,7 +285,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Celular</mat-label>
                                     <b matPrefix>+593 </b>
-                                    <input matInput type="tel" [value]="factura.cliente?.celulares[0]?.numero" [(ngModel)]="guia_remision.celular.numero" class="form-control-sm" disabled
+                                    <input matInput type="tel" [value]="factura.cliente?.celulares[0].numero" [(ngModel)]="guia_remision.celular" class="form-control-sm" disabled
                                         (change)="validar_celular()" placeholder="09-9999-1234" oninput="this.value = this.value.replace
                                         ( /^(\d{2})(\d{4})(\d{4})$/, '$1-$2-$3')">
                                 </mat-form-field>
@@ -293,7 +293,7 @@
                             <div class="form-group col-3">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Correo electrónico</mat-label>
-                                    <input matInput type="text " [value]="factura.cliente?.correos[0]?.email" [(ngModel)]="guia_remision.correo.email" disabled
+                                    <input matInput type="text " [value]="factura.cliente?.correos[0].email" [(ngModel)]="guia_remision.correo" disabled
                                         oninput="this.value = this.value.toLowerCase()" class="form-control-sm "
                                         (change)="validar_correo()"  placeholder="ejemplo@siice.com">
                                 </mat-form-field>
