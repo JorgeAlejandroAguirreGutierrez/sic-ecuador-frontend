@@ -796,40 +796,43 @@ export class FacturaComponent implements OnInit {
   }
 
   seleccionar_valor_descuento_subtotal(){
+    this.factura.calcular();
     this.factura.factura_detalles.forEach((detalle, index)=> {
         detalle.calcular_totales(this.factura);
         detalle.calcular();
     });
-    this.factura.calcular();
-  }
-  seleccionar_porcentaje_descuento_subtotal(){
-    this.factura.factura_detalles.forEach((detalle, index)=> {
-      detalle.calcular_totales(this.factura);
-      detalle.calcular();
-    });
-    this.factura.calcular();
-  }
-  seleccionar_valor_descuento_total(){
-    this.factura.factura_detalles.forEach((detalle, index)=> {
-      detalle.calcular_totales(this.factura);
-      detalle.calcular();
-    });
-    this.factura.calcular();
-  }
-  seleccionar_porcentaje_descuento_total(){
-    this.factura.factura_detalles.forEach((detalle, index)=> {
-      detalle.calcular_totales(this.factura);
-      detalle.calcular();
-    });
-    this.factura.calcular();
     
   }
-  seleccionar_valor_porcentaje_descuento_total(){
+  seleccionar_porcentaje_descuento_subtotal(){
+    this.factura.calcular();
     this.factura.factura_detalles.forEach((detalle, index)=> {
       detalle.calcular_totales(this.factura);
       detalle.calcular();
     });
+    
+  }
+  seleccionar_valor_descuento_total(){
     this.factura.calcular();
+    this.factura.factura_detalles.forEach((detalle, index)=> {
+      detalle.calcular_totales(this.factura);
+      detalle.calcular();
+    });
+    
+  }
+  seleccionar_porcentaje_descuento_total(){
+    this.factura.calcular();
+    this.factura.factura_detalles.forEach((detalle, index)=> {
+      detalle.calcular_totales(this.factura);
+      detalle.calcular();
+    });    
+  }
+  seleccionar_valor_porcentaje_descuento_total(){
+    this.factura.calcular();
+    this.factura.factura_detalles.forEach((detalle, index)=> {
+      detalle.calcular_totales(this.factura);
+      detalle.calcular();
+    });
+    
   }
 
   procesaPropagar(mensaje: boolean){
