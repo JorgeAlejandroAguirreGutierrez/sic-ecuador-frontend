@@ -3,7 +3,7 @@ import { Ubicacion } from '../modelos/ubicacion';
 import { Respuesta } from '../respuesta';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { of, Observable, throwError } from 'rxjs';
+import { of, Observable, throwError, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import * as util from '../util';
 import { environment } from '../../environments/environment';
@@ -13,7 +13,14 @@ import { environment } from '../../environments/environment';
 })
 export class UbicacionService {
 
+  private messageSource = new BehaviorSubject(0);
+  currentMessage = this.messageSource.asObservable();
+
   constructor(private http: HttpClient, private router: Router) { }
+
+  enviar(factura_id: number) {
+    this.messageSource.next(factura_id);
+  }
 
   crear(ubicacion: Ubicacion): Observable<Respuesta> {
     return this.http.post(environment.host + util.ruta + util.ubicacion, JSON.stringify(ubicacion), util.options).pipe(
