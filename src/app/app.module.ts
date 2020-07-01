@@ -147,6 +147,7 @@ import { SliderComponent } from './tienda/slider/slider.component';
 import { ZoomComponent } from './tienda/zoom/zoom.component';
 
 import { FiltroSerie } from './pipes/filtro-serie';
+import { UbicacionMostrarComponent } from './ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -206,6 +207,7 @@ const routes: Routes = [
     VehiculoTransporteComponent,
     ClienteComponent,
     ClienteMostrarComponent,
+    UbicacionMostrarComponent,
     EmpresaComponent,
     UsuarioComponent,
     EstablecimientoComponent,
