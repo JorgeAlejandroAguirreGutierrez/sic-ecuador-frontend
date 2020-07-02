@@ -102,6 +102,7 @@ export class EntregaComponent implements OnInit {
     this.guiaRemisionService.crear(this.guia_remision).subscribe(
       res => {
         this.guia_remision_crear = res.resultado as GuiaRemision;
+        this.guia_remision.numero=this.guia_remision_crear.numero;
         this.estado=this.guia_remision_crear.estado? "ENTREGADO": "NO ENTREGADO";
         if (res.mensaje){
           Swal.fire('Exito', 'Se creo la guia de remision', 'success');
