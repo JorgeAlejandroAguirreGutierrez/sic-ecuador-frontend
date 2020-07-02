@@ -330,7 +330,7 @@ export class ClienteComponent implements OnInit {
     this.clienteService.obtenerIdentificacion(this.cliente.identificacion).subscribe(
       res => {
         if (res.resultado==null){
-          this.clienteService.validarIdentificacion(this.cliente).subscribe(
+          this.clienteService.validarIdentificacion(this.cliente.identificacion).subscribe(
             res => {
               if (res.resultado!=null){
                 this.cliente.tipo_identificacion=res.resultado.tipo_identificacion;

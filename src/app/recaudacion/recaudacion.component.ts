@@ -513,7 +513,6 @@ export class RecaudacionComponent implements OnInit {
     }
   }
 
-
   total_cheques() {
     return this.recaudacion.cheques.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
@@ -678,6 +677,20 @@ export class RecaudacionComponent implements OnInit {
     return this.recaudacion.tarjetas_creditos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
   }
 
+  validar_identificacion_tarjeta_credito(){
+    this.clienteService.validarIdentificacion(this.tarjeta_credito.identificacion).subscribe(
+      res => {
+        if (res.resultado!=null){
+          Swal.fire('Exito', 'Identificacion verificada', 'success');
+        } else {
+          this.tarjeta_credito.identificacion='';
+          Swal.fire('Error', "Error al validar la identificacion", 'error');
+        } 
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+
   agregar_tarjeta_debito() {
     if (this.recaudacion.total+Number(this.tarjeta_debito.valor)<=this.factura.total_con_descuento){
       this.tarjeta_debito.banco=this.seleccion_banco_tarjeta_debito.value;
@@ -728,6 +741,20 @@ export class RecaudacionComponent implements OnInit {
 
   total_tarjetas_debitos() {
     return this.recaudacion.tarjetas_debitos.map(t => Number(t.valor)).reduce((acc, value) => acc + value, 0);
+  }
+
+  validar_identificacion_tarjeta_debito(){
+    this.clienteService.validarIdentificacion(this.tarjeta_debito.identificacion).subscribe(
+      res => {
+        if (res.resultado!=null){
+          Swal.fire('Exito', 'Identificacion verificada', 'success');
+        } else {
+          this.tarjeta_debito.identificacion='';
+          Swal.fire('Error', "Error al validar la identificacion", 'error');
+        } 
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
   }
 
   agregar_compensacion() {

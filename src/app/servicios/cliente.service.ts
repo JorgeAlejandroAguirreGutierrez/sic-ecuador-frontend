@@ -91,8 +91,8 @@ export class ClienteService {
     );
   }
 
-  validarIdentificacion(cliente: Cliente): Observable<Respuesta> {
-    return this.http.get(environment.host+util.ruta+util.cliente + '/identificacion/validar/' + cliente.identificacion, util.options).pipe(
+  validarIdentificacion(identificacion: string): Observable<Respuesta> {
+    return this.http.get(environment.host+util.ruta+util.cliente + '/identificacion/validar/' + identificacion, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
