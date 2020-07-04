@@ -55,9 +55,12 @@ export const modelo_tabla: string= "/modelotabla"
 export const amortizacion: string= "/amortizacion"
 export const entrega: string= "/entrega"
 export const guia_remision: string= "/guiaremision"
+export const generar: string= "/generar"
+export const pdf: string= "/pdf"
 
 export const credencial_usuario='admin';
 export const credencial_password='admin';
 export const credencial=credencial_usuario+':'+credencial_password;
 export const headers= new HttpHeaders({'Content-Type':'application/json', 'Authorization': 'Basic '+btoa(credencial)});
 export const options = {headers: headers};
+export const options_archivo = {headers: headers, responseType: 'blob' as 'json' };

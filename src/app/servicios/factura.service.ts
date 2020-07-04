@@ -84,5 +84,14 @@ export class FacturaService {
       })
     );
   }
+
+  generar_pdf(factura_id: number){
+    return this.http.get(environment.host + util.ruta + util.factura+util.generar+util.pdf+'/'+factura_id, util.options_archivo).pipe(
+      map(response => response as Blob),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
   
 }

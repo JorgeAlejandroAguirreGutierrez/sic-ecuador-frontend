@@ -15,6 +15,7 @@ import { Direccion } from '../modelos/direccion';
 import { GuiaRemisionService } from '../servicios/guia-remision.service';
 import { Sesion } from '../modelos/sesion';
 import { Router } from '@angular/router';
+import { FacturaService } from '../servicios/factura.service';
 
 @Component({
   selector: 'app-entrega',
@@ -37,7 +38,7 @@ export class EntregaComponent implements OnInit {
   bandera_opcion: boolean=false;
 
   constructor(private transportistaService: TransportistaService, private sesionService: SesionService, private router: Router,
-    private vehiculoTransporteService: VehiculoTransporteService, private modalService: NgbModal,
+    private vehiculoTransporteService: VehiculoTransporteService, private facturaService: FacturaService, private modalService: NgbModal,
     private ubicacionService: UbicacionService, private guiaRemisionService: GuiaRemisionService, private empresaService: EmpresaService) { }
 
   ngOnInit() {
@@ -225,5 +226,21 @@ export class EntregaComponent implements OnInit {
 
   despachar(){
 
+  }
+
+  generar_pdf(event){
+    if (event!=null)
+      event.preventDefault();
+    this.facturaService.generar_pdf(this.factura.id).subscribe(
+      res => {
+        let file = new Blob([res], { type: 'application/pdf' });            
+        var fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      },
+      err => {
+        console.log('HTTP Error', err)
+        Swal.fire('Error', err.error.mensaje, 'error');
+      }
+    );
   }
 }
