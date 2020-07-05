@@ -158,7 +158,7 @@ export class Factura {
   }
   private calcular_total_con_descuento(){
     this.total_con_descuento=0;
-    this.total_con_descuento=this.subtotal_base0_con_descuento+this.subtotal_base12_con_descuento+this.importe_iva_con_descuento-Number(this.valor_descuento_total);
+    this.total_con_descuento=this.subtotal_base0_con_descuento+this.subtotal_base12_con_descuento+this.importe_iva_con_descuento;
     this.total_con_descuento=Number(this.total_con_descuento.toFixed(2));
   }
   private calcular_valor_porcentaje_descuento_total(){
