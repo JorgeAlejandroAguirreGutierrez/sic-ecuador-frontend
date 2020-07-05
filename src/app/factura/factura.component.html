@@ -547,7 +547,7 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>TOTAL</mat-label>
-                                        <input matInput type="text" [(ngModel)]="detalle.subtotal_con_descuento"
+                                        <input matInput type="text" [(ngModel)]="detalle.total_con_descuento"
                                             class="form-control-sm" disabled>
                                     </mat-form-field>
                                 </div>
@@ -607,12 +607,12 @@
                                         <td>{{detalle.precio.valor}}</td>
                                         <td>{{detalle.valor_descuento_individual}}</td>
                                         <td>{{detalle.porcentaje_descuento_individual}}</td>
+                                        <td>{{detalle.valor_descuento_individual_subtotales}}</td>
+                                        <td>{{detalle.porcentaje_descuento_individual_subtotales}}</td>
                                         <td>{{detalle.valor_descuento_individual_totales}}</td>
                                         <td>{{detalle.porcentaje_descuento_individual_totales}}</td>
-                                        <td>{{detalle.valor_descuento_totales}}</td>
-                                        <td>{{detalle.porcentaje_descuento_totales}}</td>
                                         <td>{{detalle.impuesto.porcentaje}}</td>
-                                        <td>{{detalle.subtotal_con_descuento}}</td>
+                                        <td>{{detalle.total_con_descuento}}</td>
                                         <td>
                                             <button (click)="asignar_series(modal_series, i)"
                                                 class="btn btn-primary btn-circle ">

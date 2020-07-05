@@ -90,7 +90,7 @@ export class EntregaComponent implements OnInit {
   }
 
   total_factura() {
-    return this.factura.factura_detalles.map(t => t.subtotal_con_descuento).reduce((acc, value) => acc + value, 0);
+    return this.factura.factura_detalles.map(t => t.total_con_descuento).reduce((acc, value) => acc + value, 0);
   }
 
   crear(event) {
