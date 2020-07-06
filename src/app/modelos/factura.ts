@@ -161,6 +161,11 @@ export class Factura {
     this.total_con_descuento=this.subtotal_base0_con_descuento+this.subtotal_base12_con_descuento+this.importe_iva_con_descuento;
     this.total_con_descuento=Number(this.total_con_descuento.toFixed(2));
   }
+  private calcular_valor_porcentaje_descuento_subtotal(){
+    this.valor_porcentaje_descuento_subtotal=this.total_con_descuento*(this.porcentaje_descuento_subtotal/100);
+    this.valor_porcentaje_descuento_subtotal=Number(this.valor_porcentaje_descuento_subtotal.toFixed(2));
+  }
+
   private calcular_valor_porcentaje_descuento_total(){
     this.valor_porcentaje_descuento_total=this.total_con_descuento*(this.porcentaje_descuento_total/100);
     this.valor_porcentaje_descuento_total=Number(this.valor_porcentaje_descuento_total.toFixed(2));
@@ -177,6 +182,7 @@ export class Factura {
     this.calcular_importe_iva_con_descuento();
     this.calcular_total_sin_descuento();
     this.calcular_total_con_descuento();
+    this.calcular_valor_porcentaje_descuento_subtotal();
     this.calcular_valor_porcentaje_descuento_total();
   }
 
