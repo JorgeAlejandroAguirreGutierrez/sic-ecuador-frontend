@@ -19,6 +19,7 @@ export class GuiaRemision {
     estado: boolean;
     transportista: Transportista;
     factura: Factura;
+    inhabilitar: boolean;
 
     constructor(){
         this.id=0;
@@ -32,6 +33,7 @@ export class GuiaRemision {
         this.estado=false;
         this.transportista=new Transportista();
         this.factura=new Factura();
+        this.inhabilitar=false;
     }
 
     normalizar(){
