@@ -162,7 +162,7 @@ export class Factura {
     this.total_con_descuento=Number(this.total_con_descuento.toFixed(2));
   }
   private calcular_valor_porcentaje_descuento_subtotal(){
-    this.valor_porcentaje_descuento_subtotal=this.total_con_descuento*(this.porcentaje_descuento_subtotal/100);
+    this.valor_porcentaje_descuento_subtotal=this.subtotal_sin_descuento*(this.porcentaje_descuento_subtotal/100);
     this.valor_porcentaje_descuento_subtotal=Number(this.valor_porcentaje_descuento_subtotal.toFixed(2));
   }
 

@@ -537,18 +537,18 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Cédula</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="tarjeta_credito.identificacion" (change)="validar_identificacion_tarjeta_credito()">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="tarjeta_credito.identificacion" (change)="validar_identificacion_tarjeta_credito()" [disabled]="habilitar_titular_tarjeta_credito">
                 </mat-form-field>
             </div>
             <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>Nombre</mat-label>
-                    <input matInput type="text" [(ngModel)]="tarjeta_credito.nombre" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    <input matInput type="text" [(ngModel)]="tarjeta_credito.nombre" [disabled]="habilitar_titular_tarjeta_credito" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                 </mat-form-field>
             </div>
             <div class="form-group col-1">
                 <br>
-                <mat-checkbox [(ngModel)]="tarjeta_credito.titular" class="form-control-sm" color="primary">
+                <mat-checkbox [(ngModel)]="tarjeta_credito.titular" (change)="asignar_titular_tarjeta_credito()" class="form-control-sm" color="primary">
                     Titular</mat-checkbox>
             </div>
             <div class="form-group col-1">
@@ -732,14 +732,19 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Cédula</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="tarjeta_debito.identificacion" (change)="validar_identificacion_tarjeta_debito()">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="tarjeta_debito.identificacion" (change)="validar_identificacion_tarjeta_debito()" [disabled]="habilitar_titular_tarjeta_debito">
                 </mat-form-field>
             </div>
-            <div class="form-group col-4">
+            <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>Nombre</mat-label>
-                    <input matInput type="text" [(ngModel)]="tarjeta_debito.nombre" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    <input matInput type="text" [(ngModel)]="tarjeta_debito.nombre" oninput="this.value = this.value.toUpperCase()" [disabled]="habilitar_titular_tarjeta_debito" class="form-control-sm">
                 </mat-form-field>
+            </div>
+            <div class="form-group col-1">
+                <br>
+                <mat-checkbox [(ngModel)]="tarjeta_debito.titular" (change)="asignar_titular_tarjeta_credito()" class="form-control-sm" color="primary">
+                    Titular</mat-checkbox>
             </div>
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">

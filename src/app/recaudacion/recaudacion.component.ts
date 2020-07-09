@@ -161,6 +161,8 @@ export class RecaudacionComponent implements OnInit {
   habilitar_editar_tarjeta_debito: boolean= false;
   habilitar_editar_compensacion: boolean = false;
   habilitar_editar_retencion_venta: boolean = false;
+  habilitar_titular_tarjeta_debito: boolean=true;
+  habilitar_titular_tarjeta_credito: boolean= true;
   
 
   ngOnInit() {
@@ -448,9 +450,11 @@ export class RecaudacionComponent implements OnInit {
     }
     if (formaPago == 'TARJETA DE CREDITO'){
       this.habilitar_tarjetas_creditos = !this.habilitar_tarjetas_creditos;
+      this.defecto_tarjeta_credito();
     }
     if (formaPago == 'TARJETA DE DEBITO'){
       this.habilitar_tarjetas_debitos = !this.habilitar_tarjetas_debitos;
+      this.defecto_tarjeta_debito();
     }
     if (formaPago == 'COMPENSACIONES'){
       this.habilitar_compensaciones = !this.habilitar_compensaciones;
@@ -638,6 +642,7 @@ export class RecaudacionComponent implements OnInit {
     } else {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
+    this.defecto_tarjeta_credito();
     this.defecto_recaudacion();
     this.modificar_estado();
   }
@@ -705,6 +710,7 @@ export class RecaudacionComponent implements OnInit {
     } else {
       Swal.fire('Error', "Valor supera el monto de cobro de la factura", 'error');
     }
+    this.defecto_tarjeta_debito();
     this.defecto_recaudacion();
     this.modificar_estado();
   }
@@ -934,5 +940,39 @@ export class RecaudacionComponent implements OnInit {
     this.sesion = this.sesionService.getSesion();
     if (this.sesion == undefined)
       this.router.navigate(['/iniciosesion']);
+  }
+
+  defecto_tarjeta_credito(){
+    this.tarjeta_credito.titular=true;
+    this.tarjeta_credito.identificacion=this.factura.cliente.identificacion;
+    this.tarjeta_credito.nombre=this.factura.cliente.razon_social;
+  }
+  defecto_tarjeta_debito(){
+    this.tarjeta_debito.titular=true;
+    this.tarjeta_debito.identificacion=this.factura.cliente.identificacion;
+    this.tarjeta_debito.nombre=this.factura.cliente.razon_social;
+  }
+
+  asignar_titular_tarjeta_credito(){
+    if (this.tarjeta_credito.titular){
+      this.tarjeta_credito.identificacion=this.factura.cliente.identificacion;
+      this.tarjeta_credito.nombre=this.factura.cliente.razon_social;
+      this.habilitar_titular_tarjeta_credito=true;
+    } else{
+      this.tarjeta_credito.identificacion="";
+      this.tarjeta_credito.nombre="";
+      this.habilitar_titular_tarjeta_credito=false;
+    }
+  }
+  asignar_titular_tarjeta_debito(){
+    if (this.tarjeta_debito.titular){
+      this.tarjeta_debito.identificacion=this.factura.cliente.identificacion;
+      this.tarjeta_debito.nombre=this.factura.cliente.razon_social;
+      this.habilitar_editar_tarjeta_debito=true;
+    } else{
+      this.tarjeta_debito.identificacion="";
+      this.tarjeta_debito.nombre="";
+      this.habilitar_editar_tarjeta_debito=false;
+    }
   }
 }
