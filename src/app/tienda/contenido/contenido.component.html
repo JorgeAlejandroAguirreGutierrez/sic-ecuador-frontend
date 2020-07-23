@@ -11,7 +11,7 @@
     <h5 class="price m-t-0">Requerido:&nbsp;
       <input max="{{cantidadTotalUnidadesDisponibles}}" type="number" name="cantidadAgregar"
         [(ngModel)]="cantidadAgregar" (ngModelChange)="calcularUnidadesDisponibles($event)">&nbsp;
-      <button class="btn btn-light m-t-1" (click)="onAddToCart()"><mat-icon>add_shopping_cart</mat-icon></button>
+      <button class="btn btn-light m-t-1" (click)="agregarProductoAlCarrito()"><mat-icon>add_shopping_cart</mat-icon></button>
     </h5>
     <div class="details">
       <div class="available" *ngIf='product.available'>
@@ -25,7 +25,7 @@
             <a class="btn btn-warning" [routerLink]="['detalle-producto',product.id]">Agrandar</a>
           </div>
           <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
-            <a class="btn btn-success" (click)="agregarProductoAlCarrito()">Añadir</a>
+            <a class="btn btn-success" (click)="agregarProductoAlCarrito()">Añadir</a> 
           </div>
         </div>
       </div>

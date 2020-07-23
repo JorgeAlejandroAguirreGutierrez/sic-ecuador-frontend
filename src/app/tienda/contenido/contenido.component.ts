@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../shared/product.model';
-import { CartService } from '../service/cart.service';
+import { ProductosService } from '../service/productos.service';
 
 @Component({
   selector: 'app-contenido',
@@ -12,12 +12,12 @@ export class ContenidoComponent implements OnInit {
   @Input() product: Product;
   @Output() productoAgregar = new EventEmitter();
 
-  cantidadAgregar:Number;
+  cantidadAgregar:number=1;
   cantidadTotalUnidadesDisponibles:number;
 
   detailViewActive: boolean;
 
-  constructor(private cartService: CartService) {
+  constructor(private productosService: ProductosService) {
 
   }
 
@@ -30,17 +30,20 @@ export class ContenidoComponent implements OnInit {
     this.detailViewActive = !this.detailViewActive;
   }
 
-  onAddToCart() {
-    this.cartService.addProductToCart(this.product);
-  }
+  //onAddToCart() {
+  //  this.productosService.addProductToCart(this.product);
+  //}
 
   agregarProductoAlCarrito(){
+    //car 1
+    this.productosService.addProductToCart(this.product, this.cantidadAgregar);
+    //car 2
     this.product.unidadesDisponibles = this.cantidadTotalUnidadesDisponibles;
     this.productoAgregar.emit(
       {
         producto:this.product, 
         cantidad:this.cantidadAgregar
-      }
+      } 
     );
   }
   calcularUnidadesDisponibles(val:number){

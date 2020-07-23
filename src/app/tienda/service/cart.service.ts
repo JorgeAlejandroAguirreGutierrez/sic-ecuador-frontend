@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class CartService {
 
-  products: any[] = [];
+  products: any[] = []; 
   cartTotal = 0;
 
   private productAddedSource = new Subject<any>();

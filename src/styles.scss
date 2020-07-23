@@ -26,7 +26,12 @@ $hamburger-hover-opacity       : 0.7 !default;
 @import "~roboto-fontface/css/roboto/roboto-fontface.css";
 
 @import './assets/menu-admin';
-@import './styles.css';
+
 
 //html, body { height: 20%; }
 body { height: 100%; margin: 0; padding-top:0px; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.imagen-fondo-principal{
+    background-image: url('./assets/img/main-fondo.jpg');
+    height: 100%;
+}

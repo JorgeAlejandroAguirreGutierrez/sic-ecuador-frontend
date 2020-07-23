@@ -1,0 +1,54 @@
+.imagen-pedidos{
+    width: 100px;
+    height: 80%;
+    justify-content: center;
+}
+
+.centrar{
+    margin: 0 auto;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center!important;
+    align-content: center!important;
+}
+
+.container-info{
+    width: 98%;
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+h1{
+    margin: 0px;
+}
+.panel-detalle-producto{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 45px;
+    background-color: whitesmoke;
+}
+
+.imagen-producto{
+    margin: 3px; 
+    padding: 10px;
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+  }
+
+.container-info{
+    width: 98%;
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px auto;
+}
