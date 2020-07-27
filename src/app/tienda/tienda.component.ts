@@ -96,7 +96,7 @@ export class TiendaComponent implements OnDestroy, AfterViewInit {
       this.products = this.originalData.products.slice(0);
       this.sortProducts('name');
 
-      // Del otro carrito de la tienda
+      // Car 2
       this.cantidadAgregados = this.productosService.getProductosAgregadosAlCarrito().length;
       this.productosService.getProductos().then(productos => {
         this.productos = productos as Product[];
@@ -120,7 +120,7 @@ export class TiendaComponent implements OnDestroy, AfterViewInit {
       this.sortProducts('name');
       this.filtersComponent.reset(this.customFilters, this.priceFilters);
       this.searchComponent.reset();
-      this.cartService.flushCart();
+      this.productosService.flushCart();
     });
   }
 

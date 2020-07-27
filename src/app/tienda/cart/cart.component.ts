@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CartService } from '../service/cart.service';
+import { ProductosService } from '../service/productos.service';
 import { Subscription } from 'rxjs/Subscription';
 
 const OFFSET_HEIGHT = 170;
@@ -25,15 +25,16 @@ export class CartComponent implements OnInit {
   changeDetectorRef: ChangeDetectorRef;
 
 
-  constructor(private cartService: CartService, changeDetectorRef: ChangeDetectorRef) {
+  constructor(private productosService: ProductosService, changeDetectorRef: ChangeDetectorRef) {
     this.changeDetectorRef = changeDetectorRef;
   }
 
   ngOnInit() {
-    this.expandedHeight = '0';
-    this.cartService.productAdded$.subscribe(data => {
+ /*    this.expandedHeight = '0';
+    this.productosService.productAdded$.subscribe(data => {
       this.products = data.products;
-      this.cartTotal = data.cartTotal;
+
+      this.cartTotal = data.cartTotal; 
       this.numProducts = data.products.reduce((acc, product) => {
         acc += product.quantity;
         return acc;
@@ -56,11 +57,11 @@ export class CartComponent implements OnInit {
         this.expanded = false;
       }
       this.changeDetectorRef.detectChanges();
-    });
+    }); */
   }
 
   deleteProduct(product) {
-    this.cartService.deleteProductFromCart(product);
+    this.productosService.deleteProductFromCart(product);
   }
 
   onCartClick() {

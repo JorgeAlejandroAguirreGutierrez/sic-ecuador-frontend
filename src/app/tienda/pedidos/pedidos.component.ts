@@ -1,19 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Product } from '../shared/product.model';
 import { ProductosService } from '../service/productos.service';
 import { Location } from '@angular/common';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.component.html',
-  styleUrls: ['./pedidos.component.css']
+  styleUrls: ['./pedidos.component.scss']
 })
 export class PedidosComponent implements OnInit {
 
   productosEnCarrito:Product[];
   cantidadAgregados:number;
   totalAPagar:number = 0;
-  constructor(private productosService:ProductosService,private location: Location) { }
+
+  products: any[] = [];
+  numProducts = 0;
+  cartTotal = 0;
+  changeDetectorRef: ChangeDetectorRef;
+
+  constructor(private productosService:ProductosService, changeDetectorRef: ChangeDetectorRef, private location: Location) { 
+    this.changeDetectorRef = changeDetectorRef;
+   }
 
   ngOnInit() {
     this.productosEnCarrito = this.productosService.getProductosAgregadosAlCarrito();
@@ -24,6 +34,10 @@ export class PedidosComponent implements OnInit {
       this.totalAPagar += parseFloat(element.price) * element.cantidadAComprar;
 
     }
+  }
+
+  deleteProduct(product) {
+    this.productosService.deleteProductFromCart(product);
   }
 
 
