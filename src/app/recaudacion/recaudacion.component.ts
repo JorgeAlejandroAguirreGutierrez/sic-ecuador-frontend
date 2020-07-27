@@ -46,6 +46,7 @@ import { ParametroService } from '../servicios/parametro.service';
 import * as constantes from '../constantes';
 import { CreditoService } from '../servicios/credito.service';
 import { Credito } from '../modelos/credito';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-recaudacion',
@@ -62,7 +63,7 @@ export class RecaudacionComponent implements OnInit {
   @Output()propagar = new EventEmitter<boolean>();
 
   constructor(private facturaService: FacturaService, private clienteService: ClienteService, private bancoService: BancoService, private sesionService: SesionService,
-    private cuentaPropiaService: CuentaPropiaService, private operadorTarjetaService: OperadorTarjetaService,
+    private cuentaPropiaService: CuentaPropiaService, private operadorTarjetaService: OperadorTarjetaService, private datePipe: DatePipe,
     private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, private creditoService: CreditoService,
     private parametroService: ParametroService, private establecimientoService: EstablecimientoService, private puntoVentaService: PuntoVentaService,
     private tipoComprobanteService: TipoComprobanteService, private recaudacionService: RecaudacionService, private modalService: NgbModal, private router: Router) { }
@@ -161,6 +162,7 @@ export class RecaudacionComponent implements OnInit {
   habilitar_editar_retencion_venta: boolean = false;
   habilitar_titular_tarjeta_debito: boolean=true;
   habilitar_titular_tarjeta_credito: boolean= true;
+  bandera_credito: boolean=false;
   
 
   ngOnInit() {
@@ -900,6 +902,14 @@ export class RecaudacionComponent implements OnInit {
     this.recaudacion.estado = this.estado=="RECAUDADO"? true: false;
     this.recaudacion.factura=this.factura;
     console.log(this.recaudacion);
+    if (this.recaudacion.credito.saldo>0){
+      if(this.recaudacion.credito.tipo=="" || this.recaudacion.credito.periodicidad=="" 
+      || this.recaudacion.credito.tasa_interes_anual==0 || this.recaudacion.credito.cuotas==0 
+      || this.recaudacion.credito.fecha_primera_cuota==null){
+        Swal.fire('Error', 'Por favor validar el credito', 'error');
+        return;
+      }
+    }
     if (this.factura.total_con_descuento==this.recaudacion.total) {
       this.recaudacionService.crear(this.recaudacion).subscribe(
         res => {
@@ -995,6 +1005,10 @@ export class RecaudacionComponent implements OnInit {
     this.creditoService.construir(this.recaudacion.credito).subscribe(
       res => {
         this.recaudacion.credito = res.resultado as Credito
+        let fecha=this.datePipe.transform(this.recaudacion.credito.fecha_primera_cuota,"yyyy-MM-dd");
+        this.recaudacion.credito.fecha_primera_cuota=new Date(fecha);
+        fecha=this.datePipe.transform(this.recaudacion.credito.fecha_consecion,"yyyy-MM-dd");
+        this.recaudacion.credito.fecha_consecion=new Date(fecha);
         this.modalService.open(content, { size: 'lg' }).result.then((result) => {
         }, (reason) => {
           console.log(`Dismissed ${this.getDismissReason(reason)}`);
