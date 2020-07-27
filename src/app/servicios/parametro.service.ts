@@ -6,7 +6,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { map, catchError, switchAll } from 'rxjs/operators';
 import { of, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -67,5 +66,13 @@ export class ParametroService {
         return throwError(err);
       })
     );
-  }  
+  }
+  consultarTipo(parametro: Parametro): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.parametro+util.consultar_tipo + '/' + parametro.tipo, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }   
 }

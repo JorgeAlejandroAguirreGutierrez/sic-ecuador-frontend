@@ -219,6 +219,7 @@ export class EntregaComponent implements OnInit {
       this.guia_remision.direccion=new Direccion();
     } else if (event.value=="2"){
       this.guia_remision=new GuiaRemision();
+      this.bandera_opcion=true;
       this.guia_remision.inhabilitar=true;
     }
   }

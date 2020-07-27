@@ -10,7 +10,7 @@ import { TarjetaCredito } from '../modelos/tarjeta-credito';
 import { TarjetaDebito } from '../modelos/tarjeta-debito';
 import { Compensacion } from '../modelos/compensacion';
 import { FacturaService } from '../servicios/factura.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Factura } from '../modelos/factura';
 import { Banco } from '../modelos/banco';
 import { Observable, Subscription } from 'rxjs';
@@ -21,8 +21,6 @@ import Swal from 'sweetalert2';
 import { BancoService } from '../servicios/banco.service';
 import { FormaPagoService } from '../servicios/forma-pago.service';
 import { FormaPago } from '../modelos/forma-pago';
-import { PlazoCreditoService } from '../servicios/plazo-credito.service';
-import { PlazoCredito } from '../modelos/plazo-credito';
 import { CuentaPropia } from '../modelos/cuenta-propia';
 import { CuentaPropiaService } from '../servicios/cuenta-propia.service';
 import { Transferencia } from '../modelos/transferencia';
@@ -38,15 +36,16 @@ import { SesionService } from '../servicios/sesion.service';
 import { Sesion } from '../modelos/sesion';
 import { Router } from '@angular/router';
 import { RecaudacionService } from '../servicios/recaudacion.service';
-import { ModeloTabla } from '../modelos/modelo-tabla';
-import { Amortizacion } from '../modelos/amortizacion';
-import { ModeloTablaService } from '../servicios/modelo-tabla.service';
-import { AmortizacionService } from '../servicios/amortizacion.service';
 import { RetencionVenta } from '../modelos/retencion-venta';
 import { EstablecimientoService } from '../servicios/establecimiento.service';
 import { Establecimiento } from '../modelos/establecimiento';
 import { PuntoVenta } from '../modelos/punto-venta';
 import { PuntoVentaService } from '../servicios/punto-venta.service';
+import { Parametro } from '../modelos/parametro';
+import { ParametroService } from '../servicios/parametro.service';
+import * as constantes from '../constantes';
+import { CreditoService } from '../servicios/credito.service';
+import { Credito } from '../modelos/credito';
 
 @Component({
   selector: 'app-recaudacion',
@@ -63,9 +62,9 @@ export class RecaudacionComponent implements OnInit {
   @Output()propagar = new EventEmitter<boolean>();
 
   constructor(private facturaService: FacturaService, private clienteService: ClienteService, private bancoService: BancoService, private sesionService: SesionService,
-    private plazoCreditoService: PlazoCreditoService, private cuentaPropiaService: CuentaPropiaService, private operadorTarjetaService: OperadorTarjetaService,
-    private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, private modeloTablaService: ModeloTablaService, 
-    private amortizacionService: AmortizacionService, private establecimientoService: EstablecimientoService, private puntoVentaService: PuntoVentaService,
+    private cuentaPropiaService: CuentaPropiaService, private operadorTarjetaService: OperadorTarjetaService,
+    private franquiciaTarjetaService: FranquiciaTarjetaService, private formaPagoService: FormaPagoService, private creditoService: CreditoService,
+    private parametroService: ParametroService, private establecimientoService: EstablecimientoService, private puntoVentaService: PuntoVentaService,
     private tipoComprobanteService: TipoComprobanteService, private recaudacionService: RecaudacionService, private modalService: NgbModal, private router: Router) { }
 
   @Input() factura: Factura;
@@ -79,7 +78,8 @@ export class RecaudacionComponent implements OnInit {
   compensacion: Compensacion=new Compensacion();
   retencion_venta: RetencionVenta= new RetencionVenta();
   compensaciones: Compensacion[]=[];
-  plazos_creditos: PlazoCredito[];
+  modelos_amortizaciones: Parametro[];
+  periodicidades: Parametro[];
   formas_pagos: FormaPago[]=[];
   comprobantes: Comprobante[]=[];
   clientes: Cliente[]=[];
@@ -89,8 +89,6 @@ export class RecaudacionComponent implements OnInit {
   operadores_tarjetas_creditos: OperadorTarjeta[]=[];
   operadores_tarjetas_debitos: OperadorTarjeta[]=[];
   tipos_comprobantes: TipoComprobante[]=[];
-  modelos_tablas: ModeloTabla[]=[];
-  amortizaciones: Amortizacion[]=[];
   establecimientos: Establecimiento[]=[];
   puntos_ventas: PuntoVenta[]=[];
 
@@ -174,10 +172,9 @@ export class RecaudacionComponent implements OnInit {
     this.consultar_franquicias_tarjetas();
     this.consultar_operadores_tarjetas_creditos();
     this.consultar_operadores_tarjetas_debitos();
-    this.consultar_plazos_creditos();
+    this.consultar_modelos_amortizaciones();
+    this.consultar_periodicidades();
     this.consultar_tipos_comprobantes();
-    this.consultar_modelos_tablas();
-    this.consultar_amortizaciones();
     this.consultar_bancos_cheques();
     this.consultar_bancos_depositos();
     this.consultar_bancos_transferencias();
@@ -273,10 +270,22 @@ export class RecaudacionComponent implements OnInit {
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
   }
-  consultar_plazos_creditos(){
-    this.plazoCreditoService.consultar().subscribe(
+  consultar_modelos_amortizaciones(){
+    let parametro=new Parametro();
+    parametro.tipo=constantes.modelo_amortizacion;
+    this.parametroService.consultarTipo(parametro).subscribe(
       res => {
-        this.plazos_creditos = res.resultado as PlazoCredito[]
+        this.modelos_amortizaciones = res.resultado as Parametro[]
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+  consultar_periodicidades(){
+    let parametro=new Parametro();
+    parametro.tipo=constantes.periodicidad;
+    this.parametroService.consultarTipo(parametro).subscribe(
+      res => {
+        this.periodicidades = res.resultado as Parametro[]
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
@@ -285,22 +294,6 @@ export class RecaudacionComponent implements OnInit {
     this.tipoComprobanteService.consultar().subscribe(
       res => {
         this.tipos_comprobantes = res.resultado as TipoComprobante[]
-      },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
-    );
-  }
-  consultar_modelos_tablas(){
-    this.modeloTablaService.consultar().subscribe(
-      res => {
-        this.modelos_tablas = res.resultado as ModeloTabla[]
-      },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
-    );
-  }
-  consultar_amortizaciones(){
-    this.amortizacionService.consultar().subscribe(
-      res => {
-        this.amortizaciones = res.resultado as Amortizacion[]
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
@@ -861,10 +854,11 @@ export class RecaudacionComponent implements OnInit {
       Number(this.recaudacion.total_tarjetas_creditos)+Number(this.recaudacion.total_compensaciones);
     let pagar=this.factura.total_con_descuento-suma;
     this.cheque.valor=Number(pagar.toFixed(2));
-    this.deposito.valor=Number(pagar.toFixed(2));;
-    this.transferencia.valor=Number(pagar.toFixed(2));;
-    this.tarjeta_credito.valor=Number(pagar.toFixed(2));;
-    this.tarjeta_debito.valor=Number(pagar.toFixed(2));;
+    this.deposito.valor=Number(pagar.toFixed(2));
+    this.transferencia.valor=Number(pagar.toFixed(2));
+    this.tarjeta_credito.valor=Number(pagar.toFixed(2));
+    this.tarjeta_debito.valor=Number(pagar.toFixed(2));
+    this.recaudacion.credito.saldo=Number(pagar.toFixed(2));
   }
 
   seleccionar_efectivo(){
@@ -973,6 +967,50 @@ export class RecaudacionComponent implements OnInit {
       this.tarjeta_debito.identificacion="";
       this.tarjeta_debito.nombre="";
       this.habilitar_editar_tarjeta_debito=false;
+    }
+  }
+
+  cambiar_tipo_periodicidad(){
+    let parametro=new Parametro();
+    parametro.tipo=this.recaudacion.credito.periodicidad;
+    this.parametroService.obtenerTipo(parametro).subscribe(
+      res => {
+        parametro = res.resultado as Parametro
+        this.recaudacion.credito.periodicidad_numero=Number(parametro.nombre);
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+    parametro.tipo=constantes.periodo+"_"+this.recaudacion.credito.periodicidad;
+    this.parametroService.obtenerTipo(parametro).subscribe(
+      res => {
+        parametro = res.resultado as Parametro
+        this.recaudacion.credito.periodicidad_total=Number(parametro.nombre);
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+
+  amortizacion(content: any){
+    this.defecto_recaudacion();
+    this.creditoService.construir(this.recaudacion.credito).subscribe(
+      res => {
+        this.recaudacion.credito = res.resultado as Credito
+        this.modalService.open(content, { size: 'lg' }).result.then((result) => {
+        }, (reason) => {
+          console.log(`Dismissed ${this.getDismissReason(reason)}`);
+        });
+      },
+      err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
     }
   }
 }
