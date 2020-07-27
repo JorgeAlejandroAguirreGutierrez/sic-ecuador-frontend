@@ -75,7 +75,7 @@ export class FacturaComponent implements OnInit {
   auxiliar_buscar: Auxiliar=new Auxiliar();
 
   clientes: Cliente[]=[];
-  auxiliares: Auxiliar[]=[];
+  auxiliares: Auxiliar[]= [];
   productos: Producto[] = [];
   bodegas: Bodega[]=[];
 
@@ -278,6 +278,7 @@ export class FacturaComponent implements OnInit {
           }
           this.factura_crear=this.factura;
           this.facturaService.enviar(0);
+          console.log(this.factura);
         },
         err => {
           Swal.fire('Error', err.error.mensaje, 'error')
@@ -522,6 +523,7 @@ export class FacturaComponent implements OnInit {
     this.stock_individual=0;
     this.stock_total=0;
   }
+
   seleccionar_producto() {
     this.detalle.producto=this.seleccion_producto.value;
     this.detalle.medida=this.medidas[0];
@@ -530,23 +532,18 @@ export class FacturaComponent implements OnInit {
         this.detalle.impuesto=impuesto;
       }
     });
-    this.caracteristicaService.consultarBienExistencias(this.detalle.producto).subscribe(
-      res => {
-        this.detalle.producto.caracteristicas = res.resultado as Caracteristica[];
-        if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
-        if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
-        this.costo_promedio=this.detalle.producto.kardex.costo_promedio;
-        this.costo_ultimo=this.detalle.producto.kardex.costo_ultimo;
-        if(this.detalle.caracteristicas.length!=0){
-          this.stock_individual=this.detalle.caracteristicas.length;
-        } else{
-          this.stock_individual=0;
-        }
-        this.stock_total=this.detalle.producto.stock_total;
-      },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
-    );
+    if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
+    if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
+    this.costo_promedio=this.detalle.producto.kardex.costo_promedio;
+    this.costo_ultimo=this.detalle.producto.kardex.costo_ultimo;
+    if(this.detalle.caracteristicas.length!=0){
+      this.stock_individual=this.detalle.caracteristicas.length;
+    } else{
+      this.stock_individual=0;
+    }
+    this.stock_total=this.detalle.producto.stock_total;
   }
+
   seleccionar_precio() {
     this.detalle.calcular();
   }
@@ -571,9 +568,13 @@ export class FacturaComponent implements OnInit {
     //VALIDO SELECCIONES
     this.factura.factura_detalles.forEach((detalle, index)=> {
       let caracteristicas: Caracteristica[]=[];
-      detalle.producto.caracteristicas.forEach((caracteristica, index)=> {
-        if(caracteristica.seleccionado) caracteristicas.push({...caracteristica})
-      });
+      for (let i=0; i<detalle.producto.caracteristicas.length; i++) {
+        if(detalle.producto.caracteristicas[i].seleccionado && (detalle.producto.serie_autogenerado || detalle.producto.caracteristicas[i].factura_detalle.posicion==index)) {
+          caracteristicas.push({... detalle.producto.caracteristicas[i]});
+          detalle.producto.caracteristicas[i].seleccionado=false;
+        }
+        if(caracteristicas.length == detalle.cantidad) break;
+      };
       if (caracteristicas.length != detalle.cantidad){
           Swal.fire('Error', "Series No Seleccionadas", 'error');
           validacion=false;
@@ -582,6 +583,7 @@ export class FacturaComponent implements OnInit {
     });
     if (validacion){
       //FIN VALIDACION SELECCIONES
+      this.factura.normalizar();
       console.log(this.factura);
       this.facturaService.crear(this.factura).subscribe(
         res => {
@@ -592,6 +594,11 @@ export class FacturaComponent implements OnInit {
           } else {
             Swal.fire('Error', res.mensaje, 'error');
           }
+        },
+        err => {
+          console.log('HTTP Error', err)
+          Swal.fire('Error', err.error.mensaje, 'error');
+          this.factura.des_normalizar();
         }
       );
     }
@@ -621,30 +628,35 @@ export class FacturaComponent implements OnInit {
       Swal.fire('Error', "Seleccione un impuesto", 'error');
       return;
     }
-    this.caracteristicaService.consultarBienExistenciasBodega(this.detalle.producto, this.detalle.producto.bodega).subscribe(
-      res => {
-        this.detalle.producto.caracteristicas = res.resultado as Caracteristica[]
-        if (this.detalle.cantidad>this.detalle.producto.caracteristicas.length){
-          Swal.fire("Error", "Cantidad No Existente. Max Cant. "+this.detalle.producto.caracteristicas.length, "error");
-          return;
-        }
-        this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
-        if (this.detalle.producto.serie_autogenerado){
-          let suma=0;
-          for(let i=0; i<this.detalle.producto.caracteristicas.length; i++) {
-            this.detalle.producto.caracteristicas[i].seleccionado=true;
-            suma++;
-            if (suma==this.detalle.cantidad) break;
+    this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
+    let bandera=false;
+    if (this.detalle.producto.serie_autogenerado){
+      let suma=0;
+      for(let i=0; i<this.detalle.producto.caracteristicas.length; i++) {
+        if (!this.detalle.producto.caracteristicas[i].seleccionado && this.detalle.producto.caracteristicas[i].bodega.id==this.detalle.producto.bodega.id){
+          this.detalle.producto.caracteristicas[i].seleccionado=true;
+          suma++;
+          if (suma==this.detalle.cantidad){
+            bandera=true;
+            break;
           }
         }
-        this.detalle.calcular();
-        this.factura.factura_detalles.push(this.detalle);
-        this.factura.calcular();
-        this.detalle=new FacturaDetalle();
-        this.limpiar_producto();
-        Swal.fire('Exito', 'Se agrego el detalle', 'success');
       }
-    );
+    } else{
+      if (this.detalle.cantidad<=this.detalle.producto.caracteristicas.length){
+        bandera=true;
+      }
+    }
+    if (bandera){
+      this.detalle.calcular();
+      this.factura.factura_detalles.push(this.detalle);
+      this.factura.calcular();
+      this.detalle=new FacturaDetalle();
+      this.limpiar_producto();
+      Swal.fire('Exito', 'Se agrego el detalle', 'success');
+    } else{
+      Swal.fire("Error", "Cantidad No Existente.", "error");
+    }
   }
 
   cambiar_productos(tipo_producto: string){
@@ -665,24 +677,32 @@ export class FacturaComponent implements OnInit {
       if (result == "confirmar") {
         this.buscar_serie="";
         let seleccionados=0;
-        this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
-          if(caracteristica.seleccionado){
-            seleccionados++;
-          }
-        });
-        if (seleccionados>this.factura.factura_detalles[i].cantidad || seleccionados<this.factura.factura_detalles[i].cantidad){
-          this.factura.factura_detalles[i].caracteristicas=[];
-          this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
-            caracteristica.seleccionado=false;
+        if (!this.factura.factura_detalles[this.indice_detalle].producto.serie_autogenerado) {
+          this.factura.factura_detalles[this.indice_detalle].producto.caracteristicas.forEach((caracteristica, index)=> {
+            if(caracteristica.seleccionado && (caracteristica.factura_detalle==null || caracteristica.factura_detalle.posicion==-1)){
+              caracteristica.factura_detalle=new FacturaDetalle();
+              caracteristica.factura_detalle.posicion=this.indice_detalle;
+              seleccionados++;
+            }
           });
-          Swal.fire('Error', "Series seleccionadas no coinciden con la cantidad", 'error');
+          if (seleccionados>this.factura.factura_detalles[this.indice_detalle].cantidad || seleccionados<this.factura.factura_detalles[this.indice_detalle].cantidad){
+            this.factura.factura_detalles[this.indice_detalle].caracteristicas=[];
+            this.factura.factura_detalles[this.indice_detalle].producto.caracteristicas.forEach((caracteristica, index)=> {
+              caracteristica.seleccionado=false;
+              caracteristica.factura_detalle=new FacturaDetalle();
+              caracteristica.factura_detalle.posicion=-1;
+            });
+            Swal.fire('Error', "Series seleccionadas no coinciden con la cantidad", 'error');
+          }
         }
       }
       if (result == "close"){
         this.buscar_serie="";
-        if(!this.factura.factura_detalles[i].producto.serie_autogenerado){
-          this.factura.factura_detalles[i].producto.caracteristicas.forEach((caracteristica, index)=> {
+        if(!this.factura.factura_detalles[this.indice_detalle].producto.serie_autogenerado){
+          this.factura.factura_detalles[this.indice_detalle].producto.caracteristicas.forEach((caracteristica, index)=> {
             caracteristica.seleccionado=false;
+            caracteristica.factura_detalle=new FacturaDetalle();
+            caracteristica.factura_detalle.posicion=-1;
           });
         }
       }
@@ -776,40 +796,42 @@ export class FacturaComponent implements OnInit {
   }
 
   seleccionar_valor_descuento_subtotal(){
+    this.factura.calcular();
     this.factura.factura_detalles.forEach((detalle, index)=> {
-        detalle.calcular_totales(this.factura);
-        detalle.calcular();
+      detalle.calcular();
+      detalle.calcular_descuentos_subtotales(this.factura);
+      detalle.calcular();
     });
     this.factura.calcular();
+    
   }
   seleccionar_porcentaje_descuento_subtotal(){
+    this.factura.calcular();
     this.factura.factura_detalles.forEach((detalle, index)=> {
-      detalle.calcular_totales(this.factura);
+      detalle.calcular();
+      detalle.calcular_descuentos_subtotales(this.factura);
       detalle.calcular();
     });
     this.factura.calcular();
+    
   }
   seleccionar_valor_descuento_total(){
+    this.factura.calcular();
     this.factura.factura_detalles.forEach((detalle, index)=> {
-      detalle.calcular_totales(this.factura);
+      detalle.calcular();
+      detalle.calcular_descuentos_totales(this.factura);
       detalle.calcular();
     });
-    this.factura.calcular();
+    this.factura.calcular();  
   }
   seleccionar_porcentaje_descuento_total(){
     this.factura.calcular();
     this.factura.factura_detalles.forEach((detalle, index)=> {
-      detalle.calcular_totales(this.factura);
+      detalle.calcular();
+      detalle.calcular_descuentos_totales(this.factura);
       detalle.calcular();
     });
-    
-  }
-  seleccionar_valor_porcentaje_descuento_total(){
-    this.factura.factura_detalles.forEach((detalle, index)=> {
-      detalle.calcular_totales(this.factura);
-      detalle.calcular();
-    });
-    this.factura.calcular();
+    this.factura.calcular();    
   }
 
   procesaPropagar(mensaje: boolean){

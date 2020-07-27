@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CategoriaCliente } from '../modelos/categoria-cliente';
-import { Resultado } from '../resultado';
+import { Respuesta } from '../respuesta';
 import * as util from '../util';
 import {HttpClient} from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
@@ -17,59 +17,59 @@ export class CaracteristicaService {
 
   constructor(private http: HttpClient) { }
 
-  crear(caracteristica: Caracteristica): Observable<Resultado> {
+  crear(caracteristica: Caracteristica): Observable<Respuesta> {
     return this.http.post(environment.host + util.ruta + util.caracteristica, JSON.stringify(caracteristica), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  obtener(caracteristica_id: number): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.caracteristica + '/' + caracteristica_id, util.options).pipe(
-      map(response => response as Resultado),
+  obtener(caracteristica_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.caracteristica + '/' + caracteristica_id, util.options).pipe(
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  consultar(): Observable<Resultado> {
+  consultar(): Observable<Respuesta> {
     return this.http.get(environment.host + util.ruta + util.caracteristica, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));
   }
 
-  actualizar(caracteristica: Caracteristica): Observable<Resultado> {
+  actualizar(caracteristica: Caracteristica): Observable<Respuesta> {
     return this.http.put(environment.host+util.ruta+util.caracteristica, JSON.stringify(caracteristica), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  eliminar(caracteristica: Caracteristica): Observable<Resultado> {
+  eliminar(caracteristica: Caracteristica): Observable<Respuesta> {
     return this.http.delete(environment.host+util.ruta+util.caracteristica + '/' + caracteristica.id, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
-  consultarBienExistencias(producto: Producto): Observable<Resultado> {
+  consultarBienExistencias(producto: Producto): Observable<Respuesta> {
     return this.http.get(environment.host + util.ruta + util.caracteristica+util.tipo+util.bien+"/"+producto.id+util.existencias, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));
   }
-  consultarBienExistenciasBodega(producto: Producto, bodega: Bodega): Observable<Resultado> {
+  consultarBienExistenciasBodega(producto: Producto, bodega: Bodega): Observable<Respuesta> {
     return this.http.get(environment.host + util.ruta + util.caracteristica+util.tipo+util.bien+"/"+producto.id+util.existencias+"/"+bodega.id, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));

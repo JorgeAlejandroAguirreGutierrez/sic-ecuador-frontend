@@ -2,9 +2,11 @@
     <nav class="navbar-light nav-fijo">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
-                    <fa-icon [icon]="['fas', 'file']"></fa-icon>
-                </a>
+                <ng-container *ngIf="recaudacion.id==0">
+                    <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
+                        <fa-icon [icon]="['fas', 'file']"></fa-icon>
+                    </a>
+                </ng-container>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" role="button" (click)="crear($event)">
@@ -55,7 +57,7 @@
             <div class="form-group col-8">
                 <mat-form-field appearance="standard">
                     <mat-label>Cliente</mat-label>
-                    <input matInput type="text" [(ngModel)]="factura.cliente.razon_social" oninput="this.value = this.value.toUpperCase()" class="form-control-sm" disabled>
+                    <input matInput type="text" [value]="factura.cliente?.razon_social" oninput="this.value = this.value.toUpperCase()" class="form-control-sm" disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-4">
@@ -535,18 +537,18 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Cédula</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="tarjeta_credito.identificacion">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="tarjeta_credito.identificacion" (change)="validar_identificacion_tarjeta_credito()" [disabled]="habilitar_titular_tarjeta_credito">
                 </mat-form-field>
             </div>
             <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>Nombre</mat-label>
-                    <input matInput type="text" [(ngModel)]="tarjeta_credito.nombre" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    <input matInput type="text" [(ngModel)]="tarjeta_credito.nombre" [disabled]="habilitar_titular_tarjeta_credito" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                 </mat-form-field>
             </div>
             <div class="form-group col-1">
                 <br>
-                <mat-checkbox [(ngModel)]="tarjeta_credito.titular" class="form-control-sm" color="primary">
+                <mat-checkbox [(ngModel)]="tarjeta_credito.titular" (change)="asignar_titular_tarjeta_credito()" class="form-control-sm" color="primary">
                     Titular</mat-checkbox>
             </div>
             <div class="form-group col-1">
@@ -730,14 +732,19 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Cédula</mat-label>
-                    <input matInput type="text" class="form-control-sm" [(ngModel)]="tarjeta_debito.identificacion">
+                    <input matInput type="text" class="form-control-sm" [(ngModel)]="tarjeta_debito.identificacion" (change)="validar_identificacion_tarjeta_debito()" [disabled]="habilitar_titular_tarjeta_debito">
                 </mat-form-field>
             </div>
-            <div class="form-group col-4">
+            <div class="form-group col-3">
                 <mat-form-field appearance="standard">
                     <mat-label>Nombre</mat-label>
-                    <input matInput type="text" [(ngModel)]="tarjeta_debito.nombre" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    <input matInput type="text" [(ngModel)]="tarjeta_debito.nombre" oninput="this.value = this.value.toUpperCase()" [disabled]="habilitar_titular_tarjeta_debito" class="form-control-sm">
                 </mat-form-field>
+            </div>
+            <div class="form-group col-1">
+                <br>
+                <mat-checkbox [(ngModel)]="tarjeta_debito.titular" (change)="asignar_titular_tarjeta_credito()" class="form-control-sm" color="primary">
+                    Titular</mat-checkbox>
             </div>
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
@@ -1211,32 +1218,46 @@
             <div class="form-row col-7">
                 <div class="form-group col-2">
                     <mat-form-field appearance="standard">
-                        <mat-label>Plazo</mat-label>
-                        <mat-select class="form-control-sm" [(ngModel)]="recaudacion.credito.plazo_credito">
-                            <mat-option *ngFor="let plazo_credito of plazos_creditos" [value]="plazo_credito">
-                                {{plazo_credito.plazo}}
-                            </mat-option>
-                        </mat-select>
+                        <mat-label>Saldo</mat-label>
+                        <input matInput type="text" class="form-control-sm" [value]="factura.total_con_descuento" [(ngModel)]="recaudacion.credito.saldo" disabled>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-3">
                     <mat-form-field appearance="standard">
-                        <mat-label>Amortización</mat-label>
-                        <mat-select class="form-control-sm" [(ngModel)]="recaudacion.credito.amortizacion">
-                            <mat-option *ngFor="let amortizacion of amortizaciones" [value]="amortizacion">
-                                {{amortizacion.descripcion}}
+                        <mat-label>Modelo</mat-label>
+                        <mat-select class="form-control-sm" [(ngModel)]="recaudacion.credito.tipo">
+                            <mat-option *ngFor="let modelo_amortizacion of modelos_amortizaciones" [value]="modelo_amortizacion.nombre">
+                                {{modelo_amortizacion.nombre}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="form-group col-3">
+                <div class="form-group col-4">
                     <mat-form-field appearance="standard">
-                        <mat-label>Modelo Tabla</mat-label>
-                        <mat-select class="form-control-sm" [(ngModel)]="recaudacion.credito.modelo_tabla">
-                            <mat-option *ngFor="let modelo_tabla of modelos_tablas" [value]="modelo_tabla">
-                                {{modelo_tabla.descripcion}}
+                        <mat-label>Tipo de Periodicidad</mat-label>
+                        <mat-select class="form-control-sm" [(ngModel)]="recaudacion.credito.periodicidad" (selectionChange)="cambiar_tipo_periodicidad()">
+                            <mat-option *ngFor="let periodicidad of periodicidades" [value]="periodicidad.nombre">
+                                {{periodicidad.nombre}}
                             </mat-option>
                         </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Tasa Int Anual</mat-label>
+                        <input matInput type="text" class="form-control-sm" [(ngModel)]="recaudacion.credito.tasa_interes_anual">
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Periodicidad.</mat-label>
+                        <input matInput type="text" class="form-control-sm" [(ngModel)]="recaudacion.credito.periodicidad_total" disabled>
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Cuotas</mat-label>
+                        <input matInput type="text" class="form-control-sm" [(ngModel)]="recaudacion.credito.cuotas">
                     </mat-form-field>
                 </div>
                 <div class="form-group col-4">
@@ -1249,33 +1270,14 @@
                 </div>
                 <div class="form-group col-2">
                     <mat-form-field appearance="standard">
-                        <mat-label>Int. Per.</mat-label>
-                        <input matInput type="text" class="form-control-sm" [(ngModel)]="recaudacion.credito.interes_mensual">
+                        <mat-label>Dividendo</mat-label>
+                        <input matInput type="text" class="form-control-sm" [(ngModel)]="recaudacion.credito.dividendo" disabled>
                     </mat-form-field>
                 </div>
-                <div class="form-group col-2">
-                    <mat-form-field appearance="standard">
-                        <mat-label>Int. Anual</mat-label>
-                        <input matInput type="text" class="form-control-sm" [(ngModel)]="recaudacion.credito.interes_anual">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-2">
-                    <mat-form-field appearance="standard">
-                        <mat-label>V. Seguro</mat-label>
-                        <input matInput type="text" class="form-control-sm" [(ngModel)]="recaudacion.credito.valor_seguro">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-2">
-                    <mat-form-field appearance="standard">
-                        <mat-label>Recargos</mat-label>
-                        <input matInput type="text" class="form-control-sm" [(ngModel)]="recaudacion.credito.recargos">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-3">
-                    <mat-form-field appearance="standard">
-                        <mat-label>Saldo</mat-label>
-                        <input matInput type="text" class="form-control-sm" [(ngModel)]="recaudacion.credito.saldo">
-                    </mat-form-field>
+                <div class="form-group col-1">
+                    <button class="btn btn-primary btn-circle " (click)="amortizacion(modal_amortizacion)">
+                        <fa-icon [icon]="[ 'fas', 'eye'] "></fa-icon>
+                    </button>
                 </div>
             </div>
             <div class="form-row col-5">
@@ -1287,3 +1289,60 @@
         </div>
     </div>
 </div>
+<ng-template #modal_amortizacion let-modal>
+    <div class="modal-header ">
+        <h5 class="modal-title ">AMORTIZACION {{recaudacion.credito.tipo}}</h5>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="form-group form-row table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>CUOTA</th>
+                        <th>FECHA PAGO</th>
+                        <th>NO. DIAS</th>
+                        <th>CAPITAL INICIO PERIODO</th>
+                        <th>CAPITAL</th>
+                        <th>INTERESES PERIODO</th>
+                        <th>CUOTA</th>
+                        <th>SALDO CAPITAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let amortizacion of recaudacion.credito.amortizaciones">
+                        <td>
+                            {{amortizacion.numero_cuota}}
+                        </td>
+                        <td>
+                            {{amortizacion.fecha_pago | date:'yyyy-MM-dd'}}
+                        </td>
+                        <td>
+                            {{amortizacion.numero_dias}}
+                        </td>
+                        <td>
+                            {{amortizacion.capital_inicio_periodo}}
+                        </td>
+                        <td>
+                            {{amortizacion.capital}}
+                        </td>
+                        <td>
+                            {{amortizacion.intereses_periodo}}
+                        </td>
+                        <td>
+                            {{amortizacion.valor_cuota}}
+                        </td>
+                        <td>
+                            {{amortizacion.saldo_capital}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-outline-dark " (click)="modal.close('close') ">Cerrar</button>
+    </div>
+</ng-template>

@@ -5,14 +5,23 @@
             <nav class="navbar-light nav-fijo">
                 <ul class="navbar-nav">
                     <li class="nav-item">
+                        <ng-container *ngIf="factura.id==0">
                         <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
                             <fa-icon [icon]="['fas', 'file']"></fa-icon>
                         </a>
+                        </ng-container>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" role="button" (click)="crear($event)">
-                            <fa-icon [icon]="['fas', 'save']"></fa-icon>
-                        </a>
+                        <ng-container *ngIf="factura.id==0">
+                            <a class="nav-link" href="#" role="button" (click)="crear($event)">
+                                <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                            </a>
+                        </ng-container>
+                        <ng-container *ngIf="factura.id!=0">
+                            <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
+                                <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                            </a>
+                        </ng-container>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" role="button" (click)="consultar_bienes($event)">
@@ -149,10 +158,10 @@
                                         <mat-form-field appearance="standard">
                                             <mat-label>Direccion</mat-label>
                                             <input matInput type="text"
-                                                [(ngModel)]="factura.cliente.direccion.direccion"
+                                                [(ngModel)]="factura.cliente?.direccion.direccion"
                                                 class="form-control-sm" disabled>
-                                            <button mat-button *ngIf="factura.cliente.direccion.direccion" matSuffix
-                                                mat-icon-button (click)="factura.cliente.direccion.direccion=''"
+                                            <button mat-button *ngIf="factura.cliente?.direccion.direccion" matSuffix
+                                                mat-icon-button (click)="factura.cliente?.direccion.direccion=''"
                                                 disabled>
                                                 <mat-icon>close</mat-icon>
                                             </button>
@@ -210,7 +219,7 @@
                                             <div class="form-group col-12">
                                                 <mat-form-field appearance="standard">
                                                     <input matInput type="text" class="form-control-sm resaltar"
-                                                        [(ngModel)]="factura.cliente.financiamiento.forma_pago.abreviatura"
+                                                        [(ngModel)]="factura.cliente?.financiamiento.forma_pago.abreviatura"
                                                         disabled>
                                                 </mat-form-field>
                                             </div>
@@ -218,7 +227,7 @@
                                                 <mat-form-field appearance="standard">
                                                     <mat-label>Tipo</mat-label>
                                                     <input matInput type="text" class="form-control-sm"
-                                                        [(ngModel)]="factura.cliente.financiamiento.tipo_pago.abreviatura"
+                                                        [(ngModel)]="factura.cliente?.financiamiento.tipo_pago.abreviatura"
                                                         disabled>
                                                 </mat-form-field>
                                             </div>
@@ -226,7 +235,7 @@
                                                 <mat-form-field appearance="standard">
                                                     <mat-label>Saldo Prep.</mat-label>
                                                     <input matInput type="text" class="form-control-sm"
-                                                        [(ngModel)]="factura.cliente.financiamiento.monto" disabled>
+                                                        [(ngModel)]="factura.cliente?.financiamiento.monto" disabled>
                                                 </mat-form-field>
                                             </div>
                                         </div>
@@ -299,7 +308,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Dirección</mat-label>
                                     <input matInput type="text"
-                                        [(ngModel)]="factura.cliente_factura.direccion.direccion"
+                                        [(ngModel)]="factura.cliente_factura?.direccion.direccion"
                                         class="form-control-sm" [disabled]="habilitar">
                                 </mat-form-field>
                             </div>
@@ -538,7 +547,7 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>TOTAL</mat-label>
-                                        <input matInput type="text" [(ngModel)]="detalle.subtotal_con_descuento"
+                                        <input matInput type="text" [(ngModel)]="detalle.total_con_descuento"
                                             class="form-control-sm" disabled>
                                     </mat-form-field>
                                 </div>
@@ -598,12 +607,12 @@
                                         <td>{{detalle.precio.valor}}</td>
                                         <td>{{detalle.valor_descuento_individual}}</td>
                                         <td>{{detalle.porcentaje_descuento_individual}}</td>
+                                        <td>{{detalle.valor_descuento_individual_subtotales}}</td>
+                                        <td>{{detalle.porcentaje_descuento_individual_subtotales}}</td>
                                         <td>{{detalle.valor_descuento_individual_totales}}</td>
                                         <td>{{detalle.porcentaje_descuento_individual_totales}}</td>
-                                        <td>{{detalle.valor_descuento_totales}}</td>
-                                        <td>{{detalle.porcentaje_descuento_totales}}</td>
                                         <td>{{detalle.impuesto.porcentaje}}</td>
-                                        <td>{{detalle.subtotal_con_descuento}}</td>
+                                        <td>{{detalle.total_con_descuento}}</td>
                                         <td>
                                             <button (click)="asignar_series(modal_series, i)"
                                                 class="btn btn-primary btn-circle ">
@@ -760,14 +769,14 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Ced/RUC</mat-label>
                     <input matInput type="text"
-                        [(ngModel)]="factura.cliente.identificacion" class="form-control-sm" [disabled]="true">
+                        [value]="factura.cliente?.identificacion" class="form-control-sm" disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-8">
                 <mat-form-field appearance="standard">
                     <mat-label>Cliente/Pista</mat-label>
                     <input matInput type="text"
-                        [(ngModel)]="factura.auxiliar.razon_social" class="form-control-sm" [disabled]="true">
+                        [value]="factura.auxiliar.razon_social" class="form-control-sm" disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-2">
@@ -832,7 +841,7 @@
                     <div class="form-group col-12">
                         <mat-form-field appearance="standard">
                             <mat-label>Forma de Pago</mat-label>
-                            <input matInput type="text" [(ngModel)]="factura.cliente.financiamiento.forma_pago.abreviatura" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text" [(ngModel)]="factura.cliente?.financiamiento.forma_pago.abreviatura" class="form-control-sm" [disabled]="true">
                         </mat-form-field>
                     </div>
                 </div>
@@ -840,13 +849,13 @@
                     <div class="form-group col-6">
                         <mat-form-field appearance="standard">
                             <mat-label>Tipo</mat-label>
-                            <input matInput type="text" [(ngModel)]="factura.cliente.financiamiento.tipo_pago.abreviatura" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text" [(ngModel)]="factura.cliente?.financiamiento.tipo_pago.abreviatura" class="form-control-sm" [disabled]="true">
                         </mat-form-field>
                     </div>
                     <div class="form-group col-6">
                         <mat-form-field appearance="standard">
                             <mat-label>Pre Saldo.</mat-label>
-                            <input matInput type="text" [(ngModel)]="factura.cliente.financiamiento.monto" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text" [(ngModel)]="factura.cliente?.financiamiento.monto" class="form-control-sm" [disabled]="true">
                         </mat-form-field>
                     </div>
                 </div>
@@ -885,23 +894,25 @@
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas | filtro_serie:buscar_serie">
-                        <tr>
-                            <td>
-                                <mat-checkbox [(ngModel)]="caracteristica.seleccionado" class="form-control-sm" color="primary" [disabled]="factura.factura_detalles[indice_detalle].producto.serie_autogenerado"></mat-checkbox>
-                            </td>
-                            <td>
-                                {{caracteristica.descripcion}}
-                            </td>
-                            <td>
-                                {{caracteristica.marca}}
-                            </td>
-                            <td>
-                                {{caracteristica.modelo}}
-                            </td>
-                            <td>
-                                {{caracteristica.serie}}
-                            </td>
-                        </tr>
+                        <ng-container *ngIf="caracteristica.factura_detalle==null || caracteristica.factura_detalle.posicion==indice_detalle || caracteristica.factura_detalle.posicion==-1">
+                            <tr>
+                                <td>
+                                    <mat-checkbox [(ngModel)]="caracteristica.seleccionado" class="form-control-sm" color="primary" [disabled]="factura.factura_detalles[indice_detalle].producto.serie_autogenerado"></mat-checkbox>
+                                </td>
+                                <td>
+                                    {{caracteristica.descripcion}}
+                                </td>
+                                <td>
+                                    {{caracteristica.marca}}
+                                </td>
+                                <td>
+                                    {{caracteristica.modelo}}
+                                </td>
+                                <td>
+                                    {{caracteristica.serie}}
+                                </td>
+                            </tr>
+                        </ng-container>
                     </ng-container>
                 </tbody>
             </table>
@@ -1036,7 +1047,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let correo of factura.cliente.correos; let i=i ndex ">
+                    <tr *ngFor="let correo of factura.cliente?.correos; let i=i ndex ">
                         <td>
                             {{correo.email}}
                         </td>
@@ -1065,7 +1076,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let celular of factura.cliente.celulares; let i=i ndex ">
+                    <tr *ngFor="let celular of factura.cliente?.celulares; let i=i ndex ">
                         <td>
                             {{celular.numero}}
                         </td>
@@ -1094,7 +1105,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let telefono of factura.cliente.telefonos; let i=index ">
+                    <tr *ngFor="let telefono of factura.cliente?.telefonos; let i=index ">
                         <td>
                             {{telefono.numero}}
                         </td>
@@ -1123,7 +1134,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let correo of factura.cliente_factura.correos; let i=i ndex ">
+                    <tr *ngFor="let correo of factura.cliente_factura?.correos; let i=i ndex ">
                         <td>
                             {{correo.email}}
                         </td>
@@ -1152,7 +1163,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let celular of factura.cliente_factura.celulares; let i=i ndex ">
+                    <tr *ngFor="let celular of factura.cliente_factura?.celulares; let i=i ndex ">
                         <td>
                             {{celular.numero}}
                         </td>
@@ -1181,7 +1192,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let telefono of factura.cliente_factura.telefonos; let i=index ">
+                    <tr *ngFor="let telefono of factura.cliente_factura?.telefonos; let i=index ">
                         <td>
                             {{telefono.numero}}
                         </td>
