@@ -1219,13 +1219,13 @@
                 <div class="form-group col-2">
                     <mat-form-field appearance="standard">
                         <mat-label>Saldo</mat-label>
-                        <input matInput type="text" class="form-control-sm" [value]="factura.total_con_descuento" [(ngModel)]="recaudacion.credito.saldo" disabled>
+                        <input matInput type="text" class="form-control-sm" [value]="factura.total_con_descuento-recaudacion.total" disabled>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-3">
                     <mat-form-field appearance="standard">
                         <mat-label>Modelo</mat-label>
-                        <mat-select class="form-control-sm" [(ngModel)]="recaudacion.credito.tipo">
+                        <mat-select class="form-control-sm" [(ngModel)]="recaudacion.credito.tipo" [disabled]="recaudacion.credito.sin_intereses">
                             <mat-option *ngFor="let modelo_amortizacion of modelos_amortizaciones" [value]="modelo_amortizacion.nombre">
                                 {{modelo_amortizacion.nombre}}
                             </mat-option>
@@ -1243,10 +1243,8 @@
                     </mat-form-field>
                 </div>
                 <div class="form-group col-2">
-                    <mat-form-field appearance="standard">
-                        <mat-label>Tasa Int Anual</mat-label>
-                        <input matInput type="text" class="form-control-sm" [(ngModel)]="recaudacion.credito.tasa_interes_anual">
-                    </mat-form-field>
+                    <mat-checkbox [(ngModel)]="recaudacion.credito.sin_intereses" (change)="sin_intereses()" class="form-control-sm" color="primary">
+                        Sin Intereses</mat-checkbox>
                 </div>
                 <div class="form-group col-2">
                     <mat-form-field appearance="standard">

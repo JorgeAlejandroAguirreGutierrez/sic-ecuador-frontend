@@ -900,31 +900,26 @@ export class RecaudacionComponent implements OnInit {
       event.preventDefault();
     this.recaudacion.sesion = this.sesion;
     this.recaudacion.estado = this.estado=="RECAUDADO"? true: false;
-    this.recaudacion.factura=this.factura;
+    this.recaudacion.factura = this.factura;
     console.log(this.recaudacion);
-    if (this.recaudacion.credito.saldo>0){
-      if(this.recaudacion.credito.tipo=="" || this.recaudacion.credito.periodicidad=="" 
-      || this.recaudacion.credito.tasa_interes_anual==0 || this.recaudacion.credito.cuotas==0 
+    if (this.factura.total_con_descuento-this.recaudacion.total>0){
+      if(this.recaudacion.credito.periodicidad=="" || this.recaudacion.credito.cuotas<1 
       || this.recaudacion.credito.fecha_primera_cuota==null){
         Swal.fire('Error', 'Por favor validar el credito', 'error');
         return;
       }
     }
-    if (this.factura.total_con_descuento==this.recaudacion.total) {
-      this.recaudacionService.crear(this.recaudacion).subscribe(
-        res => {
-          this.recaudacion_crear = res.resultado as Recaudacion
-          this.propagar.emit(true);
-          if (res.mensaje){
-            Swal.fire('Exito', 'Se creo la Recaudacion', 'success');
-          } else {
-            Swal.fire('Error', res.mensaje, 'error');
-          }
+    this.recaudacionService.crear(this.recaudacion).subscribe(
+      res => {
+        this.recaudacion_crear = res.resultado as Recaudacion
+        this.propagar.emit(true);
+        if (res.mensaje){
+          Swal.fire('Exito', 'Se creo la Recaudacion', 'success');
+        } else {
+          Swal.fire('Error', res.mensaje, 'error');
         }
-      );
-    } else {
-      Swal.fire('Error', 'Por favor completar la recaudacion', 'error');
-    }
+      }, err => Swal.fire('Error', err.error.mensaje, 'error')
+    );
   }
 
   pad(numero:string, size:number): string {
@@ -1002,13 +997,11 @@ export class RecaudacionComponent implements OnInit {
 
   amortizacion(content: any){
     this.defecto_recaudacion();
+    let fecha: Date=this.recaudacion.credito.fecha_primera_cuota;
     this.creditoService.construir(this.recaudacion.credito).subscribe(
       res => {
         this.recaudacion.credito = res.resultado as Credito
-        let fecha=this.datePipe.transform(this.recaudacion.credito.fecha_primera_cuota,"yyyy-MM-dd");
-        this.recaudacion.credito.fecha_primera_cuota=new Date(fecha);
-        fecha=this.datePipe.transform(this.recaudacion.credito.fecha_consecion,"yyyy-MM-dd");
-        this.recaudacion.credito.fecha_consecion=new Date(fecha);
+        this.recaudacion.credito.fecha_primera_cuota=fecha;
         this.modalService.open(content, { size: 'lg' }).result.then((result) => {
         }, (reason) => {
           console.log(`Dismissed ${this.getDismissReason(reason)}`);
@@ -1016,6 +1009,10 @@ export class RecaudacionComponent implements OnInit {
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
+  }
+
+  sin_intereses(){
+    this.recaudacion.credito.tipo="";
   }
 
   private getDismissReason(reason: any): string {

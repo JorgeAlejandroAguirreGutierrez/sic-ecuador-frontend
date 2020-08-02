@@ -60,9 +60,9 @@ export class CreditoService {
 
   construir(credito: Credito): Observable<Respuesta> {
     return this.http.get(environment.host + util.ruta + util.credito+"/construir?saldo="+credito.saldo
-    +"&tasa_interes_anual="+credito.tasa_interes_anual+"&periodicidad="+credito.periodicidad+"&periodicidad_numero="+credito.periodicidad_numero
+    +"&periodicidad="+credito.periodicidad+"&periodicidad_numero="+credito.periodicidad_numero
     +"&periodicidad_total="+credito.periodicidad_total+"&cuotas="+credito.cuotas
-    +"&fecha_primera_cuota="+credito.fecha_primera_cuota+"&tipo="+credito.tipo, util.options).pipe(
+    +"&fecha_primera_cuota="+credito.fecha_primera_cuota+"&tipo="+credito.tipo+"&sin_intereses="+credito.sin_intereses, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
