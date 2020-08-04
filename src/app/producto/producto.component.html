@@ -1,0 +1,416 @@
+<nav class="navbar-light nav-fijo">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
+                <fa-icon [icon]="['fas', 'file']"></fa-icon>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="crear($event)">
+                <!-- *ngIf="cliente.id==0; else block_actualizar"> -->
+                <fa-icon [icon]="['fas', 'save']"></fa-icon>
+            </a>
+            <ng-template #block_actualizar>
+                <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
+                    <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                </a>
+            </ng-template>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                <fa-icon [icon]="['fas', 'file-export']"></fa-icon>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="contenedor">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i><u>CREAR PRODUCTO</u></i>
+                </div>
+                <div class="card-body">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="form-row col-12">
+                                <div class="col-8">
+                                    <div class="form-row">
+                                        <div class="form-group col-4">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Grupo</mat-label>
+                                                <mat-select type="text"
+                                                    (selectionChange)="seleccionar_auxiliar_provincia($event.value)"
+                                                    class="form-control-sm">
+                                                    <mat-option *ngFor="let provincia of auxiliar_provincias"
+                                                        [value]="provincia.provincia">
+                                                        {{provincia.provincia}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Subgrupo</mat-label>
+                                                <mat-select type="text"
+                                                    (selectionChange)="seleccionar_auxiliar_canton($event.value)"
+                                                    class="form-control-sm">
+                                                    <mat-option *ngFor="let canton of auxiliar_cantones"
+                                                        [value]="canton.canton">
+                                                        {{canton.canton}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Categoría</mat-label>
+                                                <mat-select type="text" class="form-control-sm"
+                                                    (selectionChange)="seleccionar_auxiliar_parroquia($event.value)">
+                                                    <mat-option *ngFor="let parroquia of auxiliar_parroquias"
+                                                        [value]="parroquia.parroquia">
+                                                        {{parroquia.parroquia}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-4">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Línea</mat-label>
+                                                <mat-select type="text"
+                                                    (selectionChange)="seleccionar_auxiliar_provincia($event.value)"
+                                                    class="form-control-sm">
+                                                    <mat-option *ngFor="let provincia of auxiliar_provincias"
+                                                        [value]="provincia.provincia">
+                                                        {{provincia.provincia}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Sublínea</mat-label>
+                                                <mat-select type="text"
+                                                    (selectionChange)="seleccionar_auxiliar_canton($event.value)"
+                                                    class="form-control-sm">
+                                                    <mat-option *ngFor="let canton of auxiliar_cantones"
+                                                        [value]="canton.canton">
+                                                        {{canton.canton}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Presentación</mat-label>
+                                                <mat-select type="text" class="form-control-sm"
+                                                    (selectionChange)="seleccionar_auxiliar_parroquia($event.value)">
+                                                    <mat-option *ngFor="let parroquia of auxiliar_parroquias"
+                                                        [value]="parroquia.parroquia">
+                                                        {{parroquia.parroquia}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <mat-form-field appearance="standard" class="grande">
+                                            <mat-label>Producto</mat-label>
+                                            <input matInput type="text" (change)="cambiar_razon_social_auxiliar()"
+                                                oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                                            <button mat-button matSuffix mat-icon-button
+                                                (click)="auxiliar.razon_social=''">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="linea-vertical col-4">
+                                    <div class="form-row col-12">
+                                        <div class="form-group col-5">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Estado</mat-label>
+                                                <mat-select class="form-control-sm">
+                                                    <mat-option *ngFor="let grupo_cliente of grupos_clientes"
+                                                        [value]="grupo_cliente.id">
+                                                        {{grupo_cliente.descripcion}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-7">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Código</mat-label>
+                                                <input matInput type="text" disabled class="form-control-sm">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>IVA</mat-label>
+                                                <mat-select class="form-control-sm">
+                                                    <mat-option *ngFor="let grupo_cliente of grupos_clientes"
+                                                        [value]="grupo_cliente.id">
+                                                        {{grupo_cliente.descripcion}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-8">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Tipo de Gasto</mat-label>
+                                                <mat-select class="form-control-sm">
+                                                    <mat-option *ngFor="let grupo_cliente of grupos_clientes"
+                                                        [value]="grupo_cliente.id">
+                                                        {{grupo_cliente.descripcion}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-8">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Unidad Kardex</mat-label>
+                                                <mat-select class="form-control-sm">
+                                                    <mat-option *ngFor="let grupo_cliente of grupos_clientes"
+                                                        [value]="grupo_cliente.id">
+                                                        {{grupo_cliente.descripcion}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>Consignación</mat-label>
+                                                <mat-select class="form-control-sm"
+                                                    (selectionChange)="cambiar_productos($event.value)"
+                                                    [(value)]="tipo_producto">
+                                                    <mat-option value="S">SI</mat-option>
+                                                    <mat-option value="N">NO</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <mat-accordion class="headers-align">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i><u>CONFIGURACIÓN DE PRECIOS</u></i>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Ingresar los precios por unidad de medida
+                    <mat-icon>account_circle</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <hr>
+            <div class="form-row col-12">
+                <div class="form-group col-3"></div>
+                <div class="form-group col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Medida</mat-label>
+                        <mat-select class="form-control-sm">
+                            <mat-option *ngFor="let grupo_cliente of grupos_clientes" [value]="grupo_cliente.id">
+                                {{grupo_cliente.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Costo Inicial</mat-label>
+                        <input matInput type="text" oninput="this.value = this.value.toUpperCase()"
+                            class="form-control-sm" (change)="validar_identificacion()">
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-1">
+                    <br>
+                    <button class="btn btn-primary btn-circle" (click)="agregar_factura_detalle()">
+                        <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
+                    </button>
+                </div>
+                <div class="form-group col-1"></div>
+                <div class="form-group col-1">
+                    <br>
+                    <mat-checkbox class="form-control-sm" color="primary">
+                        Espec.</mat-checkbox>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="form-row col-12">
+                    <div class="form-group col-8">
+                        <br>
+                        <mat-label class="centrar">PRECIO SUGERIDO</mat-label>
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                            <!--- Note que estas columnas pueden ser definidas en cualquier orden.
+                                Las columnas reales representadas se establecen como una propiedad en la definición de fila" -->
+                        
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="position">
+                                <th mat-header-cell *matHeaderCellDef> No. </th>
+                                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                            </ng-container>
+                        
+                            <!-- Medida Column -->
+                            <ng-container matColumnDef="medida">
+                                <th mat-header-cell *matHeaderCellDef> Medida </th>
+                                <td mat-cell *matCellDef="let element"> {{element.medida}} </td>
+                            </ng-container>
+                        
+                            <!-- Segmento Column -->
+                            <ng-container matColumnDef="segmento">
+                                <th mat-header-cell *matHeaderCellDef> Segmento </th>
+                                <td mat-cell *matCellDef="let element;let index = index">
+                                    <editable (update)="updateField(index, 'segmento')">
+                                        <ng-template viewMode>
+                                            {{element.segmento}}
+                                        </ng-template>
+                                        <ng-template editMode>
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput [formControl]="getControl(index, 'segmento')">
+                                                <mat-error *ngIf="getControl(index, 'segmento').hasError('required')">
+                                                    Campo es <strong>requerido</strong>
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <!-- <input  [formControl]="getControl(index, 'segmento')" focusable editableOnEnter> -->
+                                        </ng-template>
+                                    </editable>
+                                </td>
+                            </ng-container>
+                        
+                            <!-- Costo Column -->
+                            <ng-container matColumnDef="costo">
+                                <th mat-header-cell *matHeaderCellDef> Costo </th>
+                                <td mat-cell *matCellDef="let element"> {{element.costo}} </td>
+                            </ng-container>
+                        
+                            <!-- Ganancia Column -->
+                            <ng-container matColumnDef="ganancia">
+                                <th mat-header-cell *matHeaderCellDef> Ganancia% </th>
+                                <td mat-cell *matCellDef="let element;let index = index">
+                                    <editable (update)="updateField(index, 'ganancia')">
+                                        <ng-template viewMode>
+                                            {{element.ganancia}}
+                                        </ng-template>
+                                        <ng-template editMode>
+                                            <input [formControl]="getControl(index, 'ganancia')" focusable editableOnEnter>
+                                        </ng-template>
+                                    </editable>
+                                </td>
+                            </ng-container>	
+                        
+                            <!-- Precio Column -->
+                            <ng-container matColumnDef="precio">
+                                <th mat-header-cell *matHeaderCellDef> Precio </th>
+                                <td mat-cell *matCellDef="let element;let index = index">
+                                    <editable (update)="updateField(index, 'precio')">
+                                        <ng-template viewMode>
+                                            {{element.precio}}
+                                        </ng-template>
+                                        <ng-template editMode>
+                                            <input [formControl]="getControl(index, 'precio')" focusable editableOnEnter>
+                                        </ng-template>
+                                    </editable>
+                                </td>
+                            </ng-container>
+                        
+                            <!-- PVP Column -->
+                            <ng-container matColumnDef="pvp">
+                                <th mat-header-cell *matHeaderCellDef> PVP </th>
+                                <td mat-cell *matCellDef="let element;let index = index">
+                                    <editable (update)="updateField(index, 'pvp')">
+                                        <ng-template viewMode>
+                                            {{element.pvp}}
+                                        </ng-template>
+                                        <ng-template editMode>
+                                            <input [formControl]="getControl(index, 'pvp')" focusable editableOnEnter>
+                                        </ng-template>
+                                    </editable>
+                                </td>
+                            </ng-container>
+                        
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsSugerido"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsSugerido;"></tr>
+                        </table>
+                    </div>
+                    <div class="form-group col-4">
+                        <br>
+                        <mat-label class="centrar" >PRECIO DE VENTA</mat-label>
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                            <!--- Note que estas columnas pueden ser definidas en cualquier orden.
+                                Las columnas reales representadas se establecen como una propiedad en la definición de fila" -->
+                        
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="position">
+                                <th mat-header-cell *matHeaderCellDef> No. </th>
+                                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                            </ng-container>
+                        
+                            <!-- PvpF Column -->
+                            <ng-container matColumnDef="pvpf">
+                                <th mat-header-cell *matHeaderCellDef> PVPF </th>
+                                <td mat-cell *matCellDef="let element;let index = index">
+                                    <editable (update)="updateField(index, 'pvpf')">
+                                        <ng-template viewMode>
+                                            {{element.pvpf}}
+                                        </ng-template>
+                                        <ng-template editMode>
+                                            <input [formControl]="getControl(index, 'pvpf')" focusable editableOnEnter>
+                                        </ng-template>
+                                    </editable>
+                                </td>
+                            </ng-container>	
+                        
+                            <!-- Rendimiento Column -->
+                            <ng-container matColumnDef="rendimiento">
+                                <th mat-header-cell *matHeaderCellDef> Rendimiento% </th>
+                                <td mat-cell *matCellDef="let element;let index = index">
+                                    <editable (update)="updateField(index, 'rendimiento')">
+                                        <ng-template viewMode>
+                                            {{element.rendimiento}}
+                                        </ng-template>
+                                        <ng-template editMode>
+                                            <input [formControl]="getControl(index, 'rendimiento')" focusable editableOnEnter>
+                                        </ng-template>
+                                    </editable>
+                                </td>
+                            </ng-container>	
+                        
+                            <!-- Utilidad Column -->
+                            <ng-container matColumnDef="utilidad">
+                                <th mat-header-cell *matHeaderCellDef> Utilidad </th>
+                                <td mat-cell *matCellDef="let element;let index = index">
+                                    <editable (update)="updateField(index, 'utilidad')">
+                                        <ng-template viewMode>
+                                            {{element.utilidad}}
+                                        </ng-template>
+                                        <ng-template editMode>
+                                            <input [formControl]="getControl(index, 'utilidad')" focusable editableOnEnter>
+                                        </ng-template>
+                                    </editable>
+                                </td>
+                            </ng-container>
+                        
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsVenta"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsVenta;"></tr>
+                        </table>
+                    </div>                
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
