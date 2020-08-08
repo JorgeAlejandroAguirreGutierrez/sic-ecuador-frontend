@@ -148,6 +148,8 @@ import { ZoomComponent } from './tienda/zoom/zoom.component';
 
 import { FiltroSerie } from './pipes/filtro-serie';
 import { UbicacionMostrarComponent } from './ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
+import { AdministracionComponent } from './administracion/administracion.component';
+import { ModeloService } from './servicios/modelo.service';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -269,7 +271,8 @@ const routes: Routes = [
     ZoomComponent,
     ImageZoomComponent,
     SliderLightboxComponent,
-    SliderCustomImageComponent
+    SliderCustomImageComponent,
+    AdministracionComponent
   ],
   imports: [
     BrowserModule,
@@ -313,7 +316,7 @@ const routes: Routes = [
     NgImageSliderModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [DatoAdicionalService, PlazoCreditoService, ImpuestoService, RetencionService,
+  providers: [DatoAdicionalService, PlazoCreditoService, ImpuestoService, RetencionService, ModeloService,
               TransportistaService, UbicacionService, TipoContribuyenteService, VehiculoTransporteService,
               EmpresaService, EstablecimientoService, PuntoVentaService, UsuarioService, DatePipe,
               ClienteService, FacturaService, TabService, UsuariosService, DatabaseService, ProductosService,
@@ -323,7 +326,7 @@ const routes: Routes = [
                 useClass: PathLocationStrategy
               }],
   bootstrap: [AppComponent],
-  entryComponents: [ClienteComponent, FacturaComponent]  
+  entryComponents: [ClienteComponent, FacturaComponent, AdministracionComponent]  
 })
 export class AppModule {
   constructor() {
