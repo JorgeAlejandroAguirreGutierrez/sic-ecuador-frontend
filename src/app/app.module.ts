@@ -156,6 +156,8 @@ import { EditModeDirective } from './tabla-editable/editable/edit-mode.directive
 import { FocusableDirective } from './tabla-editable/focusable.directive';
 import { EditableOnEnterDirective } from './tabla-editable/editable/edit-on-enter.directive';
 import { UbicacionMostrarComponent } from './ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
+import { AdministracionComponent } from './administracion/administracion.component';
+import { ModeloService } from './servicios/modelo.service';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -280,6 +282,7 @@ const routes: Routes = [
     ImageZoomComponent,
     SliderLightboxComponent,
     SliderCustomImageComponent,
+    AdministracionComponent
     ProductoComponent,
     TablaEditableComponent,
     EditableComponent,
@@ -330,7 +333,7 @@ const routes: Routes = [
     NgImageSliderModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [DatoAdicionalService, PlazoCreditoService, ImpuestoService, RetencionService,
+  providers: [DatoAdicionalService, PlazoCreditoService, ImpuestoService, RetencionService, ModeloService,
               TransportistaService, UbicacionService, TipoContribuyenteService, VehiculoTransporteService,
               EmpresaService, EstablecimientoService, PuntoVentaService, UsuarioService, DatePipe,
               ClienteService, FacturaService, TabService, UsuariosService, DatabaseService, ProductosService,
@@ -340,7 +343,7 @@ const routes: Routes = [
                 useClass: PathLocationStrategy
               }],
   bootstrap: [AppComponent],
-  entryComponents: [ClienteComponent, FacturaComponent]  
+  entryComponents: [ClienteComponent, FacturaComponent, AdministracionComponent]  
 })
 export class AppModule {
   constructor() {

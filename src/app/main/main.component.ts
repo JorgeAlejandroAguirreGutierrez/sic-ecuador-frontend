@@ -14,6 +14,7 @@ import { GrupoClienteComponent } from '../grupo-cliente/grupo-cliente.component'
 import { UbicacionComponent } from '../ubicacion/ubicacion.component';
 import { TransportistaComponent } from '../transportista/transportista.component';
 import { UbicacionMostrarComponent } from '../ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
+import { AdministracionComponent } from '../administracion/administracion.component';
 
 @Component({
   selector: 'app-main',
@@ -171,8 +172,7 @@ export class MainComponent implements OnInit{
     }
 
     if (tabNombre == "CONFIGURACION") {
-      this.llenarOpciones(FacturaComponent,'Crear Factura','Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent,'Buscar Factura','Buscar Factura');
+      this.llenarOpciones(AdministracionComponent,'Importar/Exportar','Importar/Exportar');
     }
   }  
 }

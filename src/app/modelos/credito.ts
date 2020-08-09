@@ -14,6 +14,7 @@ export class Credito {
   fecha_consecion: Date;
   dividendo: number;
   tipo: string;
+  sin_intereses: boolean;
   amortizaciones: Amortizacion[];
 
   constructor(){
@@ -29,6 +30,7 @@ export class Credito {
     this.fecha_consecion=new Date();
     this.dividendo=0;
     this.tipo="";
+    this.sin_intereses=false;
     this.amortizaciones=[];
   }
 

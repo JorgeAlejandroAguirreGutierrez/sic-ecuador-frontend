@@ -56,6 +56,7 @@ export const credito: string= "/credito"
 export const amortizacion: string= "/amortizacion"
 export const entrega: string= "/entrega"
 export const guia_remision: string= "/guiaremision"
+export const modelo: string= "/modelo"
 export const generar: string= "/generar"
 export const pdf: string= "/pdf"
 
@@ -64,4 +65,6 @@ export const credencial_password='admin';
 export const credencial=credencial_usuario+':'+credencial_password;
 export const headers= new HttpHeaders({'Content-Type':'application/json', 'Authorization': 'Basic '+btoa(credencial)});
 export const options = {headers: headers};
-export const options_archivo = {headers: headers, responseType: 'blob' as 'json' };
+export const headers_cargar_archivo= new HttpHeaders({'Authorization': 'Basic '+btoa(credencial)});
+export const options_cargar_archivo = {headers: headers_cargar_archivo};
+export const options_generar_archivo = {headers: headers, responseType: 'blob' as 'json' };
