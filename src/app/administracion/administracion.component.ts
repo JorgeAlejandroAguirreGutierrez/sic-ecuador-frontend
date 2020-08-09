@@ -12,7 +12,8 @@ export class AdministracionComponent implements OnInit {
 
   constructor(private modeloService: ModeloService) { }
 
-  modelos: Modelo[]=[];
+  modelos_importar: Modelo[]=[];
+  modelos_exportar: Modelo[]=[];
   modelo: Modelo= new Modelo();
   archivo: File= null;
 
@@ -24,7 +25,8 @@ export class AdministracionComponent implements OnInit {
     this.modeloService.consultar().subscribe(
       res => {
         if (res.resultado!=null) {
-          this.modelos = res.resultado as Modelo[]
+          this.modelos_importar = res.resultado as Modelo[]
+          this.modelos_exportar = res.resultado as Modelo[]
         }
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')

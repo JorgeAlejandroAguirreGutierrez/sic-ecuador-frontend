@@ -26,7 +26,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Modelo</mat-label>
                                     <mat-select [(ngModel)]="modelo" class="form-control-sm">
-                                        <mat-option *ngFor="let modelo of modelos" [value]="modelo">
+                                        <mat-option *ngFor="let modelo of modelos_importar" [value]="modelo">
                                             {{modelo.nombre}}
                                         </mat-option>
                                     </mat-select>
@@ -49,7 +49,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Modelo</mat-label>
                                     <mat-select type="text" [(ngModel)]="modelo" class="form-control-sm">
-                                        <mat-option *ngFor="let modelo of modelos" [value]="modelo">
+                                        <mat-option *ngFor="let modelo of modelos_exportar" [value]="modelo">
                                             {{modelo.nombre}}
                                         </mat-option>
                                     </mat-select>
