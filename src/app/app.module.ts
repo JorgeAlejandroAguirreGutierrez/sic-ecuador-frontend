@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -155,6 +155,7 @@ import { ViewModeDirective } from './tabla-editable/editable/view-mode.directive
 import { EditModeDirective } from './tabla-editable/editable/edit-mode.directive';
 import { FocusableDirective } from './tabla-editable/focusable.directive';
 import { EditableOnEnterDirective } from './tabla-editable/editable/edit-on-enter.directive';
+import { UbicacionMostrarComponent } from './ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -216,6 +217,7 @@ const routes: Routes = [
     VehiculoTransporteComponent,
     ClienteComponent,
     ClienteMostrarComponent,
+    UbicacionMostrarComponent,
     EmpresaComponent,
     UsuarioComponent,
     EstablecimientoComponent,
@@ -330,7 +332,7 @@ const routes: Routes = [
   ],
   providers: [DatoAdicionalService, PlazoCreditoService, ImpuestoService, RetencionService,
               TransportistaService, UbicacionService, TipoContribuyenteService, VehiculoTransporteService,
-              EmpresaService, EstablecimientoService, PuntoVentaService, UsuarioService,
+              EmpresaService, EstablecimientoService, PuntoVentaService, UsuarioService, DatePipe,
               ClienteService, FacturaService, TabService, UsuariosService, DatabaseService, ProductosService,
               DataService, CartService, NgImageSliderService,
               {

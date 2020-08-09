@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Sesion } from '../modelos/sesion';
-import { Resultado } from '../resultado';
+import { Respuesta } from '../respuesta';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { of, Observable, throwError } from 'rxjs';
@@ -24,10 +24,10 @@ export class SesionService {
     );
   }
 
-  crear(sesion: Sesion): Observable<Resultado> {
+  crear(sesion: Sesion): Observable<Respuesta> {
     console.log(sesion);
     return this.http.post(environment.host + util.ruta + util.sesion, JSON.stringify(sesion), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })

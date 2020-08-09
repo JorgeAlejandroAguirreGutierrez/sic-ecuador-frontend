@@ -10,6 +10,10 @@ import { MapsComponent } from '../pages/maps/maps.component';
 import { ClienteMostrarComponent } from '../cliente/cliente-mostrar/cliente-mostrar.component';
 import { FacturaMostrarComponent } from '../factura/factura-mostrar/factura-mostrar.component';
 import { ProductoComponent } from "../producto/producto.component";
+import { GrupoClienteComponent } from '../grupo-cliente/grupo-cliente.component';
+import { UbicacionComponent } from '../ubicacion/ubicacion.component';
+import { TransportistaComponent } from '../transportista/transportista.component';
+import { UbicacionMostrarComponent } from '../ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
 
 @Component({
   selector: 'app-main',
@@ -94,6 +98,10 @@ export class MainComponent implements OnInit{
       // El componente, nombre del tab y la opción en el slidebar
       this.llenarOpciones(ClienteComponent,'Nuevo cliente','Crear cliente');
       this.llenarOpciones(ClienteMostrarComponent,'Buscar cliente','Buscar cliente');
+      this.llenarOpciones(UbicacionComponent,'Crear Ubicacion Cliente','Crear Ubicacion Cliente');
+      this.llenarOpciones(UbicacionMostrarComponent,'Buscar Ubicacion Cliente','Buscar Ubicacion Cliente');
+      this.llenarOpciones(GrupoClienteComponent,'Crear Grupo Cliente','Crear Grupo Cliente');
+      this.llenarOpciones(TransportistaComponent,'Crear Transportista','Crear Transportista');
       this.llenarOpciones(MapsComponent,'Ubicacion Cliente','Ubicacion cliente');
     }
 

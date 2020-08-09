@@ -27,6 +27,7 @@ export class Factura {
   //DESCUENTO_GENERAL
   valor_descuento_subtotal: number=0;
   porcentaje_descuento_subtotal: number=0;
+  valor_porcentaje_descuento_subtotal: number= 0;
   valor_descuento_total: number=0;
   porcentaje_descuento_total: number=0;
   valor_porcentaje_descuento_total: number= 0;
@@ -79,7 +80,7 @@ export class Factura {
   private calcular_subtotal_sin_descuento(){
     this.subtotal_sin_descuento=0;
     this.factura_detalles.forEach((detalle, index)=> {
-      this.subtotal_sin_descuento+=detalle.subtotal_sin_descuento;
+      this.subtotal_sin_descuento+=detalle.total_sin_descuento;
     });
     this.subtotal_sin_descuento=Number(this.subtotal_sin_descuento.toFixed(2));
   }
@@ -87,7 +88,7 @@ export class Factura {
   private calcular_subtotal_con_descuento(){
     this.subtotal_con_descuento=0;
     this.factura_detalles.forEach((detalle, index)=> {
-      this.subtotal_con_descuento+=detalle.subtotal_con_descuento;
+      this.subtotal_con_descuento+=detalle.total_con_descuento;
     });
     this.subtotal_con_descuento=Number(this.subtotal_con_descuento.toFixed(2));
   }
@@ -104,7 +105,7 @@ export class Factura {
     this.subtotal_base12_sin_descuento=0;
     this.factura_detalles.forEach((detalle, index)=> {
       if (detalle.impuesto.porcentaje==12){
-        this.subtotal_base12_sin_descuento+=detalle.subtotal_sin_descuento;
+        this.subtotal_base12_sin_descuento+=detalle.total_sin_descuento;
       }
     });
     this.subtotal_base12_sin_descuento= Number(this.subtotal_base12_sin_descuento.toFixed(2));
@@ -114,7 +115,7 @@ export class Factura {
     this.subtotal_base0_sin_descuento=0;
     this.factura_detalles.forEach((detalle, index)=> {
       if (detalle.impuesto.porcentaje==0){
-        this.subtotal_base0_sin_descuento+=detalle.subtotal_sin_descuento;
+        this.subtotal_base0_sin_descuento+=detalle.total_sin_descuento;
       }
     });
     this.subtotal_base0_sin_descuento=Number(this.subtotal_base0_sin_descuento.toFixed(2));
@@ -124,7 +125,7 @@ export class Factura {
     this.subtotal_base12_con_descuento=0;
     this.factura_detalles.forEach((detalle, index)=> {
       if (detalle.impuesto.porcentaje==12){
-        this.subtotal_base12_con_descuento+=detalle.subtotal_con_descuento;
+        this.subtotal_base12_con_descuento+=detalle.total_con_descuento;
       }
     });
     this.subtotal_base12_con_descuento= Number(this.subtotal_base12_con_descuento.toFixed(2));
@@ -134,7 +135,7 @@ export class Factura {
     this.subtotal_base0_con_descuento=0;
     this.factura_detalles.forEach((detalle, index)=> {
       if (detalle.impuesto.porcentaje==0){
-        this.subtotal_base0_con_descuento+=detalle.subtotal_con_descuento;
+        this.subtotal_base0_con_descuento+=detalle.total_con_descuento;
       }
     });
     this.subtotal_base0_con_descuento=Number(this.subtotal_base0_con_descuento.toFixed(2));
@@ -160,6 +161,11 @@ export class Factura {
     this.total_con_descuento=this.subtotal_base0_con_descuento+this.subtotal_base12_con_descuento+this.importe_iva_con_descuento;
     this.total_con_descuento=Number(this.total_con_descuento.toFixed(2));
   }
+  private calcular_valor_porcentaje_descuento_subtotal(){
+    this.valor_porcentaje_descuento_subtotal=this.subtotal_sin_descuento*(this.porcentaje_descuento_subtotal/100);
+    this.valor_porcentaje_descuento_subtotal=Number(this.valor_porcentaje_descuento_subtotal.toFixed(2));
+  }
+
   private calcular_valor_porcentaje_descuento_total(){
     this.valor_porcentaje_descuento_total=this.total_con_descuento*(this.porcentaje_descuento_total/100);
     this.valor_porcentaje_descuento_total=Number(this.valor_porcentaje_descuento_total.toFixed(2));
@@ -176,6 +182,20 @@ export class Factura {
     this.calcular_importe_iva_con_descuento();
     this.calcular_total_sin_descuento();
     this.calcular_total_con_descuento();
+    this.calcular_valor_porcentaje_descuento_subtotal();
     this.calcular_valor_porcentaje_descuento_total();
+  }
+
+  normalizar(){
+    if (this.cliente.id==0){
+      this.cliente=null;
+    }
+    if (this.cliente_factura.id==0){
+      this.cliente_factura=null;
+    }
+  }
+  des_normalizar(){
+    this.cliente=new Cliente();
+    this.cliente_factura=new Cliente();
   }
 }

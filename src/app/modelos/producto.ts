@@ -42,6 +42,6 @@ export class Producto {
     this.tipo_producto=new TipoProducto();
     this.kardex=new Kardex();
     this.impuesto=new Impuesto();
-    this.bodega=new Bodega;
+    this.bodega=new Bodega();
   }
 }
