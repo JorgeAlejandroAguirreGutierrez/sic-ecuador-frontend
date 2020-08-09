@@ -19,24 +19,36 @@
                         </div>
 
                         <div class="col-sm-auto align-self-center" *ngIf="permiso_proveedores">
-                            <a (click)="abrirOpcion('PROVEEDORES')">
+                            <a (click)="abrirOpcion('COMPRAS')">
                                 <div class="card text-center tarjeta">
                                     <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_proveedor}}"
                                         alt="">
                                     <div class="card-body">
-                                        <h6><a class="card-title">PROVEEDORES</a></h6>
+                                        <h6><a class="card-title">COMPRAS</a></h6>
                                     </div>
                                 </div>
                             </a>
                         </div>
 
                         <div class="col-sm-auto align-self-center" *ngIf="permiso_facturacion">
-                            <a (click)="abrirOpcion('FACTURACION')">
+                            <a (click)="abrirOpcion('VENTAS')">
                                 <div class="card text-center tarjeta">
                                     <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_facturacion}}"
                                         alt="">
                                     <div class="card-body">
-                                        <h6><a class="card-title">FACTURACION</a></h6>
+                                        <h6><a class="card-title">VENTAS</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_inventarios">
+                            <a (click)="abrirOpcion('INVENTARIOS')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_inventario}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">INVENTARIOS</a></h6>
                                     </div>
                                 </div>
                             </a>
@@ -61,18 +73,6 @@
                                         alt="">
                                     <div class="card-body">
                                         <h6><a class="card-title">FINANCIERO</a></h6>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-sm-auto align-self-center" *ngIf="permiso_inventarios">
-                            <a (click)="abrirOpcion('INVENTARIOS')">
-                                <div class="card text-center tarjeta">
-                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_inventario}}"
-                                        alt="">
-                                    <div class="card-body">
-                                        <h6><a class="card-title">INVENTARIOS</a></h6>
                                     </div>
                                 </div>
                             </a>

@@ -147,6 +147,14 @@ import { SliderComponent } from './tienda/slider/slider.component';
 import { ZoomComponent } from './tienda/zoom/zoom.component';
 
 import { FiltroSerie } from './pipes/filtro-serie';
+import { ProductoComponent } from './producto/producto.component';
+
+import { TablaEditableComponent } from './tabla-editable/tabla-editable.component';
+import { EditableComponent } from './tabla-editable/editable/editable.component';
+import { ViewModeDirective } from './tabla-editable/editable/view-mode.directive';
+import { EditModeDirective } from './tabla-editable/editable/edit-mode.directive';
+import { FocusableDirective } from './tabla-editable/focusable.directive';
+import { EditableOnEnterDirective } from './tabla-editable/editable/edit-on-enter.directive';
 import { UbicacionMostrarComponent } from './ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
 
 const routes: Routes = [
@@ -175,6 +183,8 @@ const routes: Routes = [
   {path: 'recaudacion', component: RecaudacionComponent},
   {path: 'entrega', component: EntregaComponent},
   {path: 'main', component: MainComponent},
+  {path: 'producto', component: ProductoComponent},
+  {path: 'tabla', component: TablaEditableComponent},
   {path: 'tienda', component: TiendaComponent},
   {path: 'tienda/detalle-producto/:id', component: DetalleProductoComponent},
   {path: 'zoom', component: ZoomComponent},
@@ -269,7 +279,14 @@ const routes: Routes = [
     ZoomComponent,
     ImageZoomComponent,
     SliderLightboxComponent,
-    SliderCustomImageComponent
+    SliderCustomImageComponent,
+    ProductoComponent,
+    TablaEditableComponent,
+    EditableComponent,
+    ViewModeDirective,
+    EditModeDirective,
+    FocusableDirective, 
+    EditableOnEnterDirective
   ],
   imports: [
     BrowserModule,
