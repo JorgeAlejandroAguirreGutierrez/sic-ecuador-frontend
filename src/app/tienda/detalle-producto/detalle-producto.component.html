@@ -11,7 +11,7 @@
             <div class="miniaturas" fxFlex="20">
               <img *ngFor = "let imagen of imageObject; let i = index" title="{{imagen.title}}" src="{{imagen.thumbImage}}"
                 (click)="agrandarImagen(imagen.image, i)" />
-            </div>
+            </div> 
             <div class="visor" fxFlex="77">
               <app-image-zoom #preview [image]="image" [disabled]="!enabled" [zoom]="zoom" [ratio]="ratio" [cursor]="cursor"
               [cursorgap]="cursorgap" [type]="type" [shape]="shape" [mouseout]="mouseout" (load)="zoomLoaded($event)"

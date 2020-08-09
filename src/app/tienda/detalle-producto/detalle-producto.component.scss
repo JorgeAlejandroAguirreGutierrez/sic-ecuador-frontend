@@ -18,10 +18,25 @@ a{
     border-radius: 10px;
   }
 
-/*  .container-info > *{
-    width: 47%;
-    margin: 10px;
-}*/
+.container-info{
+    width: 98%;
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+h1{
+    margin: 0px;
+}
+.panel-detalle-producto{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 45px;
+    background-color: whitesmoke;
+}
 
 .panel-heading{
     display: flex;

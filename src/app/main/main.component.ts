@@ -9,6 +9,7 @@ import { FacturaComponent } from "../factura/factura.component";
 import { MapsComponent } from '../pages/maps/maps.component';
 import { ClienteMostrarComponent } from '../cliente/cliente-mostrar/cliente-mostrar.component';
 import { FacturaMostrarComponent } from '../factura/factura-mostrar/factura-mostrar.component';
+import { ProductoComponent } from "../producto/producto.component";
 import { GrupoClienteComponent } from '../grupo-cliente/grupo-cliente.component';
 import { UbicacionComponent } from '../ubicacion/ubicacion.component';
 import { TransportistaComponent } from '../transportista/transportista.component';
@@ -62,13 +63,15 @@ export class MainComponent implements OnInit{
     });
   }
 
+   //El Tab se refiere al tab interno, es decir al relacionado con la barra de opciones 
   public tabChanged(event) {
-    console.log("tab interno changed");
+    //console.log("tab interno changed");
     this.tabService.activarTab(event);
   }
 
+  //El Tab1 se refiere al tab externo, es decir al principal
   public tabChanged1(event) {
-    console.log("tab externo changed");
+    //console.log("tab externo changed");
     this.tabService.activarTab1(event);
     // Carga las opciones en el slide bar de acuerdo al titulo de la pestaña
     this.menuOpciones(this.tabs1[event.index].title);      
@@ -103,13 +106,18 @@ export class MainComponent implements OnInit{
       this.llenarOpciones(MapsComponent,'Ubicacion Cliente','Ubicacion cliente');
     }
 
-    if (tabNombre == "PROVEEDORES") {
+    if (tabNombre == "COMPRAS") {
       this.llenarOpciones(FacturaComponent,'Nuevo proveedor','Crear Proveedor');
       this.llenarOpciones(FacturaMostrarComponent,'Buscar Proveedor','Buscar Proveedor');
     }
 
-    if (tabNombre == "FACTURACION") {
+    if (tabNombre == "VENTAS") {
       this.llenarOpciones(FacturaComponent,'Crear Factura','Crear Factura');
+      this.llenarOpciones(FacturaMostrarComponent,'Buscar Factura','Buscar Factura');
+    }
+
+    if (tabNombre == "INVENTARIOS") {
+      this.llenarOpciones(ProductoComponent,'Crear Producto','Crear Producto');
       this.llenarOpciones(FacturaMostrarComponent,'Buscar Factura','Buscar Factura');
     }
 
@@ -119,11 +127,6 @@ export class MainComponent implements OnInit{
     }
 
     if (tabNombre == "FINANCIERO") {
-      this.llenarOpciones(FacturaComponent,'Crear Factura','Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent,'Buscar Factura','Buscar Factura');
-    }
-
-    if (tabNombre == "INVENTARIOS") {
       this.llenarOpciones(FacturaComponent,'Crear Factura','Crear Factura');
       this.llenarOpciones(FacturaMostrarComponent,'Buscar Factura','Buscar Factura');
     }
