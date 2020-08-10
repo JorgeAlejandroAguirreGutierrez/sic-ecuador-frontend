@@ -36,11 +36,6 @@ export class PedidosComponent implements OnInit {
     }
   }
 
-  deleteProduct(product) {
-    this.productosService.deleteProductFromCart(product);
-  }
-
-
   goBack(): void {
       this.location.back();
   }
