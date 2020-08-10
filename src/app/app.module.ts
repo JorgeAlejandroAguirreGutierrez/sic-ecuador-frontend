@@ -282,7 +282,7 @@ const routes: Routes = [
     ImageZoomComponent,
     SliderLightboxComponent,
     SliderCustomImageComponent,
-    AdministracionComponent
+    AdministracionComponent,
     ProductoComponent,
     TablaEditableComponent,
     EditableComponent,

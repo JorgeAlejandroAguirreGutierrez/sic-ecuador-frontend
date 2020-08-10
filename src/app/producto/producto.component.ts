@@ -15,6 +15,7 @@ export class ProductoComponent implements OnInit {
   displayedColumnsVenta: string[] = ['position', 'pvpf', 'rendimiento', 'utilidad'];
   dataSource = this.core.list$;
   controls: FormArray;
+  auxiliar_
 
   constructor(private core: CoreService) { }
 
@@ -48,5 +49,17 @@ export class ProductoComponent implements OnInit {
   getControl(index, fieldName) {
     const a  = this.controls.at(index).get(fieldName) as FormControl;
     return this.controls.at(index).get(fieldName) as FormControl;
+  }
+
+  nuevo(event){
+
+  }
+  
+  crear(event){
+
+  }
+
+  actualizar(event){
+
   }
 }
