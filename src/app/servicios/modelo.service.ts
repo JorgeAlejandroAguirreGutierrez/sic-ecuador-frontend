@@ -5,17 +5,17 @@ import {HttpClient} from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { OperadorTarjeta } from '../modelos/operador-tarjeta';
+import { Modelo } from '../modelos/modelo';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OperadorTarjetaService {
+export class ModeloService {
 
   constructor(private http: HttpClient) { }
 
-  crear(operador_tarjeta: OperadorTarjeta): Observable<Respuesta> {
-    return this.http.post(environment.host + util.ruta + util.operador_tarjeta, JSON.stringify(operador_tarjeta), util.options).pipe(
+  crear(modelo: Modelo): Observable<Respuesta> {
+    return this.http.post(environment.host + util.ruta + util.modelo, JSON.stringify(modelo), util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
@@ -23,8 +23,8 @@ export class OperadorTarjetaService {
     );
   }
 
-  obtener(operador_tarjeta_id: number): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.banco + '/' + operador_tarjeta_id, util.options).pipe(
+  obtener(modelo_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.amortizacion + '/' + modelo_id, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
@@ -33,23 +33,15 @@ export class OperadorTarjetaService {
   }
 
   consultar(): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.operador_tarjeta, util.options).pipe(
+    return this.http.get(environment.host + util.ruta + util.modelo, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));
   }
 
-  consultarTipo(tipo: string): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.operador_tarjeta+util.tipo+"/"+tipo, util.options).pipe(
-      map(response => response as Respuesta),
-      catchError(err => {
-        return throwError(err);
-      }));
-  }
-
-  actualizar(operador_tarjeta: OperadorTarjeta): Observable<Respuesta> {
-    return this.http.put(environment.host+util.ruta+util.banco, JSON.stringify(operador_tarjeta), util.options).pipe(
+  actualizar(modelo: Modelo): Observable<Respuesta> {
+    return this.http.put(environment.host+util.ruta+util.modelo, JSON.stringify(modelo), util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
@@ -57,8 +49,19 @@ export class OperadorTarjetaService {
     );
   }
 
-  eliminar(operador_tarjeta: OperadorTarjeta): Observable<Respuesta> {
-    return this.http.delete(environment.host + util.ruta+util.banco + '/' + operador_tarjeta.id, util.options).pipe(
+  eliminar(modelo: Modelo): Observable<Respuesta> {
+    return this.http.delete(environment.host+util.ruta+util.modelo + '/' + modelo.id, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
+
+  importar(archivo: File, modelo: Modelo): Observable<Respuesta> {
+    const formData: FormData = new FormData();
+    formData.append('archivo', archivo, archivo.name);
+    return this.http.post(environment.host + util.ruta + '/'+modelo.endpoint + util.importar, formData, util.options_cargar_archivo).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

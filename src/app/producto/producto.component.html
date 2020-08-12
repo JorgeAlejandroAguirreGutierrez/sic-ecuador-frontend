@@ -7,7 +7,6 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#" role="button" (click)="crear($event)">
-                <!-- *ngIf="cliente.id==0; else block_actualizar"> -->
                 <fa-icon [icon]="['fas', 'save']"></fa-icon>
             </a>
             <ng-template #block_actualizar>
@@ -44,38 +43,24 @@
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Grupo</mat-label>
-                                                <mat-select type="text"
-                                                    (selectionChange)="seleccionar_auxiliar_provincia($event.value)"
-                                                    class="form-control-sm">
-                                                    <mat-option *ngFor="let provincia of auxiliar_provincias"
-                                                        [value]="provincia.provincia">
-                                                        {{provincia.provincia}}
-                                                    </mat-option>
+                                                <mat-select type="text" class="form-control-sm">
+                                                    <mat-option>grupo</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Subgrupo</mat-label>
-                                                <mat-select type="text"
-                                                    (selectionChange)="seleccionar_auxiliar_canton($event.value)"
-                                                    class="form-control-sm">
-                                                    <mat-option *ngFor="let canton of auxiliar_cantones"
-                                                        [value]="canton.canton">
-                                                        {{canton.canton}}
-                                                    </mat-option>
+                                                <mat-select type="text" class="form-control-sm">
+                                                    <mat-option>subgrupo</mat-option> 
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Categoría</mat-label>
-                                                <mat-select type="text" class="form-control-sm"
-                                                    (selectionChange)="seleccionar_auxiliar_parroquia($event.value)">
-                                                    <mat-option *ngFor="let parroquia of auxiliar_parroquias"
-                                                        [value]="parroquia.parroquia">
-                                                        {{parroquia.parroquia}}
-                                                    </mat-option>
+                                                <mat-select type="text" class="form-control-sm">
+                                                    <mat-option></mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -84,38 +69,24 @@
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Línea</mat-label>
-                                                <mat-select type="text"
-                                                    (selectionChange)="seleccionar_auxiliar_provincia($event.value)"
-                                                    class="form-control-sm">
-                                                    <mat-option *ngFor="let provincia of auxiliar_provincias"
-                                                        [value]="provincia.provincia">
-                                                        {{provincia.provincia}}
-                                                    </mat-option>
+                                                <mat-select type="text" class="form-control-sm">
+                                                    <mat-option>Linea</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Sublínea</mat-label>
-                                                <mat-select type="text"
-                                                    (selectionChange)="seleccionar_auxiliar_canton($event.value)"
-                                                    class="form-control-sm">
-                                                    <mat-option *ngFor="let canton of auxiliar_cantones"
-                                                        [value]="canton.canton">
-                                                        {{canton.canton}}
-                                                    </mat-option>
+                                                <mat-select type="text" class="form-control-sm">
+                                                    <mat-option>sublinea</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Presentación</mat-label>
-                                                <mat-select type="text" class="form-control-sm"
-                                                    (selectionChange)="seleccionar_auxiliar_parroquia($event.value)">
-                                                    <mat-option *ngFor="let parroquia of auxiliar_parroquias"
-                                                        [value]="parroquia.parroquia">
-                                                        {{parroquia.parroquia}}
-                                                    </mat-option>
+                                                <mat-select type="text" class="form-control-sm">
+                                                    <mat-option>presentacion</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -123,10 +94,8 @@
                                     <div class="form-group col-12">
                                         <mat-form-field appearance="standard" class="grande">
                                             <mat-label>Producto</mat-label>
-                                            <input matInput type="text" (change)="cambiar_razon_social_auxiliar()"
-                                                oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                            <button mat-button matSuffix mat-icon-button
-                                                (click)="auxiliar.razon_social=''">
+                                            <input matInput type="text" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                                            <button mat-button matSuffix mat-icon-button>
                                                 <mat-icon>close</mat-icon>
                                             </button>
                                         </mat-form-field>
@@ -138,10 +107,7 @@
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Estado</mat-label>
                                                 <mat-select class="form-control-sm">
-                                                    <mat-option *ngFor="let grupo_cliente of grupos_clientes"
-                                                        [value]="grupo_cliente.id">
-                                                        {{grupo_cliente.descripcion}}
-                                                    </mat-option>
+                                                    <mat-option>estado</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -155,10 +121,7 @@
                                             <mat-form-field appearance="standard">
                                                 <mat-label>IVA</mat-label>
                                                 <mat-select class="form-control-sm">
-                                                    <mat-option *ngFor="let grupo_cliente of grupos_clientes"
-                                                        [value]="grupo_cliente.id">
-                                                        {{grupo_cliente.descripcion}}
-                                                    </mat-option>
+                                                    <mat-option>IVA</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -166,10 +129,7 @@
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Tipo de Gasto</mat-label>
                                                 <mat-select class="form-control-sm">
-                                                    <mat-option *ngFor="let grupo_cliente of grupos_clientes"
-                                                        [value]="grupo_cliente.id">
-                                                        {{grupo_cliente.descripcion}}
-                                                    </mat-option>
+                                                    <mat-option>Tipo de Gasto</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -177,21 +137,16 @@
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Unidad Kardex</mat-label>
                                                 <mat-select class="form-control-sm">
-                                                    <mat-option *ngFor="let grupo_cliente of grupos_clientes"
-                                                        [value]="grupo_cliente.id">
-                                                        {{grupo_cliente.descripcion}}
-                                                    </mat-option>
+                                                    <mat-option>unidad</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Consignación</mat-label>
-                                                <mat-select class="form-control-sm"
-                                                    (selectionChange)="cambiar_productos($event.value)"
-                                                    [(value)]="tipo_producto">
-                                                    <mat-option value="S">SI</mat-option>
-                                                    <mat-option value="N">NO</mat-option>
+                                                <mat-select type="text" class="form-control-sm">
+                                                    <mat-option>SI</mat-option>
+                                                    <mat-option>NO</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -204,7 +159,6 @@
             </div>
         </div>
     </div>
-
     <mat-accordion class="headers-align">
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
             <mat-expansion-panel-header>
@@ -223,22 +177,19 @@
                     <mat-form-field appearance="standard">
                         <mat-label>Medida</mat-label>
                         <mat-select class="form-control-sm">
-                            <mat-option *ngFor="let grupo_cliente of grupos_clientes" [value]="grupo_cliente.id">
-                                {{grupo_cliente.descripcion}}
-                            </mat-option>
+                            <mat-option>Medida</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="form-group col-2">
                     <mat-form-field appearance="standard">
                         <mat-label>Costo Inicial</mat-label>
-                        <input matInput type="text" oninput="this.value = this.value.toUpperCase()"
-                            class="form-control-sm" (change)="validar_identificacion()">
+                        <input matInput type="text" class="form-control-sm">
                     </mat-form-field>
                 </div>
                 <div class="form-group col-1">
                     <br>
-                    <button class="btn btn-primary btn-circle" (click)="agregar_factura_detalle()">
+                    <button class="btn btn-primary btn-circle">
                         <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
                     </button>
                 </div>

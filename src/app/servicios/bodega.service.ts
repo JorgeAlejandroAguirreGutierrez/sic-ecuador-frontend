@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resultado } from '../resultado';
+import { Respuesta } from '../respuesta';
 import * as util from '../util';
 import {HttpClient} from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
@@ -14,44 +14,44 @@ export class BodegaService {
 
   constructor(private http: HttpClient) { }
 
-  crear(bodega: Bodega): Observable<Resultado> {
+  crear(bodega: Bodega): Observable<Respuesta> {
     return this.http.post(environment.host + util.ruta + util.bodega, JSON.stringify(bodega), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  obtener(bodega_id: number): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.bodega + '/' + bodega_id, util.options).pipe(
-      map(response => response as Resultado),
+  obtener(bodega_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.bodega + '/' + bodega_id, util.options).pipe(
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  consultar(): Observable<Resultado> {
+  consultar(): Observable<Respuesta> {
     return this.http.get(environment.host + util.ruta + util.bodega, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));
   }
 
-  actualizar(bodega: Bodega): Observable<Resultado> {
+  actualizar(bodega: Bodega): Observable<Respuesta> {
     return this.http.put(environment.host+util.ruta+util.bodega, JSON.stringify(bodega), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  eliminar(bodega: Bodega): Observable<Resultado> {
+  eliminar(bodega: Bodega): Observable<Respuesta> {
     return this.http.delete(environment.host+util.ruta+util.bodega + '/' + bodega.id, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })

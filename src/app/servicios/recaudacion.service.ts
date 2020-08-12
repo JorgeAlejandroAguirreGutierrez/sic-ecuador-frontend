@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resultado } from '../resultado';
+import { Respuesta } from '../respuesta';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { of, Observable, throwError } from 'rxjs';
@@ -15,44 +15,44 @@ export class RecaudacionService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  crear(recaudacion: Recaudacion): Observable<Resultado> {
+  crear(recaudacion: Recaudacion): Observable<Respuesta> {
     return this.http.post(environment.host + util.ruta + util.recaudacion, JSON.stringify(recaudacion), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  consultar(usuario_id: number): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.recaudacion + '/' + usuario_id, util.options).pipe(
-      map(response => response as Resultado),
+  consultar(usuario_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.recaudacion + '/' + usuario_id, util.options).pipe(
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  obtener(): Observable<Resultado> {
+  obtener(): Observable<Respuesta> {
     return this.http.get(environment.host + util.ruta + util.recaudacion, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));
   }
 
-  actualizar(recaudacion: Recaudacion): Observable<Resultado> {
+  actualizar(recaudacion: Recaudacion): Observable<Respuesta> {
     return this.http.put(environment.host+util.ruta+util.recaudacion, JSON.stringify(recaudacion), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  eliminar(recaudacion: Recaudacion): Observable<Resultado> {
+  eliminar(recaudacion: Recaudacion): Observable<Respuesta> {
     return this.http.delete(environment.host+util.ruta+util.recaudacion + '/' + recaudacion.id, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })

@@ -13,6 +13,11 @@ import { ProductoComponent } from "../producto/producto.component";
 import { PromocionComponent } from "../promocion/promocion.component";
 import { ProveedorComponent } from '../proveedor/proveedor.component';
 import { FacturaCompraComponent } from '../factura-compra/factura-compra.component';
+import { GrupoClienteComponent } from '../grupo-cliente/grupo-cliente.component';
+import { UbicacionComponent } from '../ubicacion/ubicacion.component';
+import { TransportistaComponent } from '../transportista/transportista.component';
+import { UbicacionMostrarComponent } from '../ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
+import { AdministracionComponent } from '../administracion/administracion.component';
 
 @Component({
   selector: 'app-main',
@@ -97,6 +102,10 @@ export class MainComponent implements OnInit{
       // El componente, nombre del tab y la opción en el slidebar
       this.llenarOpciones(ClienteComponent,'Nuevo cliente','Crear cliente');
       this.llenarOpciones(ClienteMostrarComponent,'Buscar cliente','Buscar cliente');
+      this.llenarOpciones(UbicacionComponent,'Crear Ubicacion Cliente','Crear Ubicacion Cliente');
+      this.llenarOpciones(UbicacionMostrarComponent,'Buscar Ubicacion Cliente','Buscar Ubicacion Cliente');
+      this.llenarOpciones(GrupoClienteComponent,'Crear Grupo Cliente','Crear Grupo Cliente');
+      this.llenarOpciones(TransportistaComponent,'Crear Transportista','Crear Transportista');
       this.llenarOpciones(MapsComponent,'Ubicacion Cliente','Ubicacion cliente');
     }
 
@@ -168,8 +177,7 @@ export class MainComponent implements OnInit{
     }
 
     if (tabNombre == "CONFIGURACION") {
-      this.llenarOpciones(FacturaComponent,'Crear Factura','Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent,'Buscar Factura','Buscar Factura');
+      this.llenarOpciones(AdministracionComponent,'Importar/Exportar','Importar/Exportar');
     }
   }  
 }

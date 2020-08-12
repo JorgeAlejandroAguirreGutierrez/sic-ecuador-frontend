@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resultado } from '../resultado';
+import { Respuesta } from '../respuesta';
 import * as util from '../util';
 import {HttpClient} from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
@@ -14,44 +14,44 @@ export class AmortizacionService {
 
   constructor(private http: HttpClient) { }
 
-  crear(amortizacion: Amortizacion): Observable<Resultado> {
+  crear(amortizacion: Amortizacion): Observable<Respuesta> {
     return this.http.post(environment.host + util.ruta + util.amortizacion, JSON.stringify(amortizacion), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  obtener(amortizacion_id: number): Observable<Resultado> {
-    return this.http.get<Resultado>(environment.host + util.ruta + util.amortizacion + '/' + amortizacion_id, util.options).pipe(
-      map(response => response as Resultado),
+  obtener(amortizacion_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.amortizacion + '/' + amortizacion_id, util.options).pipe(
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  consultar(): Observable<Resultado> {
+  consultar(): Observable<Respuesta> {
     return this.http.get(environment.host + util.ruta + util.amortizacion, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));
   }
 
-  actualizar(amortizacion: Amortizacion): Observable<Resultado> {
+  actualizar(amortizacion: Amortizacion): Observable<Respuesta> {
     return this.http.put(environment.host+util.ruta+util.amortizacion, JSON.stringify(amortizacion), util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
   }
 
-  eliminar(amortizacion: Amortizacion): Observable<Resultado> {
+  eliminar(amortizacion: Amortizacion): Observable<Respuesta> {
     return this.http.delete(environment.host+util.ruta+util.amortizacion + '/' + amortizacion.id, util.options).pipe(
-      map(response => response as Resultado),
+      map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })

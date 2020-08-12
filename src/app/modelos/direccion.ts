@@ -8,7 +8,8 @@ export class Direccion {
     ubicacion: Ubicacion;
 
     constructor() {
-        this.id=null;
+        this.id=0;
+        this.direccion="";
         this.ubicacion=new Ubicacion();
     }
 }
