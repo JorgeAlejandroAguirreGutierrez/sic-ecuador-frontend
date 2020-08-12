@@ -155,6 +155,11 @@ import { ViewModeDirective } from './tabla-editable/editable/view-mode.directive
 import { EditModeDirective } from './tabla-editable/editable/edit-mode.directive';
 import { FocusableDirective } from './tabla-editable/focusable.directive';
 import { EditableOnEnterDirective } from './tabla-editable/editable/edit-on-enter.directive';
+import { PromocionComponent } from './promocion/promocion.component';
+import { ProveedorComponent } from './proveedor/proveedor.component';
+import { FacturaCompraComponent } from './factura-compra/factura-compra.component';
+
+import { TableDataSource, ValidatorService } from 'angular4-material-table';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -183,7 +188,10 @@ const routes: Routes = [
   {path: 'entrega', component: EntregaComponent},
   {path: 'main', component: MainComponent},
   {path: 'producto', component: ProductoComponent},
-  {path: 'tabla', component: TablaEditableComponent},
+  {path: 'promocion', component: PromocionComponent},
+  {path: 'proveedor', component: ProveedorComponent},
+  {path: 'factura-compra', component: FacturaCompraComponent},
+  {path: 'tabla', component: TablaEditableComponent}, //retierar luego de las pruebas
   {path: 'tienda', component: TiendaComponent},
   {path: 'tienda/detalle-producto/:id', component: DetalleProductoComponent},
   {path: 'zoom', component: ZoomComponent},
@@ -284,7 +292,10 @@ const routes: Routes = [
     ViewModeDirective,
     EditModeDirective,
     FocusableDirective, 
-    EditableOnEnterDirective
+    EditableOnEnterDirective, 
+    PromocionComponent, 
+    ProveedorComponent, 
+    FacturaCompraComponent
   ],
   imports: [
     BrowserModule,
@@ -292,7 +303,7 @@ const routes: Routes = [
     CommonModule,
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
-    ToastrModule.forRoot(),    
+    ToastrModule.forRoot(),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

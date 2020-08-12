@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
 
 	<!--- Note que estas columnas pueden ser definidas en cualquier orden.
         Las columnas reales representadas se establecen como una propiedad en la definición de fila" -->
@@ -87,6 +87,53 @@
 		</td>
 	</ng-container>
 
-	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-	<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	<tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+	<tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
 </table>
+
+
+<mat-table class="mat-elevation-z8" #table [dataSource]="dataSource">
+	<ng-container matColumnDef="position">
+		<mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
+		<mat-cell *matCellDef="let row">
+		  <mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
+			<input matInput [formControl]="row.validator.controls['position']" type="number" placeholder="Position">
+		  </mat-form-field>
+		</mat-cell>
+	  </ng-container>
+	<ng-container matColumnDef="segmento">
+	  <mat-header-cell *matHeaderCellDef> Segmento </mat-header-cell>
+	  <mat-cell *matCellDef="let row">
+		<mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
+		  <input matInput [formControl]="row.validator.controls['segmento']" [readonly]="!row.editing" placeholder="Segmento">
+		</mat-form-field>
+	  </mat-cell>
+	</ng-container>
+	<ng-container matColumnDef="precio">
+	  <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
+	  <mat-cell *matCellDef="let row">
+		<mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
+		  <input matInput [formControl]="row.validator.controls['precio']" type="number" placeholder="Precio">
+		</mat-form-field>
+	  </mat-cell>
+	</ng-container>
+	<ng-container matColumnDef="actionsColumn">
+	  <mat-header-cell *matHeaderCellDef>
+		<button mat-icon-button color="accent" (click)="dataSource.createNew()"><i class="fa fa-plus mat-icon"></i></button>
+	  </mat-header-cell>
+	  <mat-cell *matCellDef="let row">
+		<button *ngIf="!row.editing" mat-icon-button color="primary" focusable="false" (click)="row.startEdit()">
+			  <i class="fa fa-pencil mat-icon"></i>
+			</button>
+		<button *ngIf="row.editing" mat-icon-button color="primary" focusable="false" (click)="row.confirmEditCreate()">
+			  <i class="fa fa-check mat-icon"></i>
+			</button>
+		<button mat-icon-button color="primary" focusable="false" (click)="row.cancelOrDelete()">
+			  <i class="fa fa-times mat-icon"></i>
+			</button>
+	  </mat-cell>
+	</ng-container>
+  
+	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+	<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>

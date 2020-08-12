@@ -20,7 +20,7 @@ export class CoreService {
   ];
   list$: BehaviorSubject<PeriodicElement[]> = new BehaviorSubject(this.list);
 
-  constructor() {
+  constructor() { 
   }
 
   update(index, field, value) {

@@ -10,6 +10,9 @@ import { MapsComponent } from '../pages/maps/maps.component';
 import { ClienteMostrarComponent } from '../cliente/cliente-mostrar/cliente-mostrar.component';
 import { FacturaMostrarComponent } from '../factura/factura-mostrar/factura-mostrar.component';
 import { ProductoComponent } from "../producto/producto.component";
+import { PromocionComponent } from "../promocion/promocion.component";
+import { ProveedorComponent } from '../proveedor/proveedor.component';
+import { FacturaCompraComponent } from '../factura-compra/factura-compra.component';
 
 @Component({
   selector: 'app-main',
@@ -98,8 +101,9 @@ export class MainComponent implements OnInit{
     }
 
     if (tabNombre == "COMPRAS") {
-      this.llenarOpciones(FacturaComponent,'Nuevo proveedor','Crear Proveedor');
-      this.llenarOpciones(FacturaMostrarComponent,'Buscar Proveedor','Buscar Proveedor');
+      this.llenarOpciones(ProveedorComponent,'Nuevo proveedor','Crear Proveedor');
+      this.llenarOpciones(FacturaMostrarComponent,'Buscar proveedor','Buscar Proveedor');
+      this.llenarOpciones(FacturaCompraComponent,'Registrar compra','Registrar Compra');
     }
 
     if (tabNombre == "VENTAS") {
@@ -109,7 +113,8 @@ export class MainComponent implements OnInit{
 
     if (tabNombre == "INVENTARIOS") {
       this.llenarOpciones(ProductoComponent,'Crear Producto','Crear Producto');
-      this.llenarOpciones(FacturaMostrarComponent,'Buscar Factura','Buscar Factura');
+      this.llenarOpciones(FacturaMostrarComponent,'Buscar Producto','Buscar Producto');
+      this.llenarOpciones(PromocionComponent,'Promociones','Promociones/Combos');
     }
 
     if (tabNombre == "CONTABILIDAD") {
