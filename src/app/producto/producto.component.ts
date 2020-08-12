@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
 
 import { CoreService } from '../tabla-editable/services/core.service';
+import { GrupoProducto } from '../modelos/grupo-producto';
 
 @Component({
   selector: 'app-producto',
@@ -15,27 +16,12 @@ export class ProductoComponent implements OnInit {
   displayedColumnsVenta: string[] = ['position', 'pvpf', 'rendimiento', 'utilidad'];
   dataSource = this.core.list$;
   controls: FormArray;
-  auxiliar_
+  grupo_producto: GrupoProducto[]=[];
 
   constructor(private core: CoreService) { }
 
   ngOnInit() {
-    const toGroups = this.core.list$.value.map(entity => {
-      return new FormGroup({
-        position:  new FormControl(entity.position, Validators.required),
-        medida: new FormControl(entity.medida, Validators.required), 
-        segmento: new FormControl(entity.segmento, Validators.required), 
-        costo: new FormControl(entity.costo, Validators.required),
-        ganancia: new FormControl(entity.ganancia, Validators.required), 
-        precio: new FormControl(entity.precio, Validators.required),
-        pvp: new FormControl(entity.pvp, Validators.required),
-        pvpf: new FormControl(entity.pvpf, Validators.required),
-        rendimiento: new FormControl(entity.rendimiento, Validators.required), 
-        utilidad: new FormControl(entity.utilidad, Validators.required)
-      },{updateOn: "blur"});
-    });
-
-    this.controls = new FormArray(toGroups);
+    
   }
 
   updateField(index, field) {
