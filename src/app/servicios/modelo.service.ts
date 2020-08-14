@@ -68,4 +68,13 @@ export class ModeloService {
       })
     );
   }
+
+  exportar(modelo: Modelo): Observable<Respuesta> {
+    return this.http.get(environment.host + util.ruta + '/'+modelo.endpoint + util.importar, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
 }

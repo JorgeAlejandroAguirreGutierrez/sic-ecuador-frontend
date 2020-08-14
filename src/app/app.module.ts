@@ -156,8 +156,9 @@ import { EditModeDirective } from './tabla-editable/editable/edit-mode.directive
 import { FocusableDirective } from './tabla-editable/focusable.directive';
 import { EditableOnEnterDirective } from './tabla-editable/editable/edit-on-enter.directive';
 import { UbicacionMostrarComponent } from './ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
-import { AdministracionComponent } from './administracion/administracion.component';
+import { ImportarComponent } from './importar/importar.component';
 import { ModeloService } from './servicios/modelo.service';
+import { ExportarComponent } from './exportar/exportar.component';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -282,14 +283,15 @@ const routes: Routes = [
     ImageZoomComponent,
     SliderLightboxComponent,
     SliderCustomImageComponent,
-    AdministracionComponent,
+    ImportarComponent,
     ProductoComponent,
     TablaEditableComponent,
     EditableComponent,
     ViewModeDirective,
     EditModeDirective,
     FocusableDirective, 
-    EditableOnEnterDirective
+    EditableOnEnterDirective, 
+    ExportarComponent
   ],
   imports: [
     BrowserModule,
@@ -343,7 +345,7 @@ const routes: Routes = [
                 useClass: PathLocationStrategy
               }],
   bootstrap: [AppComponent],
-  entryComponents: [ClienteComponent, FacturaComponent, AdministracionComponent]  
+  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent]  
 })
 export class AppModule {
   constructor() {

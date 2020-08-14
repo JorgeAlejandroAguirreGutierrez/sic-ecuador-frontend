@@ -14,7 +14,8 @@ import { GrupoClienteComponent } from '../grupo-cliente/grupo-cliente.component'
 import { UbicacionComponent } from '../ubicacion/ubicacion.component';
 import { TransportistaComponent } from '../transportista/transportista.component';
 import { UbicacionMostrarComponent } from '../ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
-import { AdministracionComponent } from '../administracion/administracion.component';
+import { ImportarComponent } from '../importar/importar.component';
+import { ExportarComponent } from '../exportar/exportar.component';
 
 @Component({
   selector: 'app-main',
@@ -172,7 +173,9 @@ export class MainComponent implements OnInit{
     }
 
     if (tabNombre == "CONFIGURACION") {
-      this.llenarOpciones(AdministracionComponent,'Importar/Exportar','Importar/Exportar');
+      this.llenarOpciones(ImportarComponent,'Importar', 'Importar');
+      this.llenarOpciones(ExportarComponent,'Exportar', 'Exportar');
+      
     }
   }  
 }

@@ -1,42 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { ModeloService } from '../servicios/modelo.service';
 import { Modelo } from '../modelos/modelo';
+import { ModeloService } from '../servicios/modelo.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-administracion',
-  templateUrl: './administracion.component.html',
-  styleUrls: ['./administracion.component.css']
+  selector: 'app-exportar',
+  templateUrl: './exportar.component.html',
+  styleUrls: ['./exportar.component.scss']
 })
-export class AdministracionComponent implements OnInit {
+export class ExportarComponent implements OnInit {
 
-  constructor(private modeloService: ModeloService) { }
-
-  modelos_importar: Modelo[]=[];
-  modelos_exportar: Modelo[]=[];
+  modelos: Modelo[]=[];
   modelo: Modelo= new Modelo();
-  archivo: File= null;
+  constructor(private modeloService: ModeloService) { }
 
   ngOnInit() {
     this.consulta_modelos();
   }
-
   consulta_modelos(){
     this.modeloService.consultar().subscribe(
       res => {
         if (res.resultado!=null) {
-          this.modelos_importar = res.resultado as Modelo[]
-          this.modelos_exportar = res.resultado as Modelo[]
+          this.modelos = res.resultado as Modelo[]
         }
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
   }
-  cargar_archivo(archivos: FileList){
-    this.archivo = archivos.item(0);
-  }
-  importar(){
-    this.modeloService.importar(this.archivo, this.modelo).subscribe(
+  exportar(){
+    this.modeloService.exportar(this.modelo).subscribe(
       res => {
         if (res.resultado!=null && res.resultado) {
             Swal.fire('Exito', res.mensaje, 'success');
@@ -46,9 +38,6 @@ export class AdministracionComponent implements OnInit {
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
-  }
-  exportar(){
-    
   }
 
 }

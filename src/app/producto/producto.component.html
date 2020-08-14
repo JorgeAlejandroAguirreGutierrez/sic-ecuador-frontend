@@ -43,24 +43,24 @@
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Grupo</mat-label>
-                                                <mat-select type="text" class="form-control-sm">
-                                                    <mat-option>grupo</mat-option>
+                                                <mat-select type="text" [(ngModel)]="grupo_producto" (selectionChange)="validar_grupo_producto()" class="form-control-sm">
+                                                    <mat-option *ngFor="let grupo_producto of grupos_productos" [value]="grupo_producto">{{grupo_producto.nombre}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Subgrupo</mat-label>
-                                                <mat-select type="text" class="form-control-sm">
-                                                    <mat-option>subgrupo</mat-option> 
+                                                <mat-select type="text" [(ngModel)]="sub_grupo_producto" (selectionChange)="validar_sub_grupo_producto()" class="form-control-sm">
+                                                    <mat-option *ngFor="let sub_grupo_producto of sub_grupos_productos" [value]="sub_grupo_producto">{{sub_grupo_producto.nombre}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Categoría</mat-label>
-                                                <mat-select type="text" class="form-control-sm">
-                                                    <mat-option></mat-option>
+                                                <mat-select type="text" [(ngModel)]="categoria_producto" (selectionChange)="validar_categoria_producto()" class="form-control-sm">
+                                                    <mat-option *ngFor="let categoria_producto of categorias_productos" [value]="categoria_producto">{{categoria_producto.nombre}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -69,24 +69,24 @@
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Línea</mat-label>
-                                                <mat-select type="text" class="form-control-sm">
-                                                    <mat-option>Linea</mat-option>
+                                                <mat-select type="text" [(ngModel)]="linea_producto" (selectionChange)="validar_linea_producto()" class="form-control-sm">
+                                                    <mat-option *ngFor="let linea_producto of lineas_productos" [value]="linea_producto">{{linea_producto.nombre}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Sublínea</mat-label>
-                                                <mat-select type="text" class="form-control-sm">
-                                                    <mat-option>sublinea</mat-option>
+                                                <mat-select type="text" [(ngModel)]="sub_linea_producto" (selectionChange)="validar_sub_linea_producto()" class="form-control-sm">
+                                                    <mat-option *ngFor="let sub_linea_producto of sub_lineas_productos" [value]="sub_linea_producto">{{sub_linea_producto.nombre}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Presentación</mat-label>
-                                                <mat-select type="text" class="form-control-sm">
-                                                    <mat-option>presentacion</mat-option>
+                                                <mat-select type="text" [(ngModel)]="presentacion_producto" class="form-control-sm">
+                                                    <mat-option *ngFor="let presentacion_producto of presentaciones_productos" [value]="presentacion_producto">{{presentacion_producto.nombre}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>

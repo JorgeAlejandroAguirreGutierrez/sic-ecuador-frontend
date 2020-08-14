@@ -5,11 +5,6 @@
                 <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
-                <fa-icon [icon]="['fas', 'file-export']"></fa-icon>
-            </a>
-        </li>
     </ul>
 </nav>
 <div class="contenedor">
@@ -26,7 +21,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Modelo</mat-label>
                                     <mat-select [(ngModel)]="modelo" class="form-control-sm">
-                                        <mat-option *ngFor="let modelo of modelos_importar" [value]="modelo">
+                                        <mat-option *ngFor="let modelo of modelos" [value]="modelo">
                                             {{modelo.nombre}}
                                         </mat-option>
                                     </mat-select>
@@ -41,24 +36,6 @@
                                 <br>
                                 <button class="btn btn-primary btn-circle" (click)="importar()">
                                     <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Modelo</mat-label>
-                                    <mat-select type="text" [(ngModel)]="modelo" class="form-control-sm">
-                                        <mat-option *ngFor="let modelo of modelos_exportar" [value]="modelo">
-                                            {{modelo.nombre}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="form-group col-2">
-                                <br>
-                                <button class="btn btn-primary btn-circle" (click)="exportar()">
-                                    <fa-icon [icon]="['fas', 'file-export']"></fa-icon>
                                 </button>
                             </div>
                         </div>
