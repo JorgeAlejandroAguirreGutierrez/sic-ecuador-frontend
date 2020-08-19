@@ -4,7 +4,7 @@ import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { TabService } from "../../../interfaces/services/tab.service";
+import { TabService } from "../../../componentes/services/tab.service";
 import { UbicacionComponent } from '../ubicacion.component';
 import { Ubicacion } from '../../../modelos/ubicacion';
 import { UbicacionService } from '../../../servicios/ubicacion.service';

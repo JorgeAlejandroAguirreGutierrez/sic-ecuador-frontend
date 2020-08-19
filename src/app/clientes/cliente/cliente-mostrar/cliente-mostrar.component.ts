@@ -5,7 +5,7 @@ import { Cliente } from '../../../modelos/cliente';
 import { Sesion } from '../../../modelos/sesion';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { TabService } from "../../../interfaces/services/tab.service";
+import { TabService } from "../../../componentes/services/tab.service";
 import { ClienteComponent } from '../cliente.component';
 
 @Component({

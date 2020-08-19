@@ -19,38 +19,38 @@ import { MatButtonModule, MatSelectModule, MatAutocompleteModule, MatNativeDateM
 import { MatTabsModule, MatInputModule, MatCheckboxModule, MatExpansionModule, MatIconModule, MatSortModule } from '@angular/material';
 import { MatFormFieldModule, MatCardModule, MatDividerModule, MatStepperModule, MatDatepickerModule, MatDialogModule } from '@angular/material';
 import { MatToolbarModule, MatSidenavModule, MatMenuModule, MatListModule, MatGridListModule, MatBadgeModule } from '@angular/material';
-import { DemoMaterialModule } from './interfaces/demo-material-module';
+import { DemoMaterialModule } from './componentes/demo-material-module';
 
-// Diseño de la pagina, Menus e interfaces
+// Diseño de la pagina, Menus y componentes
 import { AppComponent } from './app.component';
 
-import { DashboardComponent } from './interfaces/pages/dashboard/dashboard.component';
-import { TablesComponent } from './interfaces/pages/tables/tables.component';
-import { FormsComponent } from './interfaces/pages/forms/forms.component';
-import { TypographyComponent } from './interfaces/pages/typography/typography.component';
-import { MapsComponent } from './interfaces/pages/maps/maps.component';
-import { NotificationsComponent } from './interfaces/pages/notifications/notifications.component';
+import { DashboardComponent } from './componentes/pages/dashboard/dashboard.component';
+import { TablesComponent } from './componentes/pages/tables/tables.component';
+import { FormsComponent } from './componentes/pages/forms/forms.component';
+import { TypographyComponent } from './componentes/pages/typography/typography.component';
+import { MapsComponent } from './componentes/pages/maps/maps.component';
+import { NotificationsComponent } from './componentes/pages/notifications/notifications.component';
 
-import { HeaderComponent } from './interfaces/header/header.component';
-import { HtmlFooterComponent } from './interfaces/footer/footer.component';
-import { FooterComponent } from './interfaces/components/footer/footer.component';
-import { NavbarComponent } from './interfaces/components/navbar/navbar.component';
-import { SidebarComponent } from './interfaces/components/sidebar/sidebar.component';
+import { HeaderComponent } from './componentes/header/header.component';
+import { HtmlFooterComponent } from './componentes/footer/footer.component';
+import { FooterComponent } from './componentes/components/footer/footer.component';
+import { NavbarComponent } from './componentes/components/navbar/navbar.component';
+import { SidebarComponent } from './componentes/components/sidebar/sidebar.component';
 
 // Componentes de las pestañas
-import { MainComponent } from './interfaces/main/main.component';
-import { TabContentComponent } from "./interfaces/tab-content.component";
-import { ContentContainerDirective } from "./interfaces/content-container.directive";
-import { TabService } from "./interfaces/services/tab.service";
-import { MenuComponent } from './interfaces/menu/menu.component';
+import { MainComponent } from './componentes/main/main.component';
+import { TabContentComponent } from "./componentes/tab-content.component";
+import { ContentContainerDirective } from "./componentes/content-container.directive";
+import { TabService } from "./componentes/services/tab.service";
+import { MenuComponent } from './componentes/menu/menu.component';
 
 // Diseño de tabla editable
-import { TablaEditableComponent } from './interfaces/tabla-editable/tabla-editable.component';
-import { EditableComponent } from './interfaces/tabla-editable/editable/editable.component';
-import { ViewModeDirective } from './interfaces/tabla-editable/editable/view-mode.directive';
-import { EditModeDirective } from './interfaces/tabla-editable/editable/edit-mode.directive';
-import { FocusableDirective } from './interfaces/tabla-editable/focusable.directive';
-import { EditableOnEnterDirective } from './interfaces/tabla-editable/editable/edit-on-enter.directive';
+import { TablaEditableComponent } from './componentes/tabla-editable/tabla-editable.component';
+import { EditableComponent } from './componentes/tabla-editable/editable/editable.component';
+import { ViewModeDirective } from './componentes/tabla-editable/editable/view-mode.directive';
+import { EditModeDirective } from './componentes/tabla-editable/editable/edit-mode.directive';
+import { FocusableDirective } from './componentes/tabla-editable/focusable.directive';
+import { EditableOnEnterDirective } from './componentes/tabla-editable/editable/edit-on-enter.directive';
 
 //Módulo de Configuraciones
 import { AdministracionComponent } from './configuraciones/administracion/administracion.component';

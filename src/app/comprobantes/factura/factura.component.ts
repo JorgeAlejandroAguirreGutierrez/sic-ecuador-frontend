@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatStepper } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatStepper } from '@angular/material';
 import {Observable} from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -29,11 +29,12 @@ import { CaracteristicaService } from '../../servicios/caracteristica.service';
 @Component({
   selector: 'app-factura',
   templateUrl: './factura.component.html',
-  styleUrls: ['./factura.component.css']
+  styleUrls: ['./factura.component.scss']
 })
 export class FacturaComponent implements OnInit {
 
   @ViewChild('stepper',{static: false}) stepper: MatStepper;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   collapsed = true;
   isLinear = false;
@@ -73,6 +74,19 @@ export class FacturaComponent implements OnInit {
   factura_crear: Factura=new Factura();
   factura: Factura = new Factura();
   auxiliar_buscar: Auxiliar=new Auxiliar();
+
+  Datos_prueba: any[] = [
+    {nombre: 1, entregado:'si', descripcion: 'Hydrogen', cantidad:'2', valor: 1.0079, descuento: '11'},
+    {nombre: 2, entregado:'si', descripcion: 'Helium',   cantidad:'2', valor: 4.0026, descuento: '1'},
+    {nombre: 3, entregado:'si', descripcion: 'Lithium',  cantidad:'2', valor: 6.9417, descuento: '12'},
+    {nombre: 4, entregado:'si', descripcion: 'Beryllium',cantidad:'2', valor: 9.0122, descuento: '13'},
+    {nombre: 5, entregado:'si', descripcion: 'Boron',    cantidad:'2', valor: 10.811, descuento: '14'},
+    {nombre: 6, entregado:'si', descripcion: 'Carbon',   cantidad:'2', valor: 12.017, descuento: '1'},
+  ];
+  columnasDetalleFactura: string[] = ['nombre', 'entregado', 'descripcion', 'cantidad', 'valor', 'descuento'
+    , 'desc_por', 'desc_sub', 'desc_por_sub', 'desc_tot', 'desc_por_tot', 'impuesto', 'total', 'serie','acciones'];
+  data_detalle_factura = new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
+  data_detalle_factura_prueba = new MatTableDataSource<any>(this.Datos_prueba);
 
   clientes: Cliente[]=[];
   auxiliares: Auxiliar[]= [];
@@ -125,6 +139,8 @@ export class FacturaComponent implements OnInit {
     this.consultar_medidas();
     this.consultar_impuestos();
     this.consultar_bodegas();
+
+    this.data_detalle_factura_prueba.paginator = this.paginator;
 
     this.firstFormGroup = new FormGroup({
       firstCtrl: new FormControl()

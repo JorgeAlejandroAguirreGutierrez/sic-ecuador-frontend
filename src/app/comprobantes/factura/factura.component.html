@@ -1,14 +1,14 @@
 <div class="contenedor">
-    <mat-horizontal-stepper  [linear]="isLinear" #stepper>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
         <!-- Paso Facturación -->
         <mat-step [stepControl]="firstFormGroup" [editable]="isEditable" [completed]="false">
             <nav class="navbar-light nav-fijo">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <ng-container *ngIf="factura.id==0">
-                        <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
-                            <fa-icon [icon]="['fas', 'file']"></fa-icon>
-                        </a>
+                            <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
+                                <fa-icon [icon]="['fas', 'file']"></fa-icon>
+                            </a>
                         </ng-container>
                     </li>
                     <li class="nav-item">
@@ -148,8 +148,9 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="form-group col-2">
-                                    <mat-checkbox [disabled]="habilitar_seleccion_auxiliar" (change)="asignar_auxiliar(modal_auxiliares)"
-                                        [(ngModel)]="seleccion_auxiliar" class="form-control-sm" color="primary"> Fact. a Dependiente</mat-checkbox>
+                                    <mat-checkbox [disabled]="habilitar_seleccion_auxiliar"
+                                        (change)="asignar_auxiliar(modal_auxiliares)" [(ngModel)]="seleccion_auxiliar"
+                                        class="form-control-sm" color="primary"> Fact. a Dependiente</mat-checkbox>
                                 </div>
                             </div>
                             <div class="row">
@@ -431,8 +432,7 @@
                                 <mat-form-field appearance="standard">
                                     <mat-label>Bodega</mat-label>
                                     <mat-select class="form-control-sm" [(ngModel)]="detalle.producto.bodega">
-                                        <mat-option
-                                            *ngFor="let bodega of bodegas; let i=index" [value]="bodega">
+                                        <mat-option *ngFor="let bodega of bodegas; let i=index" [value]="bodega">
                                             {{bodega.codigo}}
                                         </mat-option>
                                     </mat-select>
@@ -444,22 +444,22 @@
                             <div class="form-group col-7">
                                 <mat-form-field appearance="standard" class="grande">
                                     <mat-label>Producto</mat-label>
-                                    <mat-autocomplete #producto="matAutocomplete"
-                                        [displayWith]="ver_producto" (optionSelected)="seleccionar_producto()">
+                                    <mat-autocomplete #producto="matAutocomplete" [displayWith]="ver_producto"
+                                        (optionSelected)="seleccionar_producto()">
                                         <mat-option *ngFor="let producto of filtro_productos | async"
                                             [value]="producto">
                                             {{producto.nombre}}
                                         </mat-option>
                                     </mat-autocomplete>
                                     <input matInput type="text" class="form-control-sm" placeholder="Producto"
-                                        [formControl]="seleccion_producto"
-                                        [matAutocomplete]="producto">
+                                        [formControl]="seleccion_producto" [matAutocomplete]="producto">
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-1">
                                 <mat-form-field appearance="standard">
                                     <mat-label>PR</mat-label>
-                                    <mat-select class="form-control-sm" (selectionChange)="cambiar_productos($event.value)" [(value)]="tipo_producto">
+                                    <mat-select class="form-control-sm"
+                                        (selectionChange)="cambiar_productos($event.value)" [(value)]="tipo_producto">
                                         <mat-option value="B">B</mat-option>
                                         <mat-option value="S">S</mat-option>
                                         <mat-option value="AF">AF</mat-option>
@@ -510,8 +510,10 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>P. Unit.</mat-label>
-                                        <mat-select (selectionChange)="seleccionar_precio()" [(ngModel)]="detalle.precio" class="form-control-sm">
-                                            <mat-option *ngFor="let precio of detalle.producto.precios" [value]="precio">
+                                        <mat-select (selectionChange)="seleccionar_precio()"
+                                            [(ngModel)]="detalle.precio" class="form-control-sm">
+                                            <mat-option *ngFor="let precio of detalle.producto.precios"
+                                                [value]="precio">
                                                 {{precio.valor}}
                                             </mat-option>
                                         </mat-select>
@@ -569,11 +571,10 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <mat-divider></mat-divider>
                         </div>
+                        <mat-divider></mat-divider>
                         <div class="form-row col-12 table-responsive">
-                            <table class="table table-hover table-bordered"
-                                style="font-size: 0.7rem ">
+                            <table class="table table-hover table-bordered" style="font-size: 0.7rem ">
                                 <thead class="table-active ">
                                     <tr>
                                         <th rowspan="2 " class="col-1 ">PRODUCTO</th>
@@ -627,7 +628,106 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <mat-divider></mat-divider>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="form-row">
+                            <div class="mat-elevation-z8 col-12">
+                                <table mat-table [dataSource]="data_detalle_factura_prueba" matSort>
+                                    <!-- Nombre Columna -->
+                                    <ng-container matColumnDef="nombre">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.nombre}} </td>
+                                    </ng-container>
+                                    <!-- Entregado Columna -->
+                                    <ng-container matColumnDef="entregado">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Entreg </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.entregado}} </td>
+                                    </ng-container>
+                                    <!-- Descripcion Columna -->
+                                    <ng-container matColumnDef="descripcion">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.descripcion}} </td>
+                                    </ng-container>
+                                    <!-- Cantidad Columna -->
+                                    <ng-container matColumnDef="cantidad">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cant </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.cantidad}} </td>
+                                    </ng-container>
+                                    <!-- Valor Columna -->
+                                    <ng-container matColumnDef="valor">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.valor | currency}} </td>
+                                    </ng-container>
+                                    <!-- Descuento Columna -->
+                                    <ng-container matColumnDef="descuento">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.descuento}} </td>
+                                    </ng-container>
+                                    <!-- Descuento% Columna -->
+                                    <ng-container matColumnDef="desc_por">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc% </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.desc_por}} </td>
+                                    </ng-container>
+                                    <!-- Descuento SubTotal Columna -->
+                                    <ng-container matColumnDef="desc_sub">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. ST. </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.desc_sub}} </td>
+                                    </ng-container>
+                                    <!-- Descuento SubTotal% Columna -->
+                                    <ng-container matColumnDef="desc_por_sub">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. ST% </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.desc_por_sub}} </td>
+                                    </ng-container>
+                                    <!-- Descuento al Total Columna -->
+                                    <ng-container matColumnDef="desc_tot">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. T </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.desc_tot}} </td>
+                                    </ng-container>
+                                    <!-- Descuento al Total % Columna -->
+                                    <ng-container matColumnDef="desc_por_tot">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. T% </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.desc_por_tot}} </td>
+                                    </ng-container>
+                                    <!-- Impuesto Columna -->
+                                    <ng-container matColumnDef="impuesto">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> IVA </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.impuesto}} </td>
+                                    </ng-container>
+                                    <!-- Descuento Columna -->
+                                    <ng-container matColumnDef="total">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.total | currency}} </td>
+                                    </ng-container>
+                                    <!-- Serie Columna -->
+                                    <ng-container matColumnDef="serie">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Serie </th>
+                                        <td mat-cell *matCellDef="let i=index">
+                                            <button mat-icon-button color="primary" focusable="false"
+                                                (click)="asignar_series(modal_series, i)">
+                                                <i class="fa fa-plus mat-icon"></i>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="acciones">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                                        <td mat-cell *matCellDef="let i=index">
+                                            <button mat-icon-button color="primary" focusable="false"
+                                                (click)="editar_detalle(i)">
+                                                <i class="fa fa-pencil mat-icon"></i>
+                                            </button>
+                                            <button mat-icon-button color="primary" focusable="false"
+                                                (click)="eliminar_detalle(i)">
+                                                <i class="fa fa-times mat-icon"></i>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="columnasDetalleFactura"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: columnasDetalleFactura;"></tr>
+                                </table>
+                                <ng-container>
+                                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                                </ng-container>
+                            </div>
                         </div>
                         <div class="form-row col-12">
                             <div class="form-group col-7">
@@ -738,20 +838,20 @@
             </div>
         </mat-step>
         <!-- Paso Recaudación -->
-        <mat-step [stepControl]="secondFormGroup" [completed]="false" [editable]="isEditable" >
-                <ng-template matStepLabel>Recaudación</ng-template>
-                    <app-recaudacion [factura]="factura_crear" (propagar)="procesaPropagar($event)"></app-recaudacion>
-                    <mat-divider></mat-divider>
-                <div>
-                    <button mat-button matStepperPrevious>Atras</button>
-                    <button mat-button matStepperNext>Siguiente</button>
-                </div>
+        <mat-step [stepControl]="secondFormGroup" [completed]="false" [editable]="isEditable">
+            <ng-template matStepLabel>Recaudación</ng-template>
+            <app-recaudacion [factura]="factura_crear" (propagar)="procesaPropagar($event)"></app-recaudacion>
+            <mat-divider></mat-divider>
+            <div>
+                <button mat-button matStepperPrevious>Atras</button>
+                <button mat-button matStepperNext>Siguiente</button>
+            </div>
         </mat-step>
         <!-- Pasos Entrega -->
         <mat-step [stepControl]="thirdFormGroup" [completed]="false" [editable]="isEditable">
             <ng-template matStepLabel>Entrega</ng-template>
-                <app-entrega [factura]="factura_crear"></app-entrega>
-                <mat-divider></mat-divider>
+            <app-entrega [factura]="factura_crear"></app-entrega>
+            <mat-divider></mat-divider>
             <div>
                 <button mat-button matStepperPrevious>Atras</button>
                 <button mat-button (click)="stepper.reset()">Terminar</button>
@@ -768,20 +868,20 @@
             <div class="form-group col-2">
                 <mat-form-field appearance="standard">
                     <mat-label>Ced/RUC</mat-label>
-                    <input matInput type="text"
-                        [value]="factura.cliente?.identificacion" class="form-control-sm" disabled>
+                    <input matInput type="text" [value]="factura.cliente?.identificacion" class="form-control-sm"
+                        disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-8">
                 <mat-form-field appearance="standard">
                     <mat-label>Cliente/Pista</mat-label>
-                    <input matInput type="text"
-                        [value]="factura.auxiliar.razon_social" class="form-control-sm" disabled>
+                    <input matInput type="text" [value]="factura.auxiliar.razon_social" class="form-control-sm"
+                        disabled>
                 </mat-form-field>
             </div>
             <div class="form-group col-2">
                 <mat-checkbox [disabled]="habilitar_seleccion_auxiliar" (change)="asignar_auxiliar(modal_auxiliares)"
-                [(ngModel)]="seleccion_auxiliar" class="form-control-sm" color="primary"> Fact. a Dep</mat-checkbox>
+                    [(ngModel)]="seleccion_auxiliar" class="form-control-sm" color="primary"> Fact. a Dep</mat-checkbox>
             </div>
         </div>
         <div class="form-row">
@@ -790,7 +890,8 @@
                     <div class="form-group col-12">
                         <mat-form-field appearance="standard">
                             <mat-label>Direccion</mat-label>
-                            <input matInput type="text" [(ngModel)]="factura.auxiliar.direccion.direccion" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text" [(ngModel)]="factura.auxiliar.direccion.direccion"
+                                class="form-control-sm" [disabled]="true">
                         </mat-form-field>
                     </div>
                 </div>
@@ -798,7 +899,8 @@
                     <div class="form-group col-3">
                         <mat-form-field appearance="standard">
                             <mat-label>Telefono</mat-label>
-                            <input matInput type="text" [(ngModel)]="primer_telefono_auxiliar" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text" [(ngModel)]="primer_telefono_auxiliar" class="form-control-sm"
+                                [disabled]="true">
                         </mat-form-field>
                     </div>
                     <div class="form-group col">
@@ -811,7 +913,8 @@
                     <div class="form-group col-3">
                         <mat-form-field appearance="standard">
                             <mat-label>Celular</mat-label>
-                            <input matInput type="text" [(ngModel)]="primer_celular_auxiliar" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text" [(ngModel)]="primer_celular_auxiliar" class="form-control-sm"
+                                [disabled]="true">
                         </mat-form-field>
                     </div>
                     <div class="form-group col">
@@ -824,7 +927,8 @@
                     <div class="form-group col-3">
                         <mat-form-field appearance="standard">
                             <mat-label>Email</mat-label>
-                            <input matInput type="text" [(ngModel)]="primer_correo_auxiliar" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text" [(ngModel)]="primer_correo_auxiliar" class="form-control-sm"
+                                [disabled]="true">
                         </mat-form-field>
                     </div>
                     <div class="form-group col">
@@ -841,7 +945,9 @@
                     <div class="form-group col-12">
                         <mat-form-field appearance="standard">
                             <mat-label>Forma de Pago</mat-label>
-                            <input matInput type="text" [(ngModel)]="factura.cliente?.financiamiento.forma_pago.abreviatura" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text"
+                                [(ngModel)]="factura.cliente?.financiamiento.forma_pago.abreviatura"
+                                class="form-control-sm" [disabled]="true">
                         </mat-form-field>
                     </div>
                 </div>
@@ -849,13 +955,16 @@
                     <div class="form-group col-6">
                         <mat-form-field appearance="standard">
                             <mat-label>Tipo</mat-label>
-                            <input matInput type="text" [(ngModel)]="factura.cliente?.financiamiento.tipo_pago.abreviatura" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text"
+                                [(ngModel)]="factura.cliente?.financiamiento.tipo_pago.abreviatura"
+                                class="form-control-sm" [disabled]="true">
                         </mat-form-field>
                     </div>
                     <div class="form-group col-6">
                         <mat-form-field appearance="standard">
                             <mat-label>Pre Saldo.</mat-label>
-                            <input matInput type="text" [(ngModel)]="factura.cliente?.financiamiento.monto" class="form-control-sm" [disabled]="true">
+                            <input matInput type="text" [(ngModel)]="factura.cliente?.financiamiento.monto"
+                                class="form-control-sm" [disabled]="true">
                         </mat-form-field>
                     </div>
                 </div>
@@ -893,11 +1002,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas | filtro_serie:buscar_serie">
-                        <ng-container *ngIf="caracteristica.factura_detalle==null || caracteristica.factura_detalle.posicion==indice_detalle || caracteristica.factura_detalle.posicion==-1">
+                    <ng-container
+                        *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas | filtro_serie:buscar_serie">
+                        <ng-container
+                            *ngIf="caracteristica.factura_detalle==null || caracteristica.factura_detalle.posicion==indice_detalle || caracteristica.factura_detalle.posicion==-1">
                             <tr>
                                 <td>
-                                    <mat-checkbox [(ngModel)]="caracteristica.seleccionado" class="form-control-sm" color="primary" [disabled]="factura.factura_detalles[indice_detalle].producto.serie_autogenerado"></mat-checkbox>
+                                    <mat-checkbox [(ngModel)]="caracteristica.seleccionado" class="form-control-sm"
+                                        color="primary"
+                                        [disabled]="factura.factura_detalles[indice_detalle].producto.serie_autogenerado">
+                                    </mat-checkbox>
                                 </td>
                                 <td>
                                     {{caracteristica.descripcion}}
@@ -951,7 +1065,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas let i=index">
+                        <tr
+                            *ngFor="let caracteristica of factura.factura_detalles[indice_detalle].producto.caracteristicas let i=index">
                             <td>
                                 {{caracteristica.descripcion}}
                             </td>

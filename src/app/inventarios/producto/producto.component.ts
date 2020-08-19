@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
 
-import { CoreService } from '../../interfaces/tabla-editable/services/core.service';
+import { CoreService } from '../../componentes/tabla-editable/services/core.service';
 import { GrupoProducto } from '../../modelos/grupo-producto';
 
 @Component({
