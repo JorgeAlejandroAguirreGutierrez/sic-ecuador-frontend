@@ -24,8 +24,8 @@ export class RecaudacionService {
     );
   }
 
-  consultar(usuario_id: number): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.recaudacion + '/' + usuario_id, util.options).pipe(
+  consultar(): Observable<Respuesta> {
+    return this.http.get(environment.host + util.ruta + util.recaudacion, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
@@ -33,8 +33,8 @@ export class RecaudacionService {
     );
   }
 
-  obtener(): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.recaudacion, util.options).pipe(
+  obtener(recaudacion: Recaudacion): Observable<Respuesta> {
+    return this.http.get(environment.host + util.ruta + util.recaudacion+"/"+recaudacion.id, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

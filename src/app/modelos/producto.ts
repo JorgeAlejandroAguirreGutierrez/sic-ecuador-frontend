@@ -5,6 +5,7 @@ import { Kardex } from './kardex';
 import { Impuesto } from './impuesto';
 import { Caracteristica } from './caracteristica';
 import { Bodega } from './bodega';
+import { TipoGasto } from './tipo-gasto';
 
 export class Producto {
   id: number;
@@ -17,9 +18,10 @@ export class Producto {
   costo: string;
   consignacion: number;
   estado: number;
-  tipo_gasto: string;
+  
   serie_autogenerado: Boolean;
   stock_total: number;
+  tipo_gasto: TipoGasto;
   tipo_producto: TipoProducto;
   grupo_producto: GrupoProducto;
   impuesto: Impuesto;

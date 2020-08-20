@@ -10,6 +10,14 @@ import { CategoriaProducto } from '../modelos/categoria-producto';
 import { LineaProducto } from '../modelos/linea-producto';
 import { SubLineaProducto } from '../modelos/sub-linea-producto';
 import { PresentacionProducto } from '../modelos/presentacion-producto';
+import { Producto } from '../modelos/producto';
+import { TipoGasto } from '../modelos/tipo-gasto';
+import { TipoGastoService } from '../servicios/tipo-gasto.service';
+import { Impuesto } from '../modelos/impuesto';
+import { ImpuestoService } from '../servicios/impuesto.service';
+import { Medida } from '../modelos/medida';
+import { MedidaService } from '../servicios/medida.service';
+import { Precio } from '../modelos/precio';
 
 
 @Component({
@@ -36,8 +44,19 @@ export class ProductoComponent implements OnInit {
   linea_producto: LineaProducto=new LineaProducto();
   sub_linea_producto: SubLineaProducto=new SubLineaProducto();
   presentacion_producto: PresentacionProducto=new PresentacionProducto();
+  producto: Producto=new Producto();
 
-  constructor(private core: CoreService, private grupoProductoService: GrupoProductoService) { }
+  tipos_gastos: TipoGasto[]=[];
+  impuestos: Impuesto[]=[];
+  unidades_kardex: Medida[]=[];
+  medidas: Medida[]=[];
+  habilitar_otras_medidas: boolean=true;
+  precio: Precio=new Precio();
+  unidad_kardex: Medida=new Medida();
+  medida: Medida=new Medida();
+
+  constructor(private core: CoreService, private grupoProductoService: GrupoProductoService, 
+    private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService, private medidaService: MedidaService) { }
 
   ngOnInit() {
     const toGroups = this.core.list$.value.map(entity => {
@@ -56,6 +75,11 @@ export class ProductoComponent implements OnInit {
     });
 
     this.controls = new FormArray(toGroups);
+
+    this.consulta_grupos_productos();
+    this.consulta_tipos_gastos();
+    this.consulta_impuestos();
+    this.consulta_medidas();
     
   }
 
@@ -93,6 +117,38 @@ export class ProductoComponent implements OnInit {
       }
     );
   }
+  consulta_tipos_gastos(){
+    this.tipoGastoService.consultar().subscribe(
+      res => {
+        this.tipos_gastos = res.resultado as TipoGasto[];
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+  }
+  consulta_impuestos(){
+    this.impuestoService.consultar().subscribe(
+      res => {
+        this.impuestos = res.resultado as Impuesto[];
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+  }
+
+  consulta_medidas(){
+    this.medidaService.consultar().subscribe(
+      res => {
+        this.unidades_kardex=res.resultado as Medida[];
+        this.medidas = res.resultado as Medida[];
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+  }
 
   validar_grupo_producto(){
     this.sub_grupos_productos=this.grupo_producto.sub_grupos_productos;
@@ -108,6 +164,15 @@ export class ProductoComponent implements OnInit {
   }
   validar_sub_linea_producto(){
     this.presentaciones_productos=this.sub_linea_producto.presentaciones_productos;
+  }
+  validar_presentacion_producto(){
+    this.producto.nombre=this.categoria_producto.nombre+" "+this.linea_producto.nombre+" "+this.sub_linea_producto.nombre+" "+this.presentacion_producto.nombre;
+  }
+
+  crear_precio(){
+    this.habilitar_otras_medidas=false;
+    this.precio.medida=this.medida;
+    this.producto.precios.push(new Precio());
   }
 }
 
