@@ -5,6 +5,7 @@ export class Impuesto {
     porcentaje: number;
 
     constructor() {
+        this.id=0;
         this.codigo="";
         this.codigo_norma="";
         this.porcentaje=0;

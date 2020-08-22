@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import * as constantes from '../constantes';
 
 import { CoreService } from '../tabla-editable/services/core.service';
 import { GrupoProducto } from '../modelos/grupo-producto';
@@ -18,6 +19,10 @@ import { ImpuestoService } from '../servicios/impuesto.service';
 import { Medida } from '../modelos/medida';
 import { MedidaService } from '../servicios/medida.service';
 import { Precio } from '../modelos/precio';
+import { BehaviorSubject } from 'rxjs';
+import { SegmentoService } from '../servicios/segmento.service';
+import { Segmento } from '../modelos/segmento';
+import { ProductoService } from '../servicios/producto.service';
 
 
 @Component({
@@ -28,9 +33,11 @@ import { Precio } from '../modelos/precio';
 export class ProductoComponent implements OnInit {
 
   panelOpenState=false;
-  displayedColumnsSugerido: string[] = ['position', 'medida', 'segmento', 'costo', 'ganancia', 'precio', 'pvp'];
-  displayedColumnsVenta: string[] = ['position', 'pvpf', 'rendimiento', 'utilidad'];
-  dataSource = this.core.list$;
+  displayedColumnsSugerido: string[] = ['medida', 'segmento', 'costo', 'margen_ganancia', 'precio_venta_publico', 'precio_venta_publico_iva'];
+  displayedColumnsVenta: string[] = ['precio_venta_publico_manual', 'utilidad', 'utilidad_porcentaje'];
+  precios: Precio[] = [];
+  precios_tabla: BehaviorSubject<Precio[]> = new BehaviorSubject(this.precios);
+  datos = this.precios_tabla;
   controls: FormArray;
   grupos_productos: GrupoProducto[]=[];
   sub_grupos_productos: SubGrupoProducto[]=[];
@@ -47,6 +54,7 @@ export class ProductoComponent implements OnInit {
   producto: Producto=new Producto();
 
   tipos_gastos: TipoGasto[]=[];
+  segmentos: Segmento[]=[];
   impuestos: Impuesto[]=[];
   unidades_kardex: Medida[]=[];
   medidas: Medida[]=[];
@@ -54,46 +62,20 @@ export class ProductoComponent implements OnInit {
   precio: Precio=new Precio();
   unidad_kardex: Medida=new Medida();
   medida: Medida=new Medida();
+  impuesto: Impuesto=new Impuesto();
+  tipo_gasto: TipoGasto=new TipoGasto();
 
-  constructor(private core: CoreService, private grupoProductoService: GrupoProductoService, 
-    private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService, private medidaService: MedidaService) { }
+  constructor(private productoService: ProductoService, private grupoProductoService: GrupoProductoService, 
+    private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService,
+    private segmentoService: SegmentoService, private medidaService: MedidaService) { }
 
   ngOnInit() {
-    const toGroups = this.core.list$.value.map(entity => {
-      return new FormGroup({
-        position:  new FormControl(entity.position, Validators.required),
-        medida: new FormControl(entity.medida, Validators.required), 
-        segmento: new FormControl(entity.segmento, Validators.required), 
-        costo: new FormControl(entity.costo, Validators.required),
-        ganancia: new FormControl(entity.ganancia, Validators.required), 
-        precio: new FormControl(entity.precio, Validators.required),
-        pvp: new FormControl(entity.pvp, Validators.required),
-        pvpf: new FormControl(entity.pvpf, Validators.required),
-        rendimiento: new FormControl(entity.rendimiento, Validators.required), 
-        utilidad: new FormControl(entity.utilidad, Validators.required)
-      },{updateOn: "blur"});
-    });
-
-    this.controls = new FormArray(toGroups);
-
     this.consulta_grupos_productos();
     this.consulta_tipos_gastos();
     this.consulta_impuestos();
     this.consulta_medidas();
-    
-  }
-
-  updateField(index, field) {
-    const control = this.getControl(index, field);
-    if (control.valid) {
-      this.core.update(index,field,control.value);
-    }
-
-   }
-
-  getControl(index, fieldName) {
-    const a  = this.controls.at(index).get(fieldName) as FormControl;
-    return this.controls.at(index).get(fieldName) as FormControl;
+    this.consulta_unidades_kardex();
+    this.consulta_segmentos();
   }
 
   nuevo(event){
@@ -101,8 +83,53 @@ export class ProductoComponent implements OnInit {
   }
   
   crear(event){
-
-  }
+    if (event!=null)
+      event.preventDefault();
+    if (this.grupo_producto.id==0){
+      Swal.fire('Error', constantes.error_grupo_producto, 'error');
+      return;
+    }
+    if (this.sub_grupo_producto.id==0){
+      Swal.fire('Error', constantes.error_sub_grupo_producto, 'error');
+      return;
+    }
+    if (this.categoria_producto.id==0){
+      Swal.fire('Error', constantes.error_categoria_producto, 'error');
+      return;
+    }
+    if (this.linea_producto.id==0){
+      Swal.fire('Error', constantes.error_linea_producto, 'error');
+      return;
+    }
+    if (this.sub_linea_producto.id==0){
+      Swal.fire('Error', constantes.error_sub_linea_producto, 'error');
+      return;
+    }
+    if(this.presentacion_producto.id==0){
+      Swal.fire('Error', constantes.error_presentacion_producto, 'error');
+      return;
+    }
+    if(this.impuesto.id==0){
+      Swal.fire('Error', constantes.error_impuesto, 'error');
+      return;
+    }
+    if(this.tipo_gasto.id==0){
+      Swal.fire('Error', constantes.error_tipo_gasto, 'error');
+      return;
+    }
+    if(this.unidad_kardex.id==0){
+      Swal.fire('Error', constantes.error_unidad_kardex, 'error');
+      return;
+    }
+    this.productoService.crear(this.producto).subscribe(
+      res => {
+        this.producto = res.resultado as Producto;
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+  } 
 
   actualizar(event){
 
@@ -141,8 +168,27 @@ export class ProductoComponent implements OnInit {
   consulta_medidas(){
     this.medidaService.consultar().subscribe(
       res => {
-        this.unidades_kardex=res.resultado as Medida[];
         this.medidas = res.resultado as Medida[];
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+  }
+  consulta_unidades_kardex(){
+    this.medidaService.consultar().subscribe(
+      res => {
+        this.unidades_kardex = res.resultado as Medida[];
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+  }
+  consulta_segmentos(){
+    this.segmentoService.consultar().subscribe(
+      res => {
+        this.segmentos=res.resultado as Segmento[];
       },
       err => {
         Swal.fire('Error', err.error.mensaje, 'error')
@@ -167,12 +213,128 @@ export class ProductoComponent implements OnInit {
   }
   validar_presentacion_producto(){
     this.producto.nombre=this.categoria_producto.nombre+" "+this.linea_producto.nombre+" "+this.sub_linea_producto.nombre+" "+this.presentacion_producto.nombre;
+    this.producto.presentacion_producto=this.presentacion_producto;
   }
 
   crear_precio(){
-    this.habilitar_otras_medidas=false;
-    this.precio.medida=this.medida;
-    this.producto.precios.push(new Precio());
+    if (this.impuesto.id==0){
+      Swal.fire('Error', constantes.error_impuesto, 'error');
+      return;
+    }
+    if (this.precio.costo==0){
+      Swal.fire('Error', constantes.error_costo, 'error');
+      return;
+    }
+    if (this.habilitar_otras_medidas){
+      if (this.unidad_kardex.id==0){
+        Swal.fire('Error', constantes.error_unidad_kardex, 'error');
+        return;
+      }
+      this.habilitar_otras_medidas=false;
+      for(let i=0; i<this.segmentos.length; i++){
+        let precio=new Precio();
+        precio.medida=this.unidad_kardex;
+        precio.costo=this.precio.costo;
+        precio.segmento=this.segmentos[i];
+        this.precios.push(precio);
+        this.precios_tabla= new BehaviorSubject(this.precios);
+        this.datos = this.precios_tabla;
+        this.activar_controles();
+      }
+      this.eliminar_medida_kardex();
+    } else {
+      if (this.medida.id==0 || this.validar_precios()){
+        Swal.fire('Error', constantes.error_medida, 'error');
+        return;
+      }
+      for(let i=0; i<this.segmentos.length; i++){
+        let precio=new Precio();
+        precio.medida=this.medida;
+        precio.costo=this.precio.costo;
+        precio.segmento=this.segmentos[i];
+        this.precios.push(precio);
+        this.precios_tabla= new BehaviorSubject(this.precios);
+        this.datos = this.precios_tabla;
+        this.activar_controles();
+      }
+      this.eliminar_medida();
+    }
+    
   }
+
+  eliminar_medida_kardex(){
+    for (let i=0; i<this.medidas.length; i++){
+      if (this.medidas[i].codigo_norma==this.unidad_kardex.codigo_norma){
+        this.medidas.splice(i, 1);
+      }
+    }
+  }
+  eliminar_medida(){
+    for (let i=0; i<this.medidas.length; i++){
+      if (this.medidas[i].codigo_norma==this.medida.codigo_norma){
+        this.medidas.splice(i, 1);
+      }
+    }
+  }
+
+  validar_precios(){
+    for (let i=0; i<this.precios.length; i++){
+      if (this.precios[i].medida.codigo_norma==this.medida.codigo_norma){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  actualizar_precios(){
+    for(let i=0; i<this.precios.length; i++){
+      this.precios[i].precio_venta_publico=(this.precios[i].costo/(1-(this.precios[i].margen_ganancia/100)));
+      this.precios[i].precio_venta_publico=Number(this.precios[i].precio_venta_publico.toFixed(2));
+      this.precios[i].precio_venta_publico_iva=this.precios[i].precio_venta_publico+(this.precios[i].precio_venta_publico*(this.impuesto.porcentaje/100));
+      this.precios[i].precio_venta_publico_iva=Number(this.precios[i].precio_venta_publico_iva.toFixed(2));
+      this.precios[i].utilidad=this.precios[i].precio_venta_publico_manual/((100+(this.impuesto.porcentaje))/100)-this.precios[i].costo;
+      this.precios[i].utilidad=Number(this.precios[i].utilidad.toFixed(2));
+      this.precios[i].utilidad_porcentaje=(this.precios[i].utilidad/this.precios[i].precio_venta_publico)*100;
+      this.precios[i].utilidad_porcentaje=Number(this.precios[i].utilidad_porcentaje.toFixed(2));
+    }
+  }
+
+  activar_controles(){
+    const toGroups = this.precios_tabla.value.map(entity => {
+      return new FormGroup({
+        margen_ganancia: new FormControl(entity.margen_ganancia, Validators.required), 
+        precio_venta_publico_manual: new FormControl(entity.precio_venta_publico_manual, Validators.required),
+      },{updateOn: "blur"});
+    });
+    this.controls = new FormArray(toGroups);
+  }
+
+  actualizar_calculos_precios(index, field) {
+    const control = this.getControl(index, field);
+    if (control.valid) {
+      this.update(index,field,control.value);
+      this.actualizar_precios();
+    }
+   }
+
+  update(index, field, value) {
+    this.precios = this.precios.map((e, i) => {
+      if (index === i) {
+        return {
+          ...e,
+          [field]: value
+        }
+      }
+      return e;
+    });
+    this.precios_tabla.next(this.precios);
+  }
+
+  getControl(index, fieldName) {
+    const a  = this.controls.at(index).get(fieldName) as FormControl;
+    return this.controls.at(index).get(fieldName) as FormControl;
+  }
+
+  
 }
 

@@ -5,7 +5,7 @@ export class Precio {
     id: number;
     codigo: string;
     costo: number;
-    margen_contribucion: number;
+    margen_ganancia: number;
     precio_venta_publico: number;
     precio_venta_publico_iva: number;
     precio_venta_publico_manual: number;
@@ -18,7 +18,7 @@ export class Precio {
         this.id=0;
         this.codigo="";
         this.costo=0;
-        this.margen_contribucion=0;
+        this.margen_ganancia=0;
         this.precio_venta_publico=0;
         this.precio_venta_publico_iva=0;
         this.precio_venta_publico_manual=0;

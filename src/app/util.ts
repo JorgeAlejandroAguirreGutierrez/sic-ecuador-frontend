@@ -60,6 +60,7 @@ export const grupo_producto: string = "/grupoproducto";
 export const tipo_gasto: string = "/tipogasto";
 export const modelo: string= "/modelo";
 export const precio: string= "/precio";
+export const segmento: string= "/segmento";
 export const generar: string= "/generar";
 export const pdf: string= "/pdf";
 
