@@ -103,7 +103,15 @@
                                 </div>
                                 <div class="linea-vertical col-4">
                                     <div class="form-row col-12">
-                                        <div class="form-group col-5">
+                                        <div class="form-group col-3">
+                                            <mat-form-field appearance="standard">
+                                                <mat-label>T.P</mat-label>
+                                                <mat-select [(ngModel)]="producto.tipo_producto" class="form-control-sm">
+                                                    <mat-option *ngFor="let tipo_producto of tipos_productos" [value]="tipo_producto">{{tipo_producto.abreviatura}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="form-group col-3">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Activo</mat-label>
                                                 <mat-select [(ngModel)]="producto.estado" class="form-control-sm"> 
@@ -112,7 +120,7 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="form-group col-7">
+                                        <div class="form-group col-5">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Código</mat-label>
                                                 <input matInput type="text" disabled class="form-control-sm">
@@ -121,7 +129,7 @@
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>IVA</mat-label>
-                                                <mat-select [(ngModel)]="impuesto" class="form-control-sm">
+                                                <mat-select [(ngModel)]="producto.impuesto" class="form-control-sm">
                                                     <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto">{{impuesto.porcentaje}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -129,7 +137,7 @@
                                         <div class="form-group col-8">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Tipo de Gasto</mat-label>
-                                                <mat-select [(ngModel)]="tipo_gasto" class="form-control-sm">
+                                                <mat-select [(ngModel)]="producto.tipo_gasto" class="form-control-sm">
                                                     <mat-option *ngFor="let tipo_gasto of tipos_gastos" [value]="tipo_gasto">{{tipo_gasto.nombre}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -199,6 +207,8 @@
                     <br>
                     <mat-checkbox class="form-control-sm" color="primary">
                         Espec.</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="producto.serie_autogenerado" class="form-control-sm" color="primary">
+                        Con Serie.</mat-checkbox>
                 </div>
             </div>
             <mat-divider></mat-divider>

@@ -23,6 +23,9 @@ import { BehaviorSubject } from 'rxjs';
 import { SegmentoService } from '../servicios/segmento.service';
 import { Segmento } from '../modelos/segmento';
 import { ProductoService } from '../servicios/producto.service';
+import { TipoProductoService } from '../servicios/tipo-producto.service';
+import { TipoProducto } from '../modelos/tipo-producto';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -58,6 +61,7 @@ export class ProductoComponent implements OnInit {
   impuestos: Impuesto[]=[];
   unidades_kardex: Medida[]=[];
   medidas: Medida[]=[];
+  tipos_productos: TipoProducto[]=[];
   habilitar_otras_medidas: boolean=true;
   precio: Precio=new Precio();
   unidad_kardex: Medida=new Medida();
@@ -66,12 +70,13 @@ export class ProductoComponent implements OnInit {
   tipo_gasto: TipoGasto=new TipoGasto();
 
   constructor(private productoService: ProductoService, private grupoProductoService: GrupoProductoService, 
-    private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService,
-    private segmentoService: SegmentoService, private medidaService: MedidaService) { }
+    private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService, private router: Router,
+    private segmentoService: SegmentoService, private tipoProductoService: TipoProductoService, private medidaService: MedidaService) { }
 
   ngOnInit() {
     this.consulta_grupos_productos();
     this.consulta_tipos_gastos();
+    this.consulta_tipos_productos();
     this.consulta_impuestos();
     this.consulta_medidas();
     this.consulta_unidades_kardex();
@@ -109,21 +114,29 @@ export class ProductoComponent implements OnInit {
       Swal.fire('Error', constantes.error_presentacion_producto, 'error');
       return;
     }
-    if(this.impuesto.id==0){
+    if(this.producto.impuesto.id==0){
       Swal.fire('Error', constantes.error_impuesto, 'error');
       return;
     }
-    if(this.tipo_gasto.id==0){
+    if(this.producto.tipo_gasto.id==0){
       Swal.fire('Error', constantes.error_tipo_gasto, 'error');
+      return;
+    }
+    if(this.producto.tipo_producto.id==0){
+      Swal.fire('Error', constantes.error_tipo_producto, 'error');
       return;
     }
     if(this.unidad_kardex.id==0){
       Swal.fire('Error', constantes.error_unidad_kardex, 'error');
       return;
     }
+    console.log(this.producto);
+    this.producto.precios=this.precios;
     this.productoService.crear(this.producto).subscribe(
       res => {
         this.producto = res.resultado as Producto;
+        Swal.fire('Exito', res.mensaje, 'success');
+        this.router.navigate(['/main']);
       },
       err => {
         Swal.fire('Error', err.error.mensaje, 'error')
@@ -138,6 +151,16 @@ export class ProductoComponent implements OnInit {
     this.grupoProductoService.consultar().subscribe(
       res => {
         this.grupos_productos = res.resultado as GrupoProducto[];
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+  }
+  consulta_tipos_productos(){
+    this.tipoProductoService.consultar().subscribe(
+      res => {
+        this.tipos_productos = res.resultado as TipoProducto[];
       },
       err => {
         Swal.fire('Error', err.error.mensaje, 'error')
@@ -217,7 +240,7 @@ export class ProductoComponent implements OnInit {
   }
 
   crear_precio(){
-    if (this.impuesto.id==0){
+    if (this.producto.impuesto.id==0){
       Swal.fire('Error', constantes.error_impuesto, 'error');
       return;
     }

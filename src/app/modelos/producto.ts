@@ -14,7 +14,7 @@ export class Producto {
   costo: number;
   consignacion: number;
   estado: number;
-  serie_autogenerado: Boolean;
+  serie_autogenerado: number;
   stock_total: number;
   tipo_gasto: TipoGasto;
   tipo_producto: TipoProducto;
@@ -32,15 +32,17 @@ export class Producto {
     this.id=0;
     this.codigo="";
     this.consignacion=0;
-    this.serie_autogenerado=false;
+    this.serie_autogenerado=0;
     this.stock_total=0;
     this.estado=0;
     this.precios=[];
     this.caracteristicas=[];
     this.tipo_producto=new TipoProducto();
+    this.tipo_gasto=new TipoGasto();
     this.presentacion_producto=new PresentacionProducto();
     this.kardex=new Kardex();
     this.impuesto=new Impuesto();
     this.bodega=new Bodega();
+
   }
 }
