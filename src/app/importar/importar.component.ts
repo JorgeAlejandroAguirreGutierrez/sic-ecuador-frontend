@@ -16,6 +16,8 @@ export class ImportarComponent implements OnInit {
   modelo: Modelo= new Modelo();
   archivo: File= null;
 
+  cargando: boolean=false;
+
   ngOnInit() {
     this.consulta_modelos();
   }
@@ -34,6 +36,7 @@ export class ImportarComponent implements OnInit {
     this.archivo = archivos.item(0);
   }
   importar(){
+    this.cargando=true;
     this.modeloService.importar(this.archivo, this.modelo).subscribe(
       res => {
         if (res.resultado!=null && res.resultado) {
@@ -41,8 +44,12 @@ export class ImportarComponent implements OnInit {
         } else{
           Swal.fire('Error', res.mensaje, 'error')
         }
+        this.cargando=false;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error');
+        this.cargando=false;
+      }
     );
   }
 }
