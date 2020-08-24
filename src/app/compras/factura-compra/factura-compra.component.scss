@@ -14,7 +14,7 @@ body{
 .contenedor{
 	width: 98%;
 	max-width: 100%;
-	margin: 75px 0px auto;
+	margin: 85px 0px auto;
 }
 
 .nav-fijo {
@@ -97,6 +97,39 @@ html {
 .mat-card-title{
     text-align: center !important;
 }
+.expandir{
+    flex:auto;
+}
+
+table {
+  width: 100%;
+  td, th {
+    overflow: hidden;
+//    with:200px;
+    text-overflow: Ellipsis;
+//    white-space: nowrap;
+//    Word-wrap: break-Word !important;
+    white-space: unset !important;
+    overflow-wrap: break-Word;
+//    Word-wrap: break-Word;
+    Word-break: break-Word;
+//    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+//    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+}
+
+.mat-column-descripcion {
+    width: 20% !important;
+}
+
+.mat-stepper-horizontal {
+    margin-top: 0px;
+  }
+
+// Para el Stepper
+::ng-deep .mat-horizontal-stepper-header{ height: 40px !important; } 
 
 /*para el acodion*/
 .mat-accordion{padding: 0px!important;}
@@ -108,3 +141,10 @@ html {
 ::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0px 0px !important; }
 ::ng-deep .mat-form-field-label-wrapper { top: -0.8em; }
 ::ng-deep .mat-form-field-appearance-standard .mat-form-field-flex { padding-top:1px !important; align-items: center !important;}
+
+::ng-deep .mat-table .mat-form-field-underline{ width: 90% !important;}
+::ng-deep .mat-table .mat-form-field-flex { width: 90% !important; }
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}

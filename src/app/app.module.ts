@@ -133,6 +133,7 @@ import { CuentaComponent } from './contabilizaciones/cuenta/cuenta.component';
 //Módulo de Compras
 import { ProveedorComponent } from './compras/proveedor/proveedor.component';
 import { FacturaCompraComponent } from './compras/factura-compra/factura-compra.component';
+import { PagoCompraComponent } from './compras/pago-compra/pago-compra.component';
 
 //Tienda - Estructura: Cabecera y Menu
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
@@ -328,7 +329,7 @@ const routes: Routes = [
     TablaPromoIndComponent, 
     TablaPromoGrupComponent, 
     TablaComboComponent, 
-    TablaComponenteComponent, CuentaComponent
+    TablaComponenteComponent, CuentaComponent, PagoCompraComponent
   ],
   imports: [
     BrowserModule,

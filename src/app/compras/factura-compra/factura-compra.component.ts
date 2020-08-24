@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, HostListener, Input, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource, MatPaginator, MatStepper } from '@angular/material';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
@@ -110,6 +110,29 @@ export class FacturaCompraComponent implements OnInit {
   nombre_empresa: string="";
   url_avatar: string= environment.prefijo_url_imagenes+"avatar/avatar1.png";
 
+  isLinear = false;
+  isEditable=false;
+  completed=false;
+  tipo_producto="B";
+  estado="EMITIDA";
+  indice_detalle=0;
+  detalle_entregado="";
+  buscar_serie:string="";
+
+  seleccion_auxiliar: boolean =false;
+  seleccion_facturar: boolean =false;
+
+  
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+
+  seleccion_producto = new FormControl();
+  seleccion_identificacion_cliente = new FormControl();
+  seleccion_razon_social_cliente = new FormControl();
+  seleccion_identificacion_cliente_factura = new FormControl();
+  seleccion_razon_social_cliente_factura = new FormControl();
+
   constructor(private clienteService: ClienteService, private generoService: GeneroService,
     private estadoCivilService: EstadoCivilService, private origenIngresoService: OrigenIngresoService,
     private categoriaClienteService: CategoriaClienteService, private plazoCreditoService: PlazoCreditoService,
@@ -133,6 +156,18 @@ export class FacturaCompraComponent implements OnInit {
       , 'desc_por', 'desc_sub', 'desc_por_sub', 'desc_tot', 'desc_por_tot', 'impuesto', 'total', 'serie','acciones'];
     data_detalle_factura = new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
     data_detalle_factura_prueba = new MatTableDataSource<any>(this.Datos_prueba);
+
+    Datos_retencion: any[] = [
+      {periodo: 2020, establecimiento: '001', serie: '001', comprobante:'00000002', tipo:"R", codigo:'320', descripcion:'Retención por', base: 1.0079, porcentaje: '11', valor:0.20},
+      {periodo: 2020, establecimiento: '001', serie: '001', comprobante:'00000002', tipo:"R", codigo:'320', descripcion:'Retención por', base: 4.0026, porcentaje: '1' , valor:0.20},
+      {periodo: 2020, establecimiento: '001', serie: '001', comprobante:'00000002', tipo:"I", codigo:'344', descripcion:'Retención por', base: 6.9417, porcentaje: '12', valor:0.20},
+      {periodo: 2020, establecimiento: '001', serie: '001', comprobante:'00000002', tipo:"I", codigo:'725', descripcion:'Retención por', base: 9.0122, porcentaje: '13', valor:0.20},
+      {periodo: 2020, establecimiento: '001', serie: '001', comprobante:'00000002', tipo:"R", codigo:'320', descripcion:'Retención por', base: 10.811, porcentaje: '14', valor:0.20},
+      {periodo: 2020, establecimiento: '001', serie: '001', comprobante:'00000002', tipo:"R", codigo:'320', descripcion:'Retención por', base: 12.017, porcentaje: '1' , valor:0.20},
+    ];
+    columnasRetencion: string[] = ['periodo', 'establecimiento', 'serie', 'comprobante', 'tipo', 'codigo'
+      , 'descripcion', 'base', 'porcentaje', 'valor', 'acciones'];
+    data_retencion = new MatTableDataSource<any>(this.Datos_retencion);
 
   validar_sesion(){
     this.sesion = this.sesionService.getSesion();

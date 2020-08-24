@@ -141,14 +141,6 @@ textarea.mat-input-element{
     white-space: normal;
 }
 
-.mat-stepper-horizontal {
-    margin-top: 0px;
-  }
-
-::ng-deep .mat-horizontal-stepper-header{
-    height: 40px !important;
-} 
-
 table {
     width: 100%;
 }
@@ -171,6 +163,13 @@ tr.mat-footer-row {
   height: 300px;
   overflow-y: auto;
 }
+
+.mat-stepper-horizontal {
+    margin-top: 0px;
+  }
+
+// Para el Stepper
+::ng-deep .mat-horizontal-stepper-header{ height: 40px !important; } 
 
 /*para el acodion*/
 .mat-accordion{padding: 0px!important;}
