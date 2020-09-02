@@ -16,6 +16,10 @@ export const error_sub_linea_producto: string='ERROR EN SUB LINEA DE PRODUCTO';
 export const error_presentacion_producto: string='ERROR EN PRESENTACION DE PRODUCTO';
 export const error_tipo_gasto: string='ERROR EN TIPO DE GASTO';
 export const error_tipo_producto: string='ERROR EN TIPO DE PRODUCTO';
+export const error_cantidad: string='ERROR EN CANTIDAD';
+export const error_costo_unitario: string='ERROR EN COSTO UNITARIO';
+export const error_costo_total: string='ERROR EN COSTO TOTAL';
+export const error_producto: string='ERROR EN EL PRODUCTO';
 
 //TABLAS EN BASE DE DATOS
 

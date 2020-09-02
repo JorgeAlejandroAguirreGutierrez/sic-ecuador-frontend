@@ -1,6 +1,6 @@
-import { Cliente } from './cliente';
-import { GuiaRemision } from './guia-remision';
 import { Proveedor } from './proveedor';
+import { Producto } from './producto';
+import { Medida } from './medida';
 
 export class Kardex {
     id: number;
@@ -8,18 +8,18 @@ export class Kardex {
     fecha: Date;
     documento: string;
     numero: string;
-    operacion: string;
+    operacion: string; //AJUSTE , COMPRA, SALDO INICIAL
     entrada: number;
     salida: number;
-    saldo: number;
     debe: number;
     haber: number;
+    cantidad: number;
+    costo_unitario: number;
     costo_promedio: number;
-    costo_ultimo: number;
-    total: number;
+    costo_total: number;
     proveedor: Proveedor;
-    cliente: Cliente;
-    guia_remision: GuiaRemision;
+    medida: Medida;
+    producto: Producto;
 
     constructor() {
         this.id=0;
@@ -30,15 +30,15 @@ export class Kardex {
         this.operacion="";
         this.entrada=0;
         this.salida=0;
-        this.saldo=0;
+        this.costo_unitario=0;
+        this.costo_promedio=0;
+        this.costo_total=0;
         this.debe=0;
         this.haber=0;
-        this.costo_promedio=0;
-        this.costo_ultimo=0;
-        this.total=0;
+        this.cantidad=0;
+        this.medida=new Medida();
         this.proveedor=new Proveedor();
-        this.cliente= new Cliente();
-        this.guia_remision= new GuiaRemision();
+        this.producto=new Producto();
     }
     
 }

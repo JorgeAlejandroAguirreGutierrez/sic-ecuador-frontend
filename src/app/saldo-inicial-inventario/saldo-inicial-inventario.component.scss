@@ -119,8 +119,6 @@ div.linea-vertical{
     text-align: center !important;
 }
 
-::ng-deep { .cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; } }
-
 /*para el acodion*/
 .mat-accordion{padding: 0px!important;}
 .mat-expansion-panel-spacing{ margin: 5px 0;}

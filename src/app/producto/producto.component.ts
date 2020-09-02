@@ -3,7 +3,6 @@ import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import * as constantes from '../constantes';
 
-import { CoreService } from '../tabla-editable/services/core.service';
 import { GrupoProducto } from '../modelos/grupo-producto';
 import { GrupoProductoService } from '../servicios/grupo-producto.service';
 import { SubGrupoProducto } from '../modelos/sub-grupo-producto';
@@ -19,13 +18,18 @@ import { ImpuestoService } from '../servicios/impuesto.service';
 import { Medida } from '../modelos/medida';
 import { MedidaService } from '../servicios/medida.service';
 import { Precio } from '../modelos/precio';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SegmentoService } from '../servicios/segmento.service';
 import { Segmento } from '../modelos/segmento';
 import { ProductoService } from '../servicios/producto.service';
 import { TipoProductoService } from '../servicios/tipo-producto.service';
 import { TipoProducto } from '../modelos/tipo-producto';
 import { Router } from '@angular/router';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Kardex } from '../modelos/kardex';
+import { startWith, map } from 'rxjs/operators';
+import { grupo_producto } from '../util';
+import { KardexService } from '../servicios/kardex.service';
 
 
 @Component({
@@ -42,45 +46,208 @@ export class ProductoComponent implements OnInit {
   precios_tabla: BehaviorSubject<Precio[]> = new BehaviorSubject(this.precios);
   datos = this.precios_tabla;
   controls: FormArray;
-  grupos_productos: GrupoProducto[]=[];
-  sub_grupos_productos: SubGrupoProducto[]=[];
-  categorias_productos: CategoriaProducto[]=[];
-  lineas_productos: LineaProducto[]=[];
-  sub_lineas_productos: SubLineaProducto[]=[];
-  presentaciones_productos: PresentacionProducto[]=[];
-  grupo_producto: GrupoProducto=new GrupoProducto();
-  sub_grupo_producto: SubGrupoProducto=new SubGrupoProducto();
-  categoria_producto: CategoriaProducto=new CategoriaProducto();
-  linea_producto: LineaProducto=new LineaProducto();
-  sub_linea_producto: SubLineaProducto=new SubLineaProducto();
-  presentacion_producto: PresentacionProducto=new PresentacionProducto();
+
   producto: Producto=new Producto();
 
   tipos_gastos: TipoGasto[]=[];
   segmentos: Segmento[]=[];
   impuestos: Impuesto[]=[];
-  unidades_kardex: Medida[]=[];
-  medidas: Medida[]=[];
+  
+  
   tipos_productos: TipoProducto[]=[];
   habilitar_otras_medidas: boolean=true;
+  habilitar_saldo_inicial: boolean=false;
+
   precio: Precio=new Precio();
-  unidad_kardex: Medida=new Medida();
   medida: Medida=new Medida();
   impuesto: Impuesto=new Impuesto();
-  tipo_gasto: TipoGasto=new TipoGasto();
+  kardex: Kardex=new Kardex();
 
-  constructor(private productoService: ProductoService, private grupoProductoService: GrupoProductoService, 
-    private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService, private router: Router,
+  grupos_productos: GrupoProducto[]=[];
+  seleccion_grupo_producto = new FormControl();
+  filtro_grupos_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
+
+  sub_grupos_productos: SubGrupoProducto[]=[];
+  seleccion_sub_grupo_producto = new FormControl();
+  filtro_sub_grupos_productos: Observable<SubGrupoProducto[]> = new Observable<SubGrupoProducto[]>();
+
+  categorias_productos: CategoriaProducto[]=[];
+  seleccion_categoria_producto = new FormControl();
+  filtro_categorias_productos: Observable<CategoriaProducto[]> = new Observable<CategoriaProducto[]>();
+
+  lineas_productos: LineaProducto[]=[];
+  seleccion_linea_producto = new FormControl();
+  filtro_lineas_productos: Observable<LineaProducto[]> = new Observable<LineaProducto[]>();
+
+  sub_lineas_productos: SubLineaProducto[]=[];
+  seleccion_sub_linea_producto = new FormControl();
+  filtro_sub_lineas_productos: Observable<SubLineaProducto[]> = new Observable<SubLineaProducto[]>();
+
+  presentaciones_productos: PresentacionProducto[]=[];
+  seleccion_presentacion_producto = new FormControl();
+  filtro_presentaciones_productos: Observable<PresentacionProducto[]> = new Observable<PresentacionProducto[]>();
+
+  medidas: Medida[]=[];
+  seleccion_medida = new FormControl();
+  filtro_medidas: Observable<Medida[]> = new Observable<Medida[]>();
+
+  medidas_popup: Medida[]=[];
+  seleccion_medida_popup = new FormControl();
+  filtro_medidas_popup: Observable<Medida[]> = new Observable<Medida[]>();
+
+  constructor(private productoService: ProductoService, private grupoProductoService: GrupoProductoService, private kardexService: KardexService,
+    private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService, private router: Router, private modalService: NgbModal,
     private segmentoService: SegmentoService, private tipoProductoService: TipoProductoService, private medidaService: MedidaService) { }
 
   ngOnInit() {
+    if(this.producto.kardexs.length>0){
+      this.habilitar_saldo_inicial=true;
+    }
     this.consulta_grupos_productos();
     this.consulta_tipos_gastos();
     this.consulta_tipos_productos();
     this.consulta_impuestos();
     this.consulta_medidas();
-    this.consulta_unidades_kardex();
+    this.consulta_medidas_popup();
     this.consulta_segmentos();
+    this.filtro_grupos_productos = this.seleccion_grupo_producto.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' || value==null ? value : value.id),
+        map(grupo_producto => typeof grupo_producto === 'string' ? this.filtro_grupo_producto(grupo_producto) : this.grupos_productos.slice())
+      );
+
+    this.filtro_sub_grupos_productos = this.seleccion_sub_grupo_producto.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' || value==null ? value : value.id),
+        map(sub_grupo_producto => typeof sub_grupo_producto === 'string' ? this.filtro_sub_grupo_producto(sub_grupo_producto) : this.sub_grupos_productos.slice())
+      );
+    this.filtro_categorias_productos = this.seleccion_categoria_producto.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' || value==null ? value : value.id),
+        map(categoria_producto => typeof categoria_producto === 'string' ? this.filtro_categoria_producto(categoria_producto) : this.categorias_productos.slice())
+      );
+    this.filtro_lineas_productos = this.seleccion_linea_producto.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' || value==null ? value : value.id),
+        map(linea_producto => typeof linea_producto === 'string' ? this.filtro_linea_producto(linea_producto) : this.lineas_productos.slice())
+      );
+    this.filtro_sub_lineas_productos = this.seleccion_sub_linea_producto.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' || value==null ? value : value.id),
+        map(sub_linea_producto => typeof sub_linea_producto === 'string' ? this.filtro_sub_linea_producto(sub_linea_producto) : this.sub_lineas_productos.slice())
+      );
+    this.filtro_presentaciones_productos = this.seleccion_presentacion_producto.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' || value==null ? value : value.id),
+        map(presentacion_producto => typeof presentacion_producto === 'string' ? this.filtro_presentacion_producto(presentacion_producto) : this.presentaciones_productos.slice())
+      );
+    this.filtro_medidas_popup = this.seleccion_medida_popup.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' || value==null ? value : value.id),
+        map(medida_popup => typeof medida_popup === 'string' ? this.filtro_medida_popup(medida_popup) : this.medidas_popup.slice())
+      );
+    this.filtro_medidas = this.seleccion_medida.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' || value==null ? value : value.id),
+        map(medida => typeof medida === 'string' ? this.filtro_medida(medida) : this.medidas.slice())
+      );
+  }
+
+  private filtro_grupo_producto(value: string): GrupoProducto[] {
+    if(this.grupos_productos.length>0) {
+      const filterValue = value.toLowerCase();
+      return this.grupos_productos.filter(grupo_producto => grupo_producto.nombre.toLowerCase().includes(filterValue));
+    }
+    return [];
+  }
+  ver_grupo_producto(grupo_producto: GrupoProducto): string {
+    return grupo_producto && grupo_producto.nombre ? grupo_producto.nombre : '';
+  }
+
+  private filtro_sub_grupo_producto(value: string): SubGrupoProducto[] {
+    if(this.sub_grupos_productos.length>0) {
+      const filterValue = value.toLowerCase();
+      return this.sub_grupos_productos.filter(sub_grupo_producto => sub_grupo_producto.nombre.toLowerCase().includes(filterValue));
+    }
+    return [];
+  }
+  ver_sub_grupo_producto(sub_grupo_producto: SubGrupoProducto): string {
+    return sub_grupo_producto && sub_grupo_producto.nombre ? sub_grupo_producto.nombre : '';
+  }
+
+  private filtro_categoria_producto(value: string): CategoriaProducto[] {
+    if(this.categorias_productos.length>0) {
+      const filterValue = value.toLowerCase();
+      return this.categorias_productos.filter(categoria_producto => categoria_producto.nombre.toLowerCase().includes(filterValue));
+    }
+    return [];
+  }
+  ver_categoria_producto(categoria_producto: CategoriaProducto): string {
+    return categoria_producto && categoria_producto.nombre ? categoria_producto.nombre : '';
+  }
+
+  private filtro_linea_producto(value: string): LineaProducto[] {
+    if(this.lineas_productos.length>0) {
+      const filterValue = value.toLowerCase();
+      return this.lineas_productos.filter(linea_producto => linea_producto.nombre.toLowerCase().includes(filterValue));
+    }
+    return [];
+  }
+  ver_linea_producto(linea_producto: LineaProducto): string {
+    return linea_producto && linea_producto.nombre ? linea_producto.nombre : '';
+  }
+
+  private filtro_sub_linea_producto(value: string): SubLineaProducto[] {
+    if(this.sub_lineas_productos.length>0) {
+      const filterValue = value.toLowerCase();
+      return this.sub_lineas_productos.filter(sub_linea_producto => sub_linea_producto.nombre.toLowerCase().includes(filterValue));
+    }
+    return [];
+  }
+  ver_sub_linea_producto(sub_linea_producto: SubLineaProducto): string {
+    return sub_linea_producto && sub_linea_producto.nombre ? sub_linea_producto.nombre : '';
+  }
+
+  private filtro_presentacion_producto(value: string): PresentacionProducto[] {
+    if(this.presentaciones_productos.length>0) {
+      const filterValue = value.toLowerCase();
+      return this.presentaciones_productos.filter(presentacion_producto => presentacion_producto.nombre.toLowerCase().includes(filterValue));
+    }
+    return [];
+  }
+  ver_presentacion_producto(presentacion_producto: PresentacionProducto): string {
+    return presentacion_producto && presentacion_producto.nombre ? presentacion_producto.nombre : '';
+  }
+
+  private filtro_medida(value: string): Medida[] {
+    if(this.medidas.length>0) {
+      const filterValue = value.toLowerCase();
+      return this.medidas.filter(medida => medida.descripcion.toLowerCase().includes(filterValue));
+    }
+    return [];
+  }
+  ver_medida(medida: Medida): string {
+    return medida && medida.descripcion ? medida.descripcion : '';
+  }
+
+
+  private filtro_medida_popup(value: string): Medida[] {
+    if(this.medidas_popup.length>0) {
+      const filterValue = value.toLowerCase();
+      return this.medidas_popup.filter(medida_popup => medida_popup.descripcion.toLowerCase().includes(filterValue));
+    }
+    return [];
+  }
+  ver_medida_popup(medida_popup: Medida): string {
+    return medida_popup && medida_popup.descripcion ? medida_popup.descripcion : '';
   }
 
   nuevo(event){
@@ -90,27 +257,27 @@ export class ProductoComponent implements OnInit {
   crear(event){
     if (event!=null)
       event.preventDefault();
-    if (this.grupo_producto.id==0){
+    if (this.seleccion_grupo_producto.value.id==0){
       Swal.fire('Error', constantes.error_grupo_producto, 'error');
       return;
     }
-    if (this.sub_grupo_producto.id==0){
+    if (this.seleccion_sub_grupo_producto.value.id==0){
       Swal.fire('Error', constantes.error_sub_grupo_producto, 'error');
       return;
     }
-    if (this.categoria_producto.id==0){
+    if (this.seleccion_categoria_producto.value.id==0){
       Swal.fire('Error', constantes.error_categoria_producto, 'error');
       return;
     }
-    if (this.linea_producto.id==0){
+    if (this.seleccion_linea_producto.value.id==0){
       Swal.fire('Error', constantes.error_linea_producto, 'error');
       return;
     }
-    if (this.sub_linea_producto.id==0){
+    if (this.seleccion_sub_linea_producto.value.id==0){
       Swal.fire('Error', constantes.error_sub_linea_producto, 'error');
       return;
     }
-    if(this.presentacion_producto.id==0){
+    if(this.seleccion_presentacion_producto.value.id==0){
       Swal.fire('Error', constantes.error_presentacion_producto, 'error');
       return;
     }
@@ -124,10 +291,6 @@ export class ProductoComponent implements OnInit {
     }
     if(this.producto.tipo_producto.id==0){
       Swal.fire('Error', constantes.error_tipo_producto, 'error');
-      return;
-    }
-    if(this.unidad_kardex.id==0){
-      Swal.fire('Error', constantes.error_unidad_kardex, 'error');
       return;
     }
     console.log(this.producto);
@@ -198,10 +361,10 @@ export class ProductoComponent implements OnInit {
       }
     );
   }
-  consulta_unidades_kardex(){
+  consulta_medidas_popup(){
     this.medidaService.consultar().subscribe(
       res => {
-        this.unidades_kardex = res.resultado as Medida[];
+        this.medidas_popup = res.resultado as Medida[];
       },
       err => {
         Swal.fire('Error', err.error.mensaje, 'error')
@@ -219,24 +382,26 @@ export class ProductoComponent implements OnInit {
     );
   }
 
-  validar_grupo_producto(){
-    this.sub_grupos_productos=this.grupo_producto.sub_grupos_productos;
+  seleccionar_grupo_producto(){
+    this.sub_grupos_productos=this.seleccion_grupo_producto.value.sub_grupos_productos;
   }
-  validar_sub_grupo_producto(){
-    this.categorias_productos=this.sub_grupo_producto.categorias_productos;
+  seleccionar_sub_grupo_producto(){
+    this.categorias_productos=this.seleccion_sub_grupo_producto.value.categorias_productos;
   }
-  validar_categoria_producto(){
-    this.lineas_productos=this.categoria_producto.lineas_productos;
+  seleccionar_categoria_producto(){
+    this.lineas_productos=this.seleccion_categoria_producto.value.lineas_productos;
   }
-  validar_linea_producto(){
-    this.sub_lineas_productos=this.linea_producto.sub_lineas_productos;
+  seleccionar_linea_producto(){
+    this.producto.nombre=this.obtener_nombre_producto();
+    this.sub_lineas_productos=this.seleccion_linea_producto.value.sub_lineas_productos;
   }
-  validar_sub_linea_producto(){
-    this.presentaciones_productos=this.sub_linea_producto.presentaciones_productos;
+  seleccionar_sub_linea_producto(){
+    this.producto.nombre=this.obtener_nombre_producto();
+    this.presentaciones_productos=this.seleccion_sub_linea_producto.value.presentaciones_productos;
   }
-  validar_presentacion_producto(){
-    this.producto.nombre=this.categoria_producto.nombre+" "+this.linea_producto.nombre+" "+this.sub_linea_producto.nombre+" "+this.presentacion_producto.nombre;
-    this.producto.presentacion_producto=this.presentacion_producto;
+  seleccionar_presentacion_producto(){
+    this.producto.nombre=this.obtener_nombre_producto();
+    this.producto.presentacion_producto=this.seleccion_presentacion_producto.value;
   }
 
   crear_precio(){
@@ -248,46 +413,24 @@ export class ProductoComponent implements OnInit {
       Swal.fire('Error', constantes.error_costo, 'error');
       return;
     }
-    if (this.habilitar_otras_medidas){
-      if (this.unidad_kardex.id==0){
-        Swal.fire('Error', constantes.error_unidad_kardex, 'error');
-        return;
-      }
-      this.habilitar_otras_medidas=false;
-      for(let i=0; i<this.segmentos.length; i++){
-        let precio=new Precio();
-        precio.medida=this.unidad_kardex;
-        precio.costo=this.precio.costo;
-        precio.segmento=this.segmentos[i];
-        this.precios.push(precio);
-        this.precios_tabla= new BehaviorSubject(this.precios);
-        this.datos = this.precios_tabla;
-        this.activar_controles();
-      }
-      this.eliminar_medida_kardex();
-    } else {
-      if (this.medida.id==0 || this.validar_precios()){
-        Swal.fire('Error', constantes.error_medida, 'error');
-        return;
-      }
-      for(let i=0; i<this.segmentos.length; i++){
-        let precio=new Precio();
-        precio.medida=this.medida;
-        precio.costo=this.precio.costo;
-        precio.segmento=this.segmentos[i];
-        this.precios.push(precio);
-        this.precios_tabla= new BehaviorSubject(this.precios);
-        this.datos = this.precios_tabla;
-        this.activar_controles();
-      }
-      this.eliminar_medida();
+    for(let i=0; i<this.segmentos.length; i++){
+      let precio=new Precio();
+      precio.medida=this.medida;
+      precio.costo=this.precio.costo;
+      precio.segmento=this.segmentos[i];
+      this.precios.push(precio);
+      this.precios_tabla= new BehaviorSubject(this.precios);
+      this.datos = this.precios_tabla;
+      this.activar_controles();
     }
+    this.actualizar_precios();
+    this.eliminar_medida();
     
   }
 
-  eliminar_medida_kardex(){
+  eliminar_medida_popup(){
     for (let i=0; i<this.medidas.length; i++){
-      if (this.medidas[i].codigo_norma==this.unidad_kardex.codigo_norma){
+      if (this.medidas[i].codigo_norma==this.kardex.medida.codigo_norma){
         this.medidas.splice(i, 1);
       }
     }
@@ -325,6 +468,7 @@ export class ProductoComponent implements OnInit {
   activar_controles(){
     const toGroups = this.precios_tabla.value.map(entity => {
       return new FormGroup({
+        costo: new FormControl(entity.costo, Validators.required), 
         margen_ganancia: new FormControl(entity.margen_ganancia, Validators.required), 
         precio_venta_publico_manual: new FormControl(entity.precio_venta_publico_manual, Validators.required),
       },{updateOn: "blur"});
@@ -358,6 +502,77 @@ export class ProductoComponent implements OnInit {
     return this.controls.at(index).get(fieldName) as FormControl;
   }
 
-  
+  cargar_saldo_inicial(content: any){
+    if(this.producto.impuesto.id==0){
+      Swal.fire('Error', constantes.error_impuesto, 'error');
+      return;
+    }
+    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
+      if (result == "confirmar") {
+        this.kardex.medida=this.seleccion_medida_popup.value;
+        if(this.kardex.medida.id==0){
+          Swal.fire('Error', constantes.error_medida, 'error');
+          return;
+        }
+        if(this.kardex.cantidad==0){
+          Swal.fire('Error', constantes.error_cantidad, 'error');
+          return;
+        }
+        if (this.kardex.costo_unitario==0){
+          Swal.fire('Error', constantes.error_costo_unitario, 'error');
+          return;
+        }
+        if (this.kardex.costo_total==0){
+          Swal.fire('Error', constantes.error_costo_total, 'error');
+          return;
+        }
+        this.producto.kardexs.push(this.kardex);
+        this.precio.costo=this.kardex.costo_unitario;
+        for(let i=0; i<this.segmentos.length; i++){
+          let precio=new Precio();
+          precio.medida=this.kardex.medida;
+          precio.costo=this.precio.costo;
+          precio.segmento=this.segmentos[i];
+          this.precios.push(precio);
+          this.precios_tabla= new BehaviorSubject(this.precios);
+          this.datos = this.precios_tabla;
+          this.activar_controles();
+        }
+        this.actualizar_precios();
+        this.eliminar_medida_popup();
+        if(this.producto.kardexs.length>0){
+          this.habilitar_saldo_inicial=true;
+          this.habilitar_otras_medidas=false;
+        }
+      } 
+    }, (reason) => {
+      console.log(`Dismissed ${this.getDismissReason(reason)}`);
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+
+  seleccionar_cantidad(){
+    this.kardex.costo_total=Number((this.kardex.cantidad*this.kardex.costo_unitario).toFixed(2));
+  }
+  seleccionar_costo_unitario(){
+    this.kardex.costo_total=Number((this.kardex.cantidad*this.kardex.costo_unitario).toFixed(2));
+  }
+
+  private obtener_nombre_producto(){
+    let categoria_producto=this.seleccion_categoria_producto.value!= null ? this.seleccion_categoria_producto.value.nombre: "";
+    let linea_producto=this.seleccion_linea_producto.value!= null ? this.seleccion_linea_producto.value.nombre: "";
+    let sub_linea_producto=this.seleccion_sub_linea_producto.value!= null ? this.seleccion_sub_linea_producto.value.nombre: "";
+    let presentacion_producto=this.seleccion_presentacion_producto.value!= null ? this.seleccion_presentacion_producto.value.nombre: "";
+    return categoria_producto+" "+linea_producto+" "+sub_linea_producto+" "+presentacion_producto;
+  }
 }
 

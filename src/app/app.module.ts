@@ -159,6 +159,7 @@ import { UbicacionMostrarComponent } from './ubicacion/ubicacion-mostrar/ubicaci
 import { ImportarComponent } from './importar/importar.component';
 import { ModeloService } from './servicios/modelo.service';
 import { ExportarComponent } from './exportar/exportar.component';
+import { SaldoInicialInventarioComponent } from './saldo-inicial-inventario/saldo-inicial-inventario.component';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -291,7 +292,7 @@ const routes: Routes = [
     EditModeDirective,
     FocusableDirective, 
     EditableOnEnterDirective, 
-    ExportarComponent
+    ExportarComponent, SaldoInicialInventarioComponent
   ],
   imports: [
     BrowserModule,
@@ -345,7 +346,7 @@ const routes: Routes = [
                 useClass: PathLocationStrategy
               }],
   bootstrap: [AppComponent],
-  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent]  
+  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, SaldoInicialInventarioComponent]  
 })
 export class AppModule {
   constructor() {

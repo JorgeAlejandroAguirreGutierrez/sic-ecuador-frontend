@@ -20,12 +20,12 @@ export class Producto {
   tipo_producto: TipoProducto;
   presentacion_producto: PresentacionProducto;
   impuesto: Impuesto;
-  //HASONE
-  kardex: Kardex;
+  
   //BODEGA SELECCIONADO
   bodega: Bodega;
   //HASMANY
   caracteristicas: Caracteristica[];
+  kardexs: Kardex[];
   precios: Precio[];
 
   constructor() {
@@ -37,10 +37,10 @@ export class Producto {
     this.estado=0;
     this.precios=[];
     this.caracteristicas=[];
+    this.kardexs=[];
     this.tipo_producto=new TipoProducto();
     this.tipo_gasto=new TipoGasto();
     this.presentacion_producto=new PresentacionProducto();
-    this.kardex=new Kardex();
     this.impuesto=new Impuesto();
     this.bodega=new Bodega();
 
