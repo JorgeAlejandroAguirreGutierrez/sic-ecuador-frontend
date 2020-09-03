@@ -17,6 +17,7 @@ import { UbicacionMostrarComponent } from '../ubicacion/ubicacion-mostrar/ubicac
 import { ImportarComponent } from '../importar/importar.component';
 import { ExportarComponent } from '../exportar/exportar.component';
 import { SaldoInicialInventarioComponent } from '../saldo-inicial-inventario/saldo-inicial-inventario.component';
+import { ProductoMostrarComponent } from '../producto/producto-mostrar/producto-mostrar.component';
 
 @Component({
   selector: 'app-main',
@@ -121,6 +122,7 @@ export class MainComponent implements OnInit{
     if (tabNombre == "INVENTARIOS") {
       this.llenarOpciones(ProductoComponent,'Crear Producto','Crear Producto');
       this.llenarOpciones(SaldoInicialInventarioComponent,'Crear Saldo Inicial','Crear Saldo Inicial');
+      this.llenarOpciones(ProductoMostrarComponent,'Mostrar Productos','MostrarProductos');
     }
 
     if (tabNombre == "CONTABILIDAD") {

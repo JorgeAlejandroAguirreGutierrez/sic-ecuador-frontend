@@ -160,6 +160,7 @@ import { ImportarComponent } from './importar/importar.component';
 import { ModeloService } from './servicios/modelo.service';
 import { ExportarComponent } from './exportar/exportar.component';
 import { SaldoInicialInventarioComponent } from './saldo-inicial-inventario/saldo-inicial-inventario.component';
+import { ProductoMostrarComponent } from './producto/producto-mostrar/producto-mostrar.component';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -188,6 +189,7 @@ const routes: Routes = [
   {path: 'entrega', component: EntregaComponent},
   {path: 'main', component: MainComponent},
   {path: 'producto', component: ProductoComponent},
+  {path: 'producto-mostrar', component: ProductoMostrarComponent},
   {path: 'tabla', component: TablaEditableComponent},
   {path: 'tienda', component: TiendaComponent},
   {path: 'tienda/detalle-producto/:id', component: DetalleProductoComponent},
@@ -292,7 +294,9 @@ const routes: Routes = [
     EditModeDirective,
     FocusableDirective, 
     EditableOnEnterDirective, 
-    ExportarComponent, SaldoInicialInventarioComponent
+    ExportarComponent, 
+    SaldoInicialInventarioComponent,
+    ProductoMostrarComponent
   ],
   imports: [
     BrowserModule,
