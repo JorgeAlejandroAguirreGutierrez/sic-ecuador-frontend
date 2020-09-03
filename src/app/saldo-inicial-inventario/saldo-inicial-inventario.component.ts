@@ -92,4 +92,9 @@ export class SaldoInicialInventarioComponent implements OnInit {
     this.kardex.costo_total=Number((this.kardex.cantidad*this.kardex.costo_unitario).toFixed(2));
   }
 
+  nuevo(event){
+    if (event!=null)
+      event.preventDefault();
+  }
+
 }

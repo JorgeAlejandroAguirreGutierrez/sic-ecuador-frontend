@@ -251,7 +251,8 @@ export class ProductoComponent implements OnInit {
   }
 
   nuevo(event){
-
+    if (event!=null)
+      event.preventDefault();
   }
   
   crear(event){
