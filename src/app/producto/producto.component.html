@@ -6,14 +6,16 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="crear($event)">
-                <fa-icon [icon]="['fas', 'save']"></fa-icon>
-            </a>
-            <ng-template #block_actualizar>
+            <ng-container *ngIf="producto.id==0">
+                <a class="nav-link" href="#" role="button" (click)="crear($event)">
+                    <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                </a>
+            </ng-container>
+            <ng-container *ngIf="producto.id!=0">
                 <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
                     <fa-icon [icon]="['fas', 'save']"></fa-icon>
                 </a>
-            </ng-template>
+            </ng-container>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
@@ -125,38 +127,38 @@
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Activo</mat-label>
                                                 <mat-select [(ngModel)]="producto.estado" class="form-control-sm"> 
-                                                    <mat-option [value]="1">SI</mat-option>
-                                                    <mat-option [value]="0">NO</mat-option>
+                                                    <mat-option [value]="true">SI</mat-option>
+                                                    <mat-option [value]="false">NO</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-7">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Código</mat-label>
-                                                <input matInput type="text" disabled class="form-control-sm">
+                                                <input matInput type="text" [(ngModel)]="producto.codigo" disabled class="form-control-sm">
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-4">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>IVA</mat-label>
-                                                <mat-select [(ngModel)]="producto.impuesto" class="form-control-sm">
-                                                    <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto">{{impuesto.porcentaje}}</mat-option>
+                                                <mat-select [(ngModel)]="producto.impuesto.id" class="form-control-sm">
+                                                    <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto.id">{{impuesto.porcentaje}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-8">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Tipo de Gasto</mat-label>
-                                                <mat-select [(ngModel)]="producto.tipo_gasto" class="form-control-sm">
-                                                    <mat-option *ngFor="let tipo_gasto of tipos_gastos" [value]="tipo_gasto">{{tipo_gasto.nombre}}</mat-option>
+                                                <mat-select [(ngModel)]="producto.tipo_gasto.id" class="form-control-sm">
+                                                    <mat-option *ngFor="let tipo_gasto of tipos_gastos" [value]="tipo_gasto.id">{{tipo_gasto.nombre}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="form-group col-8">
                                             <mat-form-field appearance="standard">
                                                 <mat-label>T.P</mat-label>
-                                                <mat-select [(ngModel)]="producto.tipo_producto" class="form-control-sm">
-                                                    <mat-option *ngFor="let tipo_producto of tipos_productos" [value]="tipo_producto">{{tipo_producto.abreviatura}}</mat-option>
+                                                <mat-select [(ngModel)]="producto.tipo_producto.id" class="form-control-sm">
+                                                    <mat-option *ngFor="let tipo_producto of tipos_productos" [value]="tipo_producto.id">{{tipo_producto.abreviatura}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -164,8 +166,8 @@
                                             <mat-form-field appearance="standard">
                                                 <mat-label>Consignación</mat-label>
                                                 <mat-select type="text" [(ngModel)]="producto.consignacion" class="form-control-sm">
-                                                    <mat-option [value]="1">SI</mat-option>
-                                                    <mat-option [value]="0">NO</mat-option>
+                                                    <mat-option [value]="true">SI</mat-option>
+                                                    <mat-option [value]="false">NO</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -342,7 +344,7 @@
         <div class="form-row">
             <div class="form-group col-12">
                 <mat-form-field appearance="standard" class="grande">
-                    <mat-label>Medida</mat-label>
+                    <mat-label>Unidad Kardex</mat-label>
                     <mat-autocomplete #medida_popup="matAutocomplete" [displayWith]="ver_medida_popup">
                         <mat-option *ngFor="let medida_popup of filtro_medidas_popup | async" [value]="medida_popup">
                             {{medida_popup.descripcion}}

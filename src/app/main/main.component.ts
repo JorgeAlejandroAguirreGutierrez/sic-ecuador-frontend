@@ -122,7 +122,7 @@ export class MainComponent implements OnInit{
     if (tabNombre == "INVENTARIOS") {
       this.llenarOpciones(ProductoComponent,'Crear Producto','Crear Producto');
       this.llenarOpciones(SaldoInicialInventarioComponent,'Crear Saldo Inicial','Crear Saldo Inicial');
-      this.llenarOpciones(ProductoMostrarComponent,'Mostrar Productos','MostrarProductos');
+      this.llenarOpciones(ProductoMostrarComponent,'Mostrar Productos','Mostrar Productos');
     }
 
     if (tabNombre == "CONTABILIDAD") {

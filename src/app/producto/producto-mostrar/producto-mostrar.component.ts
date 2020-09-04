@@ -70,11 +70,11 @@ export class ProductoMostrarComponent implements OnInit {
   actualizar(event){
     if (event!=null)
       event.preventDefault();
-    if (this.producto!= null){
+    if (this.producto != null){
       this.productoService.enviar(this.producto.id);
       this.tabService.addNewTab(this.ComponenteProducto,'Actualizar Producto');
     } else {
-      Swal.fire('Error', "Selecciona una Factura", 'error');
+      Swal.fire('Error', "Selecciona un Producto", 'error');
     }
   }
 

@@ -120,7 +120,7 @@ export class FacturaComponent implements OnInit {
   async ngOnInit() {
     this.validar_sesion();
     this.consultar_clientes();
-    this.contruir_factura();
+    this.construir_factura();
     this.cambiar_productos(this.tipo_producto);
     this.consultar_medidas();
     this.consultar_impuestos();
@@ -250,7 +250,7 @@ export class FacturaComponent implements OnInit {
     if (this.sesion == undefined)
       this.router.navigate(['/iniciosesion']);
   }
-  contruir_factura() {
+  construir_factura() {
     let factura_id=0;
     this.facturaService.currentMessage.subscribe(message => factura_id = message);
     if (factura_id!= 0) {

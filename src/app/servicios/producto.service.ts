@@ -32,13 +32,21 @@ export class ProductoService {
     );
   }
 
-  obtener(producto: Producto): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.producto + '/' + producto.id, util.options).pipe(
+  obtener(producto_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.producto + '/' + producto_id, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
+  }
+
+  async obtenerAsync(producto_id: number): Promise<Respuesta> {
+    return await this.http.get<Respuesta>(environment.host + util.ruta + util.producto + '/' + producto_id, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })).toPromise();
   }
 
   consultar(): Observable<Respuesta> {

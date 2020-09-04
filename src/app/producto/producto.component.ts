@@ -28,8 +28,8 @@ import { Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Kardex } from '../modelos/kardex';
 import { startWith, map } from 'rxjs/operators';
-import { grupo_producto } from '../util';
 import { KardexService } from '../servicios/kardex.service';
+import { TabService } from '../services/tab.service';
 
 
 @Component({
@@ -38,21 +38,17 @@ import { KardexService } from '../servicios/kardex.service';
   styleUrls: ['./producto.component.scss']
 })
 export class ProductoComponent implements OnInit {
-
   panelOpenState=false;
   displayedColumnsSugerido: string[] = ['medida', 'segmento', 'costo', 'margen_ganancia', 'precio_venta_publico', 'precio_venta_publico_iva'];
   displayedColumnsVenta: string[] = ['precio_venta_publico_manual', 'utilidad', 'utilidad_porcentaje'];
-  precios: Precio[] = [];
-  precios_tabla: BehaviorSubject<Precio[]> = new BehaviorSubject(this.precios);
+  producto: Producto=new Producto();
+  precios_tabla: BehaviorSubject<Precio[]> = new BehaviorSubject(this.producto.precios);
   datos = this.precios_tabla;
   controls: FormArray;
-
-  producto: Producto=new Producto();
 
   tipos_gastos: TipoGasto[]=[];
   segmentos: Segmento[]=[];
   impuestos: Impuesto[]=[];
-  
   
   tipos_productos: TipoProducto[]=[];
   habilitar_otras_medidas: boolean=true;
@@ -97,12 +93,11 @@ export class ProductoComponent implements OnInit {
 
   constructor(private productoService: ProductoService, private grupoProductoService: GrupoProductoService, private kardexService: KardexService,
     private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService, private router: Router, private modalService: NgbModal,
-    private segmentoService: SegmentoService, private tipoProductoService: TipoProductoService, private medidaService: MedidaService) { }
+    private segmentoService: SegmentoService, private tipoProductoService: TipoProductoService, 
+    private tabService: TabService, private medidaService: MedidaService) { }
 
   ngOnInit() {
-    if(this.producto.kardexs.length>0){
-      this.habilitar_saldo_inicial=true;
-    }
+    this.construir_producto();
     this.consulta_grupos_productos();
     this.consulta_tipos_gastos();
     this.consulta_tipos_productos();
@@ -110,6 +105,7 @@ export class ProductoComponent implements OnInit {
     this.consulta_medidas();
     this.consulta_medidas_popup();
     this.consulta_segmentos();
+    
     this.filtro_grupos_productos = this.seleccion_grupo_producto.valueChanges
       .pipe(
         startWith(''),
@@ -295,12 +291,10 @@ export class ProductoComponent implements OnInit {
       return;
     }
     console.log(this.producto);
-    this.producto.precios=this.precios;
     this.productoService.crear(this.producto).subscribe(
       res => {
-        this.producto = res.resultado as Producto;
+        this.producto= res.resultado as Producto;
         Swal.fire('Exito', res.mensaje, 'success');
-        this.router.navigate(['/main']);
       },
       err => {
         Swal.fire('Error', err.error.mensaje, 'error')
@@ -309,7 +303,53 @@ export class ProductoComponent implements OnInit {
   } 
 
   actualizar(event){
-
+    if (event!=null)
+      event.preventDefault();
+    if (this.seleccion_grupo_producto.value.id==0){
+      Swal.fire('Error', constantes.error_grupo_producto, 'error');
+      return;
+    }
+    if (this.seleccion_sub_grupo_producto.value.id==0){
+      Swal.fire('Error', constantes.error_sub_grupo_producto, 'error');
+      return;
+    }
+    if (this.seleccion_categoria_producto.value.id==0){
+      Swal.fire('Error', constantes.error_categoria_producto, 'error');
+      return;
+    }
+    if (this.seleccion_linea_producto.value.id==0){
+      Swal.fire('Error', constantes.error_linea_producto, 'error');
+      return;
+    }
+    if (this.seleccion_sub_linea_producto.value.id==0){
+      Swal.fire('Error', constantes.error_sub_linea_producto, 'error');
+      return;
+    }
+    if(this.seleccion_presentacion_producto.value.id==0){
+      Swal.fire('Error', constantes.error_presentacion_producto, 'error');
+      return;
+    }
+    if(this.producto.impuesto.id==0){
+      Swal.fire('Error', constantes.error_impuesto, 'error');
+      return;
+    }
+    if(this.producto.tipo_gasto.id==0){
+      Swal.fire('Error', constantes.error_tipo_gasto, 'error');
+      return;
+    }
+    if(this.producto.tipo_producto.id==0){
+      Swal.fire('Error', constantes.error_tipo_producto, 'error');
+      return;
+    }
+    console.log(this.producto);
+    this.productoService.actualizar(this.producto).subscribe(
+      res => {
+        Swal.fire('Exito', res.mensaje, 'success');
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
   }
   consulta_grupos_productos(){
     this.grupoProductoService.consultar().subscribe(
@@ -384,25 +424,30 @@ export class ProductoComponent implements OnInit {
   }
 
   seleccionar_grupo_producto(){
+    this.producto.grupo_producto=this.seleccion_grupo_producto.value;
     this.sub_grupos_productos=this.seleccion_grupo_producto.value.sub_grupos_productos;
   }
   seleccionar_sub_grupo_producto(){
+    this.producto.sub_grupo_producto=this.seleccion_sub_grupo_producto.value;
     this.categorias_productos=this.seleccion_sub_grupo_producto.value.categorias_productos;
   }
   seleccionar_categoria_producto(){
+    this.producto.categoria_producto=this.seleccion_categoria_producto.value;
     this.lineas_productos=this.seleccion_categoria_producto.value.lineas_productos;
   }
   seleccionar_linea_producto(){
+    this.producto.linea_producto=this.seleccion_linea_producto.value;
     this.producto.nombre=this.obtener_nombre_producto();
     this.sub_lineas_productos=this.seleccion_linea_producto.value.sub_lineas_productos;
   }
   seleccionar_sub_linea_producto(){
+    this.producto.sub_linea_producto=this.seleccion_sub_linea_producto.value;
     this.producto.nombre=this.obtener_nombre_producto();
     this.presentaciones_productos=this.seleccion_sub_linea_producto.value.presentaciones_productos;
   }
   seleccionar_presentacion_producto(){
-    this.producto.nombre=this.obtener_nombre_producto();
     this.producto.presentacion_producto=this.seleccion_presentacion_producto.value;
+    this.producto.nombre=this.obtener_nombre_producto();
   }
 
   crear_precio(){
@@ -419,8 +464,8 @@ export class ProductoComponent implements OnInit {
       precio.medida=this.medida;
       precio.costo=this.precio.costo;
       precio.segmento=this.segmentos[i];
-      this.precios.push(precio);
-      this.precios_tabla= new BehaviorSubject(this.precios);
+      this.producto.precios.push(precio);
+      this.precios_tabla= new BehaviorSubject(this.producto.precios);
       this.datos = this.precios_tabla;
       this.activar_controles();
     }
@@ -443,10 +488,20 @@ export class ProductoComponent implements OnInit {
       }
     }
   }
+  eliminar_medidas_actualizacion(){
+    for(let z=0; z<this.producto.precios.length; z++){
+      for (let i=0; i<this.medidas.length; i++){
+        if (this.producto.precios[z].medida.codigo_norma==this.medidas[i].codigo_norma){
+          this.medidas.splice(i, 1);
+        }
+      }
+    }
+    
+  }
 
   validar_precios(){
-    for (let i=0; i<this.precios.length; i++){
-      if (this.precios[i].medida.codigo_norma==this.medida.codigo_norma){
+    for (let i=0; i<this.producto.precios.length; i++){
+      if (this.producto.precios[i].medida.codigo_norma==this.medida.codigo_norma){
         return true;
       }
     }
@@ -454,15 +509,15 @@ export class ProductoComponent implements OnInit {
   }
 
   actualizar_precios(){
-    for(let i=0; i<this.precios.length; i++){
-      this.precios[i].precio_venta_publico=(this.precios[i].costo/(1-(this.precios[i].margen_ganancia/100)));
-      this.precios[i].precio_venta_publico=Number(this.precios[i].precio_venta_publico.toFixed(2));
-      this.precios[i].precio_venta_publico_iva=this.precios[i].precio_venta_publico+(this.precios[i].precio_venta_publico*(this.impuesto.porcentaje/100));
-      this.precios[i].precio_venta_publico_iva=Number(this.precios[i].precio_venta_publico_iva.toFixed(2));
-      this.precios[i].utilidad=this.precios[i].precio_venta_publico_manual/((100+(this.impuesto.porcentaje))/100)-this.precios[i].costo;
-      this.precios[i].utilidad=Number(this.precios[i].utilidad.toFixed(2));
-      this.precios[i].utilidad_porcentaje=(this.precios[i].utilidad/this.precios[i].precio_venta_publico)*100;
-      this.precios[i].utilidad_porcentaje=Number(this.precios[i].utilidad_porcentaje.toFixed(2));
+    for(let i=0; i<this.producto.precios.length; i++){
+      this.producto.precios[i].precio_venta_publico=(this.producto.precios[i].costo/(1-(this.producto.precios[i].margen_ganancia/100)));
+      this.producto.precios[i].precio_venta_publico=Number(this.producto.precios[i].precio_venta_publico.toFixed(2));
+      this.producto.precios[i].precio_venta_publico_iva=this.producto.precios[i].precio_venta_publico+(this.producto.precios[i].precio_venta_publico*(this.impuesto.porcentaje/100));
+      this.producto.precios[i].precio_venta_publico_iva=Number(this.producto.precios[i].precio_venta_publico_iva.toFixed(2));
+      this.producto.precios[i].utilidad=this.producto.precios[i].precio_venta_publico_manual/((100+(this.impuesto.porcentaje))/100)-this.producto.precios[i].costo;
+      this.producto.precios[i].utilidad=Number(this.producto.precios[i].utilidad.toFixed(2));
+      this.producto.precios[i].utilidad_porcentaje=(this.producto.precios[i].utilidad/this.producto.precios[i].precio_venta_publico)*100;
+      this.producto.precios[i].utilidad_porcentaje=Number(this.producto.precios[i].utilidad_porcentaje.toFixed(2));
     }
   }
 
@@ -486,7 +541,7 @@ export class ProductoComponent implements OnInit {
    }
 
   update(index, field, value) {
-    this.precios = this.precios.map((e, i) => {
+    this.producto.precios = this.producto.precios.map((e, i) => {
       if (index === i) {
         return {
           ...e,
@@ -495,7 +550,7 @@ export class ProductoComponent implements OnInit {
       }
       return e;
     });
-    this.precios_tabla.next(this.precios);
+    this.precios_tabla.next(this.producto.precios);
   }
 
   getControl(index, fieldName) {
@@ -534,8 +589,8 @@ export class ProductoComponent implements OnInit {
           precio.medida=this.kardex.medida;
           precio.costo=this.precio.costo;
           precio.segmento=this.segmentos[i];
-          this.precios.push(precio);
-          this.precios_tabla= new BehaviorSubject(this.precios);
+          this.producto.precios.push(precio);
+          this.precios_tabla= new BehaviorSubject(this.producto.precios);
           this.datos = this.precios_tabla;
           this.activar_controles();
         }
@@ -574,6 +629,39 @@ export class ProductoComponent implements OnInit {
     let sub_linea_producto=this.seleccion_sub_linea_producto.value!= null ? this.seleccion_sub_linea_producto.value.nombre: "";
     let presentacion_producto=this.seleccion_presentacion_producto.value!= null ? this.seleccion_presentacion_producto.value.nombre: "";
     return categoria_producto+" "+linea_producto+" "+sub_linea_producto+" "+presentacion_producto;
+  }
+
+  async construir_producto() {
+    let producto_id=0;
+    this.productoService.currentMessage.subscribe(message => producto_id = message);
+    if (producto_id!= 0) {
+      await this.productoService.obtenerAsync(producto_id).then(
+        res => {
+          Object.assign(this.producto, res.resultado as Producto);
+          if(this.producto.kardexs.length>0){
+            this.habilitar_saldo_inicial=true;
+            this.habilitar_otras_medidas=false;
+          }
+          this.eliminar_medidas_actualizacion();
+          this.seleccion_grupo_producto.setValue(this.producto.grupo_producto);
+          this.seleccion_sub_grupo_producto.setValue(this.producto.sub_grupo_producto);
+          this.seleccion_categoria_producto.setValue(this.producto.categoria_producto);
+          this.seleccion_linea_producto.setValue(this.producto.linea_producto);
+          this.seleccion_sub_linea_producto.setValue(this.producto.sub_linea_producto);
+          this.seleccion_presentacion_producto.setValue(this.producto.presentacion_producto);
+          this.precios_tabla= new BehaviorSubject(this.producto.precios);
+          this.datos = this.precios_tabla;
+        },
+        err => Swal.fire('Error', err.error.mensaje, 'error')
+      );
+    }
+  }
+
+  recargar() {
+    let actual = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([actual]);
+      });
   }
 }
 
