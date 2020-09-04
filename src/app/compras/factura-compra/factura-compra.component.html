@@ -2,6 +2,7 @@
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
         <!-- Paso Facturación -->
         <mat-step [stepControl]="firstFormGroup" [editable]="isEditable" [completed]="false">
+            <ng-template matStepLabel>Factura de Compra</ng-template>
             <nav class="navbar-light nav-fijo">
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -692,8 +693,8 @@
         </mat-step>
         <!-- Paso Pago -->
         <mat-step [stepControl]="secondFormGroup" [completed]="false" [editable]="isEditable">
-            <ng-template matStepLabel>Pago de Factura de Compra</ng-template>
-            <app-pago-compra></app-pago-compra>
+            <ng-template matStepLabel>Pago Compra</ng-template>
+            <app-pago-compra [factura]="factura_crear"></app-pago-compra>
             <mat-divider></mat-divider>
             <div>
                 <button mat-button matStepperPrevious>Atras</button>

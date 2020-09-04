@@ -85,6 +85,7 @@ export class FacturaCompraComponent implements OnInit {
   auxiliar_telefono = new TelefonoAuxiliar();
   auxiliar_celular = new CelularAuxiliar();
   auxiliar_correo = new CorreoAuxiliar();
+  factura_crear: Factura=new Factura();
 
   provincias: Ubicacion[];
   cantones: Ubicacion[];
