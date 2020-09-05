@@ -175,6 +175,7 @@ const routes: Routes = [
   {path: 'cliente/tipocontribuyente', component: TipoContribuyenteComponent},
   {path: 'cliente/vehiculotransporte', component: VehiculoTransporteComponent},
   {path: 'cliente/ubicacion', component: UbicacionComponent},
+  {path: 'cliente/ubicacion-mostrar', component: UbicacionMostrarComponent},
   {path: 'cliente/empresa', component: EmpresaComponent},
   {path: 'cliente/usuario', component: UsuarioComponent},
   {path: 'cliente/establecimiento', component: EstablecimientoComponent},

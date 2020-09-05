@@ -558,52 +558,46 @@ export class ProductoComponent implements OnInit {
     return this.controls.at(index).get(fieldName) as FormControl;
   }
 
-  cargar_saldo_inicial(content: any){
+  cargar_saldo_inicial(){
     if(this.producto.impuesto.id==0){
       Swal.fire('Error', constantes.error_impuesto, 'error');
       return;
     }
-    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
-      if (result == "confirmar") {
-        this.kardex.medida=this.seleccion_medida_popup.value;
-        if(this.kardex.medida.id==0){
-          Swal.fire('Error', constantes.error_medida, 'error');
-          return;
-        }
-        if(this.kardex.cantidad==0){
-          Swal.fire('Error', constantes.error_cantidad, 'error');
-          return;
-        }
-        if (this.kardex.costo_unitario==0){
-          Swal.fire('Error', constantes.error_costo_unitario, 'error');
-          return;
-        }
-        if (this.kardex.costo_total==0){
-          Swal.fire('Error', constantes.error_costo_total, 'error');
-          return;
-        }
-        this.producto.kardexs.push(this.kardex);
-        this.precio.costo=this.kardex.costo_unitario;
-        for(let i=0; i<this.segmentos.length; i++){
-          let precio=new Precio();
-          precio.medida=this.kardex.medida;
-          precio.costo=this.precio.costo;
-          precio.segmento=this.segmentos[i];
-          this.producto.precios.push(precio);
-          this.precios_tabla= new BehaviorSubject(this.producto.precios);
-          this.datos = this.precios_tabla;
-          this.activar_controles();
-        }
-        this.actualizar_precios();
-        this.eliminar_medida_popup();
-        if(this.producto.kardexs.length>0){
-          this.habilitar_saldo_inicial=true;
-          this.habilitar_otras_medidas=false;
-        }
-      } 
-    }, (reason) => {
-      console.log(`Dismissed ${this.getDismissReason(reason)}`);
-    });
+    this.kardex.medida=this.seleccion_medida_popup.value;
+    if(this.kardex.medida.id==0){
+      Swal.fire('Error', constantes.error_medida, 'error');
+      return;
+    }
+    if(this.kardex.cantidad==0){
+      Swal.fire('Error', constantes.error_cantidad, 'error');
+      return;
+    }
+    if (this.kardex.costo_unitario==0){
+      Swal.fire('Error', constantes.error_costo_unitario, 'error');
+      return;
+    }
+    if (this.kardex.costo_total==0){
+      Swal.fire('Error', constantes.error_costo_total, 'error');
+      return;
+    }
+    this.producto.kardexs.push(this.kardex);
+    this.precio.costo=this.kardex.costo_unitario;
+    for(let i=0; i<this.segmentos.length; i++){
+      let precio=new Precio();
+      precio.medida=this.kardex.medida;
+      precio.costo=this.precio.costo;
+      precio.segmento=this.segmentos[i];
+      this.producto.precios.push(precio);
+      this.precios_tabla= new BehaviorSubject(this.producto.precios);
+      this.datos = this.precios_tabla;
+      this.activar_controles();
+    }
+    this.actualizar_precios();
+    this.eliminar_medida_popup();
+    if(this.producto.kardexs.length>0){
+      this.habilitar_saldo_inicial=true;
+      this.habilitar_otras_medidas=false;
+    }  
   }
 
   private getDismissReason(reason: any): string {

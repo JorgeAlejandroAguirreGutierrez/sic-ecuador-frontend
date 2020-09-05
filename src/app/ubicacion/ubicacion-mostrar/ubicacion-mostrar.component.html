@@ -29,10 +29,28 @@
 </nav>
 <div class="contenedor">
     <div class="form-row">
-        <div class="form-group col-12">
-            <mat-form-field appearance="standard">
-                <mat-label>Numero Factura</mat-label>
-                <input matInput type="text" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+        <div class="form-group col-3">
+            <mat-form-field appearance="standard" class="grande">
+                <mat-label>Codigo Norma</mat-label>
+                <input matInput type="text" [(ngModel)]="ubicacion_buscar.codigo_norma" (change)="cambiar_buscar_ubicacion_codigo_norma()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+            </mat-form-field>
+        </div>
+        <div class="form-group col-3">
+            <mat-form-field appearance="standard" class="grande">
+                <mat-label>Provincia</mat-label>
+                <input matInput type="text" [(ngModel)]="ubicacion_buscar.provincia" (change)="cambiar_buscar_ubicacion_provincia()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+            </mat-form-field>
+        </div>
+        <div class="form-group col-3">
+            <mat-form-field appearance="standard" class="grande">
+                <mat-label>Canton</mat-label>
+                <input matInput type="text" [(ngModel)]="ubicacion_buscar.canton" (change)="cambiar_buscar_ubicacion_canton()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+            </mat-form-field>
+        </div>
+        <div class="form-group col-3">
+            <mat-form-field appearance="standard" class="grande">
+                <mat-label>Parroquia</mat-label>
+                <input matInput type="text" [(ngModel)]="ubicacion_buscar.parroquia" (change)="cambiar_buscar_ubicacion_parroquia()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
             </mat-form-field>
         </div>
     </div>
@@ -40,14 +58,14 @@
         <div class="col-12">
             <h2>UBICACIONES</h2>
             <hr>
-            <table class="table table-hover table-bordered table-responsive" style="font-size: 0.7rem">
+            <table class="table table-hover table-bordered" style="font-size: 0.7rem">
                 <thead class="table-active">
                     <tr>
-                        <th rowspan="2" class="col-1">SEL</th>
-                        <th rowspan="2" class="col-1">CODIGO</th>
-                        <th rowspan="2" class="col-1">PROVINCIA</th>
-                        <th rowspan="2" class="col-1">CANTON</th>
-                        <th rowspan="2" class="col-1">PARROQUIA</th>
+                        <th>SEL</th>
+                        <th>COD NORMA</th>
+                        <th>PROVINCIA</th>
+                        <th>CANTON</th>
+                        <th>PARROQUIA</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,7 +73,7 @@
                         <td>
                             <input type="radio" name="seleccion" (click)="seleccion(ubicacion)">
                         </td>
-                        <td>{{ubicacion.codigo}}</td>
+                        <td>{{ubicacion.codigo_norma}}</td>
                         <td>{{ubicacion.provincia}}</td>
                         <td>{{ubicacion.canton}}</td>
                         <td>{{ubicacion.parroquia}}</td>

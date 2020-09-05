@@ -193,11 +193,23 @@
             </mat-expansion-panel-header>
             <hr>
             <div class="form-row col-12">
-                <div class="form-group col-3">
-                    <br>
-                    <button class="btn btn-primary" [disabled]="habilitar_saldo_inicial" (click)="cargar_saldo_inicial(modal_saldo_inicial_inventario)">
-                        Cargar Saldo Inicial
-                    </button>
+                <div class="form-group col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Cantidad</mat-label>
+                        <input matInput type="text" [(ngModel)]="kardex.cantidad" (change)="seleccionar_cantidad()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Costo unitario</mat-label>
+                        <input matInput type="text" [(ngModel)]="kardex.costo_unitario" (change)="seleccionar_costo_unitario()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Costo total</mat-label>
+                        <input matInput type="text" [(ngModel)]="kardex.costo_total" class="form-control-sm" [disabled]=true>
+                    </mat-form-field>
                 </div>
                 <div class="form-group col-2">
                     <mat-form-field appearance="standard">
@@ -219,13 +231,12 @@
                         <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
                     </button>
                 </div>
-                <div class="form-group col-1"></div>
                 <div class="form-group col-1">
                     <br>
                     <mat-checkbox class="form-control-sm" color="primary">
                         Espec.</mat-checkbox>
                     <mat-checkbox [(ngModel)]="producto.serie_autogenerado" class="form-control-sm" color="primary">
-                        Con Serie.</mat-checkbox>
+                        Serie.</mat-checkbox>
                 </div>
             </div>
             <mat-divider></mat-divider>
@@ -333,50 +344,3 @@
         </mat-expansion-panel>
     </mat-accordion>
 </div>
-<ng-template #modal_saldo_inicial_inventario let-modal>
-    <div class="modal-header ">
-        <h5 class="modal-title ">Saldo Inicial Inventario</h5>
-        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
-            <span aria-hidden="true ">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="form-row">
-            <div class="form-group col-12">
-                <mat-form-field appearance="standard" class="grande">
-                    <mat-label>Unidad Kardex</mat-label>
-                    <mat-autocomplete #medida_popup="matAutocomplete" [displayWith]="ver_medida_popup">
-                        <mat-option *ngFor="let medida_popup of filtro_medidas_popup | async" [value]="medida_popup">
-                            {{medida_popup.descripcion}}
-                        </mat-option>
-                    </mat-autocomplete>
-                    <input matInput type="text" class="form-control-sm" [formControl]="seleccion_medida_popup" [matAutocomplete]="medida_popup">
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-4">
-                <mat-form-field appearance="standard">
-                    <mat-label>Cantidad</mat-label>
-                    <input matInput type="text" [(ngModel)]="kardex.cantidad" (change)="seleccionar_cantidad()" class="form-control-sm">
-                </mat-form-field>
-            </div>
-            <div class="form-group col-4">
-                <mat-form-field appearance="standard">
-                    <mat-label>Costo unitario</mat-label>
-                    <input matInput type="text" [(ngModel)]="kardex.costo_unitario" (change)="seleccionar_costo_unitario()" class="form-control-sm">
-                </mat-form-field>
-            </div>
-            <div class="form-group col-4">
-                <mat-form-field appearance="standard">
-                    <mat-label>Costo total</mat-label>
-                    <input matInput type="text" [(ngModel)]="kardex.costo_total" class="form-control-sm" [disabled]=true>
-                </mat-form-field>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer ">
-        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'close') ">Cerrar</button>
-        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'confirmar') ">Confirmar</button>
-    </div>
-</ng-template>

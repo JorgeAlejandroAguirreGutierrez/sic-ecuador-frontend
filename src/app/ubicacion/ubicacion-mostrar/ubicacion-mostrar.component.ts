@@ -2,7 +2,7 @@ import { Component, OnInit, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { Sesion } from '../../modelos/sesion';
 import { SesionService } from '../../servicios/sesion.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { TabService } from "../../services/tab.service";
 import { UbicacionComponent } from '../ubicacion.component';
@@ -13,7 +13,7 @@ import { UbicacionService } from '../../servicios/ubicacion.service';
 @Component({
   selector: 'app-ubicacion-mostrar',
   templateUrl: './ubicacion-mostrar.component.html',
-  styleUrls: ['./ubicacion-mostrar.component.css']
+  styleUrls: ['./ubicacion-mostrar.component.scss']
 })
 export class UbicacionMostrarComponent implements OnInit {
 
@@ -46,6 +46,15 @@ export class UbicacionMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
+      this.ubicacionService.buscar(this.ubicacion_buscar).subscribe(
+        res => {
+          if (res.resultado!=null) {
+            this.ubicaciones = res.resultado as Ubicacion[]
+          } else {
+            Swal.fire('Error', res.mensaje, 'error');
+          }
+        }
+      );
   }
 
   seleccion(ubicacion: Ubicacion) {
@@ -55,11 +64,11 @@ export class UbicacionMostrarComponent implements OnInit {
   actualizar(event){
     if (event!=null)
       event.preventDefault();
-    if (this.ubicacion!= null){
+    if (this.ubicacion != null){
       this.ubicacionService.enviar(this.ubicacion.id);
       this.tabService.addNewTab(this.ComponenteUbicacion,'Actualizar Ubicacion');
     } else {
-      Swal.fire('Error', "Selecciona una Ubicacion", 'error');
+      Swal.fire('Error', "Selecciona un Producto", 'error');
     }
   }
 
@@ -78,6 +87,21 @@ export class UbicacionMostrarComponent implements OnInit {
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
+  }
+
+  cambiar_buscar_ubicacion_codigo_norma(){
+
+  }
+
+  cambiar_buscar_ubicacion_provincia(){
+
+  }
+
+  cambiar_buscar_ubicacion_canton(){
+
+  }
+  cambiar_buscar_ubicacion_parroquia(){
+    
   }
 
 }
