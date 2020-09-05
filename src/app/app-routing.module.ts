@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { TablesComponent } from './pages/tables/tables.component';
-import { FormsComponent } from './pages/forms/forms.component';
-import { TypographyComponent } from './pages/typography/typography.component';
-import { MapsComponent } from './pages/maps/maps.component';
-import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { DashboardComponent } from './componentes/pages/dashboard/dashboard.component';
+import { TablesComponent } from './componentes/pages/tables/tables.component';
+import { FormsComponent } from './componentes/pages/forms/forms.component';
+import { TypographyComponent } from './componentes/pages/typography/typography.component';
+import { MapsComponent } from './componentes/pages/maps/maps.component';
+import { NotificationsComponent } from './componentes/pages/notifications/notifications.component';
 
-import { HtmlFooterComponent } from './footer/footer.component';
+import { HtmlFooterComponent } from './componentes/footer/footer.component';
 
 import {LoginComponent} from "./tienda/login/login.component";
 import { PedidosComponent } from "./tienda/pedidos/pedidos.component";

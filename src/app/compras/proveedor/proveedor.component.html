@@ -1,0 +1,817 @@
+<nav class="navbar-light nav-fijo">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
+                <fa-icon [icon]="['fas', 'file']"></fa-icon>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="crear($event)"
+                *ngIf="cliente.id==0; else block_actualizar">
+                <fa-icon [icon]="['fas', 'save']"></fa-icon>
+            </a>
+            <ng-template #block_actualizar>
+                <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
+                    <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                </a>
+            </ng-template>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                <fa-icon [icon]="['fas', 'file-export']"></fa-icon>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="contenedor">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i><u>PROVEEDORES</u></i>
+                </div>
+                <div class="card-body">
+                    <div class="form-row col-12">
+                        <div class="form-group col-2">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Identificación</mat-label>
+                                <input matInput type="text" [(ngModel)]="cliente.identificacion"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm"
+                                    (change)="validar_identificacion()">
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-1">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Tipo</mat-label>
+                                <input matInput type="text" class="form-control-sm"
+                                    [(ngModel)]="cliente.tipo_identificacion" disabled>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-2">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Contribuyente</mat-label>
+                                <mat-select [ngModel]="cliente.tipo_contribuyente?.id"
+                                    oninput="this.value = this.value.toUpperCase()"
+                                    [disabled]="!habilitar_tipo_contribuyente"
+                                    (selectionChange)="validar_tipo_contribuyente()" class="form-control-sm">
+                                    <mat-option *ngFor="let tipo_contribuyente of tipos_contribuyentes"
+                                        [value]="tipo_contribuyente.id">
+                                        {{tipo_contribuyente.subtipo}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Grupo Proveedor</mat-label>
+                                <mat-select [(ngModel)]="cliente.grupo_cliente.id" class="form-control-sm">
+                                    <mat-option *ngFor="let grupo_cliente of grupos_clientes"
+                                        [value]="grupo_cliente.id">
+                                        {{grupo_cliente.descripcion}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-1">
+                            <br>
+                            <mat-checkbox [(ngModel)]="cliente.tipo_contribuyente.obligado_contabilidad"
+                                class="form-control-sm" color="primary">Oblig.</mat-checkbox>
+                        </div>
+                        <div class="form-group col-1">
+                            <br>
+                            <mat-checkbox [(ngModel)]="cliente.especial" class="form-control-sm" color="primary">
+                                Espec.</mat-checkbox>
+                        </div>
+                        <div class="form-group col-2">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Código</mat-label>
+                                <input matInput type="text" disabled [(ngModel)]="cliente.codigo"
+                                    class="form-control-sm">
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-10">
+                            <mat-form-field appearance="standard" class="grande">
+                                <mat-label>Razón Social</mat-label>
+                                <input matInput type="text" [(ngModel)]="cliente.razon_social"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                                <button mat-button *ngIf="cliente.razon_social" matSuffix mat-icon-button
+                                    (click)="cliente.razon_social=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-2">
+                            <br>
+                            <mat-checkbox [(ngModel)]="cliente.estado" class="form-control-sm" color="primary">
+                                Relacionado</mat-checkbox>
+                        </div>
+                        <div class="form-group col-11">
+                            <mat-form-field appearance="standard" class="grande">
+                                <mat-label>Nombre Comercial</mat-label>
+                                <input matInput type="text" [(ngModel)]="cliente.razon_social"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                                <button mat-button *ngIf="cliente.razon_social" matSuffix mat-icon-button
+                                    (click)="cliente.razon_social=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group col-1">
+                            <br>
+                            <mat-checkbox [(ngModel)]="cliente.estado" class="form-control-sm" color="primary">
+                                Activo</mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <mat-accordion class="headers-align">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i><u>UBICACIONES</u></i>
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{panelOpenState ? 'Ocultar sección' : 'Ingresar la ubicacion del cliente'}}
+                    <mat-icon>map</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <hr>
+            <div class="row">
+                <div class="form-row col-12">
+                    <div class="col-8">
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <mat-form-field appearance="standard" class="grande">
+                                    <mat-label>Direccion</mat-label>
+                                    <input matInput type="text" [(ngModel)]="cliente.direccion.direccion"
+                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                                    <button mat-button *ngIf="cliente.direccion.direccion" matSuffix mat-icon-button
+                                        (click)="cliente.direccion.direccion=''">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-4">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Provincia</mat-label>
+                                    <mat-select type="text" [(ngModel)]="cliente_provincia"
+                                        (selectionChange)="provincia($event.value)" class="form-control-sm">
+                                        <mat-option *ngFor="let provincia of provincias" [value]="provincia.provincia">
+                                            {{provincia.provincia}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-4">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Canton</mat-label>
+                                    <mat-select type="text" [(ngModel)]="cliente_canton"
+                                        (selectionChange)="canton($event.value)" class="form-control-sm">
+                                        <mat-option *ngFor="let canton of cantones" [value]="canton.canton">
+                                            {{canton.canton}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-4">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Parroquia</mat-label>
+                                    <mat-select type="text" [(ngModel)]="cliente_parroquia" class="form-control-sm"
+                                        (selectionChange)="parroquia($event.value)">
+                                        <mat-option *ngFor="let parroquia of parroquias" [value]="parroquia.parroquia">
+                                            {{parroquia.parroquia}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 ">
+                        <div class="form-row">
+                            <div class="form-group col-9">
+                                <label>Georeferencia</label>
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d26828.783791134218!2d-78.64974203645144!3d-1.6705413480437092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sec!4v1582431206351!5m2!1ses-419!2sec"
+                                    width="220" height="90" frameborder="0" style="border:0;" allowfullscreen="">
+                                </iframe>
+                            </div>
+                            <div class="form-group col-3">
+                                <mat-form-field appearance="standard" class="grande">
+                                    <mat-label>Long:</mat-label>
+                                    <input matInput type="text" class="form-control-sm" disabled>
+                                </mat-form-field>
+                                <mat-form-field appearance="standard" class="grande">
+                                    <mat-label>Lati:</mat-label>
+                                    <input matInput type="text" class="form-control-sm" disabled>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-row">
+                            <div class="form-group col-2">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Teléfono</mat-label>
+                                    <b matPrefix>+593 &nbsp;</b>
+                                    <input matInput type="tel" [(ngModel)]="telefono.numero" class="form-control-sm"
+                                        (change)="validar_telefono()" placeholder="03-2999-123" oninput="this.value = this.value.replace
+                                        ( /^(\d{2})(\d{4})(\d{3})$/, '$1-$2-$3')">
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-1">
+                                <br>
+                                <button class="btn btn-primary btn-circle" (click)="crear_telefono()">
+                                    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                                </button>&nbsp;&nbsp;
+                                <button class="btn btn-primary btn-circle" (click)="open(modal_telefono, null)">
+                                    <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+                                </button>
+                            </div>
+                            <div class="form-group col-1"></div>
+                            <div class="form-group col-2">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Celular</mat-label>
+                                    <b matPrefix>+593 </b>
+                                    <input matInput type="tel" [(ngModel)]="celular.numero" class="form-control-sm"
+                                        (change)="validar_celular()" placeholder="09-9999-1234" oninput="this.value = this.value.replace
+                                        ( /^(\d{2})(\d{4})(\d{4})$/, '$1-$2-$3')">
+                                </mat-form-field>
+                            </div>
+                            <div class=" form-group col-1">
+                                <br>
+                                <button class="btn btn-primary btn-circle " (click)="crear_celular() ">
+                                    <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
+                                </button>&nbsp;&nbsp;
+                                <button class="btn btn-primary btn-circle " (click)="open(modal_celular, null) ">
+                                    <fa-icon [icon]="[ 'fas', 'eye'] "></fa-icon>
+                                </button>
+                            </div>
+                            <div class="form-group col-1"></div>
+                            <div class="form-group col-3">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Correo electrónico</mat-label>
+                                    <input matInput type="text " [(ngModel)]="correo.email"
+                                        oninput="this.value = this.value.toLowerCase()" class="form-control-sm "
+                                        (change)="validar_correo()" placeholder="ejemplo@siice.com">
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-1">
+                                <br>
+                                <button class="btn btn-primary btn-circle " (click)="crear_correo() ">
+                                    <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
+                                </button>&nbsp;&nbsp;
+                                <button class="btn btn-primary btn-circle " (click)="open(modal_correo, null)">
+                                    <fa-icon [icon]="[ 'fas', 'eye'] "></fa-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i><u>DATOS ADICIONALES</u></i>
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{panelOpenState ? 'Ocultar sección' : 'Ingresar datos adicionales'}}
+                    <mat-icon>date_range</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="form-row col-12">
+                <div class="col-4 card ">
+                    <div class="card-header text-center">
+                        COMERCIALIZACION
+                    </div>
+                    <div class="card-body ">
+                        <div class="form-row ">
+                            <div class="form-group col-6 ">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Tipo</mat-label>
+                                    <mat-select [(ngModel)]="cliente.financiamiento.tipo_pago "
+                                        class="form-control-sm ">
+                                        <mat-option *ngFor="let tipo_pago of tipos_pagos " [value]="tipo_pago">
+                                            {{tipo_pago.abreviatura}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-6 ">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Monto</mat-label>
+                                    <input matInput [(ngModel)]="cliente.financiamiento.monto" class="form-control-sm ">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-row ">
+                            <div class="form-group col-6 ">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Forma</mat-label>
+                                    <mat-select [(ngModel)]="cliente.financiamiento.forma_pago"
+                                        (selectionChange)="cambiar_forma_pago()" class="form-control-sm">
+                                        <mat-option *ngFor="let forma_pago of formas_pagos" [value]="forma_pago">
+                                            {{forma_pago.abreviatura}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group col-6 ">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Plazo</mat-label>
+                                    <mat-select [disabled]="activacion_plazo_credito"
+                                        [(ngModel)]="cliente.financiamiento.plazo_credito" class="form-control-sm">
+                                        <mat-option *ngFor="let plazo_credito of plazos_creditos"
+                                            [value]="plazo_credito">
+                                            {{plazo_credito.plazo}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 card ">
+                    <div class="card-header text-center">
+                        RETENCIONES
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-6 card">
+                                <div class="card-header text-center">
+                                    IVA
+                                </div>
+                                <div class="form-row ">
+                                    <div class="form-group col-2">
+                                        <br>
+                                        <b>BIE</b>
+                                    </div>
+                                    <div class="form-group col-5">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>Cod.</mat-label>
+                                            <mat-select type="text"
+                                                [(ngModel)]="cliente.retenciones_cliente[0].tipo_retencion.id"
+                                                class="form-control-sm ">
+                                                <mat-option
+                                                    *ngFor="let tipo_retencion_iva_bien of tipos_retenciones_iva_bien "
+                                                    [value]="tipo_retencion_iva_bien.id ">
+                                                    {{tipo_retencion_iva_bien.codigo_norma}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group col-5">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>%</mat-label>
+                                            <mat-select type="text "
+                                                [(ngModel)]="cliente.retenciones_cliente[0].tipo_retencion.id"
+                                                class="form-control-sm ">
+                                                <mat-option [value]="tipo_retencion_iva_bien.id "
+                                                    *ngFor="let tipo_retencion_iva_bien of tipos_retenciones_iva_bien">
+                                                    {{tipo_retencion_iva_bien.porcentaje}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <br>
+                                        <b>SRV</b>
+                                    </div>
+                                    <div class="form-group col-5">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>Cod.</mat-label>
+                                            <mat-select type="text"
+                                                [(ngModel)]="cliente.retenciones_cliente[2].tipo_retencion.id"
+                                                class="form-control-sm ">
+                                                <mat-option [value]="tipo_retencion_iva_servicio.id"
+                                                    *ngFor="let tipo_retencion_iva_servicio of tipos_retenciones_iva_servicio">
+                                                    {{tipo_retencion_iva_servicio.codigo_norma}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group col-5">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>%</mat-label>
+                                            <mat-select type="text"
+                                                [(ngModel)]="cliente.retenciones_cliente[2].tipo_retencion.id"
+                                                class="form-control-sm ">
+                                                <mat-option [value]="tipo_retencion_iva_servicio.id "
+                                                    *ngFor="let tipo_retencion_iva_servicio of tipos_retenciones_iva_servicio">
+                                                    {{tipo_retencion_iva_servicio.porcentaje}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 card">
+                                <div class="card-header text-center">
+                                    FUENTE
+                                </div>
+                                <div class="form-row ">
+                                    <div class="form-group col-2">
+                                        <br>
+                                        <b>BIE</b>
+                                    </div>
+                                    <div class="form-group col-5">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>Cod.</mat-label>
+                                            <mat-select type="text "
+                                                [(ngModel)]="cliente.retenciones_cliente[1].tipo_retencion.id"
+                                                class="form-control-sm ">
+                                                <mat-option [value]="tipo_retencion_renta_bien.id "
+                                                    *ngFor="let tipo_retencion_renta_bien of tipos_retenciones_renta_bien ">
+                                                    {{tipo_retencion_renta_bien.codigo_norma}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group col-5">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>%</mat-label>
+                                            <mat-select type="text "
+                                                [(ngModel)]="cliente.retenciones_cliente[1].tipo_retencion.id "
+                                                class="form-control-sm ">
+                                                <mat-option [value]="tipo_rentencion_renta_bien.id "
+                                                    *ngFor="let tipo_rentencion_renta_bien of tipos_retenciones_renta_bien ">
+                                                    {{tipo_rentencion_renta_bien.porcentaje}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <br>
+                                        <b>SRV</b>
+                                    </div>
+                                    <div class="form-group col-5">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>Cod.</mat-label>
+                                            <mat-select type="text "
+                                                [(ngModel)]="cliente.retenciones_cliente[3].tipo_retencion.id "
+                                                class="form-control-sm ">
+                                                <mat-option [value]="tipo_rentenciones_renta_servicio.id "
+                                                    *ngFor="let tipo_rentenciones_renta_servicio of tipos_retenciones_renta_servicio ">
+                                                    {{tipo_rentenciones_renta_servicio.codigo_norma}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="form-group col-5">
+                                        <mat-form-field appearance="standard">
+                                            <mat-label>%</mat-label>
+                                            <mat-select type="text "
+                                                [(ngModel)]="cliente.retenciones_cliente[3].tipo_retencion.id "
+                                                class="form-control-sm ">
+                                                <mat-option [value]="tipo_retencion_renta_servicio.id "
+                                                    *ngFor="let tipo_retencion_renta_servicio of tipos_retenciones_renta_servicio ">
+                                                    {{tipo_retencion_renta_servicio.porcentaje}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<ng-template #modal_importar let-modal>
+    <div class="modal-header ">
+        <h5 class="modal-title ">Importar un Cliente</h5>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="form-row ">
+            <div class="form-group col-12 ">
+                <label>Cargar Archivo</label>
+                <input type="file" id="file" (change)="importar($event.target.files)">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-outline-dark " (click)="modal.close('close') ">Cerrar</button>
+    </div>
+</ng-template>
+<ng-template #modal_telefono let-modal>
+    <div class="modal-header ">
+        <h5 class="modal-title ">Ver Telefonos</h5>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="form-group form-row ">
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th>NUMERO</th>
+                        <th>OPCION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let telefono of cliente.telefonos; let i=index ">
+                        <td>
+                            {{telefono.numero}}
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-circle " (click)="eliminar_telefono(i) ">
+                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'close') ">Cerrar</button>
+    </div>
+</ng-template>
+<ng-template #modal_celular let-modal>
+    <div class="modal-header ">
+        <h5 class="modal-title ">Ver Celulares</h5>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="form-group form-row ">
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th>NUMERO</th>
+                        <th>OPCION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let celular of cliente.celulares; let i = index ">
+                        <td>
+                            {{celular.numero}}
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-circle " (click)="eliminar_celular(i) ">
+                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'close') ">Cerrar</button>
+    </div>
+</ng-template>
+<ng-template #modal_correo let-modal>
+    <div class="modal-header ">
+        <h5 class="modal-title ">Ver Correos</h5>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="form-group form-row ">
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th>CORREO</th>
+                        <th>OPCION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let correo of cliente.correos; let i= index ">
+                        <td>
+                            {{correo.email}}
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-circle " (click)="eliminar_correo(i) ">
+                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-outline-dark " (click)="modal.close('close') ">Cerrar</button>
+    </div>
+</ng-template>
+<ng-template #modal_auxiliar let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title ">Ver Auxiliares</h5>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="form-group form-row ">
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Provincia</th>
+                        <th>Canton</th>
+                        <th>Parroquia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let auxiliar of cliente.auxiliares; let i= index ">
+                        <td>
+                            {{auxiliar.razon_social}}
+                        </td>
+                        <td>
+                            {{auxiliar.direccion.direccion}}
+                        </td>
+                        <td>
+                            <ng-container *ngIf="auxiliar.direccion.ubicacion != null">
+                                {{auxiliar.direccion.ubicacion.provincia}}</ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="auxiliar.direccion.ubicacion != null">
+                                {{auxiliar.direccion.ubicacion.canton}}</ng-container>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="auxiliar.direccion.ubicacion != null">
+                                {{auxiliar.direccion.ubicacion.parroquia}}</ng-container>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-circle " (click)="eliminar_auxiliar(i) ">
+                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'close') ">Cerrar</button>
+    </div>
+</ng-template>
+<ng-template #modal_telefono_auxiliar let-modal>
+    <div class="modal-header ">
+        <h5 class="modal-title ">Ver Telefonos</h5>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="form-group form-row ">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>AUXILIAR</th>
+                        <th>DIRECCION</th>
+                        <th>TELEFONOS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            {{auxiliar.razon_social}}
+                        </td>
+                        <td>
+                            {{auxiliar.direccion.direccion}}
+                        </td>
+                        <td>
+                            <table class="table table-bordered ">
+                                <tbody>
+                                    <tr *ngFor="let telefono of auxiliar.telefonos; let i= index">
+                                        <td>{{telefono.numero}}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-circle "
+                                                (click)="eliminar_telefono_auxiliar(i) ">
+                                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'close') ">Cerrar</button>
+    </div>
+</ng-template>
+<ng-template #modal_celular_auxiliar let-modal>
+    <div class="modal-header ">
+        <h5 class="modal-title ">Ver Celulares</h5>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="form-group form-row ">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>AUXILIAR</th>
+                        <th>DIRECCION</th>
+                        <th>CELULAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            {{auxiliar.razon_social}}
+                        </td>
+                        <td>
+                            {{auxiliar.direccion.direccion}}
+                        </td>
+                        <td>
+                            <table class="table table-bordered ">
+                                <tbody>
+                                    <tr *ngFor="let celular of auxiliar.celulares; let i= index">
+                                        <td>{{celular.numero}}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-circle "
+                                                (click)="eliminar_celular_auxiliar(i) ">
+                                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-outline-dark " (click)="modal.close( 'close') ">Cerrar</button>
+    </div>
+</ng-template>
+<ng-template #modal_correo_auxiliar let-modal>
+    <div class="modal-header ">
+        <h5 class="modal-title ">Ver Correos</h5>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="form-group form-row ">
+            <table class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>AUXILIAR</th>
+                        <th>DIRECCION</th>
+                        <th>CORREOS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            {{auxiliar.razon_social}}
+                        </td>
+                        <td>
+                            {{auxiliar.direccion.direccion}}
+                        </td>
+                        <td>
+                            <table class="table table-bordered ">
+                                <tbody>
+                                    <tr *ngFor="let correo of auxiliar.correos; let i= index">
+                                        <td>{{correo.email}}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-circle "
+                                                (click)="eliminar_correo_auxiliar(i) ">
+                                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-outline-dark " (click)="modal.close('close') ">Cerrar</button>
+    </div>
+</ng-template>
