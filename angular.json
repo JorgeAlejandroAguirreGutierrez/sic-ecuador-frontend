@@ -58,8 +58,8 @@
                             "buildOptimizer": true,
                             "budgets": [{
                                 "type": "initial",
-                                "maximumWarning": "5mb",
-                                "maximumError": "8mb"
+                                "maximumWarning": "9mb",
+                                "maximumError": "12mb"
                             }]
                         },
                         "cliente-betty-toledo": {
