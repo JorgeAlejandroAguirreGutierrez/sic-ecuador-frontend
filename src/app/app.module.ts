@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HttpClient  } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -8,41 +8,138 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
+// Componentes de Angular Material
 import { MatButtonModule, MatSelectModule, MatAutocompleteModule, MatNativeDateModule, MatTableModule, MatPaginatorModule } from '@angular/material';
 import { MatTabsModule, MatInputModule, MatCheckboxModule, MatExpansionModule, MatIconModule, MatSortModule } from '@angular/material';
-import { MatFormFieldModule, MatCardModule, MatDividerModule, MatStepperModule, MatDatepickerModule} from '@angular/material';
+import { MatFormFieldModule, MatCardModule, MatDividerModule, MatStepperModule, MatDatepickerModule, MatDialogModule } from '@angular/material';
 import { MatToolbarModule, MatSidenavModule, MatMenuModule, MatListModule, MatGridListModule, MatBadgeModule } from '@angular/material';
-import { TabContentComponent } from "./tab-content.component";
-import { ContentContainerDirective } from "./content-container.directive";
-import { TabService } from "./services/tab.service";
+import { DemoMaterialModule } from './componentes/demo-material-module';
 
-// Menu
+// Diseño de la pagina, Menus y componentes
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { TablesComponent } from './pages/tables/tables.component';
-import { FormsComponent } from './pages/forms/forms.component';
-import { TypographyComponent } from './pages/typography/typography.component';
-import { MapsComponent } from './pages/maps/maps.component';
-import { NotificationsComponent } from './pages/notifications/notifications.component';
 
-import { HeaderComponent } from './header/header.component';
-import { HtmlFooterComponent } from './footer/footer.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { DashboardComponent } from './componentes/pages/dashboard/dashboard.component';
+import { TablesComponent } from './componentes/pages/tables/tables.component';
+import { FormsComponent } from './componentes/pages/forms/forms.component';
+import { TypographyComponent } from './componentes/pages/typography/typography.component';
+import { MapsComponent } from './componentes/pages/maps/maps.component';
+import { NotificationsComponent } from './componentes/pages/notifications/notifications.component';
 
-//tienda - Estructura: Cabecera y Menu
+import { HeaderComponent } from './componentes/header/header.component';
+import { HtmlFooterComponent } from './componentes/footer/footer.component';
+import { FooterComponent } from './componentes/components/footer/footer.component';
+import { NavbarComponent } from './componentes/components/navbar/navbar.component';
+import { SidebarComponent } from './componentes/components/sidebar/sidebar.component';
+
+// Componentes de las pestañas
+import { MainComponent } from './componentes/main/main.component';
+import { TabContentComponent } from "./componentes/tab-content.component";
+import { ContentContainerDirective } from "./componentes/content-container.directive";
+import { TabService } from "./componentes/services/tab.service";
+import { MenuComponent } from './componentes/menu/menu.component';
+
+// Diseño de tabla editable
+import { TablaEditableComponent } from './componentes/tabla-editable/tabla-editable.component';
+import { EditableComponent } from './componentes/tabla-editable/editable/editable.component';
+import { ViewModeDirective } from './componentes/tabla-editable/editable/view-mode.directive';
+import { EditModeDirective } from './componentes/tabla-editable/editable/edit-mode.directive';
+import { FocusableDirective } from './componentes/tabla-editable/focusable.directive';
+import { EditableOnEnterDirective } from './componentes/tabla-editable/editable/edit-on-enter.directive';
+
+//Módulo de Configuraciones
+import { DatoAdicionalComponent } from './configuraciones/dato-adicional/dato-adicional.component';
+import { EmpresaComponent } from './configuraciones/empresa/empresa.component';
+import { UbicacionComponent } from './configuraciones/ubicacion/ubicacion.component';
+import { UbicacionMostrarComponent } from './configuraciones/ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
+
+import { ModeloService } from './servicios/modelo.service';
+import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
+
+// Módulo de Usuarios
+import { UsuarioComponent } from './usuarios/usuario/usuario.component';
+import { EstablecimientoComponent } from './usuarios/establecimiento/establecimiento.component';
+import { PuntoVentaComponent } from './usuarios/punto-venta/punto-venta.component';
+import { PerfilComponent } from './usuarios/perfil/perfil.component';
+import { SesionComponent } from './usuarios/sesion/sesion.component';
+import { PermisoComponent } from './usuarios/permiso/permiso.component';
+
+// Molulo de Clientes
+import { ClienteComponent } from './clientes/cliente/cliente.component';
+import { ClienteMostrarComponent } from './clientes/cliente/cliente-mostrar/cliente-mostrar.component';
+import { GrupoClienteComponent } from './clientes/grupo-cliente/grupo-cliente.component';
+import { TelefonoComponent } from './clientes/telefono/telefono.component';
+import { CorreoComponent } from './clientes/correo/correo.component';
+import { CelularComponent } from './clientes/celular/celular.component';
+import { AuxiliarComponent } from './clientes/auxiliar/auxiliar.component';
+import { DireccionComponent } from './clientes/direccion/direccion.component';
+import { OrigenIngresoComponent } from './clientes/origen-ingreso/origen-ingreso.component';
+import { CategoriaClienteComponent } from './clientes/categoria-cliente/categoria-cliente.component';
+import { TipoRetencionComponent } from './clientes/tipo-retencion/tipo-retencion.component';
+import { EstadoCivilComponent } from './clientes/estado-civil/estado-civil.component';
+import { GeneroComponent } from './clientes/genero/genero.component';
+import { PlazoCreditoComponent } from './clientes/plazo-credito/plazo-credito.component';
+import { ImpuestoComponent } from './clientes/impuesto/impuesto.component';
+import { RetencionComponent } from './clientes/retencion-cliente/retencion-cliente.component';
+import { TipoContribuyenteComponent } from './clientes/tipo-contribuyente/tipo-contribuyente.component';
+
+//Módulo de Inventarios
+import { BodegaComponent } from './inventarios/bodega/bodega.component';
+import { MedidaComponent } from './inventarios/medida/medida.component';
+import { KardexComponent } from './inventarios/kardex/kardex.component';
+import { ActivoFijoComponent } from './inventarios/activo-fijo/activo-fijo.component';
+import { FiltroSerie } from './pipes/filtro-serie';
+import { ProductoComponent } from './inventarios/producto/producto.component';
+import { PromocionComponent, DialogComponente } from './inventarios/promocion/promocion.component';
+import { TablaPromoIndComponent } from './inventarios/promocion/tabla-promo-ind/tabla-promo-ind.component';
+import { TablaPromoGrupComponent } from './inventarios/promocion/tabla-promo-grup/tabla-promo-grup.component';
+import { TablaComboComponent } from './inventarios/promocion/tabla-combo/tabla-combo.component';
+import { TablaComponenteComponent } from './inventarios/promocion/tabla-componente/tabla-componente.component';
+
+//Módulo de Entregas
+import { EntregaComponent } from './entregas/entrega/entrega.component';
+import { TransportistaComponent } from './entregas/transportista/transportista.component';
+import { VehiculoTransporteComponent } from './entregas/vehiculo-transporte/vehiculo-transporte.component';
+
+//Módulo de Recaudaciones
+import { FormaPagoComponent } from './recaudaciones/forma-pago/forma-pago.component';
+import { TipoPagoComponent } from './recaudaciones/tipo-pago/tipo-pago.component';
+import { FinanciamientoComponent } from './recaudaciones/financiamiento/financiamiento.component';
+import { RecaudacionComponent } from './recaudaciones/recaudacion/recaudacion.component';
+import { BancoComponent } from './recaudaciones/banco/banco.component';
+import { DepositoTransferenciaComponent } from './recaudaciones/deposito-transferencia/deposito-transferencia.component';
+import { TarjetaCreditoComponent } from './recaudaciones/tarjeta-credito/tarjeta-credito.component';
+import { TarjetaDebitoComponent } from './recaudaciones/tarjeta-debito/tarjeta-debito.component';
+import { CompensacionComponent } from './recaudaciones/compensacion/compensacion.component';
+import { ChequeComponent } from './recaudaciones/cheque/cheque.component';
+
+// Módulo de Comprobantes
+import { FacturaComponent } from './comprobantes/factura/factura.component';
+import { FacturaMostrarComponent } from './comprobantes/factura/factura-mostrar/factura-mostrar.component';
+import { EgresoComponent } from './comprobantes/egreso/egreso.component';
+import { PedidoComponent } from './comprobantes/pedido/pedido.component';
+import { ProformaComponent } from './comprobantes/proforma/proforma.component';
+
+//Módulo de Contabilización
+import { ContabilizacionComponent } from './contabilizaciones/contabilizacion/contabilizacion.component';
+import { CuentaComponent } from './contabilizaciones/cuenta/cuenta.component';
+
+//Módulo de Compras
+import { ProveedorComponent } from './compras/proveedor/proveedor.component';
+import { FacturaCompraComponent } from './compras/factura-compra/factura-compra.component';
+import { PagoCompraComponent } from './compras/pago-compra/pago-compra.component';
+
+//Tienda - Estructura: Cabecera y Menu
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TiendaComponent } from './tienda/tienda.component';
 import { AppHeaderComponent } from './tienda/appheader/appheader.component';
 import { AppSidebarComponent } from './tienda/appsidebar/appsidebar.component';
-import { DemoMaterialModule } from './demo-material-module';
 import { SharedModule } from './tienda/shared/shared.module';
 import { SpinnerComponent } from './tienda/shared/spinner.component';
 
@@ -72,24 +169,10 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { SliderLightboxComponent } from './tienda/lib/slider-lightbox/slider-lightbox.component';
 import { SliderCustomImageComponent } from './tienda/lib/slider-custom-image/slider-custom-image.component';
 import { NgImageSliderService } from './tienda/lib/ng-image-slider.service';
+import { SliderComponent } from './tienda/slider/slider.component';
+import { ZoomComponent } from './tienda/zoom/zoom.component';
 
-import { RouterModule, Routes } from '@angular/router';
-import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
-import { DatoAdicionalComponent } from './dato-adicional/dato-adicional.component';
-import { PlazoCreditoComponent } from './plazo-credito/plazo-credito.component';
-import { ImpuestoComponent } from './impuesto/impuesto.component';
-import { RetencionComponent } from './retencion-cliente/retencion-cliente.component';
-import { TransportistaComponent } from './transportista/transportista.component';
-import { UbicacionComponent } from './ubicacion/ubicacion.component';
-import { TipoContribuyenteComponent } from './tipo-contribuyente/tipo-contribuyente.component';
-import { VehiculoTransporteComponent } from './vehiculo-transporte/vehiculo-transporte.component';
-import { EmpresaComponent } from './empresa/empresa.component';
-import { UsuarioComponent } from './usuario/usuario.component';
-import { EstablecimientoComponent } from './establecimiento/establecimiento.component';
-import { PuntoVentaComponent } from './punto-venta/punto-venta.component';
-import { ClienteComponent } from './cliente/cliente.component';
-import { ClienteMostrarComponent } from './cliente/cliente-mostrar/cliente-mostrar.component';
-
+//Servicios
 import { DatoAdicionalService} from './servicios/dato-adicional.service';
 import { PlazoCreditoService} from './servicios/plazo-credito.service';
 import { ImpuestoService } from './servicios/impuesto.service';
@@ -104,63 +187,10 @@ import { PuntoVentaService } from './servicios/punto-venta.service';
 import { UsuarioService } from './servicios/usuario.service';
 import { ClienteService } from './servicios/cliente.service';
 import { FacturaService } from './servicios/factura.service';
-
-import { PerfilComponent } from './perfil/perfil.component';
-import { MenuComponent } from './menu/menu.component';
-import { GrupoClienteComponent } from './grupo-cliente/grupo-cliente.component';
-import { TelefonoComponent } from './telefono/telefono.component';
-import { CorreoComponent } from './correo/correo.component';
-import { CelularComponent } from './celular/celular.component';
-import { AuxiliarComponent } from './auxiliar/auxiliar.component';
-import { DireccionComponent } from './direccion/direccion.component';
-import { FormaPagoComponent } from './forma-pago/forma-pago.component';
-import { TipoPagoComponent } from './tipo-pago/tipo-pago.component';
-import { FinanciamientoComponent } from './financiamiento/financiamiento.component';
-import { OrigenIngresoComponent } from './origen-ingreso/origen-ingreso.component';
-import { CategoriaClienteComponent } from './categoria-cliente/categoria-cliente.component';
-import { TipoRetencionComponent } from './tipo-retencion/tipo-retencion.component';
-import { EstadoCivilComponent } from './estado-civil/estado-civil.component';
-import { GeneroComponent } from './genero/genero.component';
-import { RecaudacionComponent } from './recaudacion/recaudacion.component';
-import { BancoComponent } from './banco/banco.component';
-import { DepositoTransferenciaComponent } from './deposito-transferencia/deposito-transferencia.component';
-import { TarjetaCreditoComponent } from './tarjeta-credito/tarjeta-credito.component';
-import { TarjetaDebitoComponent } from './tarjeta-debito/tarjeta-debito.component';
-import { CompensacionComponent } from './compensacion/compensacion.component';
-import { ChequeComponent } from './cheque/cheque.component';
-import { FacturaComponent } from './factura/factura.component';
-import { FacturaMostrarComponent } from './factura/factura-mostrar/factura-mostrar.component';
-import { EgresoComponent } from './egreso/egreso.component';
-import { PedidoComponent } from './pedido/pedido.component';
-import { ProformaComponent } from './proforma/proforma.component';
-import { SesionComponent } from './sesion/sesion.component';
-import { PermisoComponent } from './permiso/permiso.component';
-import { ContabilizacionComponent } from './contabilizacion/contabilizacion.component';
-import { BodegaComponent } from './bodega/bodega.component';
-import { MedidaComponent } from './medida/medida.component';
-import { KardexComponent } from './kardex/kardex.component';
-import { ActivoFijoComponent } from './activo-fijo/activo-fijo.component';
-import { MercaderiaComponent } from './mercaderia/mercaderia.component';
-import { MainComponent } from './main/main.component';
-import { EntregaComponent } from './entrega/entrega.component';
-import { SliderComponent } from './tienda/slider/slider.component';
-import { ZoomComponent } from './tienda/zoom/zoom.component';
-
-import { FiltroSerie } from './pipes/filtro-serie';
-import { ProductoComponent } from './producto/producto.component';
-
-import { TablaEditableComponent } from './tabla-editable/tabla-editable.component';
-import { EditableComponent } from './tabla-editable/editable/editable.component';
-import { ViewModeDirective } from './tabla-editable/editable/view-mode.directive';
-import { EditModeDirective } from './tabla-editable/editable/edit-mode.directive';
-import { FocusableDirective } from './tabla-editable/focusable.directive';
-import { EditableOnEnterDirective } from './tabla-editable/editable/edit-on-enter.directive';
-import { UbicacionMostrarComponent } from './ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
-import { ImportarComponent } from './importar/importar.component';
-import { ModeloService } from './servicios/modelo.service';
-import { ExportarComponent } from './exportar/exportar.component';
-import { SaldoInicialInventarioComponent } from './saldo-inicial-inventario/saldo-inicial-inventario.component';
-import { ProductoMostrarComponent } from './producto/producto-mostrar/producto-mostrar.component';
+import { ImportarComponent } from './configuraciones/importar/importar.component';
+import { ExportarComponent } from './configuraciones/exportar/exportar.component';
+import { SaldoInicialInventarioComponent } from './inventarios/saldo-inicial-inventario/saldo-inicial-inventario.component';
+import { ProductoMostrarComponent } from './inventarios/producto/producto-mostrar/producto-mostrar.component';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -192,6 +222,10 @@ const routes: Routes = [
   {path: 'producto', component: ProductoComponent},
   {path: 'producto-mostrar', component: ProductoMostrarComponent},
   {path: 'tabla', component: TablaEditableComponent},
+  {path: 'promocion', component: PromocionComponent},
+  {path: 'proveedor', component: ProveedorComponent},
+  {path: 'factura-compra', component: FacturaCompraComponent},
+  {path: 'tabla', component: TablaEditableComponent}, //retierar luego de las pruebas
   {path: 'tienda', component: TiendaComponent},
   {path: 'tienda/detalle-producto/:id', component: DetalleProductoComponent},
   {path: 'zoom', component: ZoomComponent},
@@ -264,7 +298,6 @@ const routes: Routes = [
     MedidaComponent,
     KardexComponent,
     ActivoFijoComponent,
-    MercaderiaComponent,
     MainComponent,
     EntregaComponent,
     TiendaComponent,
@@ -297,7 +330,17 @@ const routes: Routes = [
     EditableOnEnterDirective, 
     ExportarComponent, 
     SaldoInicialInventarioComponent,
-    ProductoMostrarComponent
+    ProductoMostrarComponent,
+    PromocionComponent,
+    DialogComponente,
+    ProveedorComponent, 
+    FacturaCompraComponent, 
+    TablaPromoIndComponent, 
+    TablaPromoGrupComponent, 
+    TablaComboComponent, 
+    TablaComponenteComponent, 
+    CuentaComponent, 
+    PagoCompraComponent
   ],
   imports: [
     BrowserModule,
@@ -305,35 +348,16 @@ const routes: Routes = [
     CommonModule,
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
-    ToastrModule.forRoot(),    
+    ToastrModule.forRoot(),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
     FontAwesomeModule,
-    MatButtonModule,
-    MatTabsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    MatCardModule,
-    MatExpansionModule,
-    MatDividerModule,
-    MatIconModule,
-    MatStepperModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatMenuModule,
-    MatListModule,
-    MatGridListModule,
-    MatBadgeModule,
+    MatButtonModule, MatTabsModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatSelectModule,
+    MatAutocompleteModule, MatCardModule, MatExpansionModule, MatDividerModule, MatIconModule, MatStepperModule,
+    MatDatepickerModule, MatNativeDateModule, MatTableModule, MatSortModule, MatPaginatorModule, MatToolbarModule,
+    MatSidenavModule, MatMenuModule, MatListModule, MatGridListModule, MatBadgeModule, MatDialogModule,
     DemoMaterialModule,
     FlexLayoutModule,
     SharedModule,
@@ -351,7 +375,7 @@ const routes: Routes = [
                 useClass: PathLocationStrategy
               }],
   bootstrap: [AppComponent],
-  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, SaldoInicialInventarioComponent]  
+  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, SaldoInicialInventarioComponent, DialogComponente]
 })
 export class AppModule {
   constructor() {

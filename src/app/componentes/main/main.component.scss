@@ -1,0 +1,84 @@
+/*:host ::ng-deep .mat-tab-header {
+  position: fixed !important;
+  z-index:1000;
+}*/
+
+/*:host ::ng-deep .mat-tab-header {
+  position: sticky;
+  top: 45px; // required as well.
+  z-index:1020;
+  background-color: gray;
+}*/
+
+::ng-deep .tab-group1{
+  .mat-tab-header {
+    position: sticky;
+    top: 48px; // required as well.
+    z-index:990;
+    background-color: white;
+  }
+}
+
+::ng-deep .tab-group2{
+  .mat-tab-header {
+    position: fixed;
+    max-width: 75%;
+    top: 80px; // required as well.
+    z-index:990;
+    background-color: white;
+  }
+}
+
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+  margin-top: 1px!important;
+  height: 30px!important; 
+  padding-right: 10px!important;
+  padding-left: 10px!important;
+  min-width: 100px!important;
+  color:  #5b6582!important;
+  //display: inline-block;
+}
+
+::ng-deep.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+  background: #5b6582;
+  height: 3px;
+} 
+.container-fluid {
+  width: 100%;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.mt-1 {
+  margin-top: 2px!important;
+  width: 100%;
+  padding-right: 30px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.mt-2 {
+  margin-top: 1px!important;
+  width: 95%;
+  padding-right: 10px;
+  padding-left: 5px;
+  margin-right: auto;
+  margin-left: auto; //auto para centrar con el slide
+}
+
+.separacion{
+  margin-top: 30px!important;
+}
+
+.fijo{
+  position: fixed;
+  top: 68px; 
+
+}
+
+.relativo{
+  max-width: 75%;
+}
