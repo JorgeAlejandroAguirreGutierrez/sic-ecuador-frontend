@@ -7,7 +7,6 @@ import { OpcionMenu } from "../../modelos/opcion-menu.model";
 import { MapsComponent } from '../pages/maps/maps.component';
 import { UbicacionComponent } from '../../configuraciones/ubicacion/ubicacion.component';
 import { UbicacionMostrarComponent } from '../../configuraciones/ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
-import { AdministracionComponent } from '../../configuraciones/administracion/administracion.component';
 import { ClienteComponent } from "../../clientes/cliente/cliente.component";
 import { ClienteMostrarComponent } from '../../clientes/cliente/cliente-mostrar/cliente-mostrar.component';
 import { GrupoClienteComponent } from '../../clientes/grupo-cliente/grupo-cliente.component';
@@ -18,6 +17,10 @@ import { PromocionComponent } from "../../inventarios/promocion/promocion.compon
 import { ProveedorComponent } from '../../compras/proveedor/proveedor.component';
 import { FacturaCompraComponent } from '../../compras/factura-compra/factura-compra.component';
 import { TransportistaComponent } from '../../entregas/transportista/transportista.component';
+import { SaldoInicialInventarioComponent } from '../../inventarios/saldo-inicial-inventario/saldo-inicial-inventario.component';
+import { ProductoMostrarComponent } from '../../inventarios/producto/producto-mostrar/producto-mostrar.component';
+import { ImportarComponent } from '../../configuraciones/importar/importar.component';
+import { ExportarComponent } from '../../configuraciones/exportar/exportar.component';
 
 @Component({
   selector: 'app-main',
@@ -122,6 +125,8 @@ export class MainComponent implements OnInit{
 
     if (tabNombre == "INVENTARIOS") {
       this.llenarOpciones(ProductoComponent,'Crear Producto','Crear Producto');
+      this.llenarOpciones(SaldoInicialInventarioComponent,'Crear Saldo Inicial','Crear Saldo Inicial');
+      this.llenarOpciones(ProductoMostrarComponent,'Mostrar Productos','Mostrar Productos');
       this.llenarOpciones(FacturaMostrarComponent,'Buscar Producto','Buscar Producto');
       this.llenarOpciones(PromocionComponent,'Promociones','Promociones/Combos');
     }
@@ -177,7 +182,9 @@ export class MainComponent implements OnInit{
     }
 
     if (tabNombre == "CONFIGURACION") {
-      this.llenarOpciones(AdministracionComponent,'Importar/Exportar','Importar/Exportar');
+      this.llenarOpciones(ImportarComponent,'Importar', 'Importar');
+      this.llenarOpciones(ExportarComponent,'Exportar', 'Exportar');
+      
     }
   }  
 }

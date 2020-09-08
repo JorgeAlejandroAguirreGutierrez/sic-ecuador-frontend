@@ -134,6 +134,14 @@ export class FacturaCompraComponent implements OnInit {
   seleccion_identificacion_cliente_factura = new FormControl();
   seleccion_razon_social_cliente_factura = new FormControl();
 
+  costo_ultimo: number;
+  costo_promedio: number;
+  stock_individual: number;
+  stock_total: number;
+  impuestos: any[]=[];
+  bodegas: any[]=[];
+  medidas: any[]=[];
+
   constructor(private clienteService: ClienteService, private generoService: GeneroService,
     private estadoCivilService: EstadoCivilService, private origenIngresoService: OrigenIngresoService,
     private categoriaClienteService: CategoriaClienteService, private plazoCreditoService: PlazoCreditoService,
@@ -823,6 +831,49 @@ export class FacturaCompraComponent implements OnInit {
         }
       }
     );
+  }
+
+  actualizar_detalle(i: number){
+
+  }
+
+  asignar_series(i: number){
+
+  }
+  eliminar_detalle(i: number){
+
+  }
+
+  ver_producto(){
+
+  }
+
+  guardar(){
+
+  }
+
+  seleccionar_porcentaje_descuento_individual(){
+
+  }
+
+  seleccionar_precio(){
+
+  }
+
+  seleccionar_cantidad(){
+
+  }
+
+  agregar_factura_detalle(){
+
+  }
+
+  cambiar_productos(valor: any){
+
+  }
+
+  seleccionar_valor_descuento_individual(){
+    
   }
 
 }

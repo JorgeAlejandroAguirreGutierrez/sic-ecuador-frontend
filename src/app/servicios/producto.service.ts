@@ -4,7 +4,7 @@ import { Respuesta } from '../respuesta';
 import * as util from '../util';
 import {HttpClient} from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Producto } from '../modelos/producto';
 import { Bodega } from '../modelos/bodega';
@@ -16,6 +16,13 @@ export class ProductoService {
 
   constructor(private http: HttpClient) { }
 
+  private messageSource = new BehaviorSubject(0);
+  currentMessage = this.messageSource.asObservable();
+
+  enviar(producto_id: number) {
+    this.messageSource.next(producto_id);
+  }
+
   crear(producto: Producto): Observable<Respuesta> {
     return this.http.post(environment.host + util.ruta + util.producto, JSON.stringify(producto), util.options).pipe(
       map(response => response as Respuesta),
@@ -25,13 +32,21 @@ export class ProductoService {
     );
   }
 
-  obtener(producto: Producto): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.producto + '/' + producto.id, util.options).pipe(
+  obtener(producto_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.producto + '/' + producto_id, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
+  }
+
+  async obtenerAsync(producto_id: number): Promise<Respuesta> {
+    return await this.http.get<Respuesta>(environment.host + util.ruta + util.producto + '/' + producto_id, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })).toPromise();
   }
 
   consultar(): Observable<Respuesta> {
@@ -65,6 +80,16 @@ export class ProductoService {
         return throwError(err);
       }));
   }
+
+  buscarNombre(producto: Producto): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.producto+util.buscar+util.nombre+'/'+producto.nombre, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
+
 
   actualizar(producto: Producto): Observable<Respuesta> {
     return this.http.put(environment.host+util.ruta+util.producto, JSON.stringify(producto), util.options).pipe(

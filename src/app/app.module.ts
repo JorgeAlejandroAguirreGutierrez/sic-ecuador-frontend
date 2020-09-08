@@ -53,7 +53,6 @@ import { FocusableDirective } from './componentes/tabla-editable/focusable.direc
 import { EditableOnEnterDirective } from './componentes/tabla-editable/editable/edit-on-enter.directive';
 
 //Módulo de Configuraciones
-import { AdministracionComponent } from './configuraciones/administracion/administracion.component';
 import { DatoAdicionalComponent } from './configuraciones/dato-adicional/dato-adicional.component';
 import { EmpresaComponent } from './configuraciones/empresa/empresa.component';
 import { UbicacionComponent } from './configuraciones/ubicacion/ubicacion.component';
@@ -188,6 +187,10 @@ import { PuntoVentaService } from './servicios/punto-venta.service';
 import { UsuarioService } from './servicios/usuario.service';
 import { ClienteService } from './servicios/cliente.service';
 import { FacturaService } from './servicios/factura.service';
+import { ImportarComponent } from './configuraciones/importar/importar.component';
+import { ExportarComponent } from './configuraciones/exportar/exportar.component';
+import { SaldoInicialInventarioComponent } from './inventarios/saldo-inicial-inventario/saldo-inicial-inventario.component';
+import { ProductoMostrarComponent } from './inventarios/producto/producto-mostrar/producto-mostrar.component';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -202,6 +205,7 @@ const routes: Routes = [
   {path: 'cliente/tipocontribuyente', component: TipoContribuyenteComponent},
   {path: 'cliente/vehiculotransporte', component: VehiculoTransporteComponent},
   {path: 'cliente/ubicacion', component: UbicacionComponent},
+  {path: 'cliente/ubicacion-mostrar', component: UbicacionMostrarComponent},
   {path: 'cliente/empresa', component: EmpresaComponent},
   {path: 'cliente/usuario', component: UsuarioComponent},
   {path: 'cliente/establecimiento', component: EstablecimientoComponent},
@@ -216,6 +220,8 @@ const routes: Routes = [
   {path: 'entrega', component: EntregaComponent},
   {path: 'main', component: MainComponent},
   {path: 'producto', component: ProductoComponent},
+  {path: 'producto-mostrar', component: ProductoMostrarComponent},
+  {path: 'tabla', component: TablaEditableComponent},
   {path: 'promocion', component: PromocionComponent},
   {path: 'proveedor', component: ProveedorComponent},
   {path: 'factura-compra', component: FacturaCompraComponent},
@@ -314,7 +320,7 @@ const routes: Routes = [
     ImageZoomComponent,
     SliderLightboxComponent,
     SliderCustomImageComponent,
-    AdministracionComponent,
+    ImportarComponent,
     ProductoComponent,
     TablaEditableComponent,
     EditableComponent,
@@ -322,6 +328,9 @@ const routes: Routes = [
     EditModeDirective,
     FocusableDirective, 
     EditableOnEnterDirective, 
+    ExportarComponent, 
+    SaldoInicialInventarioComponent,
+    ProductoMostrarComponent,
     PromocionComponent,
     DialogComponente,
     ProveedorComponent, 
@@ -329,7 +338,9 @@ const routes: Routes = [
     TablaPromoIndComponent, 
     TablaPromoGrupComponent, 
     TablaComboComponent, 
-    TablaComponenteComponent, CuentaComponent, PagoCompraComponent
+    TablaComponenteComponent, 
+    CuentaComponent, 
+    PagoCompraComponent
   ],
   imports: [
     BrowserModule,
@@ -364,7 +375,7 @@ const routes: Routes = [
                 useClass: PathLocationStrategy
               }],
   bootstrap: [AppComponent],
-  entryComponents: [ClienteComponent, FacturaComponent, AdministracionComponent, DialogComponente]  
+  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, SaldoInicialInventarioComponent, DialogComponente]
 })
 export class AppModule {
   constructor() {

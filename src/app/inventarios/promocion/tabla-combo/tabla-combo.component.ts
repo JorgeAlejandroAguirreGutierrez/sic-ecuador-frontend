@@ -14,6 +14,8 @@ import { Componente } from '../componente'; //clase
 })
 export class TablaComboComponent implements OnInit {
 
+  dataSourceCombo: any;
+
   constructor(//private comboValidator: ValidatorService
     ) { }
 

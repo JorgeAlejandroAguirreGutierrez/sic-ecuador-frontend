@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="form-group col-2">
                                     <br>
-                                    <button mat-raised-button color="primary" focusable="false" (click)="guardar(i)">
+                                    <button mat-raised-button color="primary" focusable="false" (click)="guardar()">
                                         Importar Factura
                                     </button>
                                 </div>
@@ -239,18 +239,6 @@
                         </div>
                         <div class="form-row col-12">
                             <div class="form-group col-7">
-                                <mat-form-field appearance="standard" class="grande">
-                                    <mat-label>Producto</mat-label>
-                                    <mat-autocomplete #producto="matAutocomplete" [displayWith]="ver_producto"
-                                        (optionSelected)="seleccionar_producto()">
-                                        <mat-option *ngFor="let producto of filtro_productos | async"
-                                            [value]="producto">
-                                            {{producto.nombre}}
-                                        </mat-option>
-                                    </mat-autocomplete>
-                                    <input matInput type="text" class="form-control-sm" placeholder="Producto"
-                                        [formControl]="seleccion_producto" [matAutocomplete]="producto">
-                                </mat-form-field>
                             </div>
                             <div class="form-group col-1">
                                 <mat-form-field appearance="standard">
@@ -441,7 +429,7 @@
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Serie </th>
                                         <td mat-cell *matCellDef="let i=index">
                                             <button mat-icon-button color="primary" focusable="false"
-                                                (click)="asignar_series(modal_series, i)">
+                                                (click)="asignar_series(i)">
                                                 <i class="fa fa-plus mat-icon"></i>
                                             </button>
                                         </td>
@@ -450,7 +438,7 @@
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                                         <td mat-cell *matCellDef="let i=index">
                                             <button mat-icon-button color="primary" focusable="false"
-                                                (click)="editar_detalle(i)">
+                                                (click)="actualizar_detalle(i)">
                                                 <i class="fa fa-pencil mat-icon"></i>
                                             </button>
                                             <button mat-icon-button color="primary" focusable="false"
@@ -605,7 +593,7 @@
                         <div class="form-group col-4"></div>
                         <div class="form-group col-2">
                             <br>
-                            <button mat-raised-button color="primary" focusable="false" (click)="guardar(i)">
+                            <button mat-raised-button color="primary" focusable="false" (click)="guardar()">
                                 Generar retención
                             </button>
                         </div>
@@ -668,7 +656,7 @@
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                                     <td mat-cell *matCellDef="let i=index">
                                         <button mat-icon-button color="primary" focusable="false"
-                                            (click)="editar_detalle(i)">
+                                            (click)="actualizar_detalle(i)">
                                             <i class="fa fa-pencil mat-icon"></i>
                                         </button>
                                         <button mat-icon-button color="primary" focusable="false"

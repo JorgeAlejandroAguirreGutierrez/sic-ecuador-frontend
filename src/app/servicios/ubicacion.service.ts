@@ -31,8 +31,8 @@ export class UbicacionService {
     );
   }
 
-  async obtener(ubicacion: Ubicacion): Promise<Respuesta> {
-    return await this.http.get<Respuesta>(environment.host + util.ruta + util.ubicacion + '/' + ubicacion.id, util.options).pipe(
+  async obtenerAsync(ubicacion_id: number): Promise<Respuesta> {
+    return await this.http.get<Respuesta>(environment.host + util.ruta + util.ubicacion + '/' + ubicacion_id, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
@@ -109,5 +109,14 @@ export class UbicacionService {
         return throwError(err);
       })
     ).toPromise();
+  }
+
+  buscar(ubicacion: Ubicacion): Observable<Respuesta> {
+    return this.http.get(environment.host + util.ruta + util.ubicacion+'/'+ubicacion.codigo_norma + '/'+ubicacion.provincia+'/'+ubicacion.canton+'/'+ubicacion.parroquia+'/id', util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
   }
 }

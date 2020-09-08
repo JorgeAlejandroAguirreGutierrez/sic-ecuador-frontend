@@ -134,7 +134,7 @@ export class FacturaComponent implements OnInit {
   async ngOnInit() {
     this.validar_sesion();
     this.consultar_clientes();
-    this.contruir_factura();
+    this.construir_factura();
     this.cambiar_productos(this.tipo_producto);
     this.consultar_medidas();
     this.consultar_impuestos();
@@ -266,7 +266,7 @@ export class FacturaComponent implements OnInit {
     if (this.sesion == undefined)
       this.router.navigate(['/iniciosesion']);
   }
-  contruir_factura() {
+  construir_factura() {
     let factura_id=0;
     this.facturaService.currentMessage.subscribe(message => factura_id = message);
     if (factura_id!= 0) {
@@ -550,8 +550,8 @@ export class FacturaComponent implements OnInit {
     });
     if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
     if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
-    this.costo_promedio=this.detalle.producto.kardex.costo_promedio;
-    this.costo_ultimo=this.detalle.producto.kardex.costo_ultimo;
+    this.costo_promedio=0;
+    this.costo_ultimo=0;
     if(this.detalle.caracteristicas.length!=0){
       this.stock_individual=this.detalle.caracteristicas.length;
     } else{
@@ -633,6 +633,10 @@ export class FacturaComponent implements OnInit {
         }
       }
     );
+  }
+
+  actualizar_detalle(i: number){
+    
   }
 
   agregar_factura_detalle(){

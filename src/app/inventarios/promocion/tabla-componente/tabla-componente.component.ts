@@ -27,6 +27,7 @@ export class TablaComponenteComponent implements OnInit {
   @Output() componenteListChange = new EventEmitter<Componente[]>();
 
   //dataSourceComponente: TableDataSource<Componente>;
+  dataSourceComponente: any;
 
   ngOnInit() {
   //  this.dataSourceComponente = new TableDataSource<any>(this.componenteList, Componente, this.componenteValidator);

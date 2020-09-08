@@ -12,6 +12,8 @@ import { Promocion } from '../promocion'; //clase
 })
 export class TablaPromoGrupComponent implements OnInit {
 
+  dataSource: any;
+
   constructor(//private promoGrupValidator: ValidatorService
     ) { }
 

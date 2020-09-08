@@ -12,6 +12,10 @@ export class PromocionComponent implements OnInit {
   panelOpenState = false;
   habilitar_componente = false;
 
+  auxiliar_provincias: any[]=[];
+  auxiliar_parroquias: any[]=[];
+  grupos_clientes: any[]=[];
+
   constructor(private modalService: NgbModal, public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -34,6 +38,41 @@ export class PromocionComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  nuevo(event){
+    if (event!=null)
+      event.preventDefault();
+  }
+
+  crear(event){
+    if (event!=null)
+      event.preventDefault();
+  }
+
+  actualizar(event){
+    if (event!=null)
+      event.preventDefault();
+  }
+
+  seleccionar_auxiliar_provincia(valor: any){
+
+  }
+
+  seleccionar_auxiliar_parroquia(valor: any){
+
+  }
+
+  validar_identificacion(){
+
+  }
+
+  agregar_factura_detalle(){
+
+  }
+
+  guardar(){
+
+  }
 }
 
 @Component({
@@ -41,4 +80,21 @@ export class PromocionComponent implements OnInit {
   templateUrl: 'componente-dialog.html',
   styleUrls: ['./promocion.component.scss']
 })
-export class DialogComponente {}
+export class DialogComponente {
+  auxiliar_provincias: any[]=[];
+  auxiliar_parroquias: any[]=[];
+
+  validar_identificacion(){
+
+  }
+
+  agregar_factura_detalle(){
+
+  }
+  seleccionar_auxiliar_provincia(valor: any){
+
+  }
+  seleccionar_auxiliar_parroquia(valor: any){
+    
+  }
+}

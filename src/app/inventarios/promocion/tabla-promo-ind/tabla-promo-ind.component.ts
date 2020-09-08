@@ -12,6 +12,8 @@ import { Promocion } from '../promocion'; //clase
 })
 export class TablaPromoIndComponent implements OnInit {
 
+  dataSource: any;
+
   constructor(//private promoIndValidator: ValidatorService 
     ) { }
 

@@ -76,7 +76,7 @@ export class FacturaDetalle {
 
   private calcular_total_sin_descuento(){
     this.total_sin_descuento=0;
-    this.total_sin_descuento=Number(this.cantidad)*this.precio.valor;
+    this.total_sin_descuento=Number(this.cantidad)*this.precio.precio_venta_publico_iva;
     this.total_sin_descuento= Number(this.total_sin_descuento.toFixed(2));
   }
   private calcular_valor_porcentaje_descuento(){

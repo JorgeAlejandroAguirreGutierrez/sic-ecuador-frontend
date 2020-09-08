@@ -1,47 +1,63 @@
 import { TipoProducto } from './tipo-producto';
-import { GrupoProducto } from './grupo-producto';
 import { Precio } from './precio';
 import { Kardex } from './kardex';
 import { Impuesto } from './impuesto';
 import { Caracteristica } from './caracteristica';
 import { Bodega } from './bodega';
+import { TipoGasto } from './tipo-gasto';
+import { PresentacionProducto } from './presentacion-producto';
+import { SubGrupoProducto } from './sub-grupo-producto';
+import { CategoriaProducto } from './categoria-producto';
+import { GrupoProducto } from './grupo-producto';
+import { LineaProducto } from './linea-producto';
+import { SubLineaProducto } from './sub-linea-producto';
 
 export class Producto {
   id: number;
   codigo: string;
   nombre: string;
-  categoria: string;
-  linea: string;
-  sublinea: string;
-  presentacion: string;
-  costo: string;
+  costo: number;
   consignacion: number;
   estado: number;
-  tipo_gasto: string;
-  serie_autogenerado: Boolean;
+  serie_autogenerado: number;
   stock_total: number;
+  tipo_gasto: TipoGasto;
   tipo_producto: TipoProducto;
   grupo_producto: GrupoProducto;
+  sub_grupo_producto: SubGrupoProducto;
+  categoria_producto: CategoriaProducto;
+  linea_producto: LineaProducto;
+  sub_linea_producto: SubLineaProducto;
+  presentacion_producto: PresentacionProducto;
   impuesto: Impuesto;
-  //HASONE
-  kardex: Kardex;
+  
   //BODEGA SELECCIONADO
   bodega: Bodega;
   //HASMANY
   caracteristicas: Caracteristica[];
+  kardexs: Kardex[];
   precios: Precio[];
 
   constructor() {
     this.id=0;
     this.codigo="";
     this.consignacion=0;
-    this.serie_autogenerado=false;
+    this.serie_autogenerado=0;
     this.stock_total=0;
+    this.estado=0;
     this.precios=[];
     this.caracteristicas=[];
+    this.kardexs=[];
     this.tipo_producto=new TipoProducto();
-    this.kardex=new Kardex();
+    this.tipo_gasto=new TipoGasto();
+    this.grupo_producto=new GrupoProducto();
+    this.sub_grupo_producto=new SubGrupoProducto();
+    this.categoria_producto=new CategoriaProducto();
+    this.linea_producto=new LineaProducto();
+    this.sub_linea_producto=new SubLineaProducto();
+    this.presentacion_producto=new PresentacionProducto();
     this.impuesto=new Impuesto();
     this.bodega=new Bodega();
+
   }
 }
