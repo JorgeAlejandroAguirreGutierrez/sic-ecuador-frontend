@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { TableDataSource, ValidatorService } from 'angular4-material-table';
+//import { TableDataSource, ValidatorService } from 'angular4-material-table';
 
 import { ComboValidatorService } from './combo-validator.service'; 
 import { ComponenteValidatorService } from '../tabla-componente/componente-validator.service'; 
@@ -8,13 +8,14 @@ import { Componente } from '../componente'; //clase
 
 @Component({
   selector: 'app-tabla-combo',
-  providers: [{provide: ValidatorService, useClass: ComboValidatorService }],
+//  providers: [{provide: ValidatorService, useClass: ComboValidatorService }],
   templateUrl: './tabla-combo.component.html',
   styleUrls: ['./tabla-combo.component.scss']
 })
 export class TablaComboComponent implements OnInit {
 
-  constructor(private comboValidator: ValidatorService) { }
+  constructor(//private comboValidator: ValidatorService
+    ) { }
 
   displayedColumnsCombo: string[] = ['nombre', 'descripcion', 'facturable', 'precio_real', 'precio_combo', 'actionsColumn'];
 
@@ -27,11 +28,11 @@ export class TablaComboComponent implements OnInit {
 
   @Output() comboListChange = new EventEmitter<Combo[]>();
 
-  dataSourceCombo: TableDataSource<Combo>;
+  //dataSourceCombo: TableDataSource<Combo>;
 
   ngOnInit() {
-    this.dataSourceCombo = new TableDataSource<any>(this.comboList, Combo, this.comboValidator);
-    this.dataSourceCombo.datasourceSubject.subscribe(comboList => this.comboListChange.emit(comboList));
+  //  this.dataSourceCombo = new TableDataSource<any>(this.comboList, Combo, this.comboValidator);
+  //  this.dataSourceCombo.datasourceSubject.subscribe(comboList => this.comboListChange.emit(comboList));
   }
 
 }
