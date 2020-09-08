@@ -1,18 +1,19 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { TableDataSource, ValidatorService } from 'angular4-material-table';
+//import { TableDataSource, ValidatorService } from 'angular4-material-table';
 
 import { ComponenteValidatorService } from './componente-validator.service'; 
 import { Componente } from '../componente'; //clase
 
 @Component({
   selector: 'app-tabla-componente',
-  providers: [{provide: ValidatorService, useClass: ComponenteValidatorService }],
+//  providers: [{provide: ValidatorService, useClass: ComponenteValidatorService }],
   templateUrl: './tabla-componente.component.html',
   styleUrls: ['./tabla-componente.component.scss']
 })
 export class TablaComponenteComponent implements OnInit {
 
-  constructor(private componenteValidator: ValidatorService) { }
+  constructor(//private componenteValidator: ValidatorService
+    ) { }
 
   displayedColumnsComponente: string[] = ['producto_id', 'medida_id', 'cantidad', 'valor','actionsColumn'];
 
@@ -25,11 +26,11 @@ export class TablaComponenteComponent implements OnInit {
 
   @Output() componenteListChange = new EventEmitter<Componente[]>();
 
-  dataSourceComponente: TableDataSource<Componente>;
+  //dataSourceComponente: TableDataSource<Componente>;
 
   ngOnInit() {
-    this.dataSourceComponente = new TableDataSource<any>(this.componenteList, Componente, this.componenteValidator);
-    this.dataSourceComponente.datasourceSubject.subscribe(componenteList => this.componenteListChange.emit(componenteList));
+  //  this.dataSourceComponente = new TableDataSource<any>(this.componenteList, Componente, this.componenteValidator);
+  //  this.dataSourceComponente.datasourceSubject.subscribe(componenteList => this.componenteListChange.emit(componenteList));
   }
 
 }

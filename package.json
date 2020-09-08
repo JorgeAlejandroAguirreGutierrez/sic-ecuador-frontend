@@ -33,7 +33,6 @@
     "@swimlane/ngx-charts": "^13.0.2",
     "@swimlane/ngx-datatable": "^16.1.1",
     "angular-in-memory-web-api": "0.9.0",
-    "angular4-material-table": "^0.8.0",
     "bootstrap": "^4.5.2",
     "chart.js": "^2.9.3",
     "chartist": "^0.11.3",

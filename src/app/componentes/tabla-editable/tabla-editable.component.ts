@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
-import { TableDataSource, ValidatorService } from 'angular4-material-table';
+//import { TableDataSource, ValidatorService } from 'angular4-material-table';
 
 import { PersonValidatorService } from './services/person-validator.service';
 import { Person } from './person'; //clase
@@ -10,7 +10,7 @@ import { CoreService } from './services/core.service';
 
 @Component({
   selector: 'app-tabla-editable',
-  providers: [{provide: ValidatorService, useClass: PersonValidatorService }],
+//  providers: [{provide: ValidatorService, useClass: PersonValidatorService }],
   templateUrl: './tabla-editable.component.html',
   styleUrls: ['./tabla-editable.component.scss']
 })
@@ -29,10 +29,10 @@ export class TablaEditableComponent implements OnInit {
     ] ;
   @Output() personListChange = new EventEmitter<Person[]>();
 
-  dataSource: TableDataSource<Person>;
+  //dataSource: TableDataSource<Person>;
 
   constructor(private core: CoreService, 
-    private personValidator: ValidatorService
+  //  private personValidator: ValidatorService
     ) { }
 
 /*    displayedColumns = ['name', 'age', 'actionsColumn'];
@@ -61,9 +61,9 @@ export class TablaEditableComponent implements OnInit {
     
     console.log(this.dataSource1.value);
     this.controls = new FormArray(toGroups);
-    this.dataSource = new TableDataSource<any>(this.personList, Person, this.personValidator);
+ //   this.dataSource = new TableDataSource<any>(this.personList, Person, this.personValidator);
 
-    this.dataSource.datasourceSubject.subscribe(personList => this.personListChange.emit(personList));
+ //   this.dataSource.datasourceSubject.subscribe(personList => this.personListChange.emit(personList));
   }
 
   

@@ -1,18 +1,19 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { TableDataSource, ValidatorService } from 'angular4-material-table';
+//import { TableDataSource, ValidatorService } from 'angular4-material-table';
 
 import { PromoGrupValidatorService } from './promo-grup-validator.service'; 
 import { Promocion } from '../promocion'; //clase
 
 @Component({
   selector: 'app-tabla-promo-grup',
-  providers: [{provide: ValidatorService, useClass: PromoGrupValidatorService }],
+//  providers: [{provide: ValidatorService, useClass: PromoGrupValidatorService }],
   templateUrl: './tabla-promo-grup.component.html',
   styleUrls: ['./tabla-promo-grup.component.scss']
 })
 export class TablaPromoGrupComponent implements OnInit {
 
-  constructor(private promoGrupValidator: ValidatorService) { }
+  constructor(//private promoGrupValidator: ValidatorService
+    ) { }
 
   displayedColumns = ['fecha_ini', 'fecha_fin', 'segmento_id', 'rango_ini', 'rango_fin', 
   'producto_promo_id', 'medida_promo_id', 'cantidad_promo', 'descuento_promo', 'valor_adicional', 'actionsColumn'];
@@ -26,11 +27,11 @@ export class TablaPromoGrupComponent implements OnInit {
 
   @Output() promoListChange = new EventEmitter<Promocion[]>();
 
-  dataSource: TableDataSource<Promocion>;
+  //dataSource: TableDataSource<Promocion>;
 
   ngOnInit() {
-    this.dataSource = new TableDataSource<any>(this.promoList, Promocion, this.promoGrupValidator);
-    this.dataSource.datasourceSubject.subscribe(promoList => this.promoListChange.emit(promoList));
+  //  this.dataSource = new TableDataSource<any>(this.promoList, Promocion, this.promoGrupValidator);
+  //  this.dataSource.datasourceSubject.subscribe(promoList => this.promoListChange.emit(promoList));
   }
 
 }

@@ -132,56 +132,11 @@
 	<tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
 </table>
 
-<!-- 
-<mat-table class="mat-elevation-z8" #table [dataSource]="dataSource">
-	<ng-container matColumnDef="position">
-		<mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
-		<mat-cell *matCellDef="let row">
-		  <mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
-			<input matInput [formControl]="row.validator.controls['position']" type="number" placeholder="Position">
-		  </mat-form-field>
-		</mat-cell>
-	  </ng-container>
-	<ng-container matColumnDef="segmento">
-	  <mat-header-cell *matHeaderCellDef> Segmento </mat-header-cell>
-	  <mat-cell *matCellDef="let row">
-		<mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
-		  <input matInput [formControl]="row.validator.controls['segmento']" [readonly]="!row.editing" placeholder="Segmento">
-		</mat-form-field>
-	  </mat-cell>
-	</ng-container>
-	<ng-container matColumnDef="precio">
-	  <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
-	  <mat-cell *matCellDef="let row">
-		<mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
-		  <input matInput [formControl]="row.validator.controls['precio']" type="number" placeholder="Precio">
-		</mat-form-field>
-	  </mat-cell>
-	</ng-container>
-	<ng-container matColumnDef="actionsColumn">
-	  <mat-header-cell *matHeaderCellDef>
-		<button mat-icon-button color="accent" (click)="dataSource.createNew()"><i class="fa fa-plus mat-icon"></i></button>
-	  </mat-header-cell>
-	  <mat-cell *matCellDef="let row">
-		<button *ngIf="!row.editing" mat-icon-button color="primary" focusable="true" (click)="row.startEdit()">
-			  <i class="fa fa-pencil mat-icon"></i>
-			</button>
-		<button *ngIf="row.editing" mat-icon-button color="primary" focusable="true" (click)="row.confirmEditCreate()">
-			  <i class="fa fa-check mat-icon"></i>
-			</button>
-		<button mat-icon-button color="primary" focusable="true" (click)="row.cancelOrDelete()">
-			  <i class="fa fa-times mat-icon"></i>
-			</button>
-	  </mat-cell>
-	</ng-container>
-  
-	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-	<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table> -->
 <br>
 <hr>
 <br>
-  <mat-table class="mat-elevation-z8" #table [dataSource]="dataSource">
+<!-- Tabla material4 -->
+  <!-- <mat-table class="mat-elevation-z8" #table [dataSource]="dataSource">
 		<ng-container matColumnDef="position">
 			<mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
 			<mat-cell *matCellDef="let row">
@@ -230,22 +185,7 @@
 			</mat-form-field>
 		  </mat-cell>
 		</ng-container>  
-	<!-- <ng-container matColumnDef="name">
-	  <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-	  <mat-cell *matCellDef="let row">
-		<mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
-		  <input matInput [formControl]="row.validator.controls['name']" [readonly]="!row.editing" placeholder="Name" >
-		</mat-form-field>
-	  </mat-cell>
-	</ng-container>
-	<ng-container matColumnDef="age">
-	  <mat-header-cell *matHeaderCellDef> Age </mat-header-cell>
-	  <mat-cell *matCellDef="let row">
-		<mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
-		  <input matInput [formControl]="row.validator.controls['age']" type="number" placeholder="Age" >
-		</mat-form-field>
-	  </mat-cell>
-	</ng-container> -->
+
 	<ng-container matColumnDef="actionsColumn">
 	  <mat-header-cell *matHeaderCellDef>
 		<button mat-icon-button color="accent" (click)="dataSource.createNew()"><i class="fa fa-plus mat-icon"></i></button>
@@ -265,4 +205,21 @@
   
 	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 	<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+  </mat-table> -->
+
+  	<!-- <ng-container matColumnDef="name">
+	  <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+	  <mat-cell *matCellDef="let row">
+		<mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
+		  <input matInput [formControl]="row.validator.controls['name']" [readonly]="!row.editing" placeholder="Name" >
+		</mat-form-field>
+	  </mat-cell>
+	</ng-container>
+	<ng-container matColumnDef="age">
+	  <mat-header-cell *matHeaderCellDef> Age </mat-header-cell>
+	  <mat-cell *matCellDef="let row">
+		<mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
+		  <input matInput [formControl]="row.validator.controls['age']" type="number" placeholder="Age" >
+		</mat-form-field>
+	  </mat-cell>
+	</ng-container> -->

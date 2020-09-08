@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ValidatorService } from 'angular4-material-table';
+//import { ValidatorService } from 'angular4-material-table';
 
 @Injectable()
-export class PromoIndValidatorService implements ValidatorService {
+export class PromoIndValidatorService //implements ValidatorService 
+{
   getRowValidator(): FormGroup {
     return new FormGroup({
 /*      'id': new FormControl(),*/
