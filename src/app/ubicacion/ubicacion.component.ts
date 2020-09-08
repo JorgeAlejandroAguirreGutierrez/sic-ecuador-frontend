@@ -16,6 +16,7 @@ export class UbicacionComponent implements OnInit {
   constructor(private ubicacionService: UbicacionService, private modalService: NgbModal) { }
 
   ngOnInit() {
+    this.construir_ubicacion();
   }
 
   nuevo(event) {
@@ -37,12 +38,13 @@ export class UbicacionComponent implements OnInit {
     );
   }
 
-  actualizar(ubicacion: Ubicacion) {
-    this.ubicacionService.actualizar(ubicacion).subscribe(
+  actualizar() {
+    if (event!=null)
+      event.preventDefault();
+    this.ubicacionService.actualizar(this.ubicacion).subscribe(
       res => {
         Swal.fire('Exito', res.mensaje, 'success');
         this.ubicacion=res.resultado as Ubicacion;
-        this.ngOnInit();
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
@@ -57,5 +59,18 @@ export class UbicacionComponent implements OnInit {
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
+  }
+
+  async construir_ubicacion() {
+    let ubicacion_id=0;
+    this.ubicacionService.currentMessage.subscribe(message => ubicacion_id = message);
+    if (ubicacion_id!= 0) {
+      await this.ubicacionService.obtenerAsync(ubicacion_id).then(
+        res => {
+          Object.assign(this.ubicacion, res.resultado as Ubicacion);
+        },
+        err => Swal.fire('Error', err.error.mensaje, 'error')
+      );
+    }
   }
 }

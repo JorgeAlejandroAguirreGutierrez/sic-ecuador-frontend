@@ -6,9 +6,16 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="crear($event)">
-                <fa-icon [icon]="['fas', 'save']"></fa-icon>
-            </a>
+            <ng-container *ngIf="ubicacion.id==0">
+                <a class="nav-link" href="#" role="button" (click)="crear($event)">
+                    <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                </a>
+            </ng-container>
+            <ng-container *ngIf="ubicacion.id!=0">
+                <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
+                    <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                </a>
+            </ng-container>
         </li>
     </ul>
 </nav>
