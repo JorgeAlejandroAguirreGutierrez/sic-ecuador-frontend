@@ -1,7 +1,7 @@
 export class EstadoCivil {
     id: number;
     codigo: string;
-    estado_civil: string;
+    descripcion: string;
     abreviatura: string;
 
     constructor() {

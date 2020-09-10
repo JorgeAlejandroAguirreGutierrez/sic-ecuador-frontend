@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Type } from '@angular/core';
 import { TabService } from "../services/tab.service";
 import { Tab } from "../../modelos/tab.model";
@@ -21,6 +21,15 @@ import { SaldoInicialInventarioComponent } from '../../inventarios/saldo-inicial
 import { ProductoMostrarComponent } from '../../inventarios/producto/producto-mostrar/producto-mostrar.component';
 import { ImportarComponent } from '../../configuraciones/importar/importar.component';
 import { ExportarComponent } from '../../configuraciones/exportar/exportar.component';
+import { GrupoClienteMostrarComponent } from '../../clientes/grupo-cliente/grupo-cliente-mostrar/grupo-cliente-mostrar.component';
+import { CategoriaClienteComponent } from '../../clientes/categoria-cliente/categoria-cliente.component';
+import { CategoriaClienteMostrarComponent } from '../../clientes/categoria-cliente/categoria-cliente-mostrar/categoria-cliente-mostrar.component';
+import { EstadoCivilComponent } from '../../clientes/estado-civil/estado-civil.component';
+import { EstadoCivilMostrarComponent } from '../../clientes/estado-civil/estado-civil-mostrar/estado-civil-mostrar.component';
+import { FormaPagoComponent } from '../../clientes/forma-pago/forma-pago.component';
+import { FormaPagoMostrarComponent } from '../../clientes/forma-pago/forma-pago-mostrar/forma-pago-mostrar.component';
+import { GeneroComponent } from '../../clientes/genero/genero.component';
+import { GeneroMostrarComponent } from '../../clientes/genero/genero-mostrar/genero-mostrar.component';
 
 @Component({
   selector: 'app-main',
@@ -105,11 +114,17 @@ export class MainComponent implements OnInit{
       // El componente, nombre del tab y la opción en el slidebar
       this.llenarOpciones(ClienteComponent,'Nuevo cliente','Crear cliente');
       this.llenarOpciones(ClienteMostrarComponent,'Buscar cliente','Buscar cliente');
-      this.llenarOpciones(UbicacionComponent,'Crear Ubicacion Cliente','Crear Ubicacion Cliente');
-      this.llenarOpciones(UbicacionMostrarComponent,'Buscar Ubicacion Cliente','Buscar Ubicacion Cliente');
       this.llenarOpciones(GrupoClienteComponent,'Crear Grupo Cliente','Crear Grupo Cliente');
-      this.llenarOpciones(TransportistaComponent,'Crear Transportista','Crear Transportista');
-      this.llenarOpciones(MapsComponent,'Ubicacion Cliente','Ubicacion cliente');
+      this.llenarOpciones(GrupoClienteMostrarComponent,'Mostrar Grupo Cliente','Mostrar Grupo Cliente');
+      this.llenarOpciones(CategoriaClienteComponent,'Crear Categoria Cliente','Crear Categoria Cliente');
+      this.llenarOpciones(CategoriaClienteMostrarComponent,'Mostrar Categoria Cliente','Mostrar Categoria Cliente');
+      this.llenarOpciones(EstadoCivilComponent,'Crear Estado Civil','Crear Estado Civil');
+      this.llenarOpciones(EstadoCivilMostrarComponent,'Mostrar Estado Civil','Mostrar Estado Civil');
+      this.llenarOpciones(FormaPagoComponent,'Crear Forma de Pago','Crear Forma de Pago');
+      this.llenarOpciones(FormaPagoMostrarComponent,'Mostrar Forma de Pago','Mostrar Forma de Pago');
+      this.llenarOpciones(GeneroComponent,'Crear Genero','Crear Genero');
+      this.llenarOpciones(GeneroMostrarComponent,'Mostrar Genero','Mostrar Genero');
+      this.llenarOpciones(MapsComponent,'Mapa Cliente','Mapa cliente');
     }
 
     if (tabNombre == "COMPRAS") {
@@ -147,8 +162,7 @@ export class MainComponent implements OnInit{
     }
 
     if (tabNombre == "TALENTO HUMANO") {
-      this.llenarOpciones(FacturaComponent,'Crear Factura','Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent,'Buscar Factura','Buscar Factura');
+      this.llenarOpciones(TransportistaComponent,'Crear Transportista','Crear Transportista');
     }
 
     if (tabNombre == "PRODUCCION") {
@@ -182,9 +196,10 @@ export class MainComponent implements OnInit{
     }
 
     if (tabNombre == "CONFIGURACION") {
+      this.llenarOpciones(UbicacionComponent,'Crear Ubicacion Cliente','Crear Ubicacion Cliente');
+      this.llenarOpciones(UbicacionMostrarComponent,'Buscar Ubicacion Cliente','Buscar Ubicacion Cliente');
       this.llenarOpciones(ImportarComponent,'Importar', 'Importar');
       this.llenarOpciones(ExportarComponent,'Exportar', 'Exportar');
-      
     }
   }  
 }

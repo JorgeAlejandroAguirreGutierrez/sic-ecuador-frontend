@@ -8,7 +8,6 @@ import {
 import { ContentContainerDirective } from "./content-container.directive";
 import { SkeletonComponent } from "./skeleton.component";
 import { Tab } from "../modelos/tab.model";
-import { Cliente } from '../modelos/cliente';
 
 @Component({
   selector: "app-tab-content",

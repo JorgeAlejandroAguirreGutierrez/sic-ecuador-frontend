@@ -73,6 +73,7 @@ import { PermisoComponent } from './usuarios/permiso/permiso.component';
 import { ClienteComponent } from './clientes/cliente/cliente.component';
 import { ClienteMostrarComponent } from './clientes/cliente/cliente-mostrar/cliente-mostrar.component';
 import { GrupoClienteComponent } from './clientes/grupo-cliente/grupo-cliente.component';
+import { GrupoClienteMostrarComponent } from './clientes/grupo-cliente/grupo-cliente-mostrar/grupo-cliente-mostrar.component';
 import { TelefonoComponent } from './clientes/telefono/telefono.component';
 import { CorreoComponent } from './clientes/correo/correo.component';
 import { CelularComponent } from './clientes/celular/celular.component';
@@ -80,9 +81,12 @@ import { AuxiliarComponent } from './clientes/auxiliar/auxiliar.component';
 import { DireccionComponent } from './clientes/direccion/direccion.component';
 import { OrigenIngresoComponent } from './clientes/origen-ingreso/origen-ingreso.component';
 import { CategoriaClienteComponent } from './clientes/categoria-cliente/categoria-cliente.component';
+import { CategoriaClienteMostrarComponent } from './clientes/categoria-cliente/categoria-cliente-mostrar/categoria-cliente-mostrar.component';
 import { TipoRetencionComponent } from './clientes/tipo-retencion/tipo-retencion.component';
 import { EstadoCivilComponent } from './clientes/estado-civil/estado-civil.component';
+import { EstadoCivilMostrarComponent } from './clientes/estado-civil/estado-civil-mostrar/estado-civil-mostrar.component';
 import { GeneroComponent } from './clientes/genero/genero.component';
+import { GeneroMostrarComponent } from './clientes/genero/genero-mostrar/genero-mostrar.component';
 import { PlazoCreditoComponent } from './clientes/plazo-credito/plazo-credito.component';
 import { ImpuestoComponent } from './clientes/impuesto/impuesto.component';
 import { RetencionComponent } from './clientes/retencion-cliente/retencion-cliente.component';
@@ -107,7 +111,6 @@ import { TransportistaComponent } from './entregas/transportista/transportista.c
 import { VehiculoTransporteComponent } from './entregas/vehiculo-transporte/vehiculo-transporte.component';
 
 //Módulo de Recaudaciones
-import { FormaPagoComponent } from './recaudaciones/forma-pago/forma-pago.component';
 import { TipoPagoComponent } from './recaudaciones/tipo-pago/tipo-pago.component';
 import { FinanciamientoComponent } from './recaudaciones/financiamiento/financiamiento.component';
 import { RecaudacionComponent } from './recaudaciones/recaudacion/recaudacion.component';
@@ -191,6 +194,9 @@ import { ImportarComponent } from './configuraciones/importar/importar.component
 import { ExportarComponent } from './configuraciones/exportar/exportar.component';
 import { SaldoInicialInventarioComponent } from './inventarios/saldo-inicial-inventario/saldo-inicial-inventario.component';
 import { ProductoMostrarComponent } from './inventarios/producto/producto-mostrar/producto-mostrar.component';
+import { FormaPagoComponent } from './clientes/forma-pago/forma-pago.component';
+import { FormaPagoMostrarComponent } from './clientes/forma-pago/forma-pago-mostrar/forma-pago-mostrar.component';
+
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -201,6 +207,7 @@ const routes: Routes = [
   {path: 'cliente/impuesto', component: ImpuestoComponent},
   {path: 'cliente/retencion', component: RetencionComponent},
   {path: 'cliente/grupocliente', component: GrupoClienteComponent},
+  {path: 'cliente/grupocliente-mostrar', component: GrupoClienteMostrarComponent},
   {path: 'cliente/transportista', component: RetencionComponent},
   {path: 'cliente/tipocontribuyente', component: TipoContribuyenteComponent},
   {path: 'cliente/vehiculotransporte', component: VehiculoTransporteComponent},
@@ -211,7 +218,13 @@ const routes: Routes = [
   {path: 'cliente/establecimiento', component: EstablecimientoComponent},
   {path: 'cliente/puntoventa', component: PuntoVentaComponent},
   {path: 'cliente/genero', component: GeneroComponent},
+  {path: 'cliente/genero-mostrar', component: GeneroMostrarComponent},
+  {path: 'cliente/estadocivil', component: EstadoCivilComponent},
+  {path: 'cliente/estadocivil-mostrar', component: EstadoCivilMostrarComponent},
   {path: 'cliente/categoriacliente', component: CategoriaClienteComponent},
+  {path: 'cliente/categoriacliente-mostrar', component: CategoriaClienteMostrarComponent},
+  {path: 'cliente/formapago', component: FormaPagoComponent},
+  {path: 'cliente/formapago-mostrar', component: FormaPagoMostrarComponent},
   {path: 'cliente', component: ClienteComponent},
   {path: 'cliente-mostrar', component: ClienteMostrarComponent},
   {path: 'factura', component: FacturaComponent},
@@ -266,19 +279,24 @@ const routes: Routes = [
     PerfilComponent,
     MenuComponent,
     GrupoClienteComponent,
+    GrupoClienteMostrarComponent,
     TelefonoComponent,
     CorreoComponent,
     CelularComponent,
     AuxiliarComponent,
     DireccionComponent,
     FormaPagoComponent,
+    FormaPagoMostrarComponent,
     TipoPagoComponent,
     FinanciamientoComponent,
     OrigenIngresoComponent,
     CategoriaClienteComponent,
+    CategoriaClienteMostrarComponent,
     TipoRetencionComponent,
     EstadoCivilComponent,
+    EstadoCivilMostrarComponent,
     GeneroComponent,
+    GeneroMostrarComponent,
     RecaudacionComponent,
     BancoComponent,
     DepositoTransferenciaComponent,
@@ -375,7 +393,9 @@ const routes: Routes = [
                 useClass: PathLocationStrategy
               }],
   bootstrap: [AppComponent],
-  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, SaldoInicialInventarioComponent, DialogComponente]
+  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, 
+    SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteComponent,
+    EstadoCivilComponent, FormaPagoComponent, GeneroComponent]
 })
 export class AppModule {
   constructor() {

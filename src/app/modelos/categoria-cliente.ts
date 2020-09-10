@@ -1,7 +1,7 @@
 export class CategoriaCliente {
     id:number;
     codigo: string;
-    categoria: string;
+    descripcion: string;
     abreviatura: string;
 
     constructor() {

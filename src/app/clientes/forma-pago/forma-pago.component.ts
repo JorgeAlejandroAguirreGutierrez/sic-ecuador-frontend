@@ -1,34 +1,34 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { CategoriaCliente } from '../../modelos/categoria-cliente';
+import { FormaPago } from '../../modelos/forma-pago';
 import { TabService } from '../../componentes/services/tab.service';
-import { CategoriaClienteService } from '../../servicios/categoria-cliente.service';
+import { FormaPagoService } from '../../servicios/forma-pago.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-categoria-cliente',
-  templateUrl: './categoria-cliente.component.html',
-  styleUrls: ['./categoria-cliente.component.scss']
+  selector: 'app-forma-pago',
+  templateUrl: './forma-pago.component.html',
+  styleUrls: ['./forma-pago.component.scss']
 })
-export class CategoriaClienteComponent implements OnInit {
+export class FormaPagoComponent implements OnInit {
 
-  categoria_cliente= new CategoriaCliente();
+  forma_pago= new FormaPago();
 
-  constructor(private tabService: TabService,private categoriaClienteService: CategoriaClienteService) { }
+  constructor(private tabService: TabService,private formaPagoService: FormaPagoService) { }
 
   ngOnInit() {
-    this.construir_categoria_cliente();
+    this.construir_forma_pago();
   }
 
   nuevo(event) {
     if (event!=null)
       event.preventDefault();
-    this.categoria_cliente = new CategoriaCliente();
+    this.forma_pago = new FormaPago();
   }
 
   crear(event) {
     if (event!=null)
       event.preventDefault();
-    this.categoriaClienteService.crear(this.categoria_cliente).subscribe(
+    this.formaPagoService.crear(this.forma_pago).subscribe(
       res => {
         Swal.fire('Exito', res.mensaje, 'success');
         this.nuevo(null);
@@ -41,32 +41,32 @@ export class CategoriaClienteComponent implements OnInit {
   actualizar(event) {
     if (event!=null)
       event.preventDefault();
-    this.categoriaClienteService.actualizar(this.categoria_cliente).subscribe(
+    this.formaPagoService.actualizar(this.forma_pago).subscribe(
       res => {
         Swal.fire('Exito', res.mensaje, 'success');
-        this.categoria_cliente=res.resultado as CategoriaCliente;
+        this.forma_pago=res.resultado as FormaPago;
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
   }
 
-  eliminar(categoria_cliente: CategoriaCliente) {
-    this.categoriaClienteService.eliminar(categoria_cliente).subscribe(
+  eliminar(forma_pago: FormaPago) {
+    this.formaPagoService.eliminar(forma_pago).subscribe(
       res => {
         Swal.fire('Exito', res.mensaje, 'success');
-        this.categoria_cliente=res.resultado as CategoriaCliente
+        this.forma_pago=res.resultado as FormaPago
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
   }
 
-  async construir_categoria_cliente() {
-    let categoria_cliente_id=0;
-    this.categoriaClienteService.currentMessage.subscribe(message => categoria_cliente_id = message);
-    if (categoria_cliente_id!= 0) {
-      await this.categoriaClienteService.obtenerAsync(categoria_cliente_id).then(
+  async construir_forma_pago() {
+    let forma_pago_id=0;
+    this.formaPagoService.currentMessage.subscribe(message => forma_pago_id = message);
+    if (forma_pago_id!= 0) {
+      await this.formaPagoService.obtenerAsync(forma_pago_id).then(
         res => {
-          Object.assign(this.categoria_cliente, res.resultado as CategoriaCliente);
+          Object.assign(this.forma_pago, res.resultado as FormaPago);
         },
         err => Swal.fire('Error', err.error.mensaje, 'error')
       );

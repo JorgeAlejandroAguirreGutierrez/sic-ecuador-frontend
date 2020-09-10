@@ -1,7 +1,7 @@
 export class Genero {
     id: number;
     codigo: string;
-    sexo: string;
+    descripcion: string;
     abreviatura: string;
 
     constructor() {
