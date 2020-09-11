@@ -80,6 +80,7 @@ import { CelularComponent } from './clientes/celular/celular.component';
 import { AuxiliarComponent } from './clientes/auxiliar/auxiliar.component';
 import { DireccionComponent } from './clientes/direccion/direccion.component';
 import { OrigenIngresoComponent } from './clientes/origen-ingreso/origen-ingreso.component';
+import { OrigenIngresoMostrarComponent } from './clientes/origen-ingreso/origen-ingreso-mostrar/origen-ingreso-mostrar.component';
 import { CategoriaClienteComponent } from './clientes/categoria-cliente/categoria-cliente.component';
 import { CategoriaClienteMostrarComponent } from './clientes/categoria-cliente/categoria-cliente-mostrar/categoria-cliente-mostrar.component';
 import { TipoRetencionComponent } from './clientes/tipo-retencion/tipo-retencion.component';
@@ -88,6 +89,7 @@ import { EstadoCivilMostrarComponent } from './clientes/estado-civil/estado-civi
 import { GeneroComponent } from './clientes/genero/genero.component';
 import { GeneroMostrarComponent } from './clientes/genero/genero-mostrar/genero-mostrar.component';
 import { PlazoCreditoComponent } from './clientes/plazo-credito/plazo-credito.component';
+import { PlazoCreditoMostrarComponent } from './clientes/plazo-credito/plazo-credito-mostrar/plazo-credito-mostrar.component';
 import { ImpuestoComponent } from './clientes/impuesto/impuesto.component';
 import { RetencionComponent } from './clientes/retencion-cliente/retencion-cliente.component';
 import { TipoContribuyenteComponent } from './clientes/tipo-contribuyente/tipo-contribuyente.component';
@@ -204,6 +206,7 @@ const routes: Routes = [
   {path: 'menu', component: MenuComponent},
   {path: 'cliente/datoadicional', component: DatoAdicionalComponent},
   {path: 'cliente/plazocredito', component: PlazoCreditoComponent},
+  {path: 'cliente/plazocredito-mostrar', component: PlazoCreditoMostrarComponent},
   {path: 'cliente/impuesto', component: ImpuestoComponent},
   {path: 'cliente/retencion', component: RetencionComponent},
   {path: 'cliente/grupocliente', component: GrupoClienteComponent},
@@ -225,6 +228,8 @@ const routes: Routes = [
   {path: 'cliente/categoriacliente-mostrar', component: CategoriaClienteMostrarComponent},
   {path: 'cliente/formapago', component: FormaPagoComponent},
   {path: 'cliente/formapago-mostrar', component: FormaPagoMostrarComponent},
+  {path: 'cliente/origeningreso', component: OrigenIngresoComponent},
+  {path: 'cliente/origeningreso-mostrar', component: OrigenIngresoMostrarComponent},
   {path: 'cliente', component: ClienteComponent},
   {path: 'cliente-mostrar', component: ClienteMostrarComponent},
   {path: 'factura', component: FacturaComponent},
@@ -263,6 +268,7 @@ const routes: Routes = [
     InicioSesionComponent,
     DatoAdicionalComponent,
     PlazoCreditoComponent,
+    PlazoCreditoMostrarComponent,
     ImpuestoComponent,
     RetencionComponent,
     TransportistaComponent,
@@ -290,6 +296,7 @@ const routes: Routes = [
     TipoPagoComponent,
     FinanciamientoComponent,
     OrigenIngresoComponent,
+    OrigenIngresoMostrarComponent,
     CategoriaClienteComponent,
     CategoriaClienteMostrarComponent,
     TipoRetencionComponent,
@@ -395,7 +402,7 @@ const routes: Routes = [
   bootstrap: [AppComponent],
   entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, 
     SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteComponent,
-    EstadoCivilComponent, FormaPagoComponent, GeneroComponent]
+    EstadoCivilComponent, FormaPagoComponent, GeneroComponent, OrigenIngresoComponent, PlazoCreditoComponent]
 })
 export class AppModule {
   constructor() {

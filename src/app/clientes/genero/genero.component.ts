@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { GeneroService } from '../../servicios/genero.service';
 import { Genero } from '../../modelos/genero';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { TabService } from '../../componentes/services/tab.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,83 +12,39 @@ import Swal from 'sweetalert2';
 export class GeneroComponent implements OnInit {
 
   genero= new Genero();
-  generos: Genero[];
-  p_genero= new Genero();
 
-  @ViewChild("actualizar", {static:true}) modalActualizar: any;
-  @ViewChild("eliminar", {static:true}) modalEliminar: any;
-
-  constructor(private generoService: GeneroService, private modalService: NgbModal) { }
+  constructor(private tabService: TabService,private generoService: GeneroService) { }
 
   ngOnInit() {
-    this.generoService.consultar().subscribe(
-      res=>this.generos=res.resultado as Genero[]
-    );
+    this.construir_genero();
   }
 
-  @HostListener('window:keypress', ['$event'])
-  keyEvent($event: KeyboardEvent) {
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 71)
-      this.crear();
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 78)
-      this.nuevo();
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 69)
-      this.open(this.modalActualizar);
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 66)
-      console.log('SHIFT + B');
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 65)
-      this.open(this.modalEliminar);
-  }
-
-  seleccion(genero: Genero) {
-    this.p_genero = genero;
-  }
-
-  nuevo() {
+  nuevo(event) {
+    if (event!=null)
+      event.preventDefault();
     this.genero = new Genero();
   }
 
-  open(content: any) {
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      if (result=="actualizar") {
-        this.actualizar(this.p_genero);
-      }
-      if (result=="eliminar") {
-        this.eliminar(this.p_genero);
-      }
-    }, (reason) => {
-      
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
-
-  crear() {
+  crear(event) {
+    if (event!=null)
+      event.preventDefault();
     this.generoService.crear(this.genero).subscribe(
       res => {
-        console.log(res);
         Swal.fire('Exito', res.mensaje, 'success');
-        this.genero=res.resultado as Genero;
-        this.ngOnInit();
+        this.nuevo(null);
+
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
   }
 
-  actualizar(genero: Genero) {
-    this.generoService.actualizar(genero).subscribe(
+  actualizar(event) {
+    if (event!=null)
+      event.preventDefault();
+    this.generoService.actualizar(this.genero).subscribe(
       res => {
         Swal.fire('Exito', res.mensaje, 'success');
         this.genero=res.resultado as Genero;
-        this.ngOnInit();
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
@@ -98,11 +54,33 @@ export class GeneroComponent implements OnInit {
     this.generoService.eliminar(genero).subscribe(
       res => {
         Swal.fire('Exito', res.mensaje, 'success');
-        this.genero=res.resultado as Genero;
-        this.ngOnInit();
+        this.genero=res.resultado as Genero
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
+  }
+
+  async construir_genero() {
+    let genero_id=0;
+    this.generoService.currentMessage.subscribe(message => genero_id = message);
+    if (genero_id!= 0) {
+      await this.generoService.obtenerAsync(genero_id).then(
+        res => {
+          Object.assign(this.genero, res.resultado as Genero);
+        },
+        err => Swal.fire('Error', err.error.mensaje, 'error')
+      );
+    }
+  }
+
+  @HostListener('window:keypress', ['$event'])
+  keyEvent($event: KeyboardEvent) {
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 71) //SHIFT + G
+      this.crear(null);
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 78) //ASHIFT + N
+      this.nuevo(null);
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 69) // SHIFT + E
+      this.eliminar(null);
   }
 
 }
