@@ -36,6 +36,8 @@ import { TabService } from '../../componentes/services/tab.service';
   templateUrl: './producto.component.html',
   styleUrls: ['./producto.component.scss']
 })
+
+
 export class ProductoComponent implements OnInit {
   panelOpenState=false;
   displayedColumnsSugerido: string[] = ['medida', 'segmento', 'costo', 'margen_ganancia', 'precio_venta_publico', 'precio_venta_publico_iva'];
@@ -44,6 +46,22 @@ export class ProductoComponent implements OnInit {
   precios_tabla: BehaviorSubject<Precio[]> = new BehaviorSubject(this.producto.precios);
   datos = this.precios_tabla;
   controls: FormArray;
+
+  // Para probar separar tablas
+  displayedColumnsSugeridoPrueba: string[] = ['medida', 'segmento', 'costo', 'margen_ganancia', 'precio_venta_publico', 'precio_venta_publico_iva'];
+  displayedColumnsVentaPrueba: string[] = ['precio_venta_publico_manual', 'utilidad', 'utilidad_porcentaje'];
+ 
+  cantidadMedida: number = 0;
+  arrayCantidadMedida: number[]=[];
+  datosMedida: any[]=[];
+  datosPrueba = [
+    {posicion: 1, medida: 'Libra', segmento: 'Distrubuidor', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15},
+    {posicion: 1, medida: 'Libra', segmento: 'Cliente', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15},
+    {posicion: 2, medida: 'Kilogramo', segmento: 'Distrubuidor', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15},
+    {posicion: 2, medida: 'Kilogramo', segmento: 'Cliente', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15},
+    {posicion: 3, medida: 'Arroba', segmento: 'Distrubuidor', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15},
+    {posicion: 3, medida: 'Arroba', segmento: 'Cliente', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15}
+  ];
 
   tipos_gastos: TipoGasto[]=[];
   segmentos: Segmento[]=[];
@@ -154,6 +172,20 @@ export class ProductoComponent implements OnInit {
         map(value => typeof value === 'string' || value==null ? value : value.id),
         map(medida => typeof medida === 'string' ? this.filtro_medida(medida) : this.medidas.slice())
       );
+
+    this.filtro_cantidad_medida();
+  }
+
+  private filtro_cantidad_medida(): any[] {
+    this.cantidadMedida = Math.max.apply(Math, this.datosPrueba.map(function(o) { return o.posicion; }));
+    this.arrayCantidadMedida = Array(this.cantidadMedida).fill(1).map((x,i)=>i+1);
+    return this.arrayCantidadMedida;
+  }
+
+  private filtro_medida_tabla(value: number): any[] {
+    this.datosMedida = this.datosPrueba.filter(datosFiltro => datosFiltro.posicion === value);
+    console.info(this.datosMedida);
+    return this.datosMedida;
   }
 
   private filtro_grupo_producto(value: string): GrupoProducto[] {
