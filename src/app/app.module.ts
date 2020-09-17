@@ -113,7 +113,8 @@ import { TransportistaComponent } from './entregas/transportista/transportista.c
 import { VehiculoTransporteComponent } from './entregas/vehiculo-transporte/vehiculo-transporte.component';
 
 //Módulo de Recaudaciones
-import { TipoPagoComponent } from './recaudaciones/tipo-pago/tipo-pago.component';
+import { TipoPagoComponent } from './clientes/tipo-pago/tipo-pago.component';
+import { TipoPagoMostrarComponent } from './clientes/tipo-pago/tipo-pago-mostrar/tipo-pago-mostrar.component';
 import { FinanciamientoComponent } from './recaudaciones/financiamiento/financiamiento.component';
 import { RecaudacionComponent } from './recaudaciones/recaudacion/recaudacion.component';
 import { BancoComponent } from './recaudaciones/banco/banco.component';
@@ -230,6 +231,8 @@ const routes: Routes = [
   {path: 'cliente/formapago-mostrar', component: FormaPagoMostrarComponent},
   {path: 'cliente/origeningreso', component: OrigenIngresoComponent},
   {path: 'cliente/origeningreso-mostrar', component: OrigenIngresoMostrarComponent},
+  {path: 'cliente/tipopago', component: TipoPagoComponent},
+  {path: 'cliente/tipopago-mostrar', component: TipoPagoMostrarComponent},
   {path: 'cliente', component: ClienteComponent},
   {path: 'cliente-mostrar', component: ClienteMostrarComponent},
   {path: 'factura', component: FacturaComponent},
@@ -294,6 +297,7 @@ const routes: Routes = [
     FormaPagoComponent,
     FormaPagoMostrarComponent,
     TipoPagoComponent,
+    TipoPagoMostrarComponent,
     FinanciamientoComponent,
     OrigenIngresoComponent,
     OrigenIngresoMostrarComponent,
@@ -402,7 +406,8 @@ const routes: Routes = [
   bootstrap: [AppComponent],
   entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, 
     SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteComponent,
-    EstadoCivilComponent, FormaPagoComponent, GeneroComponent, OrigenIngresoComponent, PlazoCreditoComponent]
+    EstadoCivilComponent, FormaPagoComponent, GeneroComponent, OrigenIngresoComponent, PlazoCreditoComponent,
+    TipoPagoComponent]
 })
 export class AppModule {
   constructor() {

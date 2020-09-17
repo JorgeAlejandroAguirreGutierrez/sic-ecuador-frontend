@@ -34,6 +34,8 @@ import { OrigenIngresoComponent } from '../../clientes/origen-ingreso/origen-ing
 import { OrigenIngresoMostrarComponent } from '../../clientes/origen-ingreso/origen-ingreso-mostrar/origen-ingreso-mostrar.component';
 import { PlazoCreditoComponent } from '../../clientes/plazo-credito/plazo-credito.component';
 import { PlazoCreditoMostrarComponent } from '../../clientes/plazo-credito/plazo-credito-mostrar/plazo-credito-mostrar.component';
+import { TipoPagoComponent } from '../../clientes/tipo-pago/tipo-pago.component';
+import { TipoPagoMostrarComponent } from '../../clientes/tipo-pago/tipo-pago-mostrar/tipo-pago-mostrar.component';
 
 @Component({
   selector: 'app-main',
@@ -133,6 +135,8 @@ export class MainComponent implements OnInit{
       this.llenarOpciones(OrigenIngresoMostrarComponent,'Mostrar Origen de Ingreso','Mostrar Origen de Ingreso');
       this.llenarOpciones(PlazoCreditoComponent,'Crear Plazo de Credito','Crear Plazo de Credito');
       this.llenarOpciones(PlazoCreditoMostrarComponent,'Mostrar Plazo de Credito','Mostrar Plazo de Credito');
+      this.llenarOpciones(TipoPagoComponent,'Crear Tipo de Pago','Crear Tipo de Pago');
+      this.llenarOpciones(TipoPagoMostrarComponent,'Mostrar Tipo de Pago','Mostrar Tipo de Pago');
       this.llenarOpciones(MapsComponent,'Mapa Cliente','Mapa cliente');
     }
 
