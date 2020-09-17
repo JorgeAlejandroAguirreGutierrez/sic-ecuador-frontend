@@ -76,9 +76,10 @@ div.linea-vertical{
   }
 
   .centrar{
-    align-content: center;
+    align-content: center!important;
     font-weight: bold;
-    align-items: center;
+    align-items: center!important;
+    text-align: center!important;
   }
   
 // Componentes de Mat
