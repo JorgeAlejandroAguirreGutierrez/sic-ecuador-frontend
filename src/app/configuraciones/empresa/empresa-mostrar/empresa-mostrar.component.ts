@@ -4,29 +4,29 @@ import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
-import { GeneroComponent } from '../genero.component';
-import { GeneroService } from '../../../servicios/genero.service';
-import { Genero } from '../../../modelos/genero';
+import { EmpresaComponent } from '../empresa.component';
+import { EmpresaService } from '../../../servicios/empresa.service';
+import { Empresa } from '../../../modelos/empresa';
 
 
 @Component({
-  selector: 'app-genero-mostrar',
-  templateUrl: './genero-mostrar.component.html',
-  styleUrls: ['./genero-mostrar.component.scss']
+  selector: 'app-empresa-mostrar',
+  templateUrl: './empresa-mostrar.component.html',
+  styleUrls: ['./empresa-mostrar.component.scss']
 })
-export class GeneroMostrarComponent implements OnInit {
+export class EmpresaMostrarComponent implements OnInit {
 
   collapsed = true;
-  ComponenteGenero: Type<any> = GeneroComponent;
+  ComponenteEmpresa: Type<any> = EmpresaComponent;
 
   sesion: Sesion;
 
-  constructor(private generoService: GeneroService, private tabService: TabService, 
+  constructor(private empresaService: EmpresaService, private tabService: TabService, 
     private sesionService: SesionService,private router: Router) { }
 
-  generos: Genero[];
-  genero: Genero;
-  genero_buscar: Genero=new Genero();
+  empresas: Empresa[];
+  empresa: Empresa;
+  empresa_buscar: Empresa=new Empresa();
 
 
   ngOnInit() {
@@ -35,9 +35,9 @@ export class GeneroMostrarComponent implements OnInit {
   }
 
   consultar() {
-    this.generoService.consultar().subscribe(
+    this.empresaService.consultar().subscribe(
       res => {
-        this.generos = res.resultado as Genero[]
+        this.empresas = res.resultado as Empresa[]
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
@@ -46,10 +46,10 @@ export class GeneroMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-      this.generoService.buscar(this.genero_buscar).subscribe(
+      this.empresaService.buscar(this.empresa_buscar).subscribe(
         res => {
           if (res.resultado!=null) {
-            this.generos = res.resultado as Genero[]
+            this.empresas = res.resultado as Empresa[]
           } else {
             Swal.fire('Error', res.mensaje, 'error');
           }
@@ -57,8 +57,8 @@ export class GeneroMostrarComponent implements OnInit {
       );
   }
 
-  seleccion(genero: Genero) {
-    this.genero=genero;
+  seleccion(empresa: Empresa) {
+    this.empresa=empresa;
   }
 
   nuevo(event){
@@ -69,9 +69,9 @@ export class GeneroMostrarComponent implements OnInit {
   actualizar(event){
     if (event!=null)
       event.preventDefault();
-    if (this.genero != null){
-      this.generoService.enviar(this.genero.id);
-      this.tabService.addNewTab(this.ComponenteGenero,'Actualizar Genero');
+    if (this.empresa != null){
+      this.empresaService.enviar(this.empresa.id);
+      this.tabService.addNewTab(this.ComponenteEmpresa,'Actualizar Empresa');
     } else {
       Swal.fire('Error', "Selecciona un Estado Civil", 'error');
     }
@@ -80,11 +80,11 @@ export class GeneroMostrarComponent implements OnInit {
   eliminar(event) {
     if (event!=null)
       event.preventDefault();
-    this.generoService.eliminar(this.genero).subscribe(
+    this.empresaService.eliminar(this.empresa).subscribe(
       res => {
         if (res.resultado!=null){
           Swal.fire('Exito', res.mensaje, 'success');
-          this.genero = res.resultado as Genero
+          this.empresa = res.resultado as Empresa
         } else {
           Swal.fire('Error', res.mensaje, 'error');
         }        
@@ -97,11 +97,11 @@ export class GeneroMostrarComponent implements OnInit {
 
   }
 
-  cambiar_buscar_descripcion(){
+  cambiar_buscar_identificacion(){
 
   }
 
-  cambiar_buscar_abreviatura(){
+  cambiar_buscar_razon_social(){
 
   }
 
