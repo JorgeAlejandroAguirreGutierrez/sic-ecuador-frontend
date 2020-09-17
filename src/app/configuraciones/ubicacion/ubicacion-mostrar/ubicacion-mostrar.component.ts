@@ -2,7 +2,6 @@ import { Component, OnInit, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
 import { UbicacionComponent } from '../ubicacion.component';
@@ -23,7 +22,7 @@ export class UbicacionMostrarComponent implements OnInit {
   sesion: Sesion;
 
   constructor(private ubicacionService: UbicacionService, private tabService: TabService, 
-    private sesionService: SesionService,private router: Router, private modalService: NgbModal) { }
+    private sesionService: SesionService,private router: Router) { }
 
   ubicaciones: Ubicacion[];
   ubicacion: Ubicacion;

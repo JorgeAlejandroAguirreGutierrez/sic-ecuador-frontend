@@ -61,6 +61,27 @@ html {
     font-size: 12px;
 }
 
+div.linea-vertical{
+    //width: 1px; /* Line width */
+    border-left: 2px ridge silver;
+    /*border: 1px inset; /* This is default border style for <hr> tag */
+    height: 95%; /* Override in-line if you want specific height. */
+    float: left; /* Causes the line to float to left of content. */
+    border-radius: 2px;
+  }
+
+  table {
+    width: 100%;
+    align-content: center;
+  }
+
+  .centrar{
+    align-content: center;
+    font-weight: bold;
+    align-items: center;
+  }
+  
+// Componentes de Mat
 .headers-align .mat-expansion-panel-header-title,
 .headers-align .mat-expansion-panel-header-description {
   flex-basis: 0;
@@ -97,6 +118,8 @@ html {
 .mat-card-title{
     text-align: center !important;
 }
+
+::ng-deep { .cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; } }
 
 /*para el acodion*/
 .mat-accordion{padding: 0px!important;}

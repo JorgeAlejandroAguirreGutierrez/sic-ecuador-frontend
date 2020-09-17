@@ -1,8 +1,10 @@
-import { Component, OnInit,ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit,ViewChild, HostListener, Input } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { UbicacionService } from '../../servicios/ubicacion.service';
 import { Ubicacion } from '../../modelos/ubicacion';
+import { Tab } from '../../modelos/tab.model';
+import { TabService } from '../../componentes/services/tab.service';
 
 @Component({
   selector: 'app-ubicacion',
@@ -13,7 +15,7 @@ export class UbicacionComponent implements OnInit {
 
   ubicacion= new Ubicacion();
 
-  constructor(private ubicacionService: UbicacionService, private modalService: NgbModal) { }
+  constructor(private tabService: TabService,private ubicacionService: UbicacionService, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.construir_ubicacion();
@@ -55,7 +57,6 @@ export class UbicacionComponent implements OnInit {
       res => {
         Swal.fire('Exito', res.mensaje, 'success');
         this.ubicacion=res.resultado as Ubicacion
-        this.ngOnInit();
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
     );
@@ -72,5 +73,15 @@ export class UbicacionComponent implements OnInit {
         err => Swal.fire('Error', err.error.mensaje, 'error')
       );
     }
+  }
+
+  @HostListener('window:keypress', ['$event'])
+  keyEvent($event: KeyboardEvent) {
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 71) //SHIFT + G
+      this.crear(null);
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 78) //ASHIFT + N
+      this.nuevo(null);
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 69) // SHIFT + E
+      this.eliminar(null);
   }
 }

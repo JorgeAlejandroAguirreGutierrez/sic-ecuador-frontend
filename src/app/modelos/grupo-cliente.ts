@@ -1,12 +1,13 @@
 export class GrupoCliente {
     id: number;
     codigo:string;
-    denominacion:string;
-    numero_cuenta:string;
-    nombre_cuenta:string;
-    cliente_relacionado:boolean;
+    descripcion:string;
+    abreviatura:string;
 
     constructor() {
         this.id=0;
+        this.codigo="";
+        this.descripcion="";
+        this.abreviatura="";
     }
 }

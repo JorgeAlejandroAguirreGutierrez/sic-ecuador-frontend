@@ -6,6 +6,9 @@ export class FormaPago {
 
     constructor() {
         this.id=0;
+        this.codigo="";
+        this.descripcion="";
+        this.abreviatura="";
     }
     
 }

@@ -1,7 +1,7 @@
 export class OrigenIngreso {
     id:number;
     codigo: string;
-    origen_ingreso: string;
+    descripcion: string;
     abreviatura: string;
     
     constructor() {

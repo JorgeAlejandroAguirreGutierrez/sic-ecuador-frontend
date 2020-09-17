@@ -112,7 +112,7 @@ export class UbicacionService {
   }
 
   buscar(ubicacion: Ubicacion): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.ubicacion+'/'+ubicacion.codigo_norma + '/'+ubicacion.provincia+'/'+ubicacion.canton+'/'+ubicacion.parroquia+'/id', util.options).pipe(
+    return this.http.get(environment.host + util.ruta + util.ubicacion+util.buscar+'/'+ubicacion.codigo_norma + '/'+ubicacion.provincia+'/'+ubicacion.canton+'/'+ubicacion.parroquia, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
