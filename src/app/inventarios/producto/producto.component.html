@@ -228,7 +228,7 @@
                                     <div class="form-group col-5">
                                         <mat-form-field appearance="standard">
                                             <mat-label>Medida</mat-label>
-                                            <mat-select [(ngModel)]="medida" [disabled]="habilitar_saldo_inicial">
+                                            <mat-select [(ngModel)]="kardex.medida" [disabled]="habilitar_saldo_inicial">
                                                 <mat-option *ngFor="let medida of medidas" [value]="medida">
                                                     {{medida.descripcion}}</mat-option>
                                             </mat-select>
@@ -237,20 +237,20 @@
                                     <div class="form-group col-3">
                                         <mat-form-field appearance="standard">
                                             <mat-label>Saldo Ini.</mat-label>
-                                            <input matInput type="text" [(ngModel)]="kardex.cantidad"
+                                            <input matInput type="text" [(ngModel)]="kardex.cantidad" [disabled]="habilitar_saldo_inicial"
                                                 (change)="seleccionar_cantidad()" class="form-control-sm">
                                         </mat-form-field>
                                     </div>
                                     <div class="form-group col-3">
                                         <mat-form-field appearance="standard">
                                             <mat-label>Costo Uni</mat-label>
-                                            <input matInput type="text" [(ngModel)]="kardex.costo_unitario"
+                                            <input matInput type="text" [(ngModel)]="kardex.costo_unitario" [disabled]="habilitar_saldo_inicial"
                                                 (change)="seleccionar_costo_unitario()" class="form-control-sm">
                                         </mat-form-field>
                                     </div>
                                     <div class="form-group col-1">
                                         <br>
-                                        <button class="btn btn-primary btn-circle" (click)="crear_precio()">
+                                        <button class="btn btn-primary btn-circle" (click)="cargar_saldo_inicial()" [disabled]="habilitar_saldo_inicial">
                                             <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
                                         </button>
                                     </div>
@@ -267,7 +267,7 @@
                                     <div class="form-group col-10">
                                         <mat-form-field appearance="standard">
                                             <mat-label>Medida</mat-label>
-                                            <mat-select [(ngModel)]="medida" [disabled]="habilitar_otras_medidas">
+                                            <mat-select [(ngModel)]="medida" (change)="obtener_tabla_equivalencia_medida()" [disabled]="habilitar_otras_medidas">
                                                 <mat-option *ngFor="let medida of medidas" [value]="medida">
                                                     {{medida.descripcion}}</mat-option>
                                             </mat-select>
@@ -275,7 +275,7 @@
                                     </div>
                                     <div class="form-group col-2">
                                         <br>
-                                        <button class="btn btn-primary btn-circle" (click)="crear_precio()">
+                                        <button class="btn btn-primary btn-circle" (click)="crear_precio()" [disabled]="habilitar_otras_medidas">
                                             <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
                                         </button>
                                     </div>
@@ -315,128 +315,12 @@
         <mat-label>CONFIGURACIÓN DE PRECIOS</mat-label>
     </div>
     <mat-accordion class="headers-align">
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <i><u>{{precio.medida.descripcion}}</u></i>
-                </mat-panel-title>
-                <mat-panel-description>
-                    Precio por segmento
-                    <mat-icon>account_circle</mat-icon>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <mat-divider></mat-divider>
-            <div class="form-row col-12">
-                <div class="form-group col-8">
-                    <br>
-                    <mat-label class="centrar">PRECIO SUGERIDO</mat-label>
-                    <table mat-table [dataSource]="datos" class="mat-elevation-z8">
-
-                        <!--- Note que estas columnas pueden ser definidas en cualquier orden.
-                                Las columnas reales representadas se establecen como una propiedad en la definición de fila" -->
-
-                        <!-- Medida Column -->
-                        <ng-container matColumnDef="medida">
-                            <th mat-header-cell *matHeaderCellDef> Medida </th>
-                            <td mat-cell *matCellDef="let precio"> {{precio.medida.descripcion}} </td>
-                        </ng-container>
-
-                        <!-- Segmento Column -->
-                        <ng-container matColumnDef="segmento">
-                            <th mat-header-cell *matHeaderCellDef> Segmento </th>
-                            <td mat-cell *matCellDef="let precio"> {{precio.segmento.nombre}} </td>
-                        </ng-container>
-
-                        <!-- Costo Column -->
-                        <ng-container matColumnDef="costo">
-                            <th mat-header-cell *matHeaderCellDef> Costo </th>
-                            <td mat-cell *matCellDef="let precio;let index = index">
-                                <editable (update)="actualizar_calculos_precios(index, 'costo')">
-                                    <ng-template viewMode>
-                                        {{precio.costo}}
-                                    </ng-template>
-                                    <ng-template editMode>
-                                        <input [formControl]="getControl(index, 'costo')" focusable editableOnEnter>
-                                    </ng-template>
-                                </editable>
-                            </td>
-                        </ng-container>
-
-                        <!-- Ganancia Column -->
-                        <ng-container matColumnDef="margen_ganancia">
-                            <th mat-header-cell *matHeaderCellDef> MG% </th>
-                            <td mat-cell *matCellDef="let precio;let index = index">
-                                <editable (update)="actualizar_calculos_precios(index, 'margen_ganancia')">
-                                    <ng-template viewMode>
-                                        {{precio.margen_ganancia}}
-                                    </ng-template>
-                                    <ng-template editMode>
-                                        <input [formControl]="getControl(index, 'margen_ganancia')" focusable
-                                            editableOnEnter>
-                                    </ng-template>
-                                </editable>
-                            </td>
-                        </ng-container>
-                        <!-- PVP Column -->
-                        <ng-container matColumnDef="precio_venta_publico">
-                            <th mat-header-cell *matHeaderCellDef> PVP </th>
-                            <td mat-cell *matCellDef="let precio"> {{precio.precio_venta_publico}} </td>
-                        </ng-container>
-                        <!-- PVP Column -->
-                        <ng-container matColumnDef="precio_venta_publico_iva">
-                            <th mat-header-cell *matHeaderCellDef> PVP IVA </th>
-                            <td mat-cell *matCellDef="let precio"> {{precio.precio_venta_publico_iva}} </td>
-                        </ng-container>
-
-                        <tr mat-header-row *matHeaderRowDef="displayedColumnsSugerido"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumnsSugerido;"></tr>
-                    </table>
-                </div>
-                <div class="form-group col-4">
-                    <br>
-                    <mat-label class="centrar">PRECIO DE VENTA</mat-label>
-                    <table mat-table [dataSource]="datos" class="mat-elevation-z8">
-
-                        <!--- Note que estas columnas pueden ser definidas en cualquier orden.
-                                Las columnas reales representadas se establecen como una propiedad en la definición de fila" -->
-
-                        <!-- PvpF Column -->
-                        <ng-container matColumnDef="precio_venta_publico_manual">
-                            <th mat-header-cell *matHeaderCellDef> PVP Man </th>
-                            <td mat-cell *matCellDef="let precio;let index = index">
-                                <editable (update)="actualizar_calculos_precios(index, 'precio_venta_publico_manual')">
-                                    <ng-template viewMode>
-                                        {{precio.precio_venta_publico_manual}}
-                                    </ng-template>
-                                    <ng-template editMode>
-                                        <input [formControl]="getControl(index, 'precio_venta_publico_manual')"
-                                            focusable editableOnEnter>
-                                    </ng-template>
-                                </editable>
-                            </td>
-                        </ng-container>
-                        <!-- Segmento Column -->
-                        <ng-container matColumnDef="utilidad">
-                            <th mat-header-cell *matHeaderCellDef> Utilidad </th>
-                            <td mat-cell *matCellDef="let precio"> {{precio.utilidad}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="utilidad_porcentaje">
-                            <th mat-header-cell *matHeaderCellDef> Utilidad% </th>
-                            <td mat-cell *matCellDef="let precio"> {{precio.utilidad_porcentaje}} </td>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="displayedColumnsVenta"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumnsVenta;"></tr>
-                    </table>
-                </div>
-            </div>
-        </mat-expansion-panel>
-
     <!-- Esta parte adaptar a la superior, es para probar el funcionamiento con datos-->
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true" 
-        *ngFor="let i of arrayCantidadMedida">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="false" 
+        *ngFor="let dato of datos; let i = index">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <i><u>{{filtro_medida_tabla(i)[0].medida.toUpperCase()}}</u></i>
+                <i><u>{{producto.medidas_precios[i].medida.descripcion}}</u></i>
             </mat-panel-title>
             <mat-panel-description>
                 Precio por segmento
@@ -448,27 +332,23 @@
             <div class="form-group col-8">
                 <br>
                 <mat-label class="centrar">PRECIO SUGERIDO</mat-label>
-                <table mat-table [dataSource]="filtro_medida_tabla(i)" class="mat-elevation-z8">
-
-                    <!--- Note que estas columnas pueden ser definidas en cualquier orden.
-                            Las columnas reales representadas se establecen como una propiedad en la definición de fila" -->
-
+                <table mat-table [dataSource]="dato" class="mat-elevation-z8">
                     <!-- Medida Column -->
                     <ng-container matColumnDef="medida">
                         <th mat-header-cell *matHeaderCellDef> Medida </th>
-                        <td mat-cell *matCellDef="let precio"> {{precio.medida}} </td>
+                        <td mat-cell *matCellDef="let precio"> {{producto.medidas_precios[i].medida.descripcion}} </td>
                     </ng-container>
 
                     <!-- Segmento Column -->
                     <ng-container matColumnDef="segmento">
                         <th mat-header-cell *matHeaderCellDef> Segmento </th>
-                        <td mat-cell *matCellDef="let precio"> {{precio.segmento}} </td>
+                        <td mat-cell *matCellDef="let precio"> {{precio.segmento.nombre}} </td>
                     </ng-container>
 
                     <!-- Costo Column -->
                     <ng-container matColumnDef="costo">
                         <th mat-header-cell *matHeaderCellDef> Costo </th>
-                        <td mat-cell *matCellDef="let precio;let index = index">
+                        <td mat-cell *matCellDef="let precio; let index = index">
                             <editable (update)="actualizar_calculos_precios(index, 'costo')">
                                 <ng-template viewMode>
                                     {{precio.costo}}
@@ -506,18 +386,14 @@
                         <td mat-cell *matCellDef="let precio"> {{precio.precio_venta_publico_iva}} </td>
                     </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumnsSugeridoPrueba"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumnsSugeridoPrueba;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsSugerido"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsSugerido;"></tr>
                 </table>
             </div>
             <div class="form-group col-4">
                 <br>
                 <mat-label class="centrar">PRECIO DE VENTA</mat-label>
-                <table mat-table [dataSource]="filtro_medida_tabla(i)" class="mat-elevation-z8">
-
-                    <!--- Note que estas columnas pueden ser definidas en cualquier orden.
-                            Las columnas reales representadas se establecen como una propiedad en la definición de fila" -->
-
+                <table mat-table [dataSource]="dato" class="mat-elevation-z8">
                     <!-- PvpF Column -->
                     <ng-container matColumnDef="precio_venta_publico_manual">
                         <th mat-header-cell *matHeaderCellDef> PVP Man </th>
@@ -542,8 +418,8 @@
                         <th mat-header-cell *matHeaderCellDef> Utilidad% </th>
                         <td mat-cell *matCellDef="let precio"> {{precio.utilidad_porcentaje}} </td>
                     </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumnsVentaPrueba"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumnsVentaPrueba;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsVenta"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsVenta;"></tr>
                 </table>
             </div>
         </div>

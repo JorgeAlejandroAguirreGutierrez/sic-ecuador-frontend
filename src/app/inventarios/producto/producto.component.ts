@@ -30,6 +30,9 @@ import { Kardex } from '../../modelos/kardex';
 import { startWith, map } from 'rxjs/operators';
 import { KardexService } from '../../servicios/kardex.service';
 import { TabService } from '../../componentes/services/tab.service';
+import { MedidaPrecio } from '../../modelos/medida-precio';
+import { TablaEquivalenciaMedidaService } from '../../servicios/tabla-equivalencia-medida.service';
+import { TablaEquivalenciaMedida } from '../../modelos/tabla-equivalencia-medida';
 
 @Component({
   selector: 'app-producto',
@@ -43,25 +46,13 @@ export class ProductoComponent implements OnInit {
   displayedColumnsSugerido: string[] = ['medida', 'segmento', 'costo', 'margen_ganancia', 'precio_venta_publico', 'precio_venta_publico_iva'];
   displayedColumnsVenta: string[] = ['precio_venta_publico_manual', 'utilidad', 'utilidad_porcentaje'];
   producto: Producto=new Producto();
-  precios_tabla: BehaviorSubject<Precio[]> = new BehaviorSubject(this.producto.precios);
-  datos = this.precios_tabla;
+  precios_tabla: BehaviorSubject<Precio[]>=new BehaviorSubject([]);
+  datos = [];
   controls: FormArray;
-
-  // Para probar separar tablas
-  displayedColumnsSugeridoPrueba: string[] = ['medida', 'segmento', 'costo', 'margen_ganancia', 'precio_venta_publico', 'precio_venta_publico_iva'];
-  displayedColumnsVentaPrueba: string[] = ['precio_venta_publico_manual', 'utilidad', 'utilidad_porcentaje'];
  
-  cantidadMedida: number = 0;
-  arrayCantidadMedida: number[]=[];
-  datosMedida: any[]=[];
-  datosPrueba = [
-    {posicion: 1, medida: 'Libra', segmento: 'Distrubuidor', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15},
-    {posicion: 1, medida: 'Libra', segmento: 'Cliente', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15},
-    {posicion: 2, medida: 'Kilogramo', segmento: 'Distrubuidor', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15},
-    {posicion: 2, medida: 'Kilogramo', segmento: 'Cliente', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15},
-    {posicion: 3, medida: 'Arroba', segmento: 'Distrubuidor', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15},
-    {posicion: 3, medida: 'Arroba', segmento: 'Cliente', costo: 1.20, margen_ganancia: 12, precio_venta_publico: 2.1, precio_venta_publico_iva: 2.2, precio_venta_publico_manual: 2.15, utilidad: 0.2, utilidad_porcentaje: 15}
-  ];
+  cantidad_medidas: number = 0;
+  total_medidas: number=0;
+  array_cantidad_medidas: number[]=[];
 
   tipos_gastos: TipoGasto[]=[];
   segmentos: Segmento[]=[];
@@ -101,17 +92,15 @@ export class ProductoComponent implements OnInit {
   filtro_presentaciones_productos: Observable<PresentacionProducto[]> = new Observable<PresentacionProducto[]>();
 
   medidas: Medida[]=[];
-  seleccion_medida = new FormControl();
-  filtro_medidas: Observable<Medida[]> = new Observable<Medida[]>();
 
-  medidas_popup: Medida[]=[];
-  seleccion_medida_popup = new FormControl();
-  filtro_medidas_popup: Observable<Medida[]> = new Observable<Medida[]>();
+  medidas_inicial: Medida[]=[];
+
+  tabla_equivalencia_medida: TablaEquivalenciaMedida=null;
 
   constructor(private productoService: ProductoService, private grupoProductoService: GrupoProductoService, private kardexService: KardexService,
     private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService, private router: Router, private modalService: NgbModal,
     private segmentoService: SegmentoService, private tipoProductoService: TipoProductoService, 
-    private tabService: TabService, private medidaService: MedidaService) { }
+    private tabService: TabService, private medidaService: MedidaService, private tablaEquivalenciaService: TablaEquivalenciaMedidaService) { }
 
   ngOnInit() {
     this.construir_producto();
@@ -120,7 +109,7 @@ export class ProductoComponent implements OnInit {
     this.consulta_tipos_productos();
     this.consulta_impuestos();
     this.consulta_medidas();
-    this.consulta_medidas_popup();
+    this.consulta_medidas_inicial();
     this.consulta_segmentos();
     
     this.filtro_grupos_productos = this.seleccion_grupo_producto.valueChanges
@@ -160,33 +149,20 @@ export class ProductoComponent implements OnInit {
         map(value => typeof value === 'string' || value==null ? value : value.id),
         map(presentacion_producto => typeof presentacion_producto === 'string' ? this.filtro_presentacion_producto(presentacion_producto) : this.presentaciones_productos.slice())
       );
-    this.filtro_medidas_popup = this.seleccion_medida_popup.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' || value==null ? value : value.id),
-        map(medida_popup => typeof medida_popup === 'string' ? this.filtro_medida_popup(medida_popup) : this.medidas_popup.slice())
-      );
-    this.filtro_medidas = this.seleccion_medida.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' || value==null ? value : value.id),
-        map(medida => typeof medida === 'string' ? this.filtro_medida(medida) : this.medidas.slice())
-      );
-
     this.filtro_cantidad_medida();
   }
 
-  private filtro_cantidad_medida(): any[] {
-    this.cantidadMedida = Math.max.apply(Math, this.datosPrueba.map(function(o) { return o.posicion; }));
-    this.arrayCantidadMedida = Array(this.cantidadMedida).fill(1).map((x,i)=>i+1);
-    return this.arrayCantidadMedida;
+  private filtro_cantidad_medida() {
+    this.cantidad_medidas = this.producto.medidas_precios.length;
+    for(let i=0; i<this.cantidad_medidas; i++){
+      this.array_cantidad_medidas.push(i);
+    }
   }
 
-  public filtro_medida_tabla(value: number): any[] {
+  /*public filtro_medida_tabla(value: number): any[] {
     this.datosMedida = this.datosPrueba.filter(datosFiltro => datosFiltro.posicion === value);
-    console.info(this.datosMedida);
     return this.datosMedida;
-  }
+  }*/
 
   private filtro_grupo_producto(value: string): GrupoProducto[] {
     if(this.grupos_productos.length>0) {
@@ -252,29 +228,6 @@ export class ProductoComponent implements OnInit {
   }
   ver_presentacion_producto(presentacion_producto: PresentacionProducto): string {
     return presentacion_producto && presentacion_producto.nombre ? presentacion_producto.nombre : '';
-  }
-
-  private filtro_medida(value: string): Medida[] {
-    if(this.medidas.length>0) {
-      const filterValue = value.toLowerCase();
-      return this.medidas.filter(medida => medida.descripcion.toLowerCase().includes(filterValue));
-    }
-    return [];
-  }
-  ver_medida(medida: Medida): string {
-    return medida && medida.descripcion ? medida.descripcion : '';
-  }
-
-
-  private filtro_medida_popup(value: string): Medida[] {
-    if(this.medidas_popup.length>0) {
-      const filterValue = value.toLowerCase();
-      return this.medidas_popup.filter(medida_popup => medida_popup.descripcion.toLowerCase().includes(filterValue));
-    }
-    return [];
-  }
-  ver_medida_popup(medida_popup: Medida): string {
-    return medida_popup && medida_popup.descripcion ? medida_popup.descripcion : '';
   }
 
   nuevo(event){
@@ -427,16 +380,17 @@ export class ProductoComponent implements OnInit {
     this.medidaService.consultar().subscribe(
       res => {
         this.medidas = res.resultado as Medida[];
+        this.total_medidas=this.medidas.length;
       },
       err => {
         Swal.fire('Error', err.error.mensaje, 'error')
       }
     );
   }
-  consulta_medidas_popup(){
+  consulta_medidas_inicial(){
     this.medidaService.consultar().subscribe(
       res => {
-        this.medidas_popup = res.resultado as Medida[];
+        this.medidas_inicial = res.resultado as Medida[];
       },
       err => {
         Swal.fire('Error', err.error.mensaje, 'error')
@@ -490,19 +444,21 @@ export class ProductoComponent implements OnInit {
       Swal.fire('Error', constantes.error_costo, 'error');
       return;
     }
+    let medida_precio=new MedidaPrecio();
+    medida_precio.medida=this.medida;
     for(let i=0; i<this.segmentos.length; i++){
       let precio=new Precio();
-      precio.medida=this.medida;
       precio.costo=this.precio.costo;
       precio.segmento=this.segmentos[i];
-      this.producto.precios.push(precio);
-      this.precios_tabla= new BehaviorSubject(this.producto.precios);
-      this.datos = this.precios_tabla;
-      this.activar_controles();
+      medida_precio.precios.push(precio);    
     }
+    this.producto.medidas_precios.push(medida_precio);
+    this.precios_tabla= new BehaviorSubject(medida_precio.precios);
+    this.datos.push(this.precios_tabla);
+    this.activar_controles();
     this.actualizar_precios();
     this.eliminar_medida();
-    
+    this.filtro_cantidad_medida();
   }
 
   eliminar_medida_popup(){
@@ -520,19 +476,30 @@ export class ProductoComponent implements OnInit {
     }
   }
   eliminar_medidas_actualizacion(){
-    for(let z=0; z<this.producto.precios.length; z++){
+    for(let z=0; z<this.producto.medidas_precios.length; z++){
       for (let i=0; i<this.medidas.length; i++){
-        if (this.producto.precios[z].medida.codigo_norma==this.medidas[i].codigo_norma){
+        if (this.producto.medidas_precios[z].medida.codigo_norma==this.medidas[i].codigo_norma){
           this.medidas.splice(i, 1);
         }
       }
     }
-    
+  }
+
+  obtener_tabla_equivalencia_medida(){
+    this.tablaEquivalenciaService.obtenerMedida1Medida2(this.kardex.medida, this.medida).subscribe(
+      res => {
+        this.tabla_equivalencia_medida = res.resultado as TablaEquivalenciaMedida;
+        this.precio.costo=this.kardex.costo_unitario*this.tabla_equivalencia_medida.equivalencia;
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
   }
 
   validar_precios(){
-    for (let i=0; i<this.producto.precios.length; i++){
-      if (this.producto.precios[i].medida.codigo_norma==this.medida.codigo_norma){
+    for (let i=0; i<this.producto.medidas_precios.length; i++){
+      if (this.producto.medidas_precios[i].medida.codigo_norma==this.medida.codigo_norma){
         return true;
       }
     }
@@ -540,15 +507,17 @@ export class ProductoComponent implements OnInit {
   }
 
   actualizar_precios(){
-    for(let i=0; i<this.producto.precios.length; i++){
-      this.producto.precios[i].precio_venta_publico=(this.producto.precios[i].costo/(1-(this.producto.precios[i].margen_ganancia/100)));
-      this.producto.precios[i].precio_venta_publico=Number(this.producto.precios[i].precio_venta_publico.toFixed(2));
-      this.producto.precios[i].precio_venta_publico_iva=this.producto.precios[i].precio_venta_publico+(this.producto.precios[i].precio_venta_publico*(this.impuesto.porcentaje/100));
-      this.producto.precios[i].precio_venta_publico_iva=Number(this.producto.precios[i].precio_venta_publico_iva.toFixed(2));
-      this.producto.precios[i].utilidad=this.producto.precios[i].precio_venta_publico_manual/((100+(this.impuesto.porcentaje))/100)-this.producto.precios[i].costo;
-      this.producto.precios[i].utilidad=Number(this.producto.precios[i].utilidad.toFixed(2));
-      this.producto.precios[i].utilidad_porcentaje=(this.producto.precios[i].utilidad/this.producto.precios[i].precio_venta_publico)*100;
-      this.producto.precios[i].utilidad_porcentaje=Number(this.producto.precios[i].utilidad_porcentaje.toFixed(2));
+    for(let i=0; i<this.producto.medidas_precios.length; i++){
+      for(let j=0; j<this.producto.medidas_precios[i].precios.length; j++){
+        this.producto.medidas_precios[i].precios[j].precio_venta_publico=(this.producto.medidas_precios[i].precios[j].costo/(1-(this.producto.medidas_precios[i].precios[j].margen_ganancia/100)));
+        this.producto.medidas_precios[i].precios[j].precio_venta_publico=Number(this.producto.medidas_precios[i].precios[j].precio_venta_publico.toFixed(2));
+        this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva=this.producto.medidas_precios[i].precios[j].precio_venta_publico+(this.producto.medidas_precios[i].precios[j].precio_venta_publico*(this.impuesto.porcentaje/100));
+        this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva=Number(this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva.toFixed(2));
+        this.producto.medidas_precios[i].precios[j].utilidad=this.producto.medidas_precios[i].precios[j].precio_venta_publico_manual/((100+(this.impuesto.porcentaje))/100)-this.producto.medidas_precios[i].precios[j].costo;
+        this.producto.medidas_precios[i].precios[j].utilidad=Number(this.producto.medidas_precios[i].precios[j].utilidad.toFixed(2));
+        this.producto.medidas_precios[i].precios[j].utilidad_porcentaje=(this.producto.medidas_precios[i].precios[j].utilidad/this.producto.medidas_precios[i].precios[j].precio_venta_publico)*100;
+        this.producto.medidas_precios[i].precios[j].utilidad_porcentaje=Number(this.producto.medidas_precios[i].precios[j].utilidad_porcentaje.toFixed(2));
+      }
     }
   }
 
@@ -572,16 +541,18 @@ export class ProductoComponent implements OnInit {
    }
 
   update(index, field, value) {
-    this.producto.precios = this.producto.precios.map((e, i) => {
-      if (index === i) {
-        return {
-          ...e,
-          [field]: value
+    for(let i=0; i<this.producto.medidas_precios.length; i++){
+      this.producto.medidas_precios[i].precios = this.producto.medidas_precios[i].precios.map((e, i) => {
+        if (index === i) {
+          return {
+            ...e,
+            [field]: value
+          }
         }
-      }
-      return e;
-    });
-    this.precios_tabla.next(this.producto.precios);
+        return e;
+      });
+      this.precios_tabla.next(this.producto.medidas_precios[i].precios);
+    }
   }
 
   getControl(index, fieldName) {
@@ -594,7 +565,6 @@ export class ProductoComponent implements OnInit {
       Swal.fire('Error', constantes.error_impuesto, 'error');
       return;
     }
-    this.kardex.medida=this.seleccion_medida_popup.value;
     if(this.kardex.medida.id==0){
       Swal.fire('Error', constantes.error_medida, 'error');
       return;
@@ -613,22 +583,25 @@ export class ProductoComponent implements OnInit {
     }
     this.producto.kardexs.push(this.kardex);
     this.precio.costo=this.kardex.costo_unitario;
+    let medida_precio=new MedidaPrecio();
+    medida_precio.medida=this.kardex.medida;
     for(let i=0; i<this.segmentos.length; i++){
       let precio=new Precio();
-      precio.medida=this.kardex.medida;
       precio.costo=this.precio.costo;
       precio.segmento=this.segmentos[i];
-      this.producto.precios.push(precio);
-      this.precios_tabla= new BehaviorSubject(this.producto.precios);
-      this.datos = this.precios_tabla;
-      this.activar_controles();
+      medida_precio.precios.push(precio);
     }
+    this.producto.medidas_precios.push(medida_precio);
+    this.precios_tabla= new BehaviorSubject(medida_precio.precios);
+    this.datos.push(this.precios_tabla);
+    this.activar_controles();
     this.actualizar_precios();
     this.eliminar_medida_popup();
     if(this.producto.kardexs.length>0){
       this.habilitar_saldo_inicial=true;
       this.habilitar_otras_medidas=false;
-    }  
+    }
+    this.filtro_cantidad_medida();  
   }
 
   private getDismissReason(reason: any): string {
@@ -674,8 +647,10 @@ export class ProductoComponent implements OnInit {
           this.seleccion_linea_producto.setValue(this.producto.linea_producto);
           this.seleccion_sub_linea_producto.setValue(this.producto.sub_linea_producto);
           this.seleccion_presentacion_producto.setValue(this.producto.presentacion_producto);
-          this.precios_tabla= new BehaviorSubject(this.producto.precios);
-          this.datos = this.precios_tabla;
+          for(let i=0; i<this.producto.medidas_precios.length; i++){
+            this.precios_tabla= new BehaviorSubject(this.producto.medidas_precios[i].precios);
+            this.datos.push(this.precios_tabla);
+          }
         },
         err => Swal.fire('Error', err.error.mensaje, 'error')
       );

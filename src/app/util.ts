@@ -65,6 +65,7 @@ export const precio: string= "/precio";
 export const segmento: string= "/segmento";
 export const saldo_inicial_inventario: string= "/saldoinicialinventario";
 export const kardex: string= "/kardex";
+export const tabla_equivalencia_medida: string= "/tablaequivalenciamedida";
 export const generar: string= "/generar";
 export const pdf: string= "/pdf";
 

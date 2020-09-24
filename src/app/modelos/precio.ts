@@ -11,7 +11,6 @@ export class Precio {
     precio_venta_publico_manual: number;
     utilidad: number;
     utilidad_porcentaje: number;
-    medida: Medida;
     segmento: Segmento;
 
     constructor() {
@@ -24,7 +23,6 @@ export class Precio {
         this.precio_venta_publico_manual=0;
         this.utilidad=0;
         this.utilidad_porcentaje=0;
-        this.medida=new Medida();
         this.segmento=new Segmento();
 
     }
