@@ -267,7 +267,7 @@
                                     <div class="form-group col-10">
                                         <mat-form-field appearance="standard">
                                             <mat-label>Medida</mat-label>
-                                            <mat-select [(ngModel)]="medida" (change)="obtener_tabla_equivalencia_medida()" [disabled]="habilitar_otras_medidas">
+                                            <mat-select [(ngModel)]="medida" (selectionChange)="obtener_tabla_equivalencia_medida()" [disabled]="habilitar_otras_medidas">
                                                 <mat-option *ngFor="let medida of medidas" [value]="medida">
                                                     {{medida.descripcion}}</mat-option>
                                             </mat-select>
@@ -349,12 +349,12 @@
                     <ng-container matColumnDef="costo">
                         <th mat-header-cell *matHeaderCellDef> Costo </th>
                         <td mat-cell *matCellDef="let precio; let index = index">
-                            <editable (update)="actualizar_calculos_precios(index, 'costo')">
+                            <editable (update)="actualizar_calculos_precios(i, index, 'costo')">
                                 <ng-template viewMode>
                                     {{precio.costo}}
                                 </ng-template>
                                 <ng-template editMode>
-                                    <input [formControl]="getControl(index, 'costo')" focusable editableOnEnter>
+                                    <input [formControl]="getControl(i, index, 'costo')" focusable editableOnEnter>
                                 </ng-template>
                             </editable>
                         </td>
@@ -364,12 +364,12 @@
                     <ng-container matColumnDef="margen_ganancia">
                         <th mat-header-cell *matHeaderCellDef> MG% </th>
                         <td mat-cell *matCellDef="let precio;let index = index">
-                            <editable (update)="actualizar_calculos_precios(index, 'margen_ganancia')">
+                            <editable (update)="actualizar_calculos_precios(i, index, 'margen_ganancia')">
                                 <ng-template viewMode>
                                     {{precio.margen_ganancia}}
                                 </ng-template>
                                 <ng-template editMode>
-                                    <input [formControl]="getControl(index, 'margen_ganancia')" focusable
+                                    <input [formControl]="getControl(i, index, 'margen_ganancia')" focusable
                                         editableOnEnter>
                                 </ng-template>
                             </editable>
@@ -398,12 +398,12 @@
                     <ng-container matColumnDef="precio_venta_publico_manual">
                         <th mat-header-cell *matHeaderCellDef> PVP Man </th>
                         <td mat-cell *matCellDef="let precio;let index = index">
-                            <editable (update)="actualizar_calculos_precios(index, 'precio_venta_publico_manual')">
+                            <editable (update)="actualizar_calculos_precios(i, index, 'precio_venta_publico_manual')">
                                 <ng-template viewMode>
                                     {{precio.precio_venta_publico_manual}}
                                 </ng-template>
                                 <ng-template editMode>
-                                    <input [formControl]="getControl(index, 'precio_venta_publico_manual')"
+                                    <input [formControl]="getControl(i, index, 'precio_venta_publico_manual')"
                                         focusable editableOnEnter>
                                 </ng-template>
                             </editable>

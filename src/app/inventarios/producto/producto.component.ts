@@ -48,7 +48,7 @@ export class ProductoComponent implements OnInit {
   producto: Producto=new Producto();
   precios_tabla: BehaviorSubject<Precio[]>=new BehaviorSubject([]);
   datos = [];
-  controls: FormArray;
+  controls: FormArray[]=[];
  
   cantidad_medidas: number = 0;
   total_medidas: number=0;
@@ -455,7 +455,7 @@ export class ProductoComponent implements OnInit {
     this.producto.medidas_precios.push(medida_precio);
     this.precios_tabla= new BehaviorSubject(medida_precio.precios);
     this.datos.push(this.precios_tabla);
-    this.activar_controles();
+    this.activar_controles(this.datos.length-1);
     this.actualizar_precios();
     this.eliminar_medida();
     this.filtro_cantidad_medida();
@@ -490,6 +490,7 @@ export class ProductoComponent implements OnInit {
       res => {
         this.tabla_equivalencia_medida = res.resultado as TablaEquivalenciaMedida;
         this.precio.costo=this.kardex.costo_unitario*this.tabla_equivalencia_medida.equivalencia;
+        this.precio.costo=Number(this.precio.costo.toFixed(2));
       },
       err => {
         Swal.fire('Error', err.error.mensaje, 'error')
@@ -521,43 +522,41 @@ export class ProductoComponent implements OnInit {
     }
   }
 
-  activar_controles(){
-    const toGroups = this.precios_tabla.value.map(entity => {
+  activar_controles(i: number){
+    const toGroups = this.datos[i].value.map(entity => {
       return new FormGroup({
         costo: new FormControl(entity.costo, Validators.required), 
         margen_ganancia: new FormControl(entity.margen_ganancia, Validators.required), 
         precio_venta_publico_manual: new FormControl(entity.precio_venta_publico_manual, Validators.required),
       },{updateOn: "blur"});
     });
-    this.controls = new FormArray(toGroups);
+    this.controls.push(new FormArray(toGroups));
   }
 
-  actualizar_calculos_precios(index, field) {
-    const control = this.getControl(index, field);
+  actualizar_calculos_precios(i, index, field) {
+    const control = this.getControl(i, index, field);
     if (control.valid) {
-      this.update(index,field,control.value);
+      this.update(i, index,field,control.value);
       this.actualizar_precios();
     }
    }
 
-  update(index, field, value) {
-    for(let i=0; i<this.producto.medidas_precios.length; i++){
-      this.producto.medidas_precios[i].precios = this.producto.medidas_precios[i].precios.map((e, i) => {
-        if (index === i) {
-          return {
-            ...e,
-            [field]: value
-          }
+  update(i, index, field, value) {
+    this.producto.medidas_precios[i].precios = this.producto.medidas_precios[i].precios.map((e, i) => {
+      if (index === i) {
+        return {
+          ...e,
+          [field]: value
         }
-        return e;
-      });
-      this.precios_tabla.next(this.producto.medidas_precios[i].precios);
-    }
+      }
+      return e;
+    });
+    this.datos[i].next(this.producto.medidas_precios[i].precios);
   }
 
-  getControl(index, fieldName) {
-    const a  = this.controls.at(index).get(fieldName) as FormControl;
-    return this.controls.at(index).get(fieldName) as FormControl;
+  getControl(i, index, fieldName) {
+    const a  = this.controls[i].at(index).get(fieldName) as FormControl;
+    return this.controls[i].at(index).get(fieldName) as FormControl;
   }
 
   cargar_saldo_inicial(){
@@ -594,7 +593,7 @@ export class ProductoComponent implements OnInit {
     this.producto.medidas_precios.push(medida_precio);
     this.precios_tabla= new BehaviorSubject(medida_precio.precios);
     this.datos.push(this.precios_tabla);
-    this.activar_controles();
+    this.activar_controles(this.datos.length-1);
     this.actualizar_precios();
     this.eliminar_medida_popup();
     if(this.producto.kardexs.length>0){
