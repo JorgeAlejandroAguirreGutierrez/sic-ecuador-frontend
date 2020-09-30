@@ -277,7 +277,7 @@ export class ProductoComponent implements OnInit {
     console.log(this.producto);
     this.productoService.crear(this.producto).subscribe(
       res => {
-        this.producto= res.resultado as Producto;
+        Object.assign(this.producto, res.resultado as Producto);
         Swal.fire('Exito', res.mensaje, 'success');
       },
       err => {

@@ -512,10 +512,7 @@
                                         <mat-label>P. Unit.</mat-label>
                                         <mat-select (selectionChange)="seleccionar_precio()"
                                             [(ngModel)]="detalle.precio" class="form-control-sm">
-                                            <mat-option *ngFor="let precio of detalle.producto.precios"
-                                                [value]="precio">
-                                                {{precio.valor}}
-                                            </mat-option>
+                                            <mat-option>NA</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
