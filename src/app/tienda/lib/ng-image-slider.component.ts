@@ -59,8 +59,8 @@ export class NgImageSliderComponent implements OnChanges, OnInit, DoCheck, After
     private swipeCoord?: [number, number];
     private swipeTime?: number;
 
-    @ViewChild('sliderMain', { static: false }) sliderMain;
-    @ViewChild('imageDiv', { static: false }) imageDiv;
+    @ViewChild('sliderMain') sliderMain;
+    @ViewChild('imageDiv') imageDiv;
 
     // @inputs
     @Input()
