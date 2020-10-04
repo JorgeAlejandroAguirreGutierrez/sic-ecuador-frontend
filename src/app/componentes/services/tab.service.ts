@@ -68,15 +68,18 @@ export class TabService {
   }
 
   public addTab1(tab1: Tab) {
+    //Pone en estado inactivo todos los tabs
     for (let i = 0; i < this.tabs1.length; i++) {
       if (this.tabs1[i].active === true) {
         this.tabs1[i].active = false;
       }
     }
     tab1.id = this.tabs1.length;
-    tab1.active = true;
+    tab1.active = true; // Pone activo al nuevo tab
     this.tabs1.push(tab1); //añade uno o más elementos al final de un array y devuelve la nueva longitud del array.
-    this.tabSub1.next(this.tabs1);
+    setTimeout(() => {
+      this.tabSub1.next(this.tabs1); //guarda el nuevo tab local y le entrega al tab suscrito
+    }, 5); // Para que no salga error ExpressionChangedAfterItHasBeenCheckedError
     if (this.tabs1.length > 1){
       this.tabsGroup[this.tabs1.length-2] = [];
       this.tabsGroupSub.next(this.tabsGroup);
