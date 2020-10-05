@@ -33,6 +33,7 @@ import { TabService } from '../../componentes/services/tab.service';
 import { MedidaPrecio } from '../../modelos/medida-precio';
 import { TablaEquivalenciaMedidaService } from '../../servicios/tabla-equivalencia-medida.service';
 import { TablaEquivalenciaMedida } from '../../modelos/tabla-equivalencia-medida';
+import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
 
 @Component({
   selector: 'app-producto',
@@ -158,11 +159,6 @@ export class ProductoComponent implements OnInit {
       this.array_cantidad_medidas.push(i);
     }
   }
-
-  /*public filtro_medida_tabla(value: number): any[] {
-    this.datosMedida = this.datosPrueba.filter(datosFiltro => datosFiltro.posicion === value);
-    return this.datosMedida;
-  }*/
 
   private filtro_grupo_producto(value: string): GrupoProducto[] {
     if(this.grupos_productos.length>0) {
@@ -661,6 +657,13 @@ export class ProductoComponent implements OnInit {
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.router.navigate([actual]);
       });
+  }
+
+  por_defecto(){
+    this.producto.estado=1;
+    this.producto.tipo_producto.id=this.tipos_productos[0].id;
+    this.producto.tipo_gasto.id=this.tipos_gastos[0].id;
+    this.producto.impuesto.id=this.impuestos[0].id;
   }
 }
 
