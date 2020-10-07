@@ -59,7 +59,7 @@
     "screenfull": "^5.0.2",
     "sweetalert2": "^8.19.0",
     "ts-helpers": "^1.1.1",
-    "tslib": "^1.13.0",
+    "tslib": "^1.14.0",
     "typeface-poppins": "0.0.72",
     "web-animations-js": "2.3.1",
     "zone.js": "~0.9.1"
@@ -70,7 +70,7 @@
     "@angular/compiler-cli": "^8.2.14",
     "@angular/language-service": "^8.2.14",
     "@types/chartist": "^0.9.47",
-    "@types/jasmine": "^3.5.12",
+    "@types/jasmine": "^3.5.14",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "~8.9.5",
     "codelyzer": "^5.2.2",
