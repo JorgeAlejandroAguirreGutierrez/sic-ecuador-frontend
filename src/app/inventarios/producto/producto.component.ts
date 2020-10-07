@@ -32,8 +32,7 @@ import { KardexService } from '../../servicios/kardex.service';
 import { TabService } from '../../componentes/services/tab.service';
 import { MedidaPrecio } from '../../modelos/medida-precio';
 import { TablaEquivalenciaMedidaService } from '../../servicios/tabla-equivalencia-medida.service';
-import { TablaEquivalenciaMedida } from '../../modelos/tabla-equivalencia-medida';
-import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
+import { TablaEquivalenciaMedida } from '../../modelos/tabla-equivalencia-medida'
 
 @Component({
   selector: 'app-producto',
@@ -66,7 +65,8 @@ export class ProductoComponent implements OnInit {
   precio: Precio=new Precio();
   medida: Medida=new Medida();
   impuesto: Impuesto=new Impuesto();
-  kardex: Kardex=new Kardex();
+  kardex_inicial: Kardex=new Kardex();
+  kardex_final: Kardex=new Kardex();
 
   grupos_productos: GrupoProducto[]=[];
   seleccion_grupo_producto = new FormControl();
@@ -105,13 +105,68 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit() {
     this.construir_producto();
-    this.consulta_grupos_productos();
-    this.consulta_tipos_gastos();
-    this.consulta_tipos_productos();
-    this.consulta_impuestos();
-    this.consulta_medidas();
-    this.consulta_medidas_inicial();
-    this.consulta_segmentos();
+    this.producto.estado=1;
+    this.producto.consignacion=0;
+    this.grupoProductoService.consultar().subscribe(
+      res => {
+        this.grupos_productos = res.resultado as GrupoProducto[];
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+    this.tipoGastoService.consultar().subscribe(
+      res => {
+        this.tipos_gastos = res.resultado as TipoGasto[];
+        this.producto.tipo_gasto.id=this.tipos_gastos[0].id;
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+    this.tipoProductoService.consultar().subscribe(
+      res => {
+        this.tipos_productos = res.resultado as TipoProducto[];
+        this.producto.tipo_producto.id=this.tipos_productos[0].id;
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+    this.impuestoService.consultar().subscribe(
+      res => {
+        this.impuestos = res.resultado as Impuesto[];
+        this.producto.impuesto.id=this.impuestos[0].id;
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+    this.medidaService.consultar().subscribe(
+      res => {
+        this.medidas = res.resultado as Medida[];
+        this.total_medidas=this.medidas.length;
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+    this.medidaService.consultar().subscribe(
+      res => {
+        this.medidas_inicial = res.resultado as Medida[];
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
+    this.segmentoService.consultar().subscribe(
+      res => {
+        this.segmentos=res.resultado as Segmento[];
+      },
+      err => {
+        Swal.fire('Error', err.error.mensaje, 'error')
+      }
+    );
     
     this.filtro_grupos_productos = this.seleccion_grupo_producto.valueChanges
       .pipe(
@@ -331,78 +386,6 @@ export class ProductoComponent implements OnInit {
       }
     );
   }
-  consulta_grupos_productos(){
-    this.grupoProductoService.consultar().subscribe(
-      res => {
-        this.grupos_productos = res.resultado as GrupoProducto[];
-      },
-      err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
-      }
-    );
-  }
-  consulta_tipos_productos(){
-    this.tipoProductoService.consultar().subscribe(
-      res => {
-        this.tipos_productos = res.resultado as TipoProducto[];
-      },
-      err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
-      }
-    );
-  }
-  consulta_tipos_gastos(){
-    this.tipoGastoService.consultar().subscribe(
-      res => {
-        this.tipos_gastos = res.resultado as TipoGasto[];
-      },
-      err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
-      }
-    );
-  }
-  consulta_impuestos(){
-    this.impuestoService.consultar().subscribe(
-      res => {
-        this.impuestos = res.resultado as Impuesto[];
-      },
-      err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
-      }
-    );
-  }
-
-  consulta_medidas(){
-    this.medidaService.consultar().subscribe(
-      res => {
-        this.medidas = res.resultado as Medida[];
-        this.total_medidas=this.medidas.length;
-      },
-      err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
-      }
-    );
-  }
-  consulta_medidas_inicial(){
-    this.medidaService.consultar().subscribe(
-      res => {
-        this.medidas_inicial = res.resultado as Medida[];
-      },
-      err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
-      }
-    );
-  }
-  consulta_segmentos(){
-    this.segmentoService.consultar().subscribe(
-      res => {
-        this.segmentos=res.resultado as Segmento[];
-      },
-      err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
-      }
-    );
-  }
 
   seleccionar_grupo_producto(){
     this.producto.grupo_producto=this.seleccion_grupo_producto.value;
@@ -456,17 +439,16 @@ export class ProductoComponent implements OnInit {
     this.eliminar_medida();
     this.filtro_cantidad_medida();
   }
-
-  eliminar_medida_popup(){
+  eliminar_medida(){
     for (let i=0; i<this.medidas.length; i++){
-      if (this.medidas[i].codigo_norma==this.kardex.medida.codigo_norma){
+      if (this.medidas[i].codigo_norma==this.medida.codigo_norma){
         this.medidas.splice(i, 1);
       }
     }
   }
-  eliminar_medida(){
+  eliminar_medida_inicial(){
     for (let i=0; i<this.medidas.length; i++){
-      if (this.medidas[i].codigo_norma==this.medida.codigo_norma){
+      if (this.medidas[i].codigo_norma==this.kardex_inicial.medida.codigo_norma){
         this.medidas.splice(i, 1);
       }
     }
@@ -482,10 +464,10 @@ export class ProductoComponent implements OnInit {
   }
 
   obtener_tabla_equivalencia_medida(){
-    this.tablaEquivalenciaService.obtenerMedida1Medida2(this.kardex.medida, this.medida).subscribe(
+    this.tablaEquivalenciaService.obtenerMedida1Medida2(this.kardex_inicial.medida, this.medida).subscribe(
       res => {
         this.tabla_equivalencia_medida = res.resultado as TablaEquivalenciaMedida;
-        this.precio.costo=this.kardex.costo_unitario*this.tabla_equivalencia_medida.equivalencia;
+        this.precio.costo=this.kardex_inicial.costo_unitario*this.tabla_equivalencia_medida.equivalencia;
         this.precio.costo=Number(this.precio.costo.toFixed(2));
       },
       err => {
@@ -560,26 +542,27 @@ export class ProductoComponent implements OnInit {
       Swal.fire('Error', constantes.error_impuesto, 'error');
       return;
     }
-    if(this.kardex.medida.id==0){
+    if(this.kardex_inicial.medida.id==0){
       Swal.fire('Error', constantes.error_medida, 'error');
       return;
     }
-    if(this.kardex.cantidad==0){
+    if(this.kardex_inicial.cantidad==0){
       Swal.fire('Error', constantes.error_cantidad, 'error');
       return;
     }
-    if (this.kardex.costo_unitario==0){
+    if (this.kardex_inicial.costo_unitario==0){
       Swal.fire('Error', constantes.error_costo_unitario, 'error');
       return;
     }
-    if (this.kardex.costo_total==0){
+    if (this.kardex_inicial.costo_total==0){
       Swal.fire('Error', constantes.error_costo_total, 'error');
       return;
     }
-    this.producto.kardexs.push(this.kardex);
-    this.precio.costo=this.kardex.costo_unitario;
+    this.kardex_final=this.kardex_inicial;
+    this.producto.kardexs.push(this.kardex_inicial);
+    this.precio.costo=this.kardex_inicial.costo_unitario;
     let medida_precio=new MedidaPrecio();
-    medida_precio.medida=this.kardex.medida;
+    medida_precio.medida=this.kardex_inicial.medida;
     for(let i=0; i<this.segmentos.length; i++){
       let precio=new Precio();
       precio.costo=this.precio.costo;
@@ -591,11 +574,11 @@ export class ProductoComponent implements OnInit {
     this.datos.push(this.precios_tabla);
     this.activar_controles(this.datos.length-1);
     this.actualizar_precios();
-    this.eliminar_medida_popup();
     if(this.producto.kardexs.length>0){
       this.habilitar_saldo_inicial=true;
       this.habilitar_otras_medidas=false;
     }
+    this.eliminar_medida_inicial()
     this.filtro_cantidad_medida();  
   }
 
@@ -610,10 +593,10 @@ export class ProductoComponent implements OnInit {
   }
 
   seleccionar_cantidad(){
-    this.kardex.costo_total=Number((this.kardex.cantidad*this.kardex.costo_unitario).toFixed(2));
+    this.kardex_inicial.costo_total=Number((this.kardex_inicial.cantidad*this.kardex_inicial.costo_unitario).toFixed(2));
   }
   seleccionar_costo_unitario(){
-    this.kardex.costo_total=Number((this.kardex.cantidad*this.kardex.costo_unitario).toFixed(2));
+    this.kardex_inicial.costo_total=Number((this.kardex_inicial.cantidad*this.kardex_inicial.costo_unitario).toFixed(2));
   }
 
   private obtener_nombre_producto(){
@@ -634,6 +617,7 @@ export class ProductoComponent implements OnInit {
           if(this.producto.kardexs.length>0){
             this.habilitar_saldo_inicial=true;
             this.habilitar_otras_medidas=false;
+            this.kardex_final=this.producto.kardexs[this.producto.kardexs.length-1];
           }
           this.eliminar_medidas_actualizacion();
           this.seleccion_grupo_producto.setValue(this.producto.grupo_producto);
@@ -657,13 +641,6 @@ export class ProductoComponent implements OnInit {
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.router.navigate([actual]);
       });
-  }
-
-  por_defecto(){
-    this.producto.estado=1;
-    this.producto.tipo_producto.id=this.tipos_productos[0].id;
-    this.producto.tipo_gasto.id=this.tipos_gastos[0].id;
-    this.producto.impuesto.id=this.impuestos[0].id;
   }
 }
 
