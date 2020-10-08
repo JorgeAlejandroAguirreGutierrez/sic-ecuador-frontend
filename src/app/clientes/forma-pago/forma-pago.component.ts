@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormaPago } from '../../modelos/forma-pago';
 import { TabService } from '../../componentes/services/tab.service';
 import { FormaPagoService } from '../../servicios/forma-pago.service';
+import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -30,11 +31,11 @@ export class FormaPagoComponent implements OnInit {
       event.preventDefault();
     this.formaPagoService.crear(this.forma_pago).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.nuevo(null);
 
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -43,20 +44,20 @@ export class FormaPagoComponent implements OnInit {
       event.preventDefault();
     this.formaPagoService.actualizar(this.forma_pago).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.forma_pago=res.resultado as FormaPago;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(forma_pago: FormaPago) {
     this.formaPagoService.eliminar(forma_pago).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.forma_pago=res.resultado as FormaPago
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -68,7 +69,7 @@ export class FormaPagoComponent implements OnInit {
         res => {
           Object.assign(this.forma_pago, res.resultado as FormaPago);
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
   }

@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { CategoriaCliente } from '../../modelos/categoria-cliente';
 import { TabService } from '../../componentes/services/tab.service';
 import { CategoriaClienteService } from '../../servicios/categoria-cliente.service';
+import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -30,11 +31,11 @@ export class CategoriaClienteComponent implements OnInit {
       event.preventDefault();
     this.categoriaClienteService.crear(this.categoria_cliente).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.nuevo(null);
 
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -43,20 +44,20 @@ export class CategoriaClienteComponent implements OnInit {
       event.preventDefault();
     this.categoriaClienteService.actualizar(this.categoria_cliente).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.categoria_cliente=res.resultado as CategoriaCliente;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(categoria_cliente: CategoriaCliente) {
     this.categoriaClienteService.eliminar(categoria_cliente).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.categoria_cliente=res.resultado as CategoriaCliente
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -68,7 +69,7 @@ export class CategoriaClienteComponent implements OnInit {
         res => {
           Object.assign(this.categoria_cliente, res.resultado as CategoriaCliente);
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
   }

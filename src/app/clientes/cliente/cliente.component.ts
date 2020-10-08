@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, HostListener, Input } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import * as constantes from '../../constantes';
 import { ClienteService } from '../../servicios/cliente.service';
 import { GeneroService } from '../../servicios/genero.service';
 import { EstadoCivilService } from '../../servicios/estado-civil.service';
@@ -129,7 +129,7 @@ export class ClienteComponent implements OnInit {
         this.tipos_contribuyentes = res.resultado as TipoContribuyente[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.grupoClienteService.consultar().subscribe(
@@ -137,7 +137,7 @@ export class ClienteComponent implements OnInit {
         this.grupos_clientes = res.resultado as GrupoCliente[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.generoService.consultar().subscribe(
@@ -145,7 +145,7 @@ export class ClienteComponent implements OnInit {
         this.generos = res.resultado as Genero[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.estadoCivilService.consultar().subscribe(
@@ -153,7 +153,7 @@ export class ClienteComponent implements OnInit {
         this.estados_civiles = res.resultado as EstadoCivil[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.origenIngresoService.consultar().subscribe(
@@ -161,7 +161,7 @@ export class ClienteComponent implements OnInit {
         this.origenes_ingresos = res.resultado as OrigenIngreso[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.categoriaClienteService.consultar().subscribe(
@@ -169,7 +169,7 @@ export class ClienteComponent implements OnInit {
         this.categorias_clientes = res.resultado as CategoriaCliente[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.plazoCreditoService.consultar().subscribe(
@@ -177,7 +177,7 @@ export class ClienteComponent implements OnInit {
         this.plazos_creditos = res.resultado as PlazoCredito[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.tipoPagoService.consultar().subscribe(
@@ -185,7 +185,7 @@ export class ClienteComponent implements OnInit {
         this.tipos_pagos = res.resultado as TipoPago[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.formaPagoService.consultar().subscribe(
@@ -193,7 +193,7 @@ export class ClienteComponent implements OnInit {
         this.formas_pagos = res.resultado as FormaPago[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.ubicacionService.obtenerProvincias().subscribe(
@@ -202,7 +202,7 @@ export class ClienteComponent implements OnInit {
         this.auxiliar_provincias = res.resultado as Ubicacion[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.tipoRetencionService.obtenerIvaBien().subscribe(
@@ -210,7 +210,7 @@ export class ClienteComponent implements OnInit {
         this.tipos_retenciones_iva_bien = res.resultado as TipoRetencion[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.tipoRetencionService.obtenerIvaServicio().subscribe(
@@ -218,7 +218,7 @@ export class ClienteComponent implements OnInit {
         this.tipos_retenciones_iva_servicio = res.resultado as TipoRetencion[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.tipoRetencionService.obtenerRentaBien().subscribe(
@@ -226,7 +226,7 @@ export class ClienteComponent implements OnInit {
         this.tipos_retenciones_renta_bien = res.resultado as TipoRetencion[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     this.tipoRetencionService.obtenerRentaServicio().subscribe(
@@ -234,7 +234,7 @@ export class ClienteComponent implements OnInit {
         this.tipos_retenciones_renta_servicio = res.resultado as TipoRetencion[]
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
     console.log(this.cliente);
@@ -269,7 +269,7 @@ export class ClienteComponent implements OnInit {
           this.clienteService.enviar(0);
         },
         err => {
-          Swal.fire('Error', err.error.mensaje, 'error')
+          Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
         }
       )
     }
@@ -343,18 +343,18 @@ export class ClienteComponent implements OnInit {
               } else {
                 this.cliente.tipo_identificacion='';
                 this.cliente.identificacion='';
-                Swal.fire('Error', res.mensaje, 'error');
+                Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
               } 
             },
-            err => Swal.fire('Error', err.error.mensaje, 'error')
+            err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
           );
         } else {
           this.cliente.tipo_identificacion='';
           this.cliente.identificacion='';
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         } 
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -461,7 +461,7 @@ export class ClienteComponent implements OnInit {
         res => {
           this.auxiliar.direccion.ubicacion=res.resultado as Ubicacion;
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
     this.cliente.auxiliares.push(this.auxiliar);
@@ -501,7 +501,7 @@ export class ClienteComponent implements OnInit {
           res => {
             this.auxiliar.direccion.ubicacion=res.resultado as Ubicacion;
           },
-          err => Swal.fire('Error', err.error.mensaje, 'error')
+          err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
         );
       }
       this.cliente.auxiliares.push(this.auxiliar);
@@ -513,7 +513,7 @@ export class ClienteComponent implements OnInit {
         res => {
           this.cliente.direccion.ubicacion= res.resultado as Ubicacion;
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
     this.sesion= this.sesionService.getSesion();
@@ -528,7 +528,7 @@ export class ClienteComponent implements OnInit {
     this.clienteService.crear(this.cliente).subscribe(
       res => {
         if (res.resultado!= null) {
-          Swal.fire('Exito', res.mensaje, 'success');
+          Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.cliente_crear = res.resultado as Cliente;
           this.auxiliar_cantones=[];
           this.auxiliar_parroquias=[];
@@ -550,10 +550,10 @@ export class ClienteComponent implements OnInit {
           this.auxiliar=new Auxiliar();
 
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     ); 
   }
 
@@ -577,7 +577,7 @@ export class ClienteComponent implements OnInit {
           res => {
             this.auxiliar.direccion.ubicacion=res.resultado as Ubicacion;
           },
-          err => Swal.fire('Error', err.error.mensaje, 'error')
+          err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
         );
       }
       this.cliente.auxiliares.push(this.auxiliar);
@@ -589,14 +589,14 @@ export class ClienteComponent implements OnInit {
         res => {
           this.cliente.direccion.ubicacion= res.resultado as Ubicacion;
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
     
     this.clienteService.actualizar(this.cliente).subscribe(
       res => {
         if (res.resultado!= null) {
-          Swal.fire('Exito', res.mensaje, 'success');
+          Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.cliente_actualizar = res.resultado as Cliente;
           this.auxiliar_cantones=[];
           this.auxiliar_parroquias=[];
@@ -610,10 +610,10 @@ export class ClienteComponent implements OnInit {
           this.auxiliar=new Auxiliar();
         }
         else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -621,14 +621,14 @@ export class ClienteComponent implements OnInit {
     this.clienteService.eliminar(cliente).subscribe(
       res => {
         if (res.resultado!=null) {
-          Swal.fire('Exito', res.mensaje, 'success');
+          Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.cliente = res.resultado as Cliente
           this.ngOnInit();
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -639,7 +639,7 @@ export class ClienteComponent implements OnInit {
         if (res.resultado!= null) {
           this.cantones = res.resultado as Ubicacion[];
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
       }
     );
@@ -651,7 +651,7 @@ export class ClienteComponent implements OnInit {
         if (res.resultado!= null) {
           this.auxiliar_cantones=res.resultado as Ubicacion[];
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
         
       }
@@ -665,7 +665,7 @@ export class ClienteComponent implements OnInit {
         if (res.resultado!= null) {
           this.parroquias = res.resultado as Ubicacion[];
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
       }
     );
@@ -678,7 +678,7 @@ export class ClienteComponent implements OnInit {
         if (res.resultado!= null) {
           this.auxiliar_parroquias= res.resultado as Ubicacion[];
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
       }
     );
@@ -696,14 +696,14 @@ export class ClienteComponent implements OnInit {
     let digito=this.telefono.numero.substr(0,1);
     if (this.telefono.numero.length!=11 || digito!="0") {
       this.telefono.numero="";
-      Swal.fire('Error', "Telefono Invalido", 'error');
+      Swal.fire(constantes.error, "Telefono Invalido", constantes.error_swal);
     }
   }
   validar_telefono_auxiliar() {
     let digito=this.auxiliar_telefono.numero.substr(0,1);
     if (this.auxiliar_telefono.numero.length!=11 || digito!="0") {
       this.auxiliar_telefono.numero="";
-      Swal.fire('Error', "Telefono Invalido", 'error');
+      Swal.fire(constantes.error, "Telefono Invalido", constantes.error_swal);
     }
   }
 
@@ -711,7 +711,7 @@ export class ClienteComponent implements OnInit {
     let digito=this.celular.numero.substr(0,2);
     if (this.celular.numero.length!=12 || digito!="09") {
       this.celular.numero="";
-      Swal.fire('Error', "Celular Invalido", 'error');
+      Swal.fire(constantes.error, "Celular Invalido", constantes.error_swal);
     }
   }
 
@@ -719,7 +719,7 @@ export class ClienteComponent implements OnInit {
     let digito=this.auxiliar_celular.numero.substr(0,2);
     if (this.auxiliar_celular.numero.length!=12 || digito!="09") {
       this.auxiliar_celular.numero="";
-      Swal.fire('Error', "Celular Invalido", 'error');
+      Swal.fire(constantes.error, "Celular Invalido", constantes.error_swal);
     }
   }
 
@@ -727,14 +727,14 @@ export class ClienteComponent implements OnInit {
     let arroba=this.correo.email.includes("@");
     if (!arroba) {
       this.correo.email="";
-      Swal.fire('Error', "Correo Invalido", 'error');
+      Swal.fire(constantes.error, "Correo Invalido", constantes.error_swal);
     }
   }
   validar_correo_auxiliar() {
     let arroba=this.auxiliar_correo.email.includes("@");
     if (!arroba) {
       this.auxiliar_correo.email="";
-      Swal.fire('Error', "Correo Invalido", 'error');
+      Swal.fire(constantes.error, "Correo Invalido", constantes.error_swal);
     }
   }
 
@@ -759,7 +759,7 @@ export class ClienteComponent implements OnInit {
         if (res.resultado!= null) {
           this.auxiliar_cantones=res.resultado as Ubicacion[];
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
       }
     );

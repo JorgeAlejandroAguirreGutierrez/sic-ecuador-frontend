@@ -7,6 +7,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
 import { ClienteComponent } from '../cliente.component';
+import * as constantes from '../../../constantes';
 
 @Component({
   selector: 'app-cliente-mostrar',
@@ -36,7 +37,7 @@ export class ClienteMostrarComponent implements OnInit {
       res => {
         this.clientes = res.resultado as Cliente[]
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -77,14 +78,16 @@ export class ClienteMostrarComponent implements OnInit {
       this.clienteService.buscarIdentificacion(this.cliente_buscar.identificacion).subscribe(
         res => {
           this.clientes = res.resultado as Cliente[]
-        }
+        },
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     } 
     else if (this.cliente_buscar.identificacion=="" && this.cliente_buscar.razon_social!="") {
       this.clienteService.buscarRazonSocial(this.cliente_buscar.razon_social).subscribe(
         res => {
           this.clientes = res.resultado as Cliente[]
-        }
+        },
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
     else {
@@ -112,11 +115,11 @@ export class ClienteMostrarComponent implements OnInit {
       event.preventDefault();
     this.clienteService.eliminar(this.cliente).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.cliente = res.resultado as Cliente
         this.ngOnInit();
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.exito, err.error.mensaje, constantes.exito_swal)
     );
   }
 
