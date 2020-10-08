@@ -105,4 +105,8 @@ export class TablaEquivalenciaMedidaMostrarComponent implements OnInit {
 
   }
 
+  cambiar_buscar_equivalencia(){
+
+  }
+
 }
