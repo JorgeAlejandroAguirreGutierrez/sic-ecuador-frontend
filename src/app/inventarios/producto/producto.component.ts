@@ -64,7 +64,6 @@ export class ProductoComponent implements OnInit {
 
   precio: Precio=new Precio();
   medida: Medida=new Medida();
-  impuesto: Impuesto=new Impuesto();
   kardex_inicial: Kardex=new Kardex();
   kardex_final: Kardex=new Kardex();
 
@@ -490,9 +489,10 @@ export class ProductoComponent implements OnInit {
       for(let j=0; j<this.producto.medidas_precios[i].precios.length; j++){
         this.producto.medidas_precios[i].precios[j].precio_venta_publico=(this.producto.medidas_precios[i].precios[j].costo/(1-(this.producto.medidas_precios[i].precios[j].margen_ganancia/100)));
         this.producto.medidas_precios[i].precios[j].precio_venta_publico=Number(this.producto.medidas_precios[i].precios[j].precio_venta_publico.toFixed(2));
-        this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva=this.producto.medidas_precios[i].precios[j].precio_venta_publico+(this.producto.medidas_precios[i].precios[j].precio_venta_publico*(this.impuesto.porcentaje/100));
+        this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva=this.producto.medidas_precios[i].precios[j].precio_venta_publico+(this.producto.medidas_precios[i].precios[j].precio_venta_publico*(this.producto.impuesto.porcentaje/100));
         this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva=Number(this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva.toFixed(2));
-        this.producto.medidas_precios[i].precios[j].utilidad=this.producto.medidas_precios[i].precios[j].precio_venta_publico_manual/((100+(this.impuesto.porcentaje))/100)-this.producto.medidas_precios[i].precios[j].costo;
+        this.producto.medidas_precios[i].precios[j].precio_venta_publico_manual= this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva;
+        this.producto.medidas_precios[i].precios[j].utilidad=this.producto.medidas_precios[i].precios[j].precio_venta_publico_manual/((100+(this.producto.impuesto.porcentaje))/100)-this.producto.medidas_precios[i].precios[j].costo;
         this.producto.medidas_precios[i].precios[j].utilidad=Number(this.producto.medidas_precios[i].precios[j].utilidad.toFixed(2));
         this.producto.medidas_precios[i].precios[j].utilidad_porcentaje=(this.producto.medidas_precios[i].precios[j].utilidad/this.producto.medidas_precios[i].precios[j].precio_venta_publico)*100;
         this.producto.medidas_precios[i].precios[j].utilidad_porcentaje=Number(this.producto.medidas_precios[i].precios[j].utilidad_porcentaje.toFixed(2));
