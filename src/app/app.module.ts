@@ -199,7 +199,9 @@ import { SaldoInicialInventarioComponent } from './inventarios/saldo-inicial-inv
 import { ProductoMostrarComponent } from './inventarios/producto/producto-mostrar/producto-mostrar.component';
 import { FormaPagoComponent } from './clientes/forma-pago/forma-pago.component';
 import { FormaPagoMostrarComponent } from './clientes/forma-pago/forma-pago-mostrar/forma-pago-mostrar.component';
-
+import { TablaEquivalenciaMedidaComponent } from './inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida.component';
+import { TablaEquivalenciaMedidaMostrarComponent } from './inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida-mostrar/tabla-equivalencia-medida-mostrar.component';
+import { TablaEquivalenciaMedidaService } from './servicios/tabla-equivalencia-medida.service';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -242,6 +244,8 @@ const routes: Routes = [
   {path: 'main', component: MainComponent},
   {path: 'producto', component: ProductoComponent},
   {path: 'producto-mostrar', component: ProductoMostrarComponent},
+  {path: 'inventario/tablaequivalenciamedida', component: TablaEquivalenciaMedidaComponent},
+  {path: 'inventario/tablaequivalenciamedida-mostrar', component: TablaEquivalenciaMedidaMostrarComponent},
   {path: 'tabla', component: TablaEditableComponent},
   {path: 'promocion', component: PromocionComponent},
   {path: 'proveedor', component: ProveedorComponent},
@@ -369,7 +373,9 @@ const routes: Routes = [
     TablaComboComponent, 
     TablaComponenteComponent, 
     CuentaComponent, 
-    PagoCompraComponent
+    PagoCompraComponent,
+    TablaEquivalenciaMedidaComponent,
+    TablaEquivalenciaMedidaMostrarComponent
   ],
   imports: [
     BrowserModule,
@@ -398,6 +404,7 @@ const routes: Routes = [
               TransportistaService, UbicacionService, TipoContribuyenteService, VehiculoTransporteService,
               EmpresaService, EstablecimientoService, PuntoVentaService, UsuarioService, DatePipe,
               ClienteService, FacturaService, TabService, UsuariosService, DatabaseService, ProductosService,
+              TablaEquivalenciaMedidaService,
               DataService, CartService, NgImageSliderService,
               {
                 provide: LocationStrategy,
@@ -407,7 +414,7 @@ const routes: Routes = [
   entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, 
     SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteComponent,
     EstadoCivilComponent, FormaPagoComponent, GeneroComponent, OrigenIngresoComponent, PlazoCreditoComponent,
-    TipoPagoComponent]
+    TipoPagoComponent, TablaEquivalenciaMedidaComponent]
 })
 export class AppModule {
   constructor() {

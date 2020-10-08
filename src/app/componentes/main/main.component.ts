@@ -36,6 +36,8 @@ import { PlazoCreditoComponent } from '../../clientes/plazo-credito/plazo-credit
 import { PlazoCreditoMostrarComponent } from '../../clientes/plazo-credito/plazo-credito-mostrar/plazo-credito-mostrar.component';
 import { TipoPagoComponent } from '../../clientes/tipo-pago/tipo-pago.component';
 import { TipoPagoMostrarComponent } from '../../clientes/tipo-pago/tipo-pago-mostrar/tipo-pago-mostrar.component';
+import { TablaEquivalenciaMedidaComponent } from '../../inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida.component';
+import { TablaEquivalenciaMedidaMostrarComponent } from '../../inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida-mostrar/tabla-equivalencia-medida-mostrar.component';
 
 @Component({
   selector: 'app-main',
@@ -156,6 +158,9 @@ export class MainComponent implements OnInit{
       this.llenarOpciones(SaldoInicialInventarioComponent,'Crear Saldo Inicial','Crear Saldo Inicial');
       this.llenarOpciones(ProductoMostrarComponent,'Mostrar Productos','Mostrar Productos');
       this.llenarOpciones(FacturaMostrarComponent,'Buscar Producto','Buscar Producto');
+      this.llenarOpciones(TablaEquivalenciaMedidaComponent,'Crear TEM','Crear TEM');
+      this.llenarOpciones(TablaEquivalenciaMedidaMostrarComponent,'Buscar TEM','Buscar TEM');
+      
       this.llenarOpciones(PromocionComponent,'Promociones','Promociones/Combos');
     }
 
