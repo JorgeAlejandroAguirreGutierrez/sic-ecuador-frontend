@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { TransportistaService } from '../../servicios/transportista.service';
 import { Transportista } from '../../modelos/transportista';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import * as constantes from '../../constantes';
 
 @Component({
   selector: 'app-transportista',
@@ -21,7 +22,8 @@ export class TransportistaComponent implements OnInit {
     this.transportistaService.consultar().subscribe(
       res=>{
         this.transportistas= res.resultado as Transportista[]
-      }
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -52,33 +54,33 @@ export class TransportistaComponent implements OnInit {
   crear() {
     this.transportistaService.crear(this.transportista).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.transportista=res.resultado as Transportista;
         this.ngOnInit();
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   actualizar(transportista: Transportista) {
     this.transportistaService.actualizar(transportista).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.transportista=res.resultado as Transportista;
         this.ngOnInit();
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(transportista: Transportista) {
     this.transportistaService.eliminar(transportista).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.transportista=res.resultado as Transportista
         this.ngOnInit();
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 

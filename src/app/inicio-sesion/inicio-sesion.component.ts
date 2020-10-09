@@ -8,6 +8,7 @@ import { Parametro } from '../modelos/parametro';
 import { EmpresaService } from '../servicios/empresa.service';
 import { ParametroService } from '../servicios/parametro.service';
 import { environment } from '../../environments/environment';
+import * as constantes from '../constantes';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -44,14 +45,13 @@ export class InicioSesionComponent implements OnInit {
           res => {
             this.sesion=res.resultado as Sesion;
             this.sesionService.setSesion(this.sesion);
-            Swal.fire('Exito', res.mensaje, 'success');
-    
+            Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           },
-          error => Swal.fire('Error', error.error.mensaje, 'error'),
+          error => Swal.fire(constantes.error, error.error.mensaje, constantes.error_swal),
           () => this.navigate()
         );
       },
-      error => Swal.fire('Error', error.error.mensaje, 'error'),
+      error => Swal.fire(constantes.error, error.error.mensaje, constantes.error_swal),
     );
   }
 
@@ -67,7 +67,8 @@ export class InicioSesionComponent implements OnInit {
     this.empresaService.consultar().subscribe(
       res => {
         this.empresas = res.resultado as Empresa[]
-      }
+      },
+      error => Swal.fire(constantes.error, error.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -78,18 +79,20 @@ export class InicioSesionComponent implements OnInit {
       res => {
         empresa= res.resultado as Empresa
         this.url_empresa=environment.prefijo_url_imagenes+"logos/"+empresa.logo;
-      }
+      },
+      error => Swal.fire(constantes.error, error.error.mensaje, constantes.error_swal)
     );
   }
 
   obtenerParametro(){
     let parametro=new Parametro();
     parametro.tipo='LOGO';
-    this.parametroService.obtenerTipo (parametro).subscribe(
+    this.parametroService.obtenerTipo(parametro).subscribe(
       res => {
-        parametro= res.resultado as Parametro
+        parametro= res.resultado as Parametro;
         this.url_logo=environment.prefijo_url_imagenes+parametro.nombre;
-      }
+      },
+      error => Swal.fire(constantes.error, error.error.mensaje, constantes.error_swal)
     );
   }    
 }

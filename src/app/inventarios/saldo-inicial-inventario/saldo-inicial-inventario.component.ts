@@ -4,12 +4,13 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ProductoService } from '../../servicios/producto.service';
-import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
 import { Kardex } from '../../modelos/kardex';
 import { KardexService } from '../../servicios/kardex.service';
 import { MedidaService } from '../../servicios/medida.service';
 import { Medida } from '../../modelos/medida';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-saldo-inicial-inventario',
@@ -38,6 +39,7 @@ export class SaldoInicialInventarioComponent implements OnInit {
         map(value => typeof value === 'string' || value==null ? value : value.id),
         map(producto => typeof producto === 'string' ? this.filtro_producto(producto) : this.productos.slice())
       );
+
   }
 
   consultar_medidas(){
@@ -46,7 +48,7 @@ export class SaldoInicialInventarioComponent implements OnInit {
         this.medidas = res.resultado as Medida[];
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
   }
@@ -56,7 +58,7 @@ export class SaldoInicialInventarioComponent implements OnInit {
     res => {
       this.productos = res.resultado as Producto[]
     },
-    err => Swal.fire('Error', err.error.mensaje, 'error')
+    err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -75,28 +77,28 @@ export class SaldoInicialInventarioComponent implements OnInit {
     if (event!=null)
       event.preventDefault();
     if(this.kardex.cantidad==0){
-      Swal.fire('Error', constantes.error_cantidad, 'error');
+      Swal.fire(constantes.error, constantes.error_cantidad, constantes.error_swal);
       return;
     }
     if (this.kardex.costo_unitario==0){
-      Swal.fire('Error', constantes.error_costo_unitario, 'error');
+      Swal.fire(constantes.error, constantes.error_costo_unitario, constantes.error_swal);
       return;
     }
     if (this.kardex.costo_total==0){
-      Swal.fire('Error', constantes.error_costo_total, 'error');
+      Swal.fire(constantes.error, constantes.error_costo_total, constantes.error_swal);
       return;
     }
     if (this.kardex.producto.id==0){
-      Swal.fire('Error', constantes.error_producto, 'error');
+      Swal.fire(constantes.error, constantes.error_producto, constantes.error_swal);
       return;
     }
     this.kardexService.crear(this.kardex).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.seleccion_producto.setValue('');
         this.kardex=new Kardex();
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -108,16 +110,17 @@ export class SaldoInicialInventarioComponent implements OnInit {
           this.kardex.producto=this.seleccion_producto.value;
         } else{
           this.seleccion_producto.setValue('');
-          Swal.fire(constantes.error_mayus, constantes.error_kardex, constantes.error_minus)
+          Swal.fire(constantes.error, constantes.error_kardex, constantes.error_swal)
         }
       },
-      err => Swal.fire(constantes.error_mayus, err.error.mensaje, constantes.error_minus)
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
   }
 
   seleccionar_cantidad(){
     this.kardex.costo_total=Number((this.kardex.cantidad*this.kardex.costo_unitario).toFixed(2));
   }
+
   seleccionar_costo_unitario(){
     this.kardex.costo_total=Number((this.kardex.cantidad*this.kardex.costo_unitario).toFixed(2));
   }

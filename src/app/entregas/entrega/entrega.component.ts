@@ -16,6 +16,7 @@ import { Direccion } from '../../modelos/direccion';
 import { GuiaRemisionService } from '../../servicios/guia-remision.service';
 import { Sesion } from '../../modelos/sesion';
 import { FacturaService } from '../../servicios/factura.service';
+import * as constantes from '../../constantes';
 
 @Component({
   selector: 'app-entrega',
@@ -61,7 +62,7 @@ export class EntregaComponent implements OnInit {
         this.provincias = res.resultado as Ubicacion[];
       },
       err => {
-        Swal.fire('Error', err.error.mensaje, 'error')
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       }
     );
   }
@@ -72,8 +73,7 @@ export class EntregaComponent implements OnInit {
         this.transportistas = res.resultado as Transportista[]
       },
       err => {
-        console.log('HTTP Error', err)
-        Swal.fire('Error', err.error.mensaje, 'error');
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
       }
     );
   }
@@ -83,8 +83,7 @@ export class EntregaComponent implements OnInit {
         this.vehiculos_transportes = res.resultado as VehiculoTransporte[]
       },
       err => {
-        console.log('HTTP Error', err)
-        Swal.fire('Error', err.error.mensaje, 'error');
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
       }
     );
   }
@@ -106,12 +105,11 @@ export class EntregaComponent implements OnInit {
         this.guia_remision.numero=this.guia_remision_crear.numero;
         this.estado=this.guia_remision_crear.estado? "ENTREGADO": "NO ENTREGADO";
         if (res.mensaje){
-          Swal.fire('Exito', 'Se creo la guia de remision', 'success');
+          Swal.fire(constantes.exito, 'Se creo la guia de remision', constantes.exito_swal);
         }
       },
       err => {
-        console.log('HTTP Error', err)
-        Swal.fire('Error', err.error.mensaje, 'error');
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
         this.guia_remision.des_normalizar();
       }
     );
@@ -128,16 +126,14 @@ export class EntregaComponent implements OnInit {
         this.guia_remision_crear = res.resultado as GuiaRemision;
         this.estado=this.guia_remision_crear.estado? "ENTREGADO": "NO ENTREGADO";
         if (res.mensaje){
-          Swal.fire('Exito', 'Se creo la guia de remision', 'success');
+          Swal.fire(constantes.exito, 'Se creo la guia de remision', constantes.exito_swal);
         }
       },
       err => {
-        console.log('HTTP Error', err)
-        Swal.fire('Error', err.error.mensaje, 'error');
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
         this.guia_remision.des_normalizar();
       }
     );
-
   }
 
   provincia() {
@@ -146,8 +142,7 @@ export class EntregaComponent implements OnInit {
           this.cantones = res.resultado as Ubicacion[];
       },
       err => {
-        console.log('HTTP Error', err)
-        Swal.fire('Error', err.error.mensaje, 'error');
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
       }
     );
   }
@@ -158,8 +153,7 @@ export class EntregaComponent implements OnInit {
           this.parroquias = res.resultado as Ubicacion[];
       },
       err => {
-        console.log('HTTP Error', err)
-        Swal.fire('Error', err.error.mensaje, 'error');
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
       }
     );
   }
@@ -170,8 +164,7 @@ export class EntregaComponent implements OnInit {
           this.guia_remision.direccion.ubicacion=res.resultado as Ubicacion;
         },
         err => {
-          console.log('HTTP Error', err)
-          Swal.fire('Error', err.error.mensaje, 'error');
+          Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
         }
       );
     }
@@ -181,7 +174,7 @@ export class EntregaComponent implements OnInit {
     let digito=this.guia_remision.telefono.substr(0,1);
     if (this.guia_remision.telefono.length!=11 || digito!="0") {
       this.guia_remision.telefono="";
-      Swal.fire('Error', "Telefono Invalido", 'error');
+      Swal.fire(constantes.error, "Telefono Invalido", constantes.error_swal);
     }
   }
 
@@ -189,7 +182,7 @@ export class EntregaComponent implements OnInit {
     let digito=this.guia_remision.celular.substr(0,2);
     if (this.guia_remision.celular.length!=12 || digito!="09") {
       this.guia_remision.celular="";
-      Swal.fire('Error', "Celular Invalido", 'error');
+      Swal.fire(constantes.error, "Celular Invalido", constantes.error_swal);
     }
   }
 
@@ -197,7 +190,7 @@ export class EntregaComponent implements OnInit {
     let arroba=this.guia_remision.correo.includes("@");
     if (!arroba) {
       this.guia_remision.correo="";
-      Swal.fire('Error', "Correo Invalido", 'error');
+      Swal.fire(constantes.error, "Correo Invalido", constantes.error_swal);
     }
   }
 
@@ -242,8 +235,7 @@ export class EntregaComponent implements OnInit {
         window.open(fileURL);
       },
       err => {
-        console.log('HTTP Error', err)
-        Swal.fire('Error', err.error.mensaje, 'error');
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
       }
     );
   }
