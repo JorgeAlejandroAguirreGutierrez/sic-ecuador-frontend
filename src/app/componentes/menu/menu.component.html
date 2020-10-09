@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="form-row card card-principal">
                 <div class="card-header">
-                    FINANCIERO
+                    GESTIÓN
                 </div>
                 <div class="row card-body card-contenido">
                     <div class="row">
@@ -135,10 +135,22 @@
         <div class="col-12">
             <div class="form-row card card-principal">
                 <div class="card-header">
-                    ADMINISTRACION
+                    ADMINISTRACIÓN
                 </div>
                 <div class="row card-body card-contenido">
                     <div class="row">
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_configuraciones">
+                            <a (click)="abrirOpcion('CONFIGURACION')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_configuracion}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">CONFIGURACIÓN</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
                         <div class="col-sm-auto align-self-center" *ngIf="permiso_estadisticas">
                             <a (click)="abrirOpcion('ESTADISTICAS')">
                                 <div class="card text-center tarjeta">
@@ -182,18 +194,6 @@
                                         alt="">
                                     <div class="card-body">
                                         <h6><a class="card-title">TUTORIALES</a></h6>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-sm-auto align-self-center" *ngIf="permiso_configuraciones">
-                            <a (click)="abrirOpcion('CONFIGURACION')">
-                                <div class="card text-center tarjeta">
-                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_configuracion}}"
-                                        alt="">
-                                    <div class="card-body">
-                                        <h6><a class="card-title">CONFIGURACION</a></h6>
                                     </div>
                                 </div>
                             </a>

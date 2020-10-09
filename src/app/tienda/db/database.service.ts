@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../shared/usuario';
 import { Product } from '../shared/product.model';
 import { DATA } from '../mock-data';
-import 'rxjs/Rx';
-import { Observable } from 'rxjs/Observable';
+//import 'rxjs/Rx';
+import { Observable } from 'rxjs';
 
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+//import 'rxjs/add/observable/throw';
+//import 'rxjs/add/operator/catch';
+//import 'rxjs/add/operator/map';
 
 @Injectable()
 export class DatabaseService{
@@ -21,7 +21,7 @@ export class DatabaseService{
 
     return this.http.get<Usuario[]>('https://tienda-9303e.firebaseio.com/usuarios.json').toPromise().then(response=>response);
           //.then(response  =>  response.json() as Usuario[])
-          /*.catch(function(){
+          /*.catchError(function(){
             console.log("error");
           });*/
   }

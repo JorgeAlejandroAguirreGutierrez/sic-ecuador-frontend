@@ -17,6 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
+                        "allowedCommonJsDependencies": ["rxjs", "chart.js"],
                         "outputPath": "dist/sic-ecuador-frontend/",
                         "index": "src/index.html",
                         "main": "src/main.ts",

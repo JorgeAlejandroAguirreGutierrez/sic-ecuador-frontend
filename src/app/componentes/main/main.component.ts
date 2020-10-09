@@ -114,8 +114,6 @@ export class MainComponent implements OnInit {
       this.llenarOpciones(ClienteMostrarComponent, 'Buscar cliente', 'Buscar cliente');
       this.llenarOpciones(UbicacionComponent, 'Crear Ubicacion Cliente', 'Crear Ubicacion Cliente');
       this.llenarOpciones(UbicacionMostrarComponent, 'Buscar Ubicacion Cliente', 'Buscar Ubicacion Cliente');
-      this.llenarOpciones(GrupoClienteComponent, 'Crear Grupo Cliente', 'Crear Grupo Cliente');
-      this.llenarOpciones(TransportistaComponent, 'Crear Transportista', 'Crear Transportista');
       this.llenarOpciones(MapsComponent, 'Ubicacion Cliente', 'Ubicacion cliente');
     }
 
@@ -168,6 +166,13 @@ export class MainComponent implements OnInit {
       this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
     }
 
+    if (tabNombre == "CONFIGURACION") {
+      this.llenarOpciones(GrupoClienteComponent, 'Crear Grupo Cliente', 'Crear Grupo Cliente');
+      this.llenarOpciones(TransportistaComponent, 'Crear Transportista', 'Crear Transportista');
+      this.llenarOpciones(ImportarComponent, 'Importar', 'Importar');
+      this.llenarOpciones(ExportarComponent, 'Exportar', 'Exportar');
+    }
+    
     if (tabNombre == "ESTADISTICAS") {
       this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
       this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
@@ -188,10 +193,5 @@ export class MainComponent implements OnInit {
       this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
     }
 
-    if (tabNombre == "CONFIGURACION") {
-      this.llenarOpciones(ImportarComponent, 'Importar', 'Importar');
-      this.llenarOpciones(ExportarComponent, 'Exportar', 'Exportar');
-
-    }
   }
 }
