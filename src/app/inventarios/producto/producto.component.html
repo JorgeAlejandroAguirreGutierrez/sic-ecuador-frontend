@@ -156,8 +156,8 @@
                                 <div class="form-group col-4">
                                     <mat-form-field appearance="standard">
                                         <mat-label>IVA</mat-label>
-                                        <mat-select [(ngModel)]="producto.impuesto.id" class="form-control-sm">
-                                            <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto.id">
+                                        <mat-select [(ngModel)]="producto.impuesto" class="form-control-sm">
+                                            <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto">
                                                 {{impuesto.porcentaje}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>

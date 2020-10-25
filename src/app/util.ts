@@ -17,6 +17,7 @@ export const vehiculo_transporte: string='/vehiculotransporte';
 export const empresa: string='/empresa';
 export const parametro: string='/parametro';
 export const usuario: string = '/usuario';
+export const perfil: string = '/perfil';
 export const sesion: string = '/sesion';
 export const establecimiento: string = '/establecimiento';
 export const punto_venta: string = '/puntoventa';

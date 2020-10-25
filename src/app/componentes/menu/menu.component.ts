@@ -35,10 +35,12 @@ export class MenuComponent implements OnInit {
   permiso_auditorias: boolean;
   permiso_tutoriales: boolean;
   permiso_configuraciones: boolean;
+  permiso_usuarios: boolean;
 
 
   perfil_contador: boolean;
   perfil_administrativo: boolean;
+
 
   url_logo: string ="";
   nombre_empresa: string="";
@@ -58,7 +60,7 @@ export class MenuComponent implements OnInit {
   ico_estadistica: string = environment.prefijo_url_imagenes+"iconos/icoestadisticas.png";
   ico_organismoscontrol: string = environment.prefijo_url_imagenes+"iconos/icoorganismoscontrol.png";
   ico_auditoria: string = environment.prefijo_url_imagenes+"iconos/icoauditoria.png";
-  ico_tutorial: string = environment.prefijo_url_imagenes+"iconos/icotutoriales.png";
+  ico_usuarios: string = environment.prefijo_url_imagenes+"iconos/icotutoriales.png";
   ico_configuracion: string = environment.prefijo_url_imagenes+"iconos/icoconfiguraciones.png";
 
   constructor(private sesionService: SesionService, private empresaService: EmpresaService, public tabService: TabService) { }
@@ -81,7 +83,7 @@ export class MenuComponent implements OnInit {
     this.permiso_estadisticas=this.obtenerPermiso('ESTADISTICAS');
     this.permiso_control=this.obtenerPermiso('ORGANISMOS_CONTROL');
     this.permiso_auditorias=this.obtenerPermiso('AUDITORIA');
-    this.permiso_tutoriales=this.obtenerPermiso('TUTORIALES');
+    this.permiso_tutoriales=this.obtenerPermiso('USUARIOS');
     this.permiso_configuraciones=this.obtenerPermiso('CONFIGURACIONES');
   }
 

@@ -1,84 +1,101 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { PuntoVentaService } from '../../servicios/punto-venta.service';
 import { PuntoVenta } from '../../modelos/punto-venta';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
+import * as constantes from '../../constantes';
+import { TabService } from '../../componentes/services/tab.service';
+import { Establecimiento } from '../../modelos/establecimiento';
+import { EstablecimientoService } from '../../servicios/establecimiento.service';
 
 @Component({
   selector: 'app-punto-venta',
   templateUrl: './punto-venta.component.html',
-  styleUrls: ['./punto-venta.component.css']
+  styleUrls: ['./punto-venta.component.scss']
 })
 export class PuntoVentaComponent implements OnInit {
 
   punto_venta= new PuntoVenta();
-  empresas: PuntoVenta[];
-  p_usuario= new PuntoVenta();
+  establecimientos: Establecimiento[]=[];
 
-  constructor(private puntoVentaService: PuntoVentaService, private modalService: NgbModal) { }
+  constructor(private tabService: TabService,private puntoVentaService: PuntoVentaService, private establecimientoService: EstablecimientoService) { }
 
   ngOnInit() {
-    this.puntoVentaService.obtener().subscribe(
-      res=>this.empresas=res.resultado as PuntoVenta[]
-    );
+    this.consultar_establecimientos();
+    this.construir_punto_venta();
+    
   }
 
-  open(content: any, punto_venta: PuntoVenta) {
-    this.p_usuario=punto_venta;
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      if (result=="actualizar") {
-        this.actualizar(this.p_usuario);
-      }
-      if (result=="eliminar") {
-        this.eliminar(this.p_usuario);
-      }
-    }, (reason) => {
-      
-    });
+  nuevo(event) {
+    if (event!=null)
+      event.preventDefault();
+    this.punto_venta = new PuntoVenta();
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
-
-  crear() {
+  crear(event) {
+    if (event!=null)
+      event.preventDefault();
     this.puntoVentaService.crear(this.punto_venta).subscribe(
       res => {
-        console.log(res);
-        Swal.fire('Exito', res.mensaje, 'success');
-        this.punto_venta=res.resultado as PuntoVenta;
-        this.ngOnInit();
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.nuevo(null);
+
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
-  actualizar(punto_venta: PuntoVenta) {
-    this.puntoVentaService.actualizar(punto_venta).subscribe(
+  actualizar(event) {
+    if (event!=null)
+      event.preventDefault();
+    this.puntoVentaService.actualizar(this.punto_venta).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.punto_venta=res.resultado as PuntoVenta;
-        this.ngOnInit();
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(punto_venta: PuntoVenta) {
     this.puntoVentaService.eliminar(punto_venta).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
-        this.punto_venta=res.resultado as PuntoVenta;
-        this.ngOnInit();
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.punto_venta=res.resultado as PuntoVenta
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
+  async construir_punto_venta() {
+    let punto_venta_id=0;
+    this.puntoVentaService.currentMessage.subscribe(message => punto_venta_id = message);
+    if (punto_venta_id!= 0) {
+      await this.puntoVentaService.obtenerAsync(punto_venta_id).then(
+        res => {
+          Object.assign(this.punto_venta, res.resultado as PuntoVenta);
+        },
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      );
+    }
+  }
+
+  @HostListener('window:keypress', ['$event'])
+  keyEvent($event: KeyboardEvent) {
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 71) //SHIFT + G
+      this.crear(null);
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 78) //ASHIFT + N
+      this.nuevo(null);
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 69) // SHIFT + E
+      this.eliminar(null);
+  }
+
+  consultar_establecimientos(){
+    this.establecimientoService.consultar().subscribe(
+      res => {
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.establecimientos=res.resultado as Establecimiento[]
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    );
+  }
 }
