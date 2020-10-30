@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Type } from '@angular/core';
 import { TabService } from "../services/tab.service";
 import { Tab } from "../../modelos/tab.model";
@@ -36,6 +36,14 @@ import { PlazoCreditoComponent } from '../../clientes/plazo-credito/plazo-credit
 import { PlazoCreditoMostrarComponent } from '../../clientes/plazo-credito/plazo-credito-mostrar/plazo-credito-mostrar.component';
 import { TipoPagoComponent } from '../../clientes/tipo-pago/tipo-pago.component';
 import { TipoPagoMostrarComponent } from '../../clientes/tipo-pago/tipo-pago-mostrar/tipo-pago-mostrar.component';
+import { TablaEquivalenciaMedidaComponent } from '../../inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida.component';
+import { TablaEquivalenciaMedidaMostrarComponent } from '../../inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida-mostrar/tabla-equivalencia-medida-mostrar.component';
+import { UsuarioComponent } from '../../usuarios/usuario/usuario.component';
+import { UsuarioMostrarComponent } from '../../usuarios/usuario/usuario-mostrar/usuario-mostrar.component';
+import { EstablecimientoComponent } from '../../usuarios/establecimiento/establecimiento.component';
+import { EstablecimientoMostrarComponent } from '../../usuarios/establecimiento/establecimiento-mostrar/establecimiento-mostrar.component';
+import { PuntoVentaComponent } from '../../usuarios/punto-venta/punto-venta.component';
+import { PuntoVentaMostrarComponent } from '../../usuarios/punto-venta/punto-.venta-mostrar/punto-venta-mostrar.component';
 
 @Component({
   selector: 'app-main',
@@ -86,12 +94,6 @@ export class MainComponent implements OnInit {
   }
 
   //El Tab se refiere al tab interno, es decir al relacionado con la barra de opciones 
-  /*public indexChanged(event) {
-    // html: (selectedIndexChange)="selectedTab1 = ($event)"
-    console.log('Index tab Change');
-  }*/
-
-  //El Tab se refiere al tab interno, es decir al relacionado con la barra de opciones 
   public tabChanged(event) {
     //console.log("tab interno changed");
     this.tabService.activarTab(event);
@@ -125,8 +127,7 @@ export class MainComponent implements OnInit {
     this.opciones = [];
     if (tabNombre == "CLIENTES") {
       // El componente, nombre del tab y la opción en el slidebar
-<<<<<<< HEAD
-      this.llenarOpciones(ClienteComponent,'Nuevo cliente','Crear cliente');
+      this.llenarOpciones(ClienteComponent,'Crear cliente','Crear cliente');
       this.llenarOpciones(ClienteMostrarComponent,'Buscar cliente','Buscar cliente');
       this.llenarOpciones(GrupoClienteComponent,'Crear Grupo Cliente','Crear Grupo Cliente');
       this.llenarOpciones(GrupoClienteMostrarComponent,'Mostrar Grupo Cliente','Mostrar Grupo Cliente');
@@ -140,19 +141,11 @@ export class MainComponent implements OnInit {
       this.llenarOpciones(GeneroMostrarComponent,'Mostrar Genero','Mostrar Genero');
       this.llenarOpciones(OrigenIngresoComponent,'Crear Origen de Ingreso','Crear Origen de Ingreso');
       this.llenarOpciones(OrigenIngresoMostrarComponent,'Mostrar Origen de Ingreso','Mostrar Origen de Ingreso');
-      this.llenarOpciones(OrigenIngresoMostrarComponent,'Mostrar Origen de Ingreso','Mostrar Origen de Ingreso');
       this.llenarOpciones(PlazoCreditoComponent,'Crear Plazo de Credito','Crear Plazo de Credito');
       this.llenarOpciones(PlazoCreditoMostrarComponent,'Mostrar Plazo de Credito','Mostrar Plazo de Credito');
       this.llenarOpciones(TipoPagoComponent,'Crear Tipo de Pago','Crear Tipo de Pago');
       this.llenarOpciones(TipoPagoMostrarComponent,'Mostrar Tipo de Pago','Mostrar Tipo de Pago');
       this.llenarOpciones(MapsComponent,'Mapa Cliente','Mapa cliente');
-=======
-      this.llenarOpciones(ClienteComponent, 'Nuevo cliente', 'Crear cliente');
-      this.llenarOpciones(ClienteMostrarComponent, 'Buscar cliente', 'Buscar cliente');
-      this.llenarOpciones(UbicacionComponent, 'Crear Ubicacion Cliente', 'Crear Ubicacion Cliente');
-      this.llenarOpciones(UbicacionMostrarComponent, 'Buscar Ubicacion Cliente', 'Buscar Ubicacion Cliente');
-      this.llenarOpciones(MapsComponent, 'Ubicacion Cliente', 'Ubicacion cliente');
->>>>>>> fab093f95fcef5d0a490fdb4edce39aff520c016
     }
 
     if (tabNombre == "COMPRAS") {
@@ -167,11 +160,13 @@ export class MainComponent implements OnInit {
     }
 
     if (tabNombre == "INVENTARIOS") {
-      this.llenarOpciones(ProductoComponent, 'Crear Producto', 'Crear Producto');
-      this.llenarOpciones(SaldoInicialInventarioComponent, 'Crear Saldo Inicial', 'Crear Saldo Inicial');
-      this.llenarOpciones(ProductoMostrarComponent, 'Mostrar Productos', 'Mostrar Productos');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Producto', 'Buscar Producto');
-      this.llenarOpciones(PromocionComponent, 'Promociones', 'Promociones/Combos');
+      this.llenarOpciones(ProductoComponent,'Crear Producto','Crear Producto');
+      this.llenarOpciones(ProductoMostrarComponent,'Buscar Productos','Buscar Productos');
+      this.llenarOpciones(SaldoInicialInventarioComponent,'Crear Saldo Inicial','Crear Saldo Inicial');
+      this.llenarOpciones(TablaEquivalenciaMedidaComponent,'Crear TEM','Crear TEM');
+      this.llenarOpciones(TablaEquivalenciaMedidaMostrarComponent,'Buscar TEM','Buscar TEM');
+      
+      this.llenarOpciones(PromocionComponent,'Promociones','Promociones/Combos');
     }
 
     if (tabNombre == "CONTABILIDAD") {
@@ -190,12 +185,7 @@ export class MainComponent implements OnInit {
     }
 
     if (tabNombre == "TALENTO HUMANO") {
-<<<<<<< HEAD
       this.llenarOpciones(TransportistaComponent,'Crear Transportista','Crear Transportista');
-=======
-      this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
->>>>>>> fab093f95fcef5d0a490fdb4edce39aff520c016
     }
 
     if (tabNombre == "PRODUCCION") {
@@ -230,12 +220,15 @@ export class MainComponent implements OnInit {
       this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
     }
 
-    if (tabNombre == "TUTORIALES") {
-      this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
+    if (tabNombre == "USUARIOS") {
+      this.llenarOpciones(UsuarioComponent,'Crear Usuario','Crear Usuario');
+      this.llenarOpciones(UsuarioMostrarComponent,'Buscar Usuario','Buscar Usuario');
+      this.llenarOpciones(EstablecimientoComponent,'Crear Establecimiento','Crear Establecimiento');
+      this.llenarOpciones(EstablecimientoMostrarComponent,'Buscar Establecimiento','Buscar Establecimiento');
+      this.llenarOpciones(PuntoVentaComponent,'Crear Punto de Venta','Crear Punto de Venta');
+      this.llenarOpciones(PuntoVentaMostrarComponent,'Buscar Punto de Venta','Buscar Punto de Venta');
     }
 
-<<<<<<< HEAD
     if (tabNombre == "CONFIGURACION") {
       this.llenarOpciones(UbicacionComponent,'Crear Ubicacion Cliente','Crear Ubicacion Cliente');
       this.llenarOpciones(UbicacionMostrarComponent,'Buscar Ubicacion Cliente','Buscar Ubicacion Cliente');
@@ -243,7 +236,4 @@ export class MainComponent implements OnInit {
       this.llenarOpciones(ExportarComponent,'Exportar', 'Exportar');
     }
   }  
-=======
-  }
->>>>>>> fab093f95fcef5d0a490fdb4edce39aff520c016
 }

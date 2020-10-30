@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { Establecimiento } from '../modelos/establecimiento';
 import { Respuesta } from '../respuesta';
 import * as util from '../util';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { map, catchError, switchAll } from 'rxjs/operators';
-import { of, Observable, throwError } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
+import { of, Observable, throwError, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -14,7 +13,14 @@ import { environment } from '../../environments/environment';
 })
 export class EstablecimientoService {
 
+  private messageSource = new BehaviorSubject(0);
+  currentMessage = this.messageSource.asObservable();
+
   constructor(private http: HttpClient, private router: Router) { }
+
+  enviar(establecimiento_id: number) {
+    this.messageSource.next(establecimiento_id);
+  }
 
   crear(establecimiento: Establecimiento): Observable<Respuesta> {
     return this.http.post(environment.host + util.ruta + util.establecimiento, JSON.stringify(establecimiento), util.options).pipe(
@@ -60,5 +66,23 @@ export class EstablecimientoService {
         return throwError(err);
       })
     );
+  }
+
+  buscar(establecimiento: Establecimiento): Observable<Respuesta> {
+    return this.http.get(environment.host + util.ruta + util.usuario+util.buscar+'/'+establecimiento.codigo + '/'+establecimiento.direccion, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
+
+  async obtenerAsync(establecimiento_id: number): Promise<Respuesta> {
+    return await this.http.get<Respuesta>(environment.host + util.ruta + util.establecimiento + '/' + establecimiento_id, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    ).toPromise();
   }
 }

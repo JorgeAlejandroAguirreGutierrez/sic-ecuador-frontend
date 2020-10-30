@@ -4,9 +4,8 @@ import { Respuesta } from '../respuesta';
 import * as util from '../util';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { map, catchError, switchAll } from 'rxjs/operators';
-import { of, Observable, throwError } from 'rxjs';
+import { of, Observable, throwError, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -14,7 +13,14 @@ import { environment } from '../../environments/environment';
 })
 export class EmpresaService {
 
+  private messageSource = new BehaviorSubject(0);
+  currentMessage = this.messageSource.asObservable();
+
   constructor(private http: HttpClient, private router: Router) { }
+
+  enviar(empresa_id: number) {
+    this.messageSource.next(empresa_id);
+  }
 
   crear(empresa: Empresa): Observable<Respuesta> {
     return this.http.post(environment.host + util.ruta + util.empresa, JSON.stringify(empresa), util.options).pipe(
@@ -40,6 +46,24 @@ export class EmpresaService {
       catchError(err => {
         return throwError(err);
       }));
+  }
+
+  async obtenerAsync(empresa_id: number): Promise<Respuesta> {
+    return await this.http.get<Respuesta>(environment.host + util.ruta + util.empresa + '/' + empresa_id, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    ).toPromise();
+  }
+
+  buscar(empresa: Empresa): Observable<Respuesta> {
+    return this.http.get(environment.host + util.ruta + util.empresa+util.buscar+'/'+empresa.codigo + '/'+empresa.identificacion+'/'+empresa.razon_social, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
   }
 
   actualizar(empresa: Empresa): Observable<Respuesta> {

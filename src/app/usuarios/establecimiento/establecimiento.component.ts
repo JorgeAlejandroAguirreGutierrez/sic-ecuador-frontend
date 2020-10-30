@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { EstablecimientoService } from '../../servicios/establecimiento.service';
 import { Establecimiento } from '../../modelos/establecimiento';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
+import { TabService } from '../../componentes/services/tab.service';
+import * as constantes from '../../constantes';
+import { Empresa } from '../../modelos/empresa';
+import { EmpresaService } from '../../servicios/empresa.service';
 
 @Component({
   selector: 'app-establecimiento',
@@ -12,73 +15,87 @@ import Swal from 'sweetalert2';
 export class EstablecimientoComponent implements OnInit {
 
   establecimiento= new Establecimiento();
-  empresas: Establecimiento[];
-  p_establecimiento= new Establecimiento();
+  empresas: Empresa[]=[];
 
-  constructor(private establecimientoService: EstablecimientoService, private modalService: NgbModal) { }
+  constructor(private tabService: TabService,private establecimientoService: EstablecimientoService, private empresaService: EmpresaService) { }
 
   ngOnInit() {
-    this.establecimientoService.consultar().subscribe(
-      res=>this.empresas=res.resultado as Establecimiento[]
+    this.construir_establecimiento();
+    this.consultar_empresas();
+  }
+
+  nuevo(event) {
+    if (event!=null)
+      event.preventDefault();
+    this.establecimiento = new Establecimiento();
+  }
+
+  consultar_empresas(){
+    this.empresaService.consultar().subscribe(
+      res => {
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.empresas=res.resultado as Empresa[];
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
-  open(content: any, establecimiento: Establecimiento) {
-    this.p_establecimiento=establecimiento;
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      if (result=="actualizar") {
-        this.actualizar(this.p_establecimiento);
-      }
-      if (result=="eliminar") {
-        this.eliminar(this.p_establecimiento);
-      }
-    }, (reason) => {
-      
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
-
-  crear() {
+  crear(event) {
+    if (event!=null)
+      event.preventDefault();
     this.establecimientoService.crear(this.establecimiento).subscribe(
       res => {
-        console.log(res);
-        Swal.fire('Exito', res.mensaje, 'success');
-        this.establecimiento=res.resultado as Establecimiento;
-        this.ngOnInit();
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.nuevo(null);
+
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
-  actualizar(establecimiento: Establecimiento) {
-    this.establecimientoService.actualizar(establecimiento).subscribe(
+  actualizar(event) {
+    if (event!=null)
+      event.preventDefault();
+    this.establecimientoService.actualizar(this.establecimiento).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.establecimiento=res.resultado as Establecimiento;
-        this.ngOnInit();
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(establecimiento: Establecimiento) {
     this.establecimientoService.eliminar(establecimiento).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
-        this.establecimiento=res.resultado as Establecimiento;
-        this.ngOnInit();
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.establecimiento=res.resultado as Establecimiento
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
+  }
+
+  async construir_establecimiento() {
+    let establecimiento_id=0;
+    this.establecimientoService.currentMessage.subscribe(message => establecimiento_id = message);
+    if (establecimiento_id!= 0) {
+      await this.establecimientoService.obtenerAsync(establecimiento_id).then(
+        res => {
+          Object.assign(this.establecimiento, res.resultado as Establecimiento);
+        },
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      );
+    }
+  }
+
+  @HostListener('window:keypress', ['$event'])
+  keyEvent($event: KeyboardEvent) {
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 71) //SHIFT + G
+      this.crear(null);
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 78) //ASHIFT + N
+      this.nuevo(null);
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 69) // SHIFT + E
+      this.eliminar(null);
   }
 
 }

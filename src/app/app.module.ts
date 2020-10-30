@@ -83,8 +83,11 @@ import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 
 // Módulo de Usuarios
 import { UsuarioComponent } from './usuarios/usuario/usuario.component';
+import { UsuarioMostrarComponent } from './usuarios/usuario/usuario-mostrar/usuario-mostrar.component';
 import { EstablecimientoComponent } from './usuarios/establecimiento/establecimiento.component';
+import { EstablecimientoMostrarComponent } from './usuarios/establecimiento/establecimiento-mostrar/establecimiento-mostrar.component';
 import { PuntoVentaComponent } from './usuarios/punto-venta/punto-venta.component';
+import { PuntoVentaMostrarComponent } from './usuarios/punto-venta/punto-.venta-mostrar/punto-venta-mostrar.component';
 import { PerfilComponent } from './usuarios/perfil/perfil.component';
 import { SesionComponent } from './usuarios/sesion/sesion.component';
 import { PermisoComponent } from './usuarios/permiso/permiso.component';
@@ -219,7 +222,9 @@ import { SaldoInicialInventarioComponent } from './inventarios/saldo-inicial-inv
 import { ProductoMostrarComponent } from './inventarios/producto/producto-mostrar/producto-mostrar.component';
 import { FormaPagoComponent } from './clientes/forma-pago/forma-pago.component';
 import { FormaPagoMostrarComponent } from './clientes/forma-pago/forma-pago-mostrar/forma-pago-mostrar.component';
-
+import { TablaEquivalenciaMedidaComponent } from './inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida.component';
+import { TablaEquivalenciaMedidaMostrarComponent } from './inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida-mostrar/tabla-equivalencia-medida-mostrar.component';
+import { TablaEquivalenciaMedidaService } from './servicios/tabla-equivalencia-medida.service';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -238,9 +243,6 @@ const routes: Routes = [
   {path: 'cliente/ubicacion', component: UbicacionComponent},
   {path: 'cliente/ubicacion-mostrar', component: UbicacionMostrarComponent},
   {path: 'cliente/empresa', component: EmpresaComponent},
-  {path: 'cliente/usuario', component: UsuarioComponent},
-  {path: 'cliente/establecimiento', component: EstablecimientoComponent},
-  {path: 'cliente/puntoventa', component: PuntoVentaComponent},
   {path: 'cliente/genero', component: GeneroComponent},
   {path: 'cliente/genero-mostrar', component: GeneroMostrarComponent},
   {path: 'cliente/estadocivil', component: EstadoCivilComponent},
@@ -262,6 +264,14 @@ const routes: Routes = [
   {path: 'main', component: MainComponent},
   {path: 'producto', component: ProductoComponent},
   {path: 'producto-mostrar', component: ProductoMostrarComponent},
+  {path: 'inventario/tablaequivalenciamedida', component: TablaEquivalenciaMedidaComponent},
+  {path: 'inventario/tablaequivalenciamedida-mostrar', component: TablaEquivalenciaMedidaMostrarComponent},
+  {path: 'usuario', component: UsuarioComponent},
+  {path: 'usuario-mostrar', component: UsuarioMostrarComponent},
+  {path: 'usuario/establecimiento', component: EstablecimientoComponent},
+  {path: 'usuario/establecimiento-mostrar', component: EstablecimientoMostrarComponent},
+  {path: 'usuario/puntoventa', component: PuntoVentaComponent},
+  {path: 'usuario/puntoventa-mostrar', component: PuntoVentaMostrarComponent},
   {path: 'tabla', component: TablaEditableComponent},
   {path: 'promocion', component: PromocionComponent},
   {path: 'proveedor', component: ProveedorComponent},
@@ -303,8 +313,11 @@ const routes: Routes = [
     UbicacionMostrarComponent,
     EmpresaComponent,
     UsuarioComponent,
+    UsuarioMostrarComponent,
     EstablecimientoComponent,
+    EstablecimientoMostrarComponent,
     PuntoVentaComponent,
+    PuntoVentaMostrarComponent,
     PerfilComponent,
     MenuComponent,
     GrupoClienteComponent,
@@ -389,7 +402,9 @@ const routes: Routes = [
     TablaComboComponent, 
     TablaComponenteComponent, 
     CuentaComponent, 
-    PagoCompraComponent
+    PagoCompraComponent,
+    TablaEquivalenciaMedidaComponent,
+    TablaEquivalenciaMedidaMostrarComponent
   ],
   imports: [
     BrowserModule,
@@ -417,6 +432,7 @@ const routes: Routes = [
               TransportistaService, UbicacionService, TipoContribuyenteService, VehiculoTransporteService,
               EmpresaService, EstablecimientoService, PuntoVentaService, UsuarioService, DatePipe,
               ClienteService, FacturaService, TabService, UsuariosService, DatabaseService, ProductosService,
+              TablaEquivalenciaMedidaService,
               DataService, CartService, NgImageSliderService,
               {
                 provide: LocationStrategy,
@@ -426,7 +442,7 @@ const routes: Routes = [
   entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, 
     SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteComponent,
     EstadoCivilComponent, FormaPagoComponent, GeneroComponent, OrigenIngresoComponent, PlazoCreditoComponent,
-    TipoPagoComponent]
+    TipoPagoComponent, TablaEquivalenciaMedidaComponent, UsuarioComponent, PuntoVentaComponent, EstablecimientoComponent]
 })
 export class AppModule {
   constructor() {

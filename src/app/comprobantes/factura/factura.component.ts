@@ -551,7 +551,7 @@ export class FacturaComponent implements OnInit {
       }
     });
     if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
-    if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
+    //if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
     this.costo_promedio=0;
     this.costo_ultimo=0;
     if(this.detalle.caracteristicas.length!=0){

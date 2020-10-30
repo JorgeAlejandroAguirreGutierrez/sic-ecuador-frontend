@@ -88,15 +88,15 @@ export class GrupoClienteMostrarComponent implements OnInit {
     );
   }
 
-  cambiar_buscar_grupo_cliente_codigo(){
+  cambiar_buscar_codigo(){
 
   }
 
-  cambiar_buscar_grupo_cliente_descripcion(){
+  cambiar_buscar_descripcion(){
 
   }
 
-  cambiar_buscar_grupo_cliente_abreviatura(){
+  cambiar_buscar_abreviatura(){
 
   }
 

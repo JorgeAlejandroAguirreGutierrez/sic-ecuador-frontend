@@ -22,43 +22,43 @@
         <div class="form-group col-4">
             <mat-form-field appearance="standard" class="grande">
                 <mat-label>Codigo</mat-label>
-                <input matInput type="text" [(ngModel)]="genero_buscar.codigo" (change)="cambiar_buscar_codigo()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                <input matInput type="text" [(ngModel)]="empresa_buscar.codigo" (change)="cambiar_buscar_codigo()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
             </mat-form-field>
         </div>
         <div class="form-group col-4">
             <mat-form-field appearance="standard" class="grande">
-                <mat-label>Descripcion</mat-label>
-                <input matInput type="text" [(ngModel)]="genero_buscar.descripcion" (change)="cambiar_buscar_descripcion()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                <mat-label>Identificacion</mat-label>
+                <input matInput type="text" [(ngModel)]="empresa_buscar.identificacion" (change)="cambiar_buscar_identificacion()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
             </mat-form-field>
         </div>
         <div class="form-group col-4">
             <mat-form-field appearance="standard" class="grande">
-                <mat-label>Abreviatura</mat-label>
-                <input matInput type="text" [(ngModel)]="genero_buscar.abreviatura" (change)="cambiar_buscar_abreviatura()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                <mat-label>Razon Social</mat-label>
+                <input matInput type="text" [(ngModel)]="empresa_buscar.razon_social" (change)="cambiar_buscar_razon_social()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
             </mat-form-field>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <h2>GENEROS</h2>
+            <h2>EMPRESAS</h2>
             <hr>
             <table class="table table-hover table-bordered" style="font-size: 0.7rem">
                 <thead class="table-active">
                     <tr>
                         <th>SEL</th>
                         <th>COD</th>
-                        <th>DESCRIPCION</th>
-                        <th>ABREVIATURA</th>
+                        <th>IDENTIFICACION</th>
+                        <th>RAZON SOCIAL</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let genero of generos">
+                    <tr *ngFor="let empresa of empresas">
                         <td>
-                            <input type="radio" name="seleccion" (click)="seleccion(genero)">
+                            <input type="radio" name="seleccion" (click)="seleccion(empresa)">
                         </td>
-                        <td>{{genero.codigo}}</td>
-                        <td>{{genero.descripcion}}</td>
-                        <td>{{genero.abreviatura}}</td>
+                        <td>{{empresa.codigo}}</td>
+                        <td>{{empresa.identificacion}}</td>
+                        <td>{{empresa.razon_social}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -20,6 +20,9 @@ export const error_cantidad: string='ERROR EN CANTIDAD';
 export const error_costo_unitario: string='ERROR EN COSTO UNITARIO';
 export const error_costo_total: string='ERROR EN COSTO TOTAL';
 export const error_producto: string='ERROR EN EL PRODUCTO';
-
-//TABLAS EN BASE DE DATOS
+export const error_kardex: string='ERROR KARDEX EXISTENTE';
+export const error_swal='error';
+export const error='Error';
+export const exito_swal='success';
+export const exito='Exito';
 

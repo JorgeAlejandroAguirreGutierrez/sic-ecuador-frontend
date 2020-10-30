@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { TabService } from '../../componentes/services/tab.service';
 import { EstadoCivil } from '../../modelos/estado-civil';
 import { EstadoCivilService } from '../../servicios/estado-civil.service';
+import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -30,11 +31,11 @@ export class EstadoCivilComponent implements OnInit {
       event.preventDefault();
     this.estadoCivilService.crear(this.estado_civil).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.nuevo(null);
 
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.exito_swal)
     );
   }
 
@@ -43,20 +44,20 @@ export class EstadoCivilComponent implements OnInit {
       event.preventDefault();
     this.estadoCivilService.actualizar(this.estado_civil).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.estado_civil=res.resultado as EstadoCivil;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(estado_civil: EstadoCivil) {
     this.estadoCivilService.eliminar(estado_civil).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.error_swal);
         this.estado_civil=res.resultado as EstadoCivil
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.exito, err.error.mensaje, constantes.exito_swal)
     );
   }
 
@@ -68,7 +69,7 @@ export class EstadoCivilComponent implements OnInit {
         res => {
           Object.assign(this.estado_civil, res.resultado as EstadoCivil);
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.exito, err.error.mensaje, constantes.exito_swal)
       );
     }
   }

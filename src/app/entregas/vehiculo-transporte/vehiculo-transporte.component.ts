@@ -3,6 +3,7 @@ import { VehiculoTransporteService } from '../../servicios/vehiculo-transporte.s
 import { VehiculoTransporte } from '../../modelos/vehiculo-transporte';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
+import * as constantes from '../../constantes';
 
 @Component({
   selector: 'app-vehiculo-transporte',
@@ -21,7 +22,8 @@ export class VehiculoTransporteComponent implements OnInit {
     this.vehiculoTransporteService.consultar().subscribe(
       res=>{
         this.ubicaciones= res.resultado as VehiculoTransporte[]
-      }
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -52,22 +54,22 @@ export class VehiculoTransporteComponent implements OnInit {
   crear() {
     this.vehiculoTransporteService.crear(this.vehiculo_transporte).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.vehiculo_transporte=res.resultado as VehiculoTransporte;
         this.ngOnInit();
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   actualizar(vehiculo_transporte: VehiculoTransporte) {
     this.vehiculoTransporteService.actualizar(vehiculo_transporte).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.vehiculo_transporte=res.resultado as VehiculoTransporte;
         this.ngOnInit();
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -78,7 +80,7 @@ export class VehiculoTransporteComponent implements OnInit {
         this.vehiculo_transporte=res.resultado as VehiculoTransporte
         this.ngOnInit();
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 

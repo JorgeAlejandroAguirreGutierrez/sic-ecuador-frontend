@@ -7,6 +7,7 @@ import { TabService } from "../../../componentes/services/tab.service";
 import { EstadoCivilComponent } from '../estado-civil.component';
 import { EstadoCivilService } from '../../../servicios/estado-civil.service';
 import { EstadoCivil } from '../../../modelos/estado-civil';
+import * as constantes from '../../../constantes';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class EstadoCivilMostrarComponent implements OnInit {
       res => {
         this.estados_civiles = res.resultado as EstadoCivil[]
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -51,7 +52,7 @@ export class EstadoCivilMostrarComponent implements OnInit {
           if (res.resultado!=null) {
             this.estados_civiles = res.resultado as EstadoCivil[]
           } else {
-            Swal.fire('Error', res.mensaje, 'error');
+            Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
           }
         }
       );
@@ -73,7 +74,7 @@ export class EstadoCivilMostrarComponent implements OnInit {
       this.estadoCivilService.enviar(this.estado_civil.id);
       this.tabService.addNewTab(this.ComponenteEstadoCivil,'Actualizar Estado Civil');
     } else {
-      Swal.fire('Error', "Selecciona un Estado Civil", 'error');
+      Swal.fire(constantes.error, "Selecciona un Estado Civil", constantes.error_swal);
     }
   }
 
@@ -83,13 +84,13 @@ export class EstadoCivilMostrarComponent implements OnInit {
     this.estadoCivilService.eliminar(this.estado_civil).subscribe(
       res => {
         if (res.resultado!=null){
-          Swal.fire('Exito', res.mensaje, 'success');
+          Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.estado_civil = res.resultado as EstadoCivil
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }        
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 

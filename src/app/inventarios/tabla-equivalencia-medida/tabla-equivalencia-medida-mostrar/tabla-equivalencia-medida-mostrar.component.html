@@ -1,0 +1,75 @@
+<nav class="navbar-light nav-fijo">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
+                <fa-icon [icon]="['fas', 'search']"></fa-icon>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
+                <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="eliminar($event)">
+                <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="contenedor">
+    <div class="form-row">
+        <div class="form-group col-3">
+            <mat-form-field appearance="standard" class="grande">
+                <mat-label>Codigo</mat-label>
+                <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida_buscar.codigo" (change)="cambiar_buscar_codigo()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+            </mat-form-field>
+        </div>
+        <div class="form-group col-3">
+            <mat-form-field appearance="standard" class="grande">
+                <mat-label>Medida 1</mat-label>
+                <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida_buscar.medida1.descripcion" (change)="cambiar_buscar_medida1()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+            </mat-form-field>
+        </div>
+        <div class="form-group col-3">
+            <mat-form-field appearance="standard" class="grande">
+                <mat-label>Medida 2</mat-label>
+                <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida_buscar.medida2.descripcion" (change)="cambiar_buscar_medida2()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+            </mat-form-field>
+        </div>
+        <div class="form-group col-3">
+            <mat-form-field appearance="standard" class="grande">
+                <mat-label>Equivalencia</mat-label>
+                <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida_buscar.equivalencia" (change)="cambiar_buscar_equivalencia()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h2>TABLAS EQUIVALENCIAS MEDIDAS</h2>
+            <hr>
+            <table class="table table-hover table-bordered" style="font-size: 0.7rem">
+                <thead class="table-active">
+                    <tr>
+                        <th>SEL</th>
+                        <th>COD</th>
+                        <th>MEDIDA 1</th>
+                        <th>MEDIDA 2</th>
+                        <th>EQUIVALENCIA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tabla_equivalencia_medida of tablas_equivalencias_medidas">
+                        <td>
+                            <input type="radio" name="seleccion" (click)="seleccion(tabla_equivalencia_medida)">
+                        </td>
+                        <td>{{tabla_equivalencia_medida.codigo}}</td>
+                        <td>{{tabla_equivalencia_medida.medida1.descripcion}}</td>
+                        <td>{{tabla_equivalencia_medida.medida2.descripcion}}</td>
+                        <td>{{tabla_equivalencia_medida.equivalencia}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

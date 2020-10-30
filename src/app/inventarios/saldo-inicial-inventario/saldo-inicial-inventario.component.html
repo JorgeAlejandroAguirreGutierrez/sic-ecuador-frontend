@@ -36,19 +36,28 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-4">
+                                <div class="form-group col-3">
+                                    <mat-form-field appearance="standard">
+                                        <mat-label>Medida</mat-label>
+                                        <mat-select [(ngModel)]="kardex.medida">
+                                            <mat-option *ngFor="let medida of medidas" [value]="medida">
+                                                {{medida.descripcion}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group col-3">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Cantidad</mat-label>
                                         <input matInput type="text" [(ngModel)]="kardex.cantidad" (change)="seleccionar_cantidad()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
-                                <div class="form-group col-4">
+                                <div class="form-group col-3">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Costo unitario</mat-label>
                                         <input matInput type="text" [(ngModel)]="kardex.costo_unitario" (change)="seleccionar_costo_unitario()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
-                                <div class="form-group col-4">
+                                <div class="form-group col-3">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Costo total</mat-label>
                                         <input matInput type="text" [(ngModel)]="kardex.costo_total" class="form-control-sm" [disabled]=true>

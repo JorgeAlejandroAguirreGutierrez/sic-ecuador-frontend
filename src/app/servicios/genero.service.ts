@@ -6,7 +6,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { map, catchError, switchAll } from 'rxjs/operators';
 import { of, Observable, throwError, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { environment } from '../../environments/environment';
 
 @Injectable({

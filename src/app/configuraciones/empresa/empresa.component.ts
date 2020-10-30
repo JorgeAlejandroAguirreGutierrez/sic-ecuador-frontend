@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-empresa',
   templateUrl: './empresa.component.html',
-  styleUrls: ['./empresa.component.css']
+  styleUrls: ['./empresa.component.scss']
 })
 export class EmpresaComponent implements OnInit {
 
@@ -47,7 +47,14 @@ export class EmpresaComponent implements OnInit {
     }
   }
 
-  crear() {
+  nuevo(event){
+    if (event!=null)
+      event.preventDefault();
+  }
+
+  crear(event) {
+    if (event!=null)
+      event.preventDefault();
     this.empresaService.crear(this.empresa).subscribe(
       res => {
         console.log(res);

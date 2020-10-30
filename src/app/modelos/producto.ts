@@ -1,5 +1,4 @@
 import { TipoProducto } from './tipo-producto';
-import { Precio } from './precio';
 import { Kardex } from './kardex';
 import { Impuesto } from './impuesto';
 import { Caracteristica } from './caracteristica';
@@ -11,6 +10,7 @@ import { CategoriaProducto } from './categoria-producto';
 import { GrupoProducto } from './grupo-producto';
 import { LineaProducto } from './linea-producto';
 import { SubLineaProducto } from './sub-linea-producto';
+import { MedidaPrecio } from './medida-precio';
 
 export class Producto {
   id: number;
@@ -36,7 +36,7 @@ export class Producto {
   //HASMANY
   caracteristicas: Caracteristica[];
   kardexs: Kardex[];
-  precios: Precio[];
+  medidas_precios: MedidaPrecio[];
 
   constructor() {
     this.id=0;
@@ -45,7 +45,7 @@ export class Producto {
     this.serie_autogenerado=0;
     this.stock_total=0;
     this.estado=0;
-    this.precios=[];
+    this.medidas_precios=[];
     this.caracteristicas=[];
     this.kardexs=[];
     this.tipo_producto=new TipoProducto();
