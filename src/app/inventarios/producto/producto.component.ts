@@ -182,7 +182,7 @@ export class ProductoComponent implements OnInit {
     return this.arrayCantidadMedida;
   }
 
-  private filtro_medida_tabla(value: number): any[] {
+  filtro_medida_tabla(value: number): any[] {
     this.datosMedida = this.datosPrueba.filter(datosFiltro => datosFiltro.posicion === value);
     console.info(this.datosMedida);
     return this.datosMedida;
@@ -687,6 +687,10 @@ export class ProductoComponent implements OnInit {
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.router.navigate([actual]);
       });
+  }
+
+  openDialog(){
+
   }
 }
 

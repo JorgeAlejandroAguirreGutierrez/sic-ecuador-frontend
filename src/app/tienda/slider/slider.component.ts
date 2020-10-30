@@ -10,7 +10,7 @@ import { NgImageSliderModule, NgImageSliderComponent } from 'ng-image-slider';
 })
 export class SliderComponent implements OnInit {
   //slider
-  @ViewChild('nav', {static: false}) ds: NgImageSliderComponent;
+  @ViewChild('nav') ds: NgImageSliderComponent;
   title = 'Ng Image Slider';
   showSlider = true;
 

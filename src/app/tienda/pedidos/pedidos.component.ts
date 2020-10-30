@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Product } from '../shared/product.model';
 import { ProductosService } from '../service/productos.service';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/Rx';
+import { Subscription } from 'rxjs';
+//import 'rxjs/Rx';
 
 @Component({
   selector: 'app-pedidos',

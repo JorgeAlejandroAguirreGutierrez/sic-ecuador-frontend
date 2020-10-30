@@ -2,8 +2,9 @@ import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angu
 import { DatePipe } from '@angular/common';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource, DateAdapter, MAT_DATE_FORMATS, MatStepper } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';

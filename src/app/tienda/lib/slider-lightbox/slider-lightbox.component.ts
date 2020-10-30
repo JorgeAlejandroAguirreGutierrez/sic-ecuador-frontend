@@ -43,8 +43,8 @@ export class SliderLightboxComponent implements OnInit, AfterViewInit, OnDestroy
     private swipeLightboxImgCoord?: [number, number];
     private swipeLightboxImgTime?: number;
 
-    @ViewChild('lightboxDiv', { static: false }) lightboxDiv;
-    @ViewChild('lightboxImageDiv', { static: false }) lightboxImageDiv;
+    @ViewChild('lightboxDiv') lightboxDiv;
+    @ViewChild('lightboxImageDiv') lightboxImageDiv;
 
     // @Inputs
     @Input() images: any = [];

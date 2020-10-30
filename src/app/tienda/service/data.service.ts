@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { DATA } from '../mock-data';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+//import 'rxjs/Rx';
+//Para version 5
+//import 'rxjs/add/observable/throw';
+//import 'rxjs/add/operator/catch';
+//import 'rxjs/add/operator/map';
 
 @Injectable()
 export class DataService {
@@ -38,7 +40,7 @@ export class DataService {
     const errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
-    return Observable.throw(errMsg);
+    return Observable.throwError(errMsg);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DatabaseService } from '../db/database.service';
 import { Usuario } from '../shared/usuario';
-import 'rxjs/Rx';
+//import 'rxjs/Rx';
 
 @Injectable()
 export class UsuariosService{

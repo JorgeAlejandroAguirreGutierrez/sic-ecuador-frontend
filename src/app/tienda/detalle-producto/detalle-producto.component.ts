@@ -16,7 +16,7 @@ export class DetalleProductoComponent implements OnInit {
 
   selectedImage: any;
 
-  @ViewChild('nav', {static: false}) ds: NgImageSliderComponent;
+  @ViewChild('nav') ds: NgImageSliderComponent;
   title = 'Ng Image Slider';
   showSlider = true;
 

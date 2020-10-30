@@ -1,7 +1,9 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatTableDataSource, MatPaginator, MatStepper } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatStepper } from '@angular/material/stepper';
 import {Observable} from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -33,7 +35,7 @@ import { CaracteristicaService } from '../../servicios/caracteristica.service';
 })
 export class FacturaComponent implements OnInit {
 
-  @ViewChild('stepper',{static: false}) stepper: MatStepper;
+  @ViewChild('stepper') stepper: MatStepper;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   collapsed = true;

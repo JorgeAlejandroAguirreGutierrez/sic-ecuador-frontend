@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { DatabaseService } from '../db/database.service';
 import { Product } from '../shared/product.model';
 import { HttpClient } from '@angular/common/http';
-import 'rxjs/Rx';
-import { Subject } from 'rxjs/Subject';
+//import 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class ProductosService {

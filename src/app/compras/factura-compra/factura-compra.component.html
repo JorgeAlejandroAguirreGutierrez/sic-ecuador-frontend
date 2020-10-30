@@ -6,29 +6,29 @@
             <nav class="navbar-light nav-fijo">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
-                            <fa-icon [icon]="['fas', 'file']"></fa-icon>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#" role="button" (click)="crear($event)"
                             *ngIf="cliente.id==0; else block_actualizar">
-                            <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                            <mat-icon>save</mat-icon>
                         </a>
                         <ng-template #block_actualizar>
                             <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
-                                <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                                <mat-icon>update</mat-icon>
                             </a>
                         </ng-template>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
-                            <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
+                        <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
+                            <mat-icon>note_add</mat-icon>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
-                            <fa-icon [icon]="['fas', 'file-export']"></fa-icon>
+                            <mat-icon>archive</mat-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                            <mat-icon>publish</mat-icon>
                         </a>
                     </li>
                 </ul>
@@ -264,10 +264,10 @@
                             <div class="form-group col-1 ">
                                 <br>
                                 <button class="btn btn-primary btn-circle " disabled>
-                                    <fa-icon [icon]="[ 'fas', 'eye'] "></fa-icon>
+                                    <mat-icon>visibility</mat-icon>
                                 </button>&nbsp;&nbsp;
                                 <button class="btn btn-primary btn-circle" (click)="agregar_factura_detalle()">
-                                    <fa-icon [icon]="[ 'fas', 'plus'] "></fa-icon>
+                                    <mat-icon>add</mat-icon>
                                 </button>
                             </div>
                             <div class="form-row">
@@ -735,7 +735,7 @@
                         </td>
                         <td>
                             <button class="btn btn-primary btn-circle " (click)="eliminar_telefono(i) ">
-                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                <mat-icon>phonelink_erase</mat-icon>
                             </button>
                         </td>
                     </tr>
@@ -770,7 +770,7 @@
                         </td>
                         <td>
                             <button class="btn btn-primary btn-circle " (click)="eliminar_celular(i) ">
-                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                <mat-icon>phonelink_erase</mat-icon>
                             </button>
                         </td>
                     </tr>
@@ -805,7 +805,7 @@
                         </td>
                         <td>
                             <button class="btn btn-primary btn-circle " (click)="eliminar_correo(i) ">
-                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                <mat-icon>unsubscribe</mat-icon>
                             </button>
                         </td>
                     </tr>
@@ -858,7 +858,7 @@
                         </td>
                         <td>
                             <button class="btn btn-primary btn-circle " (click)="eliminar_auxiliar(i) ">
-                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                <mat-icon>person_remove</mat-icon>
                             </button>
                         </td>
                     </tr>
@@ -903,7 +903,7 @@
                                         <td>
                                             <button class="btn btn-primary btn-circle "
                                                 (click)="eliminar_telefono_auxiliar(i) ">
-                                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                                <mat-icon>phonelink_erase</mat-icon>
                                             </button>
                                         </td>
                                     </tr>
@@ -952,7 +952,7 @@
                                         <td>
                                             <button class="btn btn-primary btn-circle "
                                                 (click)="eliminar_celular_auxiliar(i) ">
-                                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                                <mat-icon>phonelink_erase</mat-icon>
                                             </button>
                                         </td>
                                     </tr>
@@ -1001,7 +1001,7 @@
                                         <td>
                                             <button class="btn btn-primary btn-circle "
                                                 (click)="eliminar_correo_auxiliar(i) ">
-                                                <fa-icon [icon]="[ 'fas', 'trash'] "></fa-icon>
+                                                <mat-icon>person_remove</mat-icon>
                                             </button>
                                         </td>
                                     </tr>
