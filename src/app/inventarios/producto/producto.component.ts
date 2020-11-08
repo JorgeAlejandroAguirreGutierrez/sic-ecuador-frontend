@@ -99,7 +99,7 @@ export class ProductoComponent implements OnInit {
 
   constructor(private productoService: ProductoService, private grupoProductoService: GrupoProductoService, private kardexService: KardexService,
     private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService, private router: Router, private modalService: NgbModal,
-    private segmentoService: SegmentoService, private tipoProductoService: TipoProductoService, 
+    private segmentoService: SegmentoService, private tipoProductoService: TipoProductoService,
     private tabService: TabService, private medidaService: MedidaService, private tablaEquivalenciaService: TablaEquivalenciaMedidaService) { }
 
   ngOnInit() {
@@ -283,6 +283,9 @@ export class ProductoComponent implements OnInit {
   nuevo(event){
     if (event!=null)
       event.preventDefault();
+      let indice_tab_activo= this.tab_activo();
+      this.tabService.removeTab(indice_tab_activo);
+      this.tabService.addNewTab(ProductoComponent, "Crear Producto");
   }
   
   crear(event){
@@ -645,6 +648,14 @@ export class ProductoComponent implements OnInit {
 
   openDialog(){
 
+  }
+
+  private tab_activo(){
+    for(let i=0; i<this.tabService.tabs.length; i++){
+      if(this.tabService.tabs[i].active){
+        return i;
+      }
+    }
   }
 }
 

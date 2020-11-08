@@ -23,7 +23,7 @@ export class EstadoCivilComponent implements OnInit {
   nuevo(event) {
     if (event!=null)
       event.preventDefault();
-    this.estado_civil = new EstadoCivil();
+    this.tabService.addNewTab(EstadoCivilComponent, constantes.tab_crear_estado_civil);
   }
 
   crear(event) {
@@ -32,8 +32,6 @@ export class EstadoCivilComponent implements OnInit {
     this.estadoCivilService.crear(this.estado_civil).subscribe(
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.nuevo(null);
-
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.exito_swal)
     );

@@ -23,7 +23,7 @@ export class FormaPagoComponent implements OnInit {
   nuevo(event) {
     if (event!=null)
       event.preventDefault();
-    this.forma_pago = new FormaPago();
+    this.tabService.addNewTab(FormaPagoComponent, constantes.tab_crear_cliente);
   }
 
   crear(event) {
@@ -32,8 +32,6 @@ export class FormaPagoComponent implements OnInit {
     this.formaPagoService.crear(this.forma_pago).subscribe(
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.nuevo(null);
-
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );

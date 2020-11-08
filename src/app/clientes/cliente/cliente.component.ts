@@ -39,6 +39,7 @@ import { TipoContribuyenteService } from '../../servicios/tipo-contribuyente.ser
 import { TelefonoAuxiliar } from '../../modelos/telefono-auxiliar';
 import { CorreoAuxiliar } from '../../modelos/correo-auxiliar';
 import { CelularAuxiliar } from '../../modelos/celular-auxiliar';
+import { TabService } from '../../componentes/services/tab.service';
 
 @Component({
   selector: 'app-cliente',
@@ -108,7 +109,7 @@ export class ClienteComponent implements OnInit {
     private categoriaClienteService: CategoriaClienteService, private plazoCreditoService: PlazoCreditoService,
     private tipoPagoService: TipoPagoService, private formaPagoService: FormaPagoService,
     private ubicacionService: UbicacionService, private grupoClienteService: GrupoClienteService,
-    private tipoRetencionService: TipoRetencionService, private router: Router,
+    private tipoRetencionService: TipoRetencionService, private router: Router, private tabService: TabService,
     private sesionService: SesionService, private empresaService: EmpresaService,
     private tipoContribuyenteService: TipoContribuyenteService, private modalService: NgbModal) { }
 
@@ -247,7 +248,7 @@ export class ClienteComponent implements OnInit {
     if (($event.shiftKey || $event.metaKey) && $event.keyCode == 78)
       this.nuevo(null);
     if (($event.shiftKey || $event.metaKey) && $event.keyCode == 69)
-    console.log('SHIFT + E');
+      console.log('SHIFT + E');
     if (($event.shiftKey || $event.metaKey) && $event.keyCode == 66)
       console.log('SHIFT + B');
     if (($event.shiftKey || $event.metaKey) && $event.keyCode == 65)
@@ -303,7 +304,7 @@ export class ClienteComponent implements OnInit {
   nuevo(event) {
     if (event!=null)
       event.preventDefault();
-    this.cliente= new Cliente();
+      this.tabService.addNewTab(ClienteComponent, constantes.tab_crear_cliente);
   }
 
   open(content: any, event) {
@@ -364,7 +365,7 @@ export class ClienteComponent implements OnInit {
   obtener_tipo_contribuyente(){
     for (let i=0; i<this.tipos_contribuyentes.length; i++){
       if (this.cliente.tipo_contribuyente.id==this.tipos_contribuyentes[i].id)
-      return this.tipos_contribuyentes[i];
+        return this.tipos_contribuyentes[i];
     }
   }
 
@@ -529,7 +530,10 @@ export class ClienteComponent implements OnInit {
       res => {
         if (res.resultado!= null) {
           Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-          this.cliente_crear = res.resultado as Cliente;
+          let indice_tab_activo= constantes.tab_activo(this.tabService);
+          this.tabService.removeTab(indice_tab_activo);
+          this.tabService.addNewTab(ClienteComponent, constantes.tab_crear_cliente);
+          /*this.cliente_crear = res.resultado as Cliente;
           this.auxiliar_cantones=[];
           this.auxiliar_parroquias=[];
           this.indice_tipo_contribuyente=-1;
@@ -547,7 +551,7 @@ export class ClienteComponent implements OnInit {
           this.auxiliar_telefono=new TelefonoAuxiliar();
           this.auxiliar_celular=new CelularAuxiliar();
           this.auxiliar_correo=new CorreoAuxiliar();
-          this.auxiliar=new Auxiliar();
+          this.auxiliar=new Auxiliar();*/
 
         } else {
           Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
@@ -597,7 +601,7 @@ export class ClienteComponent implements OnInit {
       res => {
         if (res.resultado!= null) {
           Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-          this.cliente_actualizar = res.resultado as Cliente;
+          this.cliente = res.resultado as Cliente;
           this.auxiliar_cantones=[];
           this.auxiliar_parroquias=[];
           
