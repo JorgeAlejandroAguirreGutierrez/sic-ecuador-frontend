@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { OrigenIngresoService } from '../../servicios/origen-ingreso.service';
 import { OrigenIngreso } from '../../modelos/origen-ingreso';
 import { TabService } from '../../componentes/services/tab.service';
+import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +23,7 @@ export class OrigenIngresoComponent implements OnInit {
   nuevo(event) {
     if (event!=null)
       event.preventDefault();
-    this.origen_ingreso = new OrigenIngreso();
+    this.tabService.addNewTab(OrigenIngresoComponent, constantes.tab_crear_origen_ingreso);
   }
 
   crear(event) {
@@ -30,10 +31,9 @@ export class OrigenIngresoComponent implements OnInit {
       event.preventDefault();
     this.origenIngresoService.crear(this.origen_ingreso).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
-        this.nuevo(null);
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -42,20 +42,20 @@ export class OrigenIngresoComponent implements OnInit {
       event.preventDefault();
     this.origenIngresoService.actualizar(this.origen_ingreso).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.origen_ingreso=res.resultado as OrigenIngreso;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(origen_ingreso: OrigenIngreso) {
     this.origenIngresoService.eliminar(origen_ingreso).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.origen_ingreso=res.resultado as OrigenIngreso
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -67,7 +67,7 @@ export class OrigenIngresoComponent implements OnInit {
         res => {
           Object.assign(this.origen_ingreso, res.resultado as OrigenIngreso);
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
   }

@@ -3,8 +3,8 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { UbicacionService } from '../../servicios/ubicacion.service';
 import { Ubicacion } from '../../modelos/ubicacion';
-import { Tab } from '../../modelos/tab.model';
 import { TabService } from '../../componentes/services/tab.service';
+import * as constantes from '../../constantes';
 
 @Component({
   selector: 'app-ubicacion',
@@ -15,7 +15,7 @@ export class UbicacionComponent implements OnInit {
 
   ubicacion= new Ubicacion();
 
-  constructor(private tabService: TabService,private ubicacionService: UbicacionService, private modalService: NgbModal) { }
+  constructor(private tabService: TabService,private ubicacionService: UbicacionService) { }
 
   ngOnInit() {
     this.construir_ubicacion();
@@ -32,11 +32,11 @@ export class UbicacionComponent implements OnInit {
       event.preventDefault();
     this.ubicacionService.crear(this.ubicacion).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.nuevo(null);
 
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -45,20 +45,20 @@ export class UbicacionComponent implements OnInit {
       event.preventDefault();
     this.ubicacionService.actualizar(this.ubicacion).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.ubicacion=res.resultado as Ubicacion;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(ubicacion: Ubicacion) {
     this.ubicacionService.eliminar(ubicacion).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.ubicacion=res.resultado as Ubicacion
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -70,7 +70,7 @@ export class UbicacionComponent implements OnInit {
         res => {
           Object.assign(this.ubicacion, res.resultado as Ubicacion);
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
   }

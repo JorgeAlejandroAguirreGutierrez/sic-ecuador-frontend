@@ -88,7 +88,6 @@ export class FacturaComponent implements OnInit {
   columnasDetalleFactura: string[] = ['nombre', 'entregado', 'descripcion', 'cantidad', 'valor', 'descuento'
     , 'desc_por', 'desc_sub', 'desc_por_sub', 'desc_tot', 'desc_por_tot', 'impuesto', 'total', 'serie','acciones'];
   data_detalle_factura = new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
-  data_detalle_factura_prueba = new MatTableDataSource<any>(this.Datos_prueba);
 
   clientes: Cliente[]=[];
   auxiliares: Auxiliar[]= [];
@@ -142,7 +141,7 @@ export class FacturaComponent implements OnInit {
     this.consultar_impuestos();
     this.consultar_bodegas();
 
-    this.data_detalle_factura_prueba.paginator = this.paginator;
+    this.data_detalle_factura.paginator = this.paginator;
 
     this.firstFormGroup = new FormGroup({
       firstCtrl: new FormControl()

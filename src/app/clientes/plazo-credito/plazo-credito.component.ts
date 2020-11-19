@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, HostListener} from '@angular/core';
 import { PlazoCreditoService } from '../../servicios/plazo-credito.service';
 import { PlazoCredito } from '../../modelos/plazo-credito';
 import { TabService } from '../../componentes/services/tab.service';
+import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +23,7 @@ export class PlazoCreditoComponent implements OnInit {
   nuevo(event) {
     if (event!=null)
       event.preventDefault();
-    this.plazo_credito = new PlazoCredito();
+    this.tabService.addNewTab(PlazoCreditoComponent, constantes.tab_crear_plazo_credito);
   }
 
   crear(event) {
@@ -30,10 +31,10 @@ export class PlazoCreditoComponent implements OnInit {
       event.preventDefault();
     this.plazoCreditoService.crear(this.plazo_credito).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.nuevo(null);
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -42,20 +43,20 @@ export class PlazoCreditoComponent implements OnInit {
       event.preventDefault();
     this.plazoCreditoService.actualizar(this.plazo_credito).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.plazo_credito=res.resultado as PlazoCredito;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(plazo_credito: PlazoCredito) {
     this.plazoCreditoService.eliminar(plazo_credito).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.plazo_credito=res.resultado as PlazoCredito
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -67,7 +68,7 @@ export class PlazoCreditoComponent implements OnInit {
         res => {
           Object.assign(this.plazo_credito, res.resultado as PlazoCredito);
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
   }

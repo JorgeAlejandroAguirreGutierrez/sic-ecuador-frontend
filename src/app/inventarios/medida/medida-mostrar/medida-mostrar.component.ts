@@ -4,30 +4,30 @@ import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
-import { OrigenIngresoComponent } from '../origen-ingreso.component';
-import { OrigenIngresoService } from '../../../servicios/origen-ingreso.service';
-import { OrigenIngreso } from '../../../modelos/origen-ingreso';
+import { MedidaComponent } from '../medida.component';
+import { MedidaService } from '../../../servicios/medida.service';
+import { Medida } from '../../../modelos/medida';
 import * as constantes from '../../../constantes';
 
 
 @Component({
-  selector: 'app-origen-ingreso-mostrar',
-  templateUrl: './origen-ingreso-mostrar.component.html',
-  styleUrls: ['./origen-ingreso-mostrar.component.scss']
+  selector: 'app-medida-mostrar',
+  templateUrl: './medida-mostrar.component.html',
+  styleUrls: ['./medida-mostrar.component.scss']
 })
-export class OrigenIngresoMostrarComponent implements OnInit {
+export class MedidaMostrarComponent implements OnInit {
 
   collapsed = true;
-  ComponenteOrigenIngreso: Type<any> = OrigenIngresoComponent;
+  ComponenteMedida: Type<any> = MedidaComponent;
 
   sesion: Sesion;
 
-  constructor(private origenIngresoService: OrigenIngresoService, private tabService: TabService, 
+  constructor(private medidaService: MedidaService, private tabService: TabService, 
     private sesionService: SesionService,private router: Router) { }
 
-  origenes_ingresos: OrigenIngreso[];
-  origen_ingreso: OrigenIngreso;
-  origen_ingreso_buscar: OrigenIngreso=new OrigenIngreso();
+  medidas: Medida[];
+  medida: Medida;
+  medida_buscar: Medida=new Medida();
 
 
   ngOnInit() {
@@ -36,9 +36,9 @@ export class OrigenIngresoMostrarComponent implements OnInit {
   }
 
   consultar() {
-    this.origenIngresoService.consultar().subscribe(
+    this.medidaService.consultar().subscribe(
       res => {
-        this.origenes_ingresos = res.resultado as OrigenIngreso[]
+        this.medidas = res.resultado as Medida[]
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
@@ -47,10 +47,10 @@ export class OrigenIngresoMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-      this.origenIngresoService.buscar(this.origen_ingreso_buscar).subscribe(
+      this.medidaService.buscar(this.medida_buscar).subscribe(
         res => {
           if (res.resultado!=null) {
-            this.origenes_ingresos = res.resultado as OrigenIngreso[]
+            this.medidas = res.resultado as Medida[]
           } else {
             Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
           }
@@ -58,35 +58,34 @@ export class OrigenIngresoMostrarComponent implements OnInit {
       );
   }
 
-  seleccion(origen_ingreso: OrigenIngreso) {
-    this.origen_ingreso=origen_ingreso;
+  seleccion(medida: Medida) {
+    this.medida=medida;
   }
 
   nuevo(event){
     if (event!=null)
       event.preventDefault();
-    this.tabService.addNewTab(OrigenIngresoComponent, constantes.tab_crear_origen_ingreso);
   }
 
   actualizar(event){
     if (event!=null)
       event.preventDefault();
-    if (this.origen_ingreso != null){
-      this.origenIngresoService.enviar(this.origen_ingreso.id);
-      this.tabService.addNewTab(this.ComponenteOrigenIngreso, constantes.tab_actualizar_origen_ingreso);
+    if (this.medida != null){
+      this.medidaService.enviar(this.medida.id);
+      this.tabService.addNewTab(this.ComponenteMedida, constantes.tab_actualizar_medida);
     } else {
-      Swal.fire(constantes.error, "Selecciona un Origen de Ingreso", constantes.error_swal);
+      Swal.fire(constantes.error, "Selecciona un Estado Civil", constantes.error_swal);
     }
   }
 
   eliminar(event) {
     if (event!=null)
       event.preventDefault();
-    this.origenIngresoService.eliminar(this.origen_ingreso).subscribe(
+    this.medidaService.eliminar(this.medida).subscribe(
       res => {
         if (res.resultado!=null){
           Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-          this.origen_ingreso = res.resultado as OrigenIngreso
+          this.medida = res.resultado as Medida
         } else {
           Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }        

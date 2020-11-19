@@ -124,6 +124,54 @@ export const tab_buscar_usuario='Buscar Usuario';
 export const tab_buscar_establecimiento='Buscar Establecimiento';
 export const tab_buscar_punto_venta='Buscar Punto de Venta';
 
+//ACTUALIZAR
+export const tab_actualizar_auxiliar='Actualizar Auxiliar';
+export const tab_actualizar_categoria_cliente='Actualizar Categoria Cliente';
+export const tab_actualizar_celular='Actualizar Celular';
+export const tab_actualizar_cliente='Actualizar Cliente';
+export const tab_actualizar_correo='Actualizar Correo';
+export const tab_actualizar_direccion='Actualizar Direccion';
+export const tab_actualizar_estado_civil='Actualizar estado_civil';
+export const tab_actualizar_forma_pago='Actualizar Forma de Pago';
+export const tab_actualizar_genero='Actualizar Genero';
+export const tab_actualizar_grupo_cliente='Actualizar Grupo de Cliente';
+export const tab_actualizar_impuesto='Actualizar Impuesto';
+export const tab_actualizar_origen_ingreso='Actualizar Origen de Ingreso';
+export const tab_actualizar_plazo_credito='Actualizar Plazo de Credito';
+export const tab_actualizar_retencion_cliente='Actualizar Retencion Cliente';
+export const tab_actualizar_telefono='Actualizar Telefono';
+export const tab_actualizar_tipo_contribuyente='Actualizar Tipo de Contribuyente';
+export const tab_actualizar_tipo_pago='Actualizar Tipo de Pago';
+export const tab_actualizar_tipo_retencion='Actualizar Tipo de Retencion';
+export const tab_actualizar_factura_compra='Actualizar Factura de Compra';
+export const tab_actualizar_pago_compra='Actualizar Pago de Compra';
+export const tab_actualizar_proveedor='Actualizar Proveedor';
+export const tab_actualizar_egreso='Actualizar Egreso';
+export const tab_actualizar_factura='Actualizar Factura';
+export const tab_actualizar_pedido='Actualizar Pedido';
+export const tab_actualizar_proforma='Actualizar Proforma';
+export const tab_actualizar_dato_adicional='Actualizar Dato Adicional';
+export const tab_actualizar_empresa='Actualizar Empresa';
+export const tab_actualizar_exportacion='Actualizar Exportacion';
+export const tab_actualizar_importacion='Actualizar Importacion';
+export const tab_actualizar_ubicacion='Actualizar Ubicacion';
+export const tab_actualizar_contabilizacion='Actualizar Contabilizacion';
+export const tab_actualizar_cuenta='Actualizar Cuenta';
+export const tab_actualizar_entrega='Actualizar Entrega';
+export const tab_actualizar_transportista='Actualizar Transportista';
+export const tab_actualizar_vehiculo_transporte='Actualizar Vehiculo de Transporte';
+export const tab_actualizar_activo_fijo='Actualizar Activo Fijo';
+export const tab_actualizar_bodega='Actualizar Bodega';
+export const tab_actualizar_kardex='Actualizar Kardex';
+export const tab_actualizar_medida='Actualizar Medida';
+export const tab_actualizar_producto='Actualizar Producto';
+export const tab_actualizar_promocion='Actualizar Promocion';
+export const tab_actualizar_saldo_inicial_inventario='Actualizar SII';
+export const tab_actualizar_tabla_equivalencia_medida='Actualizar TEM';
+export const tab_actualizar_usuario='Actualizar Usuario';
+export const tab_actualizar_establecimiento='Actualizar Establecimiento';
+export const tab_actualizar_punto_venta='Actualizar Punto de Venta';
+
 
 //MODULOS
 export const modulo_clientes='CLIENTES';

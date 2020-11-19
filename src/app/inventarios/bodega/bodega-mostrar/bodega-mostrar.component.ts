@@ -1,33 +1,31 @@
 import { Component, OnInit, Type } from '@angular/core';
-import { Router } from '@angular/router';
 import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
-import { ProductoComponent } from '../producto.component';
-import { ProductoService } from '../../../servicios/producto.service';
-import { Producto } from '../../../modelos/producto';
+import { BodegaComponent } from '../bodega.component';
+import { BodegaService } from '../../../servicios/bodega.service';
+import { Bodega } from '../../../modelos/bodega';
 import * as constantes from '../../../constantes';
 
 
 @Component({
-  selector: 'app-producto-mostrar',
-  templateUrl: './producto-mostrar.component.html',
-  styleUrls: ['./producto-mostrar.component.css']
+  selector: 'app-bodega-mostrar',
+  templateUrl: './bodega-mostrar.component.html',
+  styleUrls: ['./bodega-mostrar.component.css']
 })
-export class ProductoMostrarComponent implements OnInit {
+export class BodegaMostrarComponent implements OnInit {
 
   collapsed = true;
-  ComponenteProducto: Type<any> = ProductoComponent;
+  ComponenteBodega: Type<any> = BodegaComponent;
 
   sesion: Sesion;
 
-  constructor(private productoService: ProductoService, private tabService: TabService, 
-    private sesionService: SesionService,private router: Router) { }
+  constructor(private bodegaService: BodegaService, private tabService: TabService, private sesionService: SesionService) { }
 
-  productos: Producto[];
-  producto: Producto;
-  producto_buscar: Producto=new Producto();
+  bodegas: Bodega[];
+  bodega: Bodega;
+  bodega_buscar: Bodega=new Bodega();
 
 
   ngOnInit() {
@@ -35,14 +33,10 @@ export class ProductoMostrarComponent implements OnInit {
     this.sesion= this.sesionService.getSesion();
   }
 
-  cambiar_buscar_producto_nombre(){
-    this.producto_buscar.nombre="";
-  }
-
   consultar() {
-    this.productoService.consultar().subscribe(
+    this.bodegaService.consultar().subscribe(
       res => {
-        this.productos = res.resultado as Producto[]
+        this.bodegas = res.resultado as Bodega[]
       }
     );
   }
@@ -50,10 +44,10 @@ export class ProductoMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-      this.productoService.buscarNombre(this.producto_buscar).subscribe(
+      this.bodegaService.buscarCodigo(this.bodega_buscar).subscribe(
         res => {
           if (res.resultado!=null) {
-            this.productos = res.resultado as Producto[]
+            this.bodegas = res.resultado as Bodega[]
           } else {
             Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
           }
@@ -61,16 +55,16 @@ export class ProductoMostrarComponent implements OnInit {
       );
   }
 
-  seleccion(producto: Producto) {
-    this.producto=producto;
+  seleccion(bodega: Bodega) {
+    this.bodega=bodega;
   }
 
   actualizar(event){
     if (event!=null)
       event.preventDefault();
-    if (this.producto != null){
-      this.productoService.enviar(this.producto.id);
-      this.tabService.addNewTab(this.ComponenteProducto, constantes.tab_actualizar_producto);
+    if (this.bodega != null){
+      this.bodegaService.enviar(this.bodega.id);
+      this.tabService.addNewTab(this.ComponenteBodega, constantes.tab_actualizar_bodega);
     } else {
       Swal.fire(constantes.error, "Selecciona un Producto", constantes.error_swal);
     }
@@ -79,11 +73,11 @@ export class ProductoMostrarComponent implements OnInit {
   eliminar(event) {
     if (event!=null)
       event.preventDefault();
-    this.productoService.eliminar(this.producto).subscribe(
+    this.bodegaService.eliminar(this.bodega).subscribe(
       res => {
         if (res.resultado!=null){
           Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-          this.producto = res.resultado as Producto
+          this.bodega = res.resultado as Bodega
           this.ngOnInit();
         } else {
           Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
@@ -91,6 +85,10 @@ export class ProductoMostrarComponent implements OnInit {
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
+  }
+
+  cambiar_buscar_codigo(){
+
   }
 
 }

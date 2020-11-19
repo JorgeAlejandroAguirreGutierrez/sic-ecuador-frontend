@@ -119,7 +119,9 @@ import { TipoContribuyenteComponent } from './clientes/tipo-contribuyente/tipo-c
 
 //Módulo de Inventarios
 import { BodegaComponent } from './inventarios/bodega/bodega.component';
+import { BodegaMostrarComponent } from './inventarios/bodega/bodega-mostrar/bodega-mostrar.component';
 import { MedidaComponent } from './inventarios/medida/medida.component';
+import { MedidaMostrarComponent } from './inventarios/medida/medida-mostrar/medida-mostrar.component';
 import { KardexComponent } from './inventarios/kardex/kardex.component';
 import { ActivoFijoComponent } from './inventarios/activo-fijo/activo-fijo.component';
 import { FiltroSerie } from './pipes/filtro-serie';
@@ -264,6 +266,8 @@ const routes: Routes = [
   {path: 'main', component: MainComponent},
   {path: 'producto', component: ProductoComponent},
   {path: 'producto-mostrar', component: ProductoMostrarComponent},
+  {path: 'inventario/medida', component: MedidaComponent},
+  {path: 'inventario/medida-mostrar', component: MedidaMostrarComponent},
   {path: 'inventario/tablaequivalenciamedida', component: TablaEquivalenciaMedidaComponent},
   {path: 'inventario/tablaequivalenciamedida-mostrar', component: TablaEquivalenciaMedidaMostrarComponent},
   {path: 'usuario', component: UsuarioComponent},
@@ -357,7 +361,9 @@ const routes: Routes = [
     PermisoComponent,
     ContabilizacionComponent,
     BodegaComponent,
+    BodegaMostrarComponent,
     MedidaComponent,
+    MedidaMostrarComponent,
     KardexComponent,
     ActivoFijoComponent,
     MainComponent,
@@ -439,10 +445,10 @@ const routes: Routes = [
                 useClass: PathLocationStrategy
               }],
   bootstrap: [AppComponent],
-  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, 
+  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, BodegaComponent, 
     SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteComponent,
     EstadoCivilComponent, FormaPagoComponent, GeneroComponent, OrigenIngresoComponent, PlazoCreditoComponent,
-    TipoPagoComponent, TablaEquivalenciaMedidaComponent, UsuarioComponent, PuntoVentaComponent, EstablecimientoComponent]
+    TipoPagoComponent, TablaEquivalenciaMedidaComponent, MedidaComponent, UsuarioComponent, PuntoVentaComponent, EstablecimientoComponent]
 })
 export class AppModule {
   constructor() {
