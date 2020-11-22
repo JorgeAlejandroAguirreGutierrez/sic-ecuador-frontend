@@ -7,6 +7,10 @@ export const tabla_amortizacion_alemana: string='ALEMANA';
 export const modelo_amortizacion: string='MODELO_AMORTIZACION';
 export const periodicidad: string='PERIODICIDAD';
 export const periodo: string='PERIODO';
+
+export const exito_agregar_detalle_factura='SE AGREGO EL DETALLE';
+export const exito_crear_factura='SE CREO LA FACTURA';
+export const exito_actualizar_factura='SE ACTUALIZO LA FACTURA';
 export const error_unidad_kardex: string='ERROR EN UNIDAD KARDEX';
 export const error_impuesto: string='ERROR EN IMPUESTO';
 export const error_costo: string='ERROR EN COSTO';
@@ -24,10 +28,13 @@ export const error_costo_unitario: string='ERROR EN COSTO UNITARIO';
 export const error_costo_total: string='ERROR EN COSTO TOTAL';
 export const error_producto: string='ERROR EN EL PRODUCTO';
 export const error_kardex: string='ERROR KARDEX EXISTENTE';
+export const error_bodega: string='ERROR EN BODEGA';
 export const error_swal='error';
 export const error='Error';
 export const exito_swal='success';
 export const exito='Exito';
+export const SI="SI";
+export const NO="NO";
 
 //NOMBRES DE TABS
 export const tab_crear_auxiliar='Crear Auxiliar';

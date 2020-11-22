@@ -27,6 +27,8 @@ import { Caracteristica } from '../../modelos/caracteristica';
 import { Bodega } from '../../modelos/bodega';
 import { BodegaService } from '../../servicios/bodega.service';
 import { CaracteristicaService } from '../../servicios/caracteristica.service';
+import { Precio } from '../../modelos/precio';
+import * as constantes from '../../constantes';
 
 @Component({
   selector: 'app-factura',
@@ -77,15 +79,7 @@ export class FacturaComponent implements OnInit {
   factura: Factura = new Factura();
   auxiliar_buscar: Auxiliar=new Auxiliar();
 
-  Datos_prueba: any[] = [
-    {nombre: 1, entregado:'si', descripcion: 'Hydrogen', cantidad:'2', valor: 1.0079, descuento: '11'},
-    {nombre: 2, entregado:'si', descripcion: 'Helium',   cantidad:'2', valor: 4.0026, descuento: '1'},
-    {nombre: 3, entregado:'si', descripcion: 'Lithium',  cantidad:'2', valor: 6.9417, descuento: '12'},
-    {nombre: 4, entregado:'si', descripcion: 'Beryllium',cantidad:'2', valor: 9.0122, descuento: '13'},
-    {nombre: 5, entregado:'si', descripcion: 'Boron',    cantidad:'2', valor: 10.811, descuento: '14'},
-    {nombre: 6, entregado:'si', descripcion: 'Carbon',   cantidad:'2', valor: 12.017, descuento: '1'},
-  ];
-  columnasDetalleFactura: string[] = ['nombre', 'entregado', 'descripcion', 'cantidad', 'valor', 'descuento'
+  columnasDetalleFactura: string[] = ['nombre', 'entregado', 'Medida', 'cantidad', 'valor', 'descuento'
     , 'desc_por', 'desc_sub', 'desc_por_sub', 'desc_tot', 'desc_por_tot', 'impuesto', 'total', 'serie','acciones'];
   data_detalle_factura = new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
 
@@ -94,7 +88,7 @@ export class FacturaComponent implements OnInit {
   productos: Producto[] = [];
   bodegas: Bodega[]=[];
 
-  medidas: Medida[];
+  precios_seleccionados: Precio[]=[];
   sesion: Sesion;
   habilitar: boolean = true;
   habilitar_cliente_tce: boolean =true;
@@ -122,10 +116,10 @@ export class FacturaComponent implements OnInit {
   indice_auxiliar=-1;
   auxiliar: Auxiliar= null;
 
-  stock_total=0;
-  stock_individual=0;
+  saldo_total=0;
+  saldo=0;
 
-  costo_ultimo=0;
+  costo_unitario=0;
   costo_promedio=0;
   indice_producto=0;
   cantidad_transferencia=0;
@@ -137,7 +131,6 @@ export class FacturaComponent implements OnInit {
     this.consultar_clientes();
     this.construir_factura();
     this.cambiar_productos(this.tipo_producto);
-    this.consultar_medidas();
     this.consultar_impuestos();
     this.consultar_bodegas();
 
@@ -310,14 +303,6 @@ export class FacturaComponent implements OnInit {
         this.clientes = res.resultado as Cliente[]
       },
       err => Swal.fire('Error', err.error.mensaje, 'error')
-    );
-  }
-
-  consultar_medidas() {
-    this.medidaService.consultar().subscribe(
-      res => {
-        this.medidas = res.resultado as Medida[]
-      }
     );
   }
 
@@ -536,29 +521,24 @@ export class FacturaComponent implements OnInit {
     this.detalle.calcular();
     this.seleccion_producto.patchValue("");
     this.costo_promedio=0;
-    this.costo_ultimo=0;
-    this.stock_individual=0;
-    this.stock_total=0;
+    this.costo_unitario=0;
+    this.saldo=0;
+    this.saldo_total=0;
   }
 
   seleccionar_producto() {
     this.detalle.producto=this.seleccion_producto.value;
-    this.detalle.medida=this.medidas[0];
-    this.impuestos.forEach((impuesto, index)=> {
-      if (impuesto.porcentaje==this.detalle.producto.impuesto.porcentaje){
-        this.detalle.impuesto=impuesto;
+    this.costo_unitario=this.detalle.producto.kardexs[this.detalle.producto.kardexs.length-1].costo_unitario;
+    this.costo_promedio=this.detalle.producto.kardexs[this.detalle.producto.kardexs.length-1].costo_promedio;
+    this.saldo=this.detalle.producto.kardexs[this.detalle.producto.kardexs.length-1].cantidad;
+    this.saldo_total=this.detalle.producto.kardexs[this.detalle.producto.kardexs.length-1].cantidad;
+  }
+  seleccionar_medida(){
+    for (let i=0; i<this.detalle.producto.medidas_precios.length; i++) {
+      if(this.detalle.producto.medidas_precios[i].medida.id==this.detalle.medida.id){
+        this.precios_seleccionados=this.detalle.producto.medidas_precios[i].precios;
       }
-    });
-    if (this.detalle.medida.id==0) this.detalle.medida=this.medidas[0];
-    //if (this.detalle.precio.id==0) this.detalle.precio=this.detalle.producto.precios[0];
-    this.costo_promedio=0;
-    this.costo_ultimo=0;
-    if(this.detalle.caracteristicas.length!=0){
-      this.stock_individual=this.detalle.caracteristicas.length;
-    } else{
-      this.stock_individual=0;
     }
-    this.stock_total=this.detalle.producto.stock_total;
   }
 
   seleccionar_precio() {
@@ -576,14 +556,18 @@ export class FacturaComponent implements OnInit {
     this.detalle.calcular();
   }
 
+  seleccionar_impuesto(){
+    this.detalle.calcular();
+  }
+
   crear(event) {
     if (event!=null)
       event.preventDefault();
-    let validacion: boolean= true;
+    //let validacion: boolean= true;
     this.factura.sesion=this.sesion;
     this.factura.estado= this.estado=="EMITIDA"? true: false;
     //VALIDO SELECCIONES
-    this.factura.factura_detalles.forEach((detalle, index)=> {
+    /*this.factura.factura_detalles.forEach((detalle, index)=> {
       let caracteristicas: Caracteristica[]=[];
       for (let i=0; i<detalle.producto.caracteristicas.length; i++) {
         if(detalle.producto.caracteristicas[i].seleccionado && (detalle.producto.serie_autogenerado || detalle.producto.caracteristicas[i].factura_detalle.posicion==index)) {
@@ -597,8 +581,8 @@ export class FacturaComponent implements OnInit {
           validacion=false;
       }
       detalle.caracteristicas=caracteristicas; 
-    });
-    if (validacion){
+    });*/
+    //if (validacion){
       //FIN VALIDACION SELECCIONES
       this.factura.normalizar();
       console.log(this.factura);
@@ -607,18 +591,17 @@ export class FacturaComponent implements OnInit {
           this.factura_crear = res.resultado as Factura
           this.stepper.next();
           if (res.mensaje){
-            Swal.fire('Exito', 'Se creo el la factura', 'success');
+            Swal.fire(constantes.exito, constantes.exito_crear_factura, constantes.exito_swal);
           } else {
-            Swal.fire('Error', res.mensaje, 'error');
+            Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
           }
         },
         err => {
-          console.log('HTTP Error', err)
-          Swal.fire('Error', err.error.mensaje, 'error');
+          Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
           this.factura.des_normalizar();
         }
       );
-    }
+    //}
   }
 
   actualizar(event){
@@ -628,9 +611,9 @@ export class FacturaComponent implements OnInit {
       res => {
         this.factura_crear = res.resultado as Factura
         if (res.mensaje){
-          Swal.fire('Exito', 'Se actualizo la factura', 'success');
+          Swal.fire(constantes.exito, constantes.exito_actualizar_factura, constantes.exito_swal);
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
       }
     );
@@ -642,15 +625,19 @@ export class FacturaComponent implements OnInit {
 
   agregar_factura_detalle(){
     if (this.detalle.producto.bodega.id==0){
-      Swal.fire('Error', "Seleccione una bodega", 'error');
+      Swal.fire(constantes.error, constantes.error_bodega, constantes.error_swal);
       return;
     }
     if (this.detalle.producto.impuesto.id==0){
-      Swal.fire('Error', "Seleccione un impuesto", 'error');
+      Swal.fire(constantes.error, constantes.error_impuesto, constantes.error_swal);
       return;
     }
-    this.detalle.entregado=this.detalle_entregado=="SI"? true: false;
-    let bandera=false;
+    if(this.detalle.producto.kardexs[this.detalle.producto.kardexs.length-1].cantidad<this.detalle.cantidad){
+      Swal.fire(constantes.error, constantes.error_cantidad, constantes.error_swal);
+      return;
+    }
+    this.detalle.entregado=this.detalle_entregado==constantes.SI? true: false;
+    /*let bandera=false;
     if (this.detalle.producto.serie_autogenerado){
       let suma=0;
       for(let i=0; i<this.detalle.producto.caracteristicas.length; i++) {
@@ -667,17 +654,18 @@ export class FacturaComponent implements OnInit {
       if (this.detalle.cantidad<=this.detalle.producto.caracteristicas.length){
         bandera=true;
       }
-    }
-    if (bandera){
+    }*/
+    //if (bandera){
       this.detalle.calcular();
       this.factura.factura_detalles.push(this.detalle);
       this.factura.calcular();
       this.detalle=new FacturaDetalle();
       this.limpiar_producto();
-      Swal.fire('Exito', 'Se agrego el detalle', 'success');
-    } else{
+      this.data_detalle_factura = new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
+      Swal.fire(constantes.exito, constantes.exito_agregar_detalle_factura, constantes.exito_swal);
+    /*} else{
       Swal.fire("Error", "Cantidad No Existente.", "error");
-    }
+    }*/
   }
 
   cambiar_productos(tipo_producto: string){

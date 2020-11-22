@@ -394,15 +394,15 @@
                                     <mat-label>Consig.</mat-label>
                                     <mat-select class="form-control-sm" [(ngModel)]="detalle.producto.consignacion"
                                         disabled>
-                                        <mat-option [value]="false">NO</mat-option>
-                                        <mat-option [value]="true">SI</mat-option>
+                                        <mat-option [value]="0">NO</mat-option>
+                                        <mat-option [value]="1">SI</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-1">
                                 <mat-form-field appearance="standard">
-                                    <mat-label>Ult. Costo</mat-label>
-                                    <input matInput type="text" [(ngModel)]="costo_ultimo" class="form-control-sm"
+                                    <mat-label>Costo Unit</mat-label>
+                                    <input matInput type="text" [(ngModel)]="costo_unitario" class="form-control-sm"
                                         disabled>
                                 </mat-form-field>
                             </div>
@@ -416,14 +416,14 @@
                             <div class="form-group col-1">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Saldo</mat-label>
-                                    <input matInput type="text" class="form-control-sm" [(ngModel)]="stock_individual"
+                                    <input matInput type="text" [(ngModel)]="saldo" class="form-control-sm"
                                         disabled>
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-1 ">
                                 <mat-form-field appearance="standard">
                                     <mat-label>S. Total</mat-label>
-                                    <input matInput type="text " class="form-control-sm " [(ngModel)]="stock_total"
+                                    <input matInput type="text " class="form-control-sm " [(ngModel)]="saldo_total"
                                         disabled>
                                 </mat-form-field>
                             </div>
@@ -500,7 +500,7 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>Medida</mat-label>
-                                        <mat-select [(ngModel)]="detalle.medida" class="form-control-sm">
+                                        <mat-select [(ngModel)]="detalle.medida" (selectionChange)="seleccionar_medida()" class="form-control-sm">
                                             <mat-option *ngFor="let medida_precio of detalle.producto.medidas_precios" [value]="medida_precio.medida">
                                                 {{medida_precio.medida.descripcion}}
                                             </mat-option>
@@ -512,8 +512,8 @@
                                         <mat-label>P. Unit.</mat-label>
                                         <mat-select (selectionChange)="seleccionar_precio()"
                                             [(ngModel)]="detalle.precio" class="form-control-sm">
-                                            <mat-option *ngFor="let medida_precio of detalle.producto.medidas_precios" [value]="medida_precio.medida">
-                                                {{medida_precio.precio.precio_venta_publico dsgvds}}
+                                            <mat-option *ngFor="let precio of precios_seleccionados" [value]="precio">
+                                                {{precio.precio_venta_publico}}
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
@@ -538,7 +538,7 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>IVA</mat-label>
-                                        <mat-select class="form-control-sm" [(ngModel)]="detalle.impuesto">
+                                        <mat-select [(ngModel)]="detalle.impuesto" class="form-control-sm" (selectionChange)="seleccionar_impuesto()">
                                             <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto">
                                                 {{impuesto.porcentaje}}
                                             </mat-option>
@@ -589,9 +589,9 @@
                                         </td>
                                     </ng-container>
                                     <!-- Descripcion Columna -->
-                                    <ng-container matColumnDef="descripcion">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.medida.descripcion}} </td>
+                                    <ng-container matColumnDef="Medida">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Med </th>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.medida.codigo_norma}} </td>
                                     </ng-container>
                                     <!-- Cantidad Columna -->
                                     <ng-container matColumnDef="cantidad">
@@ -601,7 +601,7 @@
                                     <!-- Valor Columna -->
                                     <ng-container matColumnDef="valor">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.precio.valor | currency}} </td>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.precio.precio_venta_publico_iva | currency}} </td>
                                     </ng-container>
                                     <!-- Descuento Columna -->
                                     <ng-container matColumnDef="descuento">

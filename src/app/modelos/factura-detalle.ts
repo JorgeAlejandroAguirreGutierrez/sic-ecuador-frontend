@@ -96,7 +96,7 @@ export class FacturaDetalle {
   }
   private calcular_total_con_descuento(){
     this.total_con_descuento=0;
-    this.total_con_descuento=Number(this.total_sin_descuento)-Number(this.total_descuento_individual);
+    this.total_con_descuento=Number(this.total_sin_descuento)-Number(this.total_descuento_individual)+Number(this.valor_iva_sin_descuento);
     this.total_con_descuento= Number(this.total_con_descuento.toFixed(2));
   }
   private calcular_valor_iva_con_descuento(){

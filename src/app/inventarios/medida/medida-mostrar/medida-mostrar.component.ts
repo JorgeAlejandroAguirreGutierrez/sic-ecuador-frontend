@@ -98,6 +98,10 @@ export class MedidaMostrarComponent implements OnInit {
 
   }
 
+  cambiar_buscar_codigo_norma(){
+    
+  }
+
   cambiar_buscar_descripcion(){
 
   }
