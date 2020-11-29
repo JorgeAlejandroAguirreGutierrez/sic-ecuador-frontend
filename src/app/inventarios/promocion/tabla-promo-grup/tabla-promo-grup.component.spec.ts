@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TablaPromoGrupComponent } from './tabla-promo-grup.component';
 
@@ -6,7 +6,7 @@ describe('TablaPromoGrupComponent', () => {
   let component: TablaPromoGrupComponent;
   let fixture: ComponentFixture<TablaPromoGrupComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TablaPromoGrupComponent ]
     })
