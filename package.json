@@ -45,7 +45,7 @@
     "material-design-icons": "^3.0.1",
     "moment": "2.24.0",
     "ng-chartist": "4.1.0",
-    "ng-image-slider": "^2.6.4",
+    
     "ngx-bootstrap": "^3.3.0",
     "ngx-take-until-destroy": "^5.4.0",
     "ngx-toastr": "^12.1.0",
