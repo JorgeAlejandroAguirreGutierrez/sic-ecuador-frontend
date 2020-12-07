@@ -275,7 +275,7 @@ export class FacturaComponent implements OnInit {
           this.primer_celular_cliente= this.factura.cliente.celulares.length>0? this.factura.cliente.celulares[0].numero: "";
           this.primer_correo_cliente= this.factura.cliente.correos.length>0? this.factura.cliente.correos[0].email: "";
           this.habilitar_cliente_tce=false;
-          if (this.factura.cliente_factura){
+          if (this.factura.cliente_factura.id!=0){
             this.seleccion_identificacion_cliente_factura.patchValue(this.factura.cliente_factura);
             this.seleccion_razon_social_cliente_factura.patchValue(this.factura.cliente_factura);
             this.seleccion_facturar= true;
@@ -285,10 +285,13 @@ export class FacturaComponent implements OnInit {
             this.primer_telefono_cliente_factura= this.factura.cliente_factura.telefonos.length>0? this.factura.cliente_factura.telefonos[0].numero: "";
             this.primer_celular_cliente_factura= this.factura.cliente_factura.celulares.length>0? this.factura.cliente_factura.celulares[0].numero: "";
             this.primer_correo_cliente_factura= this.factura.cliente_factura.correos.length>0? this.factura.cliente_factura.correos[0].email: "";
+          } else{
+            this.seleccion_facturar=false;
+            this.habilitar_facturar=true;
           }
+          this.data_detalle_factura = new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
           this.factura_crear=this.factura;
           this.facturaService.enviar(0);
-          console.log(this.factura);
         },
         err => {
           Swal.fire('Error', err.error.mensaje, 'error')
@@ -356,7 +359,7 @@ export class FacturaComponent implements OnInit {
     this.auxiliar_buscar.cliente.id=cliente_id;
     this.clienteService.obtenerAsync(cliente_id).then(
       res => {
-        this.factura.cliente =Object.assign(new Cliente(),res.resultado);
+        this.factura.cliente = Object.assign(new Cliente(),res.resultado);
         this.factura.cliente.construir();
         this.seleccion_identificacion_cliente.patchValue(this.factura.cliente);
         this.seleccion_razon_social_cliente.patchValue(this.factura.cliente);
@@ -488,7 +491,6 @@ export class FacturaComponent implements OnInit {
     }
   }
   asignar_facturar(){
-    console.log(this.seleccion_facturar);
     if (this.seleccion_facturar){
       this.seleccion_identificacion_cliente_factura.enable();
       this.seleccion_razon_social_cliente_factura.enable();
@@ -563,50 +565,29 @@ export class FacturaComponent implements OnInit {
   crear(event) {
     if (event!=null)
       event.preventDefault();
-    //let validacion: boolean= true;
     this.factura.sesion=this.sesion;
     this.factura.estado= this.estado=="EMITIDA"? true: false;
-    //VALIDO SELECCIONES
-    /*this.factura.factura_detalles.forEach((detalle, index)=> {
-      let caracteristicas: Caracteristica[]=[];
-      for (let i=0; i<detalle.producto.caracteristicas.length; i++) {
-        if(detalle.producto.caracteristicas[i].seleccionado && (detalle.producto.serie_autogenerado || detalle.producto.caracteristicas[i].factura_detalle.posicion==index)) {
-          caracteristicas.push({... detalle.producto.caracteristicas[i]});
-          detalle.producto.caracteristicas[i].seleccionado=false;
+    console.log(this.factura);
+    this.facturaService.crear(this.factura).subscribe(
+      res => {
+        this.factura_crear = res.resultado as Factura
+        this.stepper.next();
+        if (res.mensaje){
+          Swal.fire(constantes.exito, constantes.exito_crear_factura, constantes.exito_swal);
+        } else {
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
-        if(caracteristicas.length == detalle.cantidad) break;
-      };
-      if (caracteristicas.length != detalle.cantidad){
-          Swal.fire('Error', "Series No Seleccionadas", 'error');
-          validacion=false;
+      },
+      err => {
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
       }
-      detalle.caracteristicas=caracteristicas; 
-    });*/
-    //if (validacion){
-      //FIN VALIDACION SELECCIONES
-      this.factura.normalizar();
-      console.log(this.factura);
-      this.facturaService.crear(this.factura).subscribe(
-        res => {
-          this.factura_crear = res.resultado as Factura
-          this.stepper.next();
-          if (res.mensaje){
-            Swal.fire(constantes.exito, constantes.exito_crear_factura, constantes.exito_swal);
-          } else {
-            Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
-          }
-        },
-        err => {
-          Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
-          this.factura.des_normalizar();
-        }
-      );
-    //}
+    );
   }
 
   actualizar(event){
     if (event!=null)
       event.preventDefault();
+    console.log(this.factura);
     this.facturaService.actualizar(this.factura).subscribe(
       res => {
         this.factura_crear = res.resultado as Factura
@@ -617,10 +598,6 @@ export class FacturaComponent implements OnInit {
         }
       }
     );
-  }
-
-  actualizar_detalle(i: number){
-    
   }
 
   agregar_factura_detalle(){
@@ -637,35 +614,13 @@ export class FacturaComponent implements OnInit {
       return;
     }
     this.detalle.entregado=this.detalle_entregado==constantes.SI? true: false;
-    /*let bandera=false;
-    if (this.detalle.producto.serie_autogenerado){
-      let suma=0;
-      for(let i=0; i<this.detalle.producto.caracteristicas.length; i++) {
-        if (!this.detalle.producto.caracteristicas[i].seleccionado && this.detalle.producto.caracteristicas[i].bodega.id==this.detalle.producto.bodega.id){
-          this.detalle.producto.caracteristicas[i].seleccionado=true;
-          suma++;
-          if (suma==this.detalle.cantidad){
-            bandera=true;
-            break;
-          }
-        }
-      }
-    } else{
-      if (this.detalle.cantidad<=this.detalle.producto.caracteristicas.length){
-        bandera=true;
-      }
-    }*/
-    //if (bandera){
-      this.detalle.calcular();
-      this.factura.factura_detalles.push(this.detalle);
-      this.factura.calcular();
-      this.detalle=new FacturaDetalle();
-      this.limpiar_producto();
-      this.data_detalle_factura = new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
-      Swal.fire(constantes.exito, constantes.exito_agregar_detalle_factura, constantes.exito_swal);
-    /*} else{
-      Swal.fire("Error", "Cantidad No Existente.", "error");
-    }*/
+    this.detalle.calcular();
+    this.factura.factura_detalles.push(this.detalle);
+    this.factura.calcular();
+    this.detalle=new FacturaDetalle();
+    this.limpiar_producto();
+    this.data_detalle_factura = new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
+    Swal.fire(constantes.exito, constantes.exito_agregar_detalle_factura, constantes.exito_swal);
   }
 
   cambiar_productos(tipo_producto: string){

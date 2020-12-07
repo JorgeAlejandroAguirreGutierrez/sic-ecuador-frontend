@@ -329,6 +329,10 @@ export class ProductoComponent implements OnInit {
       Swal.fire(constantes.error, constantes.error_tipo_producto, constantes.error_swal);
       return;
     }
+    if(this.producto.kardexs.length==0){
+      Swal.fire(constantes.error, constantes.error_kardex_inicial, constantes.error_swal);
+      return;
+    }
     this.producto.estado=this.activo;
     console.log(this.producto);
     this.productoService.crear(this.producto).subscribe(
@@ -624,7 +628,9 @@ export class ProductoComponent implements OnInit {
           this.seleccion_sub_linea_producto.setValue(this.producto.sub_linea_producto);
           this.seleccion_presentacion_producto.setValue(this.producto.presentacion_producto);
           for(let i=0; i<this.producto.medidas_precios.length; i++){
-            this.precios_tabla= new BehaviorSubject(this.producto.medidas_precios[i].precios);
+            let precios=[];
+            Object.assign(precios, this.producto.medidas_precios[i].precios as Precio[]);
+            this.precios_tabla= new BehaviorSubject(precios);
             this.datos.push(this.precios_tabla);
           }
         },

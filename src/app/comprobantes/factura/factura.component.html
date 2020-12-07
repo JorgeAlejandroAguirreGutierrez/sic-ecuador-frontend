@@ -277,7 +277,7 @@
                                         [matAutocomplete]="identificacion_cliente_factura">
                                 </mat-form-field>
                             </div>
-                            <div class="form-group col-7">
+                            <div class="form-group col-8">
                                 <mat-form-field appearance="standard" class="grande">
                                     <mat-label>Cliente</mat-label>
                                     <mat-autocomplete #razon_social_cliente_factura="matAutocomplete"
@@ -294,18 +294,12 @@
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-1">
-                                <br>
-                                <button class="btn btn-primary btn-circle" [disabled]="habilitar">
-                                    <mat-icon>note_add</mat-icon>
-                                </button>
-                            </div>
-                            <div class="form-group col-1">
                                 <b>Habilitar</b><br>
                                 <mat-checkbox [disabled]="habilitar_facturar" [(ngModel)]="seleccion_facturar"
                                     [labelPosition]="'before'" (change)="asignar_facturar()" class="form-control-sm"
                                     color="primary"></mat-checkbox>
                             </div>
-                            <div class="form-group col-11">
+                            <div class="form-group col-12">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Dirección</mat-label>
                                     <input matInput type="text"
@@ -313,7 +307,6 @@
                                         class="form-control-sm" [disabled]="habilitar">
                                 </mat-form-field>
                             </div>
-                            <div class="form-group col-1"></div>
                             <div class="form-group col-2">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Teléfono</mat-label>
@@ -488,6 +481,10 @@
                                 <button class="btn btn-primary btn-circle" (click)="agregar_factura_detalle()">
                                     <mat-icon>add</mat-icon>
                                 </button>
+                                &nbsp;&nbsp;
+                                <button class="btn btn-primary btn-circle" (click)="crear(null)">
+                                    <mat-icon>save</mat-icon>
+                                </button>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-1">
@@ -656,10 +653,6 @@
                                     <ng-container matColumnDef="acciones">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                                         <td mat-cell *matCellDef="let i=index">
-                                            <button mat-icon-button color="primary" focusable="false"
-                                                (click)="actualizar_detalle(i)">
-                                                <i class="fa fa-pencil mat-icon"></i>
-                                            </button>
                                             <button mat-icon-button color="primary" focusable="false"
                                                 (click)="eliminar_detalle(i)">
                                                 <i class="fa fa-times mat-icon"></i>
