@@ -12,7 +12,7 @@
                         </ng-container>
                         <ng-container *ngIf="factura.id!=0">
                             <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
-                                <mat-icon>update</mat-icon>
+                                <mat-icon>save</mat-icon>
                             </a>
                         </ng-container>
                     </li>
@@ -480,10 +480,6 @@
                                 </button>&nbsp;&nbsp;
                                 <button class="btn btn-primary btn-circle" (click)="agregar_factura_detalle()">
                                     <mat-icon>add</mat-icon>
-                                </button>
-                                &nbsp;&nbsp;
-                                <button class="btn btn-primary btn-circle" (click)="crear(null)">
-                                    <mat-icon>save</mat-icon>
                                 </button>
                             </div>
                             <div class="form-row">
