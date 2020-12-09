@@ -36,6 +36,7 @@ export const exito_swal='success';
 export const exito='Exito';
 export const SI="SI";
 export const NO="NO";
+export const vacio="";
 
 //NOMBRES DE TABS
 export const tab_crear_auxiliar='Crear Auxiliar';

@@ -67,6 +67,8 @@ export class PlazoCreditoMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.plazo_credito != null){
       this.plazoCreditoService.enviar(this.plazo_credito.id);
+      let indice_tab_activo= constantes.tab_activo(this.tabService);
+      this.tabService.removeTab(indice_tab_activo);
       this.tabService.addNewTab(this.ComponentePlazoCredito,constantes.tab_actualizar_plazo_credito);
     } else {
       Swal.fire(constantes.error, "Selecciona un Plazo de Credito", constantes.error_swal);

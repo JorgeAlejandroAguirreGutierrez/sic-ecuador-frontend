@@ -7,7 +7,7 @@
             </a>
             <ng-template #block_actualizar>
                 <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
-                    <mat-icon>update</mat-icon>
+                    <mat-icon>save</mat-icon>
                 </a>
             </ng-template>
         </li>
@@ -753,9 +753,9 @@
                             {{telefono.numero}}
                         </td>
                         <td>
-                            <mat-icon (click)="eliminar_telefono(i)">phonelink_erase</mat-icon>
-                            <!-- <button class="btn btn-primary" (click)="eliminar_telefono(i) ">
-                            </button> -->
+                            <button class="btn btn-primary" (click)="eliminar_telefono(i) ">
+                                <mat-icon>delete</mat-icon>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -789,7 +789,7 @@
                         </td>
                         <td>
                             <button class="btn btn-primary" (click)="eliminar_celular(i) ">
-                                <mat-icon>phonelink_erase</mat-icon>
+                                <mat-icon>delete</mat-icon>
                             </button>
                         </td>
                     </tr>
@@ -824,7 +824,7 @@
                         </td>
                         <td>
                             <button class="btn btn-primary btn-circle " (click)="eliminar_correo(i) ">
-                                <mat-icon>unsubscribe</mat-icon>
+                                <mat-icon>delete</mat-icon>
                             </button>
                         </td>
                     </tr>
@@ -874,7 +874,7 @@
                         </td>
                         <td>
                             <button class="btn btn-primary btn-circle " (click)="eliminar_auxiliar(i) ">
-                                <mat-icon>person_remove</mat-icon>
+                                <mat-icon>delete</mat-icon>
                             </button>
                         </td>
                     </tr>
@@ -919,7 +919,7 @@
                                         <td>
                                             <button class="btn btn-primary"
                                                 (click)="eliminar_telefono_auxiliar(i) ">
-                                                <mat-icon>phonelink_erase</mat-icon>
+                                                <mat-icon>delete</mat-icon>
                                             </button>
                                         </td>
                                     </tr>
@@ -968,7 +968,7 @@
                                         <td>
                                             <button class="btn btn-primary"
                                                 (click)="eliminar_celular_auxiliar(i) ">
-                                                <mat-icon>phonelink_erase</mat-icon>
+                                                <mat-icon>delete</mat-icon>
                                             </button>
                                         </td>
                                     </tr>
@@ -1017,7 +1017,7 @@
                                         <td>
                                             <button class="btn btn-primary btn-circle "
                                                 (click)="eliminar_correo_auxiliar(i) ">
-                                                <mat-icon>unsubscribe</mat-icon>
+                                                <mat-icon>delete</mat-icon>
                                             </button>
                                         </td>
                                     </tr>

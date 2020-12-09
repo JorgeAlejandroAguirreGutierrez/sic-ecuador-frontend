@@ -486,12 +486,12 @@ export class ClienteComponent implements OnInit {
     if (event!=null)
       event.preventDefault();
     //AGREGAR AUXILIAR
-    if (this.auxiliar.razon_social != "" && this.auxiliar.direccion.direccion != "" ){
-      if (this.auxiliar_telefono.numero!="")
+    if (this.auxiliar.razon_social != constantes.vacio && this.auxiliar.direccion.direccion != constantes.vacio){
+      if (this.auxiliar_telefono.numero!=constantes.vacio)
         this.auxiliar.telefonos.push(this.auxiliar_telefono);
-      if (this.auxiliar_telefono.numero!="")
+      if (this.auxiliar_telefono.numero!=constantes.vacio)
         this.auxiliar.celulares.push(this.auxiliar_celular);
-      if (this.auxiliar_correo.email!="")
+      if (this.auxiliar_correo.email!=constantes.vacio)
         this.auxiliar.correos.push(this.auxiliar_correo);
       let ubicacion: Ubicacion= new Ubicacion();
       ubicacion.provincia=this.auxiliar_provincia;
@@ -519,40 +519,21 @@ export class ClienteComponent implements OnInit {
     }
     this.sesion= this.sesionService.getSesion();
     this.cliente.punto_venta=this.sesion.usuario.punto_venta;
-    if (this.telefono.numero!=undefined)
+    if (this.telefono.numero!=constantes.vacio)
       this.cliente.telefonos.push(this.telefono);
-    if (this.celular.numero!=undefined)
+    if (this.celular.numero!=constantes.vacio)
       this.cliente.celulares.push(this.celular);
-    if (this.correo.email!=undefined)
+    if (this.correo.email!=constantes.vacio)
       this.cliente.correos.push(this.correo);
     console.log(this.cliente);
     this.clienteService.crear(this.cliente).subscribe(
       res => {
         if (res.resultado!= null) {
+          this.cliente = res.resultado as Cliente;
           Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-          let indice_tab_activo= constantes.tab_activo(this.tabService);
+          /*let indice_tab_activo= constantes.tab_activo(this.tabService);
           this.tabService.removeTab(indice_tab_activo);
-          this.tabService.addNewTab(ClienteComponent, constantes.tab_crear_cliente);
-          /*this.cliente_crear = res.resultado as Cliente;
-          this.auxiliar_cantones=[];
-          this.auxiliar_parroquias=[];
-          this.indice_tipo_contribuyente=-1;
-          this.cliente_provincia="";
-          this.cliente_canton="";
-          this.cliente_parroquia="";
-          this.telefono=new Telefono();
-          this.celular=new Celular();
-          this.correo=new Correo();
-          this.cliente=new Cliente();
-
-          this.auxiliar_provincia="";
-          this.auxiliar_canton="";
-          this.auxiliar_parroquia="";
-          this.auxiliar_telefono=new TelefonoAuxiliar();
-          this.auxiliar_celular=new CelularAuxiliar();
-          this.auxiliar_correo=new CorreoAuxiliar();
-          this.auxiliar=new Auxiliar();*/
-
+          this.tabService.addNewTab(ClienteComponent, constantes.tab_crear_cliente);*/
         } else {
           Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
@@ -565,18 +546,18 @@ export class ClienteComponent implements OnInit {
     if (event!=null)
       event.preventDefault();
     //AGREGAR AUXILIARES
-    if (this.auxiliar.razon_social != undefined ){
-      if (this.auxiliar_telefono.numero!=undefined)
+    if (this.auxiliar.razon_social != constantes.vacio ){
+      if (this.auxiliar_telefono.numero!=constantes.vacio)
         this.auxiliar.telefonos.push(this.auxiliar_telefono);
-      if (this.auxiliar_telefono.numero!=undefined)
+      if (this.auxiliar_telefono.numero!=constantes.vacio)
         this.auxiliar.celulares.push(this.auxiliar_celular);
-      if (this.auxiliar_correo.email!=undefined)
+      if (this.auxiliar_correo.email!=constantes.vacio)
         this.auxiliar.correos.push(this.auxiliar_correo);
       let ubicacion: Ubicacion= new Ubicacion();
       ubicacion.provincia=this.auxiliar_provincia;
       ubicacion.canton=this.auxiliar_canton;
       ubicacion.parroquia=this.auxiliar_parroquia;
-      if (ubicacion.provincia != "" && ubicacion.canton != "" && ubicacion.parroquia != ""){
+      if (ubicacion.provincia != constantes.vacio && ubicacion.canton != constantes.vacio && ubicacion.parroquia != constantes.vacio){
         await this.ubicacionService.obtenerUbicacionID(ubicacion).then(
           res => {
             this.auxiliar.direccion.ubicacion=res.resultado as Ubicacion;

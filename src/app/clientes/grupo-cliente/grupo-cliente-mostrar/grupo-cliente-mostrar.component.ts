@@ -7,6 +7,7 @@ import { TabService } from "../../../componentes/services/tab.service";
 import { GrupoClienteComponent } from '../grupo-cliente.component';
 import { GrupoClienteService } from '../../../servicios/grupo-cliente.service';
 import { GrupoCliente } from '../../../modelos/grupo-cliente';
+import * as constantes from '../../../constantes';
 
 
 @Component({
@@ -66,6 +67,8 @@ export class GrupoClienteMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.grupo_cliente != null){
       this.grupoClienteService.enviar(this.grupo_cliente.id);
+      let indice_tab_activo= constantes.tab_activo(this.tabService);
+      this.tabService.removeTab(indice_tab_activo);
       this.tabService.addNewTab(this.ComponenteGrupoCliente,'Actualizar Grupo Cliente');
     } else {
       Swal.fire('Error', "Selecciona un Grupo Cliente", 'error');

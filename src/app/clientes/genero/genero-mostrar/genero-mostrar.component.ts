@@ -7,6 +7,7 @@ import { TabService } from "../../../componentes/services/tab.service";
 import { GeneroComponent } from '../genero.component';
 import { GeneroService } from '../../../servicios/genero.service';
 import { Genero } from '../../../modelos/genero';
+import * as constantes from '../../../constantes';
 
 
 @Component({
@@ -71,6 +72,8 @@ export class GeneroMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.genero != null){
       this.generoService.enviar(this.genero.id);
+      let indice_tab_activo= constantes.tab_activo(this.tabService);
+      this.tabService.removeTab(indice_tab_activo);
       this.tabService.addNewTab(this.ComponenteGenero,'Actualizar Genero');
     } else {
       Swal.fire('Error', "Selecciona un Estado Civil", 'error');

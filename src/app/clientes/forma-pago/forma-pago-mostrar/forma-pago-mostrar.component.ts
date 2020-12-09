@@ -7,6 +7,7 @@ import { TabService } from "../../../componentes/services/tab.service";
 import { FormaPagoComponent } from '../forma-pago.component';
 import { FormaPago } from '../../../modelos/forma-pago';
 import { FormaPagoService } from '../../../servicios/forma-pago.service';
+import * as constantes from '../../../constantes';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class FormaPagoMostrarComponent implements OnInit {
       res => {
         this.formas_pagos = res.resultado as FormaPago[]
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -51,7 +52,7 @@ export class FormaPagoMostrarComponent implements OnInit {
           if (res.resultado!=null) {
             this.formas_pagos = res.resultado as FormaPago[]
           } else {
-            Swal.fire('Error', res.mensaje, 'error');
+            Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
           }
         }
       );
@@ -71,9 +72,11 @@ export class FormaPagoMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.forma_pago != null){
       this.formaPagoService.enviar(this.forma_pago.id);
+      let indice_tab_activo= constantes.tab_activo(this.tabService);
+      this.tabService.removeTab(indice_tab_activo);
       this.tabService.addNewTab(this.ComponenteFormaPago,'Actualizar Forma de Pago');
     } else {
-      Swal.fire('Error', "Selecciona una Forma de Pago", 'error');
+      Swal.fire(constantes.error, "Selecciona una Forma de Pago", constantes.error_swal);
     }
   }
 
@@ -83,13 +86,13 @@ export class FormaPagoMostrarComponent implements OnInit {
     this.formaPagoService.eliminar(this.forma_pago).subscribe(
       res => {
         if (res.resultado!=null){
-          Swal.fire('Exito', res.mensaje, 'success');
+          Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.forma_pago = res.resultado as FormaPago
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }        
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 

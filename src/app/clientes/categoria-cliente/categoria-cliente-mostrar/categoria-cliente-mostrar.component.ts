@@ -7,6 +7,7 @@ import { TabService } from "../../../componentes/services/tab.service";
 import { CategoriaClienteComponent } from '../categoria-cliente.component';
 import { CategoriaClienteService } from '../../../servicios/categoria-cliente.service';
 import { CategoriaCliente } from '../../../modelos/categoria-cliente';
+import * as constantes from '../../../constantes';
 
 
 @Component({
@@ -66,6 +67,8 @@ export class CategoriaClienteMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.categoria_cliente != null){
       this.categoriaClienteService.enviar(this.categoria_cliente.id);
+      let indice_tab_activo= constantes.tab_activo(this.tabService);
+      this.tabService.removeTab(indice_tab_activo);
       this.tabService.addNewTab(this.ComponenteCategoriaCliente,'Actualizar Categoria Cliente');
     } else {
       Swal.fire('Error', "Selecciona un Grupo Cliente", 'error');

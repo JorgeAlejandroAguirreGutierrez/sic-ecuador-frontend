@@ -73,6 +73,8 @@ export class OrigenIngresoMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.origen_ingreso != null){
       this.origenIngresoService.enviar(this.origen_ingreso.id);
+      let indice_tab_activo= constantes.tab_activo(this.tabService);
+      this.tabService.removeTab(indice_tab_activo);
       this.tabService.addNewTab(this.ComponenteOrigenIngreso, constantes.tab_actualizar_origen_ingreso);
     } else {
       Swal.fire(constantes.error, "Selecciona un Origen de Ingreso", constantes.error_swal);

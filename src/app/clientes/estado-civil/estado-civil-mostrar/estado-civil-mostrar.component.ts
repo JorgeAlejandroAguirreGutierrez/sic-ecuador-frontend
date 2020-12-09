@@ -72,6 +72,8 @@ export class EstadoCivilMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.estado_civil != null){
       this.estadoCivilService.enviar(this.estado_civil.id);
+      let indice_tab_activo= constantes.tab_activo(this.tabService);
+      this.tabService.removeTab(indice_tab_activo);
       this.tabService.addNewTab(this.ComponenteEstadoCivil,'Actualizar Estado Civil');
     } else {
       Swal.fire(constantes.error, "Selecciona un Estado Civil", constantes.error_swal);

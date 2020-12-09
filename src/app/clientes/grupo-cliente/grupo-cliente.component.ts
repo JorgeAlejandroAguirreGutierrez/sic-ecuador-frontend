@@ -31,6 +31,7 @@ export class GrupoClienteComponent implements OnInit {
       event.preventDefault();
     this.grupoClienteService.crear(this.grupo_cliente).subscribe(
       res => {
+        this.grupo_cliente=res.resultado as GrupoCliente
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
