@@ -38,6 +38,11 @@ export const SI="SI";
 export const NO="NO";
 export const vacio="";
 
+//CAMPOS PARA CONSULTAS DINAMICAS
+export const codigo="codigo";
+export const descripcion="descripcion";
+export const abreviatura="abreviatura";
+
 //NOMBRES DE TABS
 export const tab_crear_auxiliar='Crear Auxiliar';
 export const tab_crear_categoria_cliente='Crear Categoria Cliente';

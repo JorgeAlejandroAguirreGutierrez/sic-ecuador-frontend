@@ -58,7 +58,7 @@ export class EstadoCivilService {
   }
 
   buscar(estado_civil: EstadoCivil): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.estado_civil+util.buscar+'/'+estado_civil.codigo + '/'+estado_civil.descripcion+'/'+estado_civil.abreviatura, util.options).pipe(
+    return this.http.post(environment.host + util.ruta + util.estado_civil+util.buscar, estado_civil, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

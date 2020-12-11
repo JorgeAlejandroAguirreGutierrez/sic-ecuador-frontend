@@ -47,15 +47,16 @@ export class GrupoClienteMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-      this.grupoClienteService.buscar(this.grupo_cliente_buscar).subscribe(
-        res => {
-          if (res.resultado!=null) {
-            this.grupos_clientes = res.resultado as GrupoCliente[]
-          } else {
-            Swal.fire('Error', res.mensaje, 'error');
-          }
+    this.grupoClienteService.buscar(this.grupo_cliente_buscar).subscribe(
+      res => {
+        if (res.resultado!=null) {
+          this.grupos_clientes = res.resultado as GrupoCliente[]
+        } else {
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
-      );
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    );
   }
 
   seleccion(grupo_cliente: GrupoCliente) {
@@ -92,15 +93,18 @@ export class GrupoClienteMostrarComponent implements OnInit {
   }
 
   cambiar_buscar_codigo(){
-
+    this.grupo_cliente_buscar.descripcion="";
+    this.grupo_cliente_buscar.abreviatura="";
   }
 
   cambiar_buscar_descripcion(){
-
+    this.grupo_cliente_buscar.codigo="";
+    this.grupo_cliente_buscar.abreviatura="";
   }
 
   cambiar_buscar_abreviatura(){
-
+    this.grupo_cliente_buscar.codigo="";
+    this.grupo_cliente_buscar.descripcion="";
   }
 
 }
