@@ -137,7 +137,7 @@ export class ProductoComponent implements OnInit {
     this.impuestoService.consultar().subscribe(
       res => {
         this.impuestos = res.resultado as Impuesto[];
-        this.producto.impuesto.id=this.impuestos[0].id;
+        this.producto.impuesto=this.impuestos[0];
       },
       err => {
         Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
@@ -499,6 +499,7 @@ export class ProductoComponent implements OnInit {
       for(let j=0; j<this.producto.medidas_precios[i].precios.length; j++){
         this.producto.medidas_precios[i].precios[j].precio_venta_publico=(this.producto.medidas_precios[i].precios[j].costo/(1-(this.producto.medidas_precios[i].precios[j].margen_ganancia/100)));
         this.producto.medidas_precios[i].precios[j].precio_venta_publico=Number(this.producto.medidas_precios[i].precios[j].precio_venta_publico.toFixed(2));
+        console.log()
         this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva=this.producto.medidas_precios[i].precios[j].precio_venta_publico+(this.producto.medidas_precios[i].precios[j].precio_venta_publico*(this.producto.impuesto.porcentaje/100));
         this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva=Number(this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva.toFixed(2));
         this.producto.medidas_precios[i].precios[j].precio_venta_publico_manual= this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva;
@@ -607,6 +608,28 @@ export class ProductoComponent implements OnInit {
     return categoria_producto+" "+linea_producto+" "+sub_linea_producto+" "+presentacion_producto;
   }
 
+  obtener_impuesto(){
+    this.impuestoService.obtener(this.producto.impuesto.id).subscribe(
+      res => {
+        this.producto.impuesto = res.resultado as Impuesto;
+      },
+      err => {
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      }
+    );
+  }
+
+  obtener_medida_saldo_inicial(){
+    this.medidaService.obtener(this.kardex_inicial.medida.id).subscribe(
+      res => {
+        this.kardex_inicial.medida = res.resultado as Medida;
+      },
+      err => {
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      }
+    );
+  }
+
   async construir_producto() {
     let producto_id=0;
     this.productoService.currentMessage.subscribe(message => producto_id = message);
@@ -619,6 +642,7 @@ export class ProductoComponent implements OnInit {
             this.habilitar_saldo_inicial=true;
             this.habilitar_otras_medidas=false;
             this.kardex_final=this.producto.kardexs[this.producto.kardexs.length-1];
+            this.kardex_inicial=this.producto.kardexs[0];
           }
           this.eliminar_medidas_actualizacion();
           this.seleccion_grupo_producto.setValue(this.producto.grupo_producto);

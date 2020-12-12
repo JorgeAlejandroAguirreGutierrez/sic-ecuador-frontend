@@ -35,10 +35,6 @@ export class ProductoMostrarComponent implements OnInit {
     this.sesion= this.sesionService.getSesion();
   }
 
-  cambiar_buscar_producto_nombre(){
-    this.producto_buscar.nombre="";
-  }
-
   consultar() {
     this.productoService.consultar().subscribe(
       res => {
@@ -50,15 +46,16 @@ export class ProductoMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-      this.productoService.buscarNombre(this.producto_buscar).subscribe(
-        res => {
-          if (res.resultado!=null) {
-            this.productos = res.resultado as Producto[]
-          } else {
-            Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
-          }
+    this.productoService.buscar(this.producto_buscar).subscribe(
+      res => {
+        if (res.resultado!=null) {
+          this.productos = res.resultado as Producto[]
+        } else {
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
-      );
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    );
   }
 
   seleccion(producto: Producto) {

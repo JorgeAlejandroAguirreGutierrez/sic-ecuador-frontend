@@ -8,7 +8,7 @@
             </ng-container>
             <ng-container *ngIf="producto.id!=0">
                 <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
-                    <mat-icon>update</mat-icon>
+                    <mat-icon>save</mat-icon>
                 </a>
             </ng-container>
         </li>
@@ -156,7 +156,7 @@
                                 <div class="form-group col-4">
                                     <mat-form-field appearance="standard">
                                         <mat-label>IVA</mat-label>
-                                        <mat-select [(ngModel)]="producto.impuesto.id" class="form-control-sm">
+                                        <mat-select [(ngModel)]="producto.impuesto.id" (selectionChange)="obtener_impuesto()" class="form-control-sm">
                                             <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto.id">
                                                 {{impuesto.porcentaje}}</mat-option>
                                         </mat-select>
@@ -192,8 +192,8 @@
                                     <div class="form-group col-5">
                                         <mat-form-field appearance="standard">
                                             <mat-label>Medida</mat-label>
-                                            <mat-select [(ngModel)]="kardex_inicial.medida" [disabled]="habilitar_saldo_inicial">
-                                                <mat-option *ngFor="let medida of medidas_inicial" [value]="medida">
+                                            <mat-select [(ngModel)]="kardex_inicial.medida.id" (selectionChange)="obtener_medida_saldo_inicial()" [disabled]="habilitar_saldo_inicial">
+                                                <mat-option *ngFor="let medida of medidas_inicial" [value]="medida.id">
                                                     {{medida.descripcion}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>

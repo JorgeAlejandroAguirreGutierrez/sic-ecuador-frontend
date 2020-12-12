@@ -30,8 +30,8 @@ export class MedidaService {
     );
   }
 
-  obtener(medida: Medida): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.medida + '/' + medida.id, util.options).pipe(
+  obtener(medida_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.medida + '/' + medida_id, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

@@ -41,6 +41,7 @@ export class Producto {
   constructor() {
     this.id=0;
     this.codigo="";
+    this.nombre="";
     this.consignacion=0;
     this.serie_autogenerado=0;
     this.stock_total=0;
