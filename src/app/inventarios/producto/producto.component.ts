@@ -652,7 +652,15 @@ export class ProductoComponent implements OnInit {
             Object.assign(precios, this.producto.medidas_precios[i].precios as Precio[]);
             this.precios_tabla= new BehaviorSubject(precios);
             this.datos.push(this.precios_tabla);
+            this.activar_controles(this.datos.length-1);
+            this.actualizar_precios();
           }
+          if(this.producto.kardexs.length>0){
+            this.habilitar_saldo_inicial=true;
+            this.habilitar_otras_medidas=false;
+          }
+          this.eliminar_medida_inicial()
+          this.filtro_cantidad_medida();
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
