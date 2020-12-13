@@ -20,15 +20,19 @@ export class MenuComponent implements OnInit {
   piePagina: Type<any> = HtmlFooterComponent; 
 
   permiso_clientes: boolean;
-  permiso_contabilidad: boolean;
   permiso_proveedores: boolean;
   permiso_facturacion: boolean;
+  permiso_inventarios: boolean;
+  permiso_caja_bancos: boolean;
+  permiso_cuentasxcobrar: boolean;
+  permiso_cuentasxpagar: boolean;
+  permiso_contabilidad: boolean;
   permiso_financiero: boolean;
   permiso_activos_fijos: boolean;
-  permiso_inventarios: boolean;
   permiso_talento_humano: boolean;
   permiso_produccion: boolean;
   permiso_importacion: boolean;
+  permiso_reportes: boolean;
 
   permiso_estadisticas: boolean;
   permiso_control: boolean;
@@ -47,13 +51,17 @@ export class MenuComponent implements OnInit {
   ico_cliente: string = environment.prefijo_url_imagenes+"iconos/icoclientes.jpg";
   ico_proveedor: string = environment.prefijo_url_imagenes+"iconos/icoproveedores.png";
   ico_facturacion: string = environment.prefijo_url_imagenes+"iconos/icofacturacion.png";
+  ico_inventario: string = environment.prefijo_url_imagenes+"iconos/icoinventarios.png";
+  ico_caja_bancos: string = environment.prefijo_url_imagenes+"iconos/icocajabancos.png";
+  ico_cuentasxcobrar: string = environment.prefijo_url_imagenes+"iconos/icocuentasxcobrar.png";
+  ico_cuentasxpagar: string = environment.prefijo_url_imagenes+"iconos/icocuentasxpagar.png";
   ico_contabilidad: string = environment.prefijo_url_imagenes+"iconos/icocontabilidad.png";
   ico_financiero: string = environment.prefijo_url_imagenes+"iconos/icofinanciero.png";
-  ico_inventario: string = environment.prefijo_url_imagenes+"iconos/icoinventarios.png";
   ico_activosfijos: string = environment.prefijo_url_imagenes+"iconos/icoactivosfijos.png";
   ico_talentohumano: string = environment.prefijo_url_imagenes+"iconos/icotalentohumano.png";
   ico_produccion: string = environment.prefijo_url_imagenes+"iconos/icoproduccion.png";
   ico_importacion: string = environment.prefijo_url_imagenes+"iconos/icoimportacion.png";
+  ico_reportes: string = environment.prefijo_url_imagenes+"iconos/icoreportes.png";
 
   ico_estadistica: string = environment.prefijo_url_imagenes+"iconos/icoestadisticas.png";
   ico_organismoscontrol: string = environment.prefijo_url_imagenes+"iconos/icoorganismoscontrol.png";
@@ -70,13 +78,18 @@ export class MenuComponent implements OnInit {
     this.permiso_clientes=this.obtenerPermiso('CLIENTES');
     this.permiso_proveedores=this.obtenerPermiso('PROVEEDORES');
     this.permiso_facturacion=this.obtenerPermiso('FACTURACION');
+    this.permiso_inventarios=this.obtenerPermiso('INVENTARIOS');
+    this.permiso_caja_bancos=this.obtenerPermiso('CAJA_BANCOS');
+    this.permiso_cuentasxcobrar=this.obtenerPermiso('CUENTAS_COBRAR');
+    this.permiso_cuentasxpagar=this.obtenerPermiso('CUENTAS_PAGAR');
     this.permiso_contabilidad=this.obtenerPermiso('CONTABILIDAD');
     this.permiso_financiero=this.obtenerPermiso('FINANCIERO');
-    this.permiso_inventarios=this.obtenerPermiso('INVENTARIOS');
     this.permiso_activos_fijos=this.obtenerPermiso('ACTIVOS_FIJOS');
     this.permiso_talento_humano=this.obtenerPermiso('TALENTO_HUMANO');
     this.permiso_produccion= this.obtenerPermiso('PRODUCCION');
     this.permiso_importacion= this.obtenerPermiso('IMPORTACION');
+    this.permiso_reportes= this.obtenerPermiso('REPORTES');
+    
     // ADMINISTRACION  
     this.permiso_estadisticas=this.obtenerPermiso('ESTADISTICAS');
     this.permiso_control=this.obtenerPermiso('ORGANISMOS_CONTROL');

@@ -54,25 +54,37 @@
                             </a>
                         </div>
 
-                        <div class="col-sm-auto align-self-center" *ngIf="permiso_contabilidad">
-                            <a (click)="abrirOpcion('CONTABILIDAD')">
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_caja_bancos">
+                            <a (click)="abrirOpcion('CAJA BANCOS')">
                                 <div class="card text-center tarjeta">
-                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_contabilidad}}"
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_caja_bancos}}"
                                         alt="">
                                     <div class="card-body">
-                                        <h6><a class="card-title">CONTABILIDAD</a></h6>
+                                        <h6><a class="card-title">CAJA BANCOS</a></h6>
                                     </div>
                                 </div>
                             </a>
                         </div>
 
-                        <div class="col-sm-auto align-self-center" *ngIf="permiso_financiero">
-                            <a (click)="abrirOpcion('FINANCIERO')">
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_cuentasxcobrar">
+                            <a (click)="abrirOpcion('CUENTAS COBRAR')">
                                 <div class="card text-center tarjeta">
-                                    <img class="card-img-top  mx-auto d-block imagen efecto" src="{{ico_financiero}}"
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_cuentasxcobrar}}"
                                         alt="">
                                     <div class="card-body">
-                                        <h6><a class="card-title">FINANCIERO</a></h6>
+                                        <h6><a class="card-title">CUENTAS POR COBRAR</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_cuentasxpagar">
+                            <a (click)="abrirOpcion('CUENTAS PAGAR')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_cuentasxpagar}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">CUENTAS POR PAGAR</a></h6>
                                     </div>
                                 </div>
                             </a>
@@ -85,6 +97,30 @@
                                         alt="">
                                     <div class="card-body">
                                         <h6><a class="card-title">ACTIVOS FIJOS</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_produccion">
+                            <a (click)="abrirOpcion('PRODUCCION')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_produccion}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">PRODUCCION</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_contabilidad">
+                            <a (click)="abrirOpcion('CONTABILIDAD')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_contabilidad}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">CONTABILIDAD</a></h6>
                                     </div>
                                 </div>
                             </a>
@@ -102,13 +138,14 @@
                             </a>
                         </div>
 
-                        <div class="col-sm-auto align-self-center" *ngIf="permiso_produccion">
-                            <a (click)="abrirOpcion('PRODUCCION')">
+                                                
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_financiero">
+                            <a (click)="abrirOpcion('FINANCIERO')">
                                 <div class="card text-center tarjeta">
-                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_produccion}}"
+                                    <img class="card-img-top  mx-auto d-block imagen efecto" src="{{ico_financiero}}"
                                         alt="">
                                     <div class="card-body">
-                                        <h6><a class="card-title">PRODUCCION</a></h6>
+                                        <h6><a class="card-title">FINANCIERO</a></h6>
                                     </div>
                                 </div>
                             </a>
@@ -125,6 +162,19 @@
                                 </div>
                             </a>
                         </div>
+
+                        <div class="col-sm-auto align-self-center" *ngIf="permiso_reportes">
+                            <a (click)="abrirOpcion('REPORTES')">
+                                <div class="card text-center tarjeta">
+                                    <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_reportes}}"
+                                        alt="">
+                                    <div class="card-body">
+                                        <h6><a class="card-title">REPORTES</a></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -157,7 +207,7 @@
                                     <img class="card-img-top mx-auto d-block imagen efecto" src="{{ico_estadistica}}"
                                         alt="">
                                     <div class="card-body">
-                                        <h6><a class="card-title">ESTADISTICAS</a></h6>
+                                        <h6><a class="card-title">INDICADORES</a></h6>
                                     </div>
                                 </div>
                             </a>
