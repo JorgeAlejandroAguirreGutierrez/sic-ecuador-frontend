@@ -329,10 +329,6 @@ export class ProductoComponent implements OnInit {
       Swal.fire(constantes.error, constantes.error_tipo_producto, constantes.error_swal);
       return;
     }
-    if(this.producto.kardexs.length==0){
-      Swal.fire(constantes.error, constantes.error_kardex_inicial, constantes.error_swal);
-      return;
-    }
     this.producto.estado=this.activo;
     console.log(this.producto);
     this.productoService.crear(this.producto).subscribe(

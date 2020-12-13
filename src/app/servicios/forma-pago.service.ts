@@ -76,7 +76,7 @@ export class FormaPagoService {
   }
 
   buscar(forma_pago: FormaPago): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.forma_pago+util.buscar+'/'+forma_pago.codigo + '/'+forma_pago.descripcion+'/'+forma_pago.abreviatura, util.options).pipe(
+    return this.http.post(environment.host + util.ruta + util.forma_pago+util.buscar, forma_pago, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

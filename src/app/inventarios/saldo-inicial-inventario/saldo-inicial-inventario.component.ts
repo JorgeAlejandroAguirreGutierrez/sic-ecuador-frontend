@@ -10,6 +10,11 @@ import { KardexService } from '../../servicios/kardex.service';
 import { MedidaService } from '../../servicios/medida.service';
 import { Medida } from '../../modelos/medida';
 import Swal from 'sweetalert2';
+import { MedidaPrecio } from '../../modelos/medida-precio';
+import { Precio } from '../../modelos/precio';
+import { Segmento } from '../../modelos/segmento';
+import { SegmentoService } from '../../servicios/segmento.service';
+import { MedidaPrecioService } from '../../servicios/medida-precio.service';
 
 
 @Component({
@@ -27,12 +32,23 @@ export class SaldoInicialInventarioComponent implements OnInit {
 
   kardex: Kardex=new Kardex();
 
+  segmentos: Segmento[]=[];
+
   constructor(private productoService: ProductoService, private kardexService: KardexService,
-              private medidaService: MedidaService) { }
+              private medidaService: MedidaService, private segmentoService: SegmentoService,
+              private medidaPrecioService: MedidaPrecioService) { }
 
   ngOnInit() {
     this.consultar_productos();
     this.consultar_medidas();
+    this.segmentoService.consultar().subscribe(
+      res => {
+        this.segmentos=res.resultado as Segmento[];
+      },
+      err => {
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      }
+    );
     this.filtro_productos = this.seleccion_producto.valueChanges
       .pipe(
         startWith(''),
@@ -92,6 +108,23 @@ export class SaldoInicialInventarioComponent implements OnInit {
       Swal.fire(constantes.error, constantes.error_producto, constantes.error_swal);
       return;
     }
+    let precio_uno=new Precio();
+    precio_uno.costo=this.kardex.costo_unitario;
+    let medida_precio=new MedidaPrecio();
+    medida_precio.medida=this.kardex.medida;
+    for(let i=0; i<this.segmentos.length; i++){
+      let precio=new Precio();
+      precio.costo= precio_uno.costo;
+      precio.segmento=this.segmentos[i];
+      medida_precio.precios.push(precio);
+    }
+    medida_precio.producto.id=this.kardex.producto.id;
+    this.medidaPrecioService.crear(medida_precio).subscribe(
+      res => {
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    );
     this.kardexService.crear(this.kardex).subscribe(
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);

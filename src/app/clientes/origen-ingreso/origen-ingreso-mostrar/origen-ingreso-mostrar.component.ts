@@ -47,15 +47,16 @@ export class OrigenIngresoMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-      this.origenIngresoService.buscar(this.origen_ingreso_buscar).subscribe(
-        res => {
-          if (res.resultado!=null) {
-            this.origenes_ingresos = res.resultado as OrigenIngreso[]
-          } else {
-            Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
-          }
+    this.origenIngresoService.buscar(this.origen_ingreso_buscar).subscribe(
+      res => {
+        if (res.resultado!=null) {
+          this.origenes_ingresos = res.resultado as OrigenIngreso[]
+        } else {
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
-      );
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    );
   }
 
   seleccion(origen_ingreso: OrigenIngreso) {
@@ -98,14 +99,18 @@ export class OrigenIngresoMostrarComponent implements OnInit {
   }
 
   cambiar_buscar_codigo(){
-
+    this.origen_ingreso_buscar.descripcion="";
+    this.origen_ingreso_buscar.abreviatura="";
   }
 
   cambiar_buscar_descripcion(){
-
+    this.origen_ingreso_buscar.codigo="";
+    this.origen_ingreso_buscar.abreviatura="";
   }
 
   cambiar_buscar_abreviatura(){
+    this.origen_ingreso_buscar.codigo="";
+    this.origen_ingreso_buscar.descripcion="";
 
   }
 

@@ -76,7 +76,7 @@ export class GeneroService {
   }
 
   buscar(genero: Genero): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.genero+util.buscar+'/'+genero.codigo + '/'+genero.descripcion+'/'+genero.abreviatura, util.options).pipe(
+    return this.http.post(environment.host + util.ruta + util.genero+util.buscar, genero, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

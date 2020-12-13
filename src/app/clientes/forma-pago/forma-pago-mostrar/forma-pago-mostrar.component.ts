@@ -47,15 +47,16 @@ export class FormaPagoMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-      this.formaPagoService.buscar(this.forma_pago_buscar).subscribe(
-        res => {
-          if (res.resultado!=null) {
-            this.formas_pagos = res.resultado as FormaPago[]
-          } else {
-            Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
-          }
+    this.formaPagoService.buscar(this.forma_pago_buscar).subscribe(
+      res => {
+        if (res.resultado!=null) {
+          this.formas_pagos = res.resultado as FormaPago[]
+        } else {
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
-      );
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    );
   }
 
   seleccion(forma_pago: FormaPago) {
@@ -97,15 +98,18 @@ export class FormaPagoMostrarComponent implements OnInit {
   }
 
   cambiar_buscar_codigo(){
-
+    this.forma_pago_buscar.descripcion="";
+    this.forma_pago_buscar.abreviatura="";
   }
 
   cambiar_buscar_descripcion(){
-
+    this.forma_pago_buscar.codigo="";
+    this.forma_pago_buscar.abreviatura="";
   }
 
   cambiar_buscar_abreviatura(){
-
+    this.forma_pago_buscar.descripcion="";
+    this.forma_pago_buscar.codigo="";
   }
 
 }

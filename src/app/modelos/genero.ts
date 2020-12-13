@@ -6,5 +6,8 @@ export class Genero {
 
     constructor() {
         this.id=0;
+        this.codigo="";
+        this.descripcion="";
+        this.abreviatura="";
     }
 }
