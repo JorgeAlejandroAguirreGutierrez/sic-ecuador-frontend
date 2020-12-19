@@ -122,6 +122,8 @@ import { BodegaComponent } from './inventarios/bodega/bodega.component';
 import { BodegaMostrarComponent } from './inventarios/bodega/bodega-mostrar/bodega-mostrar.component';
 import { MedidaComponent } from './inventarios/medida/medida.component';
 import { MedidaMostrarComponent } from './inventarios/medida/medida-mostrar/medida-mostrar.component';
+import { PresentacionProductoComponent } from './inventarios/presentacion-producto/presentacion-producto.component';
+import { PresentacionProductoMostrarComponent } from './inventarios/presentacion-producto/presentacion-producto-mostrar/presentacion-producto-mostrar.component';
 import { KardexComponent } from './inventarios/kardex/kardex.component';
 import { ActivoFijoComponent } from './inventarios/activo-fijo/activo-fijo.component';
 import { FiltroSerie } from './pipes/filtro-serie';
@@ -227,6 +229,7 @@ import { FormaPagoMostrarComponent } from './clientes/forma-pago/forma-pago-most
 import { TablaEquivalenciaMedidaComponent } from './inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida.component';
 import { TablaEquivalenciaMedidaMostrarComponent } from './inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida-mostrar/tabla-equivalencia-medida-mostrar.component';
 import { TablaEquivalenciaMedidaService } from './servicios/tabla-equivalencia-medida.service';
+import { PresentacionProductoService } from './servicios/presentacion-producto.service';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
@@ -270,6 +273,8 @@ const routes: Routes = [
   {path: 'inventario/medida-mostrar', component: MedidaMostrarComponent},
   {path: 'inventario/tablaequivalenciamedida', component: TablaEquivalenciaMedidaComponent},
   {path: 'inventario/tablaequivalenciamedida-mostrar', component: TablaEquivalenciaMedidaMostrarComponent},
+  {path: 'inventario/presentacionproducto', component: PresentacionProductoComponent},
+  {path: 'inventario/presentacionproducto-mostrar', component: PresentacionProductoMostrarComponent},
   {path: 'usuario', component: UsuarioComponent},
   {path: 'usuario-mostrar', component: UsuarioMostrarComponent},
   {path: 'usuario/establecimiento', component: EstablecimientoComponent},
@@ -410,7 +415,9 @@ const routes: Routes = [
     CuentaComponent, 
     PagoCompraComponent,
     TablaEquivalenciaMedidaComponent,
-    TablaEquivalenciaMedidaMostrarComponent
+    TablaEquivalenciaMedidaMostrarComponent,
+    PresentacionProductoComponent,
+    PresentacionProductoMostrarComponent
   ],
   imports: [
     BrowserModule,
@@ -438,7 +445,7 @@ const routes: Routes = [
               TransportistaService, UbicacionService, TipoContribuyenteService, VehiculoTransporteService,
               EmpresaService, EstablecimientoService, PuntoVentaService, UsuarioService, DatePipe,
               ClienteService, FacturaService, TabService, UsuariosService, DatabaseService, ProductosService,
-              TablaEquivalenciaMedidaService,
+              TablaEquivalenciaMedidaService, PresentacionProductoService,
               DataService, CartService, NgImageSliderService,
               {
                 provide: LocationStrategy,
@@ -448,7 +455,8 @@ const routes: Routes = [
   entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, BodegaComponent, 
     SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteComponent,
     EstadoCivilComponent, FormaPagoComponent, GeneroComponent, OrigenIngresoComponent, PlazoCreditoComponent,
-    TipoPagoComponent, TablaEquivalenciaMedidaComponent, MedidaComponent, UsuarioComponent, PuntoVentaComponent, EstablecimientoComponent]
+    TipoPagoComponent, TablaEquivalenciaMedidaComponent, MedidaComponent, UsuarioComponent, PuntoVentaComponent, 
+    PresentacionProductoComponent, EstablecimientoComponent]
 })
 export class AppModule {
   constructor() {

@@ -459,6 +459,8 @@ export class ProductoComponent implements OnInit {
     }
   }
   eliminar_medidas_actualizacion(){
+    console.log(this.medidas);
+    console.log(this.producto.medidas_precios);
     for(let z=0; z<this.producto.medidas_precios.length; z++){
       for (let i=0; i<this.medidas.length; i++){
         if (this.producto.medidas_precios[z].medida.codigo_norma==this.medidas[i].codigo_norma){
@@ -495,7 +497,6 @@ export class ProductoComponent implements OnInit {
       for(let j=0; j<this.producto.medidas_precios[i].precios.length; j++){
         this.producto.medidas_precios[i].precios[j].precio_venta_publico=(this.producto.medidas_precios[i].precios[j].costo/(1-(this.producto.medidas_precios[i].precios[j].margen_ganancia/100)));
         this.producto.medidas_precios[i].precios[j].precio_venta_publico=Number(this.producto.medidas_precios[i].precios[j].precio_venta_publico.toFixed(2));
-        console.log()
         this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva=this.producto.medidas_precios[i].precios[j].precio_venta_publico+(this.producto.medidas_precios[i].precios[j].precio_venta_publico*(this.producto.impuesto.porcentaje/100));
         this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva=Number(this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva.toFixed(2));
         this.producto.medidas_precios[i].precios[j].precio_venta_publico_manual= this.producto.medidas_precios[i].precios[j].precio_venta_publico_iva;

@@ -90,6 +90,8 @@ export const tab_crear_tabla_equivalencia_medida='Crear TEM';
 export const tab_crear_usuario='Crear Usuario';
 export const tab_crear_establecimiento='Crear Establecimiento';
 export const tab_crear_punto_venta='Crear Punto de Venta';
+export const tab_crear_grupo_producto='Crear Grupo de Producto';
+export const tab_crear_presentacion_producto='Crear Presentacion Prod';
 
 export const tab_buscar_auxiliar='Buscar Auxiliar';
 export const tab_buscar_categoria_cliente='Buscar Categoria Cliente';
@@ -137,6 +139,8 @@ export const tab_buscar_tabla_equivalencia_medida='Buscar TEM';
 export const tab_buscar_usuario='Buscar Usuario';
 export const tab_buscar_establecimiento='Buscar Establecimiento';
 export const tab_buscar_punto_venta='Buscar Punto de Venta';
+export const tab_buscar_grupo_producto='Buscar Grupo de Producto';
+export const tab_buscar_presentacion_producto='Buscar Presentacion Prod';
 
 //ACTUALIZAR
 export const tab_actualizar_auxiliar='Actualizar Auxiliar';
@@ -185,6 +189,7 @@ export const tab_actualizar_tabla_equivalencia_medida='Actualizar TEM';
 export const tab_actualizar_usuario='Actualizar Usuario';
 export const tab_actualizar_establecimiento='Actualizar Establecimiento';
 export const tab_actualizar_punto_venta='Actualizar Punto de Venta';
+export const tab_actualizar_presentacion_producto='Actualizar Presentacion Producto';
 
 
 //MODULOS

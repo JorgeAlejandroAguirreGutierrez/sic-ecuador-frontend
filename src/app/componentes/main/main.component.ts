@@ -45,6 +45,8 @@ import { EstablecimientoMostrarComponent } from '../../usuarios/establecimiento/
 import { PuntoVentaComponent } from '../../usuarios/punto-venta/punto-venta.component';
 import { PuntoVentaMostrarComponent } from '../../usuarios/punto-venta/punto-.venta-mostrar/punto-venta-mostrar.component';
 import * as constantes from '../../constantes';
+import { PresentacionProductoComponent } from '../../inventarios/presentacion-producto/presentacion-producto.component';
+import { PresentacionProductoMostrarComponent } from '../../inventarios/presentacion-producto/presentacion-producto-mostrar/presentacion-producto-mostrar.component';
 
 @Component({
   selector: 'app-main',
@@ -165,6 +167,8 @@ export class MainComponent implements OnInit {
       this.llenarOpciones(SaldoInicialInventarioComponent,constantes.tab_crear_saldo_inicial_inventario, constantes.tab_crear_saldo_inicial_inventario);
       this.llenarOpciones(TablaEquivalenciaMedidaComponent,constantes.tab_crear_tabla_equivalencia_medida, constantes.tab_crear_tabla_equivalencia_medida);
       this.llenarOpciones(TablaEquivalenciaMedidaMostrarComponent, constantes.tab_buscar_tabla_equivalencia_medida, constantes.tab_buscar_tabla_equivalencia_medida);
+      this.llenarOpciones(PresentacionProductoComponent,constantes.tab_crear_presentacion_producto, constantes.tab_crear_presentacion_producto);
+      this.llenarOpciones(PresentacionProductoMostrarComponent,constantes.tab_buscar_presentacion_producto, constantes.tab_buscar_presentacion_producto);
       this.llenarOpciones(PromocionComponent,'Promociones','Promociones/Combos');
     }
 
