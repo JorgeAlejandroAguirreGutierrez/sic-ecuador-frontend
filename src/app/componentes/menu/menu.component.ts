@@ -83,7 +83,7 @@ export class MenuComponent implements OnInit {
     this.permiso_estadisticas=this.obtenerPermiso('ESTADISTICAS');
     this.permiso_control=this.obtenerPermiso('ORGANISMOS_CONTROL');
     this.permiso_auditorias=this.obtenerPermiso('AUDITORIA');
-    this.permiso_tutoriales=this.obtenerPermiso('USUARIOS');
+    this.permiso_usuarios=this.obtenerPermiso('USUARIOS');
     this.permiso_configuraciones=this.obtenerPermiso('CONFIGURACIONES');
   }
 

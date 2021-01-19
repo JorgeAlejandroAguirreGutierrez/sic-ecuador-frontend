@@ -96,9 +96,9 @@ export class Factura {
   private calcular_descuento_total(){
     this.descuento_total=0;
     this.factura_detalles.forEach((detalle, index)=> {
-      this.descuento_total+=detalle.total_descuento_individual;
+      this.descuento_total=this.descuento_total+Number(detalle.total_descuento_individual);
     });
-    this.descuento_total= Number(this.descuento_total.toFixed(2));
+    this.descuento_total= Number(this.descuento_total.toFixed(2));    
   }
 
   private calcular_subtotal_base12_sin_descuento(){
@@ -184,18 +184,5 @@ export class Factura {
     this.calcular_total_con_descuento();
     this.calcular_valor_porcentaje_descuento_subtotal();
     this.calcular_valor_porcentaje_descuento_total();
-  }
-
-  normalizar(){
-    if (this.cliente.id==0){
-      this.cliente=null;
-    }
-    if (this.cliente_factura.id==0){
-      this.cliente_factura=null;
-    }
-  }
-  des_normalizar(){
-    this.cliente=new Cliente();
-    this.cliente_factura=new Cliente();
   }
 }

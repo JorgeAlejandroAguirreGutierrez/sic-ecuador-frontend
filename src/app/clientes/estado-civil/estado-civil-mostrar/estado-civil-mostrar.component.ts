@@ -47,15 +47,16 @@ export class EstadoCivilMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-      this.estadoCivilService.buscar(this.estado_civil_buscar).subscribe(
-        res => {
-          if (res.resultado!=null) {
-            this.estados_civiles = res.resultado as EstadoCivil[]
-          } else {
-            Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
-          }
+    this.estadoCivilService.buscar(this.estado_civil_buscar).subscribe(
+      res => {
+        if (res.resultado!=null) {
+          this.estados_civiles = res.resultado as EstadoCivil[]
+        } else {
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
-      );
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    );
   }
 
   seleccion(estado_civil: EstadoCivil) {
@@ -72,6 +73,8 @@ export class EstadoCivilMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.estado_civil != null){
       this.estadoCivilService.enviar(this.estado_civil.id);
+      let indice_tab_activo= constantes.tab_activo(this.tabService);
+      this.tabService.removeTab(indice_tab_activo);
       this.tabService.addNewTab(this.ComponenteEstadoCivil,'Actualizar Estado Civil');
     } else {
       Swal.fire(constantes.error, "Selecciona un Estado Civil", constantes.error_swal);
@@ -95,15 +98,18 @@ export class EstadoCivilMostrarComponent implements OnInit {
   }
 
   cambiar_buscar_codigo(){
-
+    this.estado_civil_buscar.descripcion="";
+    this.estado_civil_buscar.abreviatura="";
   }
 
   cambiar_buscar_descripcion(){
-
+    this.estado_civil_buscar.codigo="";
+    this.estado_civil_buscar.abreviatura="";
   }
 
   cambiar_buscar_abreviatura(){
-
+    this.estado_civil_buscar.codigo="";
+    this.estado_civil_buscar.descripcion="";
   }
 
 }

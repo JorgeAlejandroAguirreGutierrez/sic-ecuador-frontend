@@ -7,6 +7,7 @@ import { TabService } from "../../../componentes/services/tab.service";
 import { GeneroComponent } from '../genero.component';
 import { GeneroService } from '../../../servicios/genero.service';
 import { Genero } from '../../../modelos/genero';
+import * as constantes from '../../../constantes';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class GeneroMostrarComponent implements OnInit {
 
   ngOnInit() {
     this.consultar();
-    this.sesion= this.sesionService.getSesion();
+    this.sesion = this.sesionService.getSesion();
   }
 
   consultar() {
@@ -46,15 +47,16 @@ export class GeneroMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-      this.generoService.buscar(this.genero_buscar).subscribe(
-        res => {
-          if (res.resultado!=null) {
-            this.generos = res.resultado as Genero[]
-          } else {
-            Swal.fire('Error', res.mensaje, 'error');
-          }
+    this.generoService.buscar(this.genero_buscar).subscribe(
+      res => {
+        if (res.resultado!=null) {
+          this.generos = res.resultado as Genero[]
+        } else {
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
-      );
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    );
   }
 
   seleccion(genero: Genero) {
@@ -71,6 +73,8 @@ export class GeneroMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.genero != null){
       this.generoService.enviar(this.genero.id);
+      let indice_tab_activo= constantes.tab_activo(this.tabService);
+      this.tabService.removeTab(indice_tab_activo);
       this.tabService.addNewTab(this.ComponenteGenero,'Actualizar Genero');
     } else {
       Swal.fire('Error', "Selecciona un Estado Civil", 'error');
@@ -94,15 +98,18 @@ export class GeneroMostrarComponent implements OnInit {
   }
 
   cambiar_buscar_codigo(){
-
+    this.genero_buscar.descripcion="";
+    this.genero_buscar.abreviatura="";
   }
 
   cambiar_buscar_descripcion(){
-
+    this.genero_buscar.codigo="";
+    this.genero_buscar.abreviatura="";
   }
 
   cambiar_buscar_abreviatura(){
-
+    this.genero_buscar.descripcion="";
+    this.genero_buscar.codigo=""
   }
 
 }

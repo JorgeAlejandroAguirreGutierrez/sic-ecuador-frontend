@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, HostListener  } from '@angular/core';
 import { GrupoClienteService } from '../../servicios/grupo-cliente.service';
 import { GrupoCliente } from '../../modelos/grupo-cliente';
 import { TabService } from '../../componentes/services/tab.service';
+import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +23,7 @@ export class GrupoClienteComponent implements OnInit {
   nuevo(event) {
     if (event!=null)
       event.preventDefault();
-    this.grupo_cliente = new GrupoCliente();
+    this.tabService.addNewTab(GrupoClienteComponent, constantes.tab_crear_genero);
   }
 
   crear(event) {
@@ -30,11 +31,10 @@ export class GrupoClienteComponent implements OnInit {
       event.preventDefault();
     this.grupoClienteService.crear(this.grupo_cliente).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
-        this.nuevo(null);
-
+        this.grupo_cliente=res.resultado as GrupoCliente
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -43,20 +43,20 @@ export class GrupoClienteComponent implements OnInit {
       event.preventDefault();
     this.grupoClienteService.actualizar(this.grupo_cliente).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.grupo_cliente=res.resultado as GrupoCliente;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(grupo_cliente: GrupoCliente) {
     this.grupoClienteService.eliminar(grupo_cliente).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.grupo_cliente=res.resultado as GrupoCliente
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -68,7 +68,7 @@ export class GrupoClienteComponent implements OnInit {
         res => {
           Object.assign(this.grupo_cliente, res.resultado as GrupoCliente);
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
   }

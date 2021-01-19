@@ -58,7 +58,7 @@ export class OrigenIngresoService {
   }
 
   buscar(origen_ingreso: OrigenIngreso): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.origen_ingreso+util.buscar+'/'+origen_ingreso.codigo + '/'+origen_ingreso.descripcion+'/'+origen_ingreso.abreviatura, util.options).pipe(
+    return this.http.post(environment.host + util.ruta + util.origen_ingreso+util.buscar, origen_ingreso, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

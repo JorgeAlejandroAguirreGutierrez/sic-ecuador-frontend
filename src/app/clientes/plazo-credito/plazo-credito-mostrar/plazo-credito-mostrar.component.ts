@@ -7,6 +7,7 @@ import { TabService } from "../../../componentes/services/tab.service";
 import { PlazoCreditoComponent } from '../plazo-credito.component';
 import { PlazoCreditoService } from '../../../servicios/plazo-credito.service';
 import { PlazoCredito } from '../../../modelos/plazo-credito';
+import * as constantes from '../../../constantes';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class PlazoCreditoMostrarComponent implements OnInit {
       res => {
         this.plazos_creditos = res.resultado as PlazoCredito[]
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -51,7 +52,7 @@ export class PlazoCreditoMostrarComponent implements OnInit {
           if (res.resultado!=null) {
             this.plazos_creditos = res.resultado as PlazoCredito[]
           } else {
-            Swal.fire('Error', res.mensaje, 'error');
+            Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
           }
         }
       );
@@ -66,9 +67,11 @@ export class PlazoCreditoMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.plazo_credito != null){
       this.plazoCreditoService.enviar(this.plazo_credito.id);
-      this.tabService.addNewTab(this.ComponentePlazoCredito,'Actualizar plazo de Credito');
+      let indice_tab_activo= constantes.tab_activo(this.tabService);
+      this.tabService.removeTab(indice_tab_activo);
+      this.tabService.addNewTab(this.ComponentePlazoCredito,constantes.tab_actualizar_plazo_credito);
     } else {
-      Swal.fire('Error', "Selecciona un Plazo de Credito", 'error');
+      Swal.fire(constantes.error, "Selecciona un Plazo de Credito", constantes.error_swal);
     }
   }
 
@@ -78,13 +81,13 @@ export class PlazoCreditoMostrarComponent implements OnInit {
     this.plazoCreditoService.eliminar(this.plazo_credito).subscribe(
       res => {
         if (res.resultado!=null){
-          Swal.fire('Exito', res.mensaje, 'success');
+          Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.plazo_credito = res.resultado as PlazoCredito
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }        
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 

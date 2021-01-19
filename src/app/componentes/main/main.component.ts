@@ -44,6 +44,9 @@ import { EstablecimientoComponent } from '../../usuarios/establecimiento/estable
 import { EstablecimientoMostrarComponent } from '../../usuarios/establecimiento/establecimiento-mostrar/establecimiento-mostrar.component';
 import { PuntoVentaComponent } from '../../usuarios/punto-venta/punto-venta.component';
 import { PuntoVentaMostrarComponent } from '../../usuarios/punto-venta/punto-.venta-mostrar/punto-venta-mostrar.component';
+import * as constantes from '../../constantes';
+import { PresentacionProductoComponent } from '../../inventarios/presentacion-producto/presentacion-producto.component';
+import { PresentacionProductoMostrarComponent } from '../../inventarios/presentacion-producto/presentacion-producto-mostrar/presentacion-producto-mostrar.component';
 
 @Component({
   selector: 'app-main',
@@ -125,115 +128,110 @@ export class MainComponent implements OnInit {
 
   menuOpciones(tabNombre: string) {
     this.opciones = [];
-    if (tabNombre == "CLIENTES") {
-      // El componente, nombre del tab y la opción en el slidebar
-      this.llenarOpciones(ClienteComponent,'Crear cliente','Crear cliente');
-      this.llenarOpciones(ClienteMostrarComponent,'Buscar cliente','Buscar cliente');
-      this.llenarOpciones(GrupoClienteComponent,'Crear Grupo Cliente','Crear Grupo Cliente');
-      this.llenarOpciones(GrupoClienteMostrarComponent,'Mostrar Grupo Cliente','Mostrar Grupo Cliente');
-      this.llenarOpciones(CategoriaClienteComponent,'Crear Categoria Cliente','Crear Categoria Cliente');
-      this.llenarOpciones(CategoriaClienteMostrarComponent,'Mostrar Categoria Cliente','Mostrar Categoria Cliente');
-      this.llenarOpciones(EstadoCivilComponent,'Crear Estado Civil','Crear Estado Civil');
-      this.llenarOpciones(EstadoCivilMostrarComponent,'Mostrar Estado Civil','Mostrar Estado Civil');
-      this.llenarOpciones(FormaPagoComponent,'Crear Forma de Pago','Crear Forma de Pago');
-      this.llenarOpciones(FormaPagoMostrarComponent,'Mostrar Forma de Pago','Mostrar Forma de Pago');
-      this.llenarOpciones(GeneroComponent,'Crear Genero','Crear Genero');
-      this.llenarOpciones(GeneroMostrarComponent,'Mostrar Genero','Mostrar Genero');
-      this.llenarOpciones(OrigenIngresoComponent,'Crear Origen de Ingreso','Crear Origen de Ingreso');
-      this.llenarOpciones(OrigenIngresoMostrarComponent,'Mostrar Origen de Ingreso','Mostrar Origen de Ingreso');
-      this.llenarOpciones(PlazoCreditoComponent,'Crear Plazo de Credito','Crear Plazo de Credito');
-      this.llenarOpciones(PlazoCreditoMostrarComponent,'Mostrar Plazo de Credito','Mostrar Plazo de Credito');
-      this.llenarOpciones(TipoPagoComponent,'Crear Tipo de Pago','Crear Tipo de Pago');
-      this.llenarOpciones(TipoPagoMostrarComponent,'Mostrar Tipo de Pago','Mostrar Tipo de Pago');
+    if (tabNombre == constantes.modulo_clientes) {
+      this.llenarOpciones(ClienteComponent,constantes.tab_crear_cliente, constantes.tab_crear_cliente);
+      this.llenarOpciones(ClienteMostrarComponent,constantes.tab_buscar_cliente,constantes.tab_buscar_cliente);
+      this.llenarOpciones(GrupoClienteComponent,constantes.tab_crear_grupo_cliente, constantes.tab_crear_grupo_cliente);
+      this.llenarOpciones(GrupoClienteMostrarComponent,constantes.tab_buscar_grupo_cliente, constantes.tab_buscar_grupo_cliente);
+      this.llenarOpciones(CategoriaClienteComponent,constantes.tab_crear_categoria_cliente, constantes.tab_crear_categoria_cliente);
+      this.llenarOpciones(CategoriaClienteMostrarComponent,constantes.tab_buscar_categoria_cliente, constantes.tab_buscar_categoria_cliente);
+      this.llenarOpciones(EstadoCivilComponent,constantes.tab_crear_estado_civil, constantes.tab_crear_estado_civil);
+      this.llenarOpciones(EstadoCivilMostrarComponent, constantes.tab_buscar_estado_civil, constantes.tab_buscar_estado_civil);
+      this.llenarOpciones(FormaPagoComponent, constantes.tab_crear_forma_pago, constantes.tab_crear_forma_pago);
+      this.llenarOpciones(FormaPagoMostrarComponent,constantes.tab_buscar_forma_pago, constantes.tab_buscar_forma_pago);
+      this.llenarOpciones(GeneroComponent, constantes.tab_crear_genero, constantes.tab_crear_genero);
+      this.llenarOpciones(GeneroMostrarComponent,constantes.tab_buscar_genero, constantes.tab_buscar_genero);
+      this.llenarOpciones(OrigenIngresoComponent,constantes.tab_crear_origen_ingreso, constantes.tab_crear_origen_ingreso);
+      this.llenarOpciones(OrigenIngresoMostrarComponent,constantes.tab_buscar_origen_ingreso,constantes.tab_buscar_origen_ingreso);
+      this.llenarOpciones(PlazoCreditoComponent,constantes.tab_crear_plazo_credito, constantes.tab_crear_plazo_credito);
+      this.llenarOpciones(PlazoCreditoMostrarComponent,constantes.tab_buscar_plazo_credito,constantes.tab_buscar_plazo_credito);
+      this.llenarOpciones(TipoPagoComponent,constantes.tab_crear_tipo_pago, constantes.tab_crear_tipo_pago);
+      this.llenarOpciones(TipoPagoMostrarComponent,constantes.tab_buscar_tipo_pago, constantes.tab_buscar_tipo_pago);
       this.llenarOpciones(MapsComponent,'Mapa Cliente','Mapa cliente');
     }
 
-    if (tabNombre == "COMPRAS") {
-      this.llenarOpciones(ProveedorComponent, 'Nuevo proveedor', 'Crear Proveedor');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar proveedor', 'Buscar Proveedor');
-      this.llenarOpciones(FacturaCompraComponent, 'Registrar compra', 'Registrar Compra');
+    if (tabNombre == constantes.modulo_compras) {
+      this.llenarOpciones(ProveedorComponent, constantes.tab_crear_proveedor, constantes.tab_crear_proveedor);
+      this.llenarOpciones(FacturaMostrarComponent, constantes.tab_buscar_proveedor, constantes.tab_buscar_proveedor);
+      this.llenarOpciones(FacturaCompraComponent, constantes.tab_crear_factura_compra, constantes.tab_crear_factura_compra);
     }
 
-    if (tabNombre == "VENTAS") {
-      this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
+    if (tabNombre == constantes.modulo_ventas) {
+      this.llenarOpciones(FacturaComponent, constantes.tab_crear_factura, constantes.tab_crear_factura);
+      this.llenarOpciones(FacturaMostrarComponent, constantes.tab_buscar_factura, constantes.tab_buscar_factura);
     }
 
-    if (tabNombre == "INVENTARIOS") {
-      this.llenarOpciones(ProductoComponent,'Crear Producto','Crear Producto');
-      this.llenarOpciones(ProductoMostrarComponent,'Buscar Productos','Buscar Productos');
-      this.llenarOpciones(SaldoInicialInventarioComponent,'Crear Saldo Inicial','Crear Saldo Inicial');
-      this.llenarOpciones(TablaEquivalenciaMedidaComponent,'Crear TEM','Crear TEM');
-      this.llenarOpciones(TablaEquivalenciaMedidaMostrarComponent,'Buscar TEM','Buscar TEM');
-      
+    if (tabNombre == constantes.modulo_inventarios) {
+      this.llenarOpciones(ProductoComponent,constantes.tab_crear_producto, constantes.tab_crear_producto);
+      this.llenarOpciones(ProductoMostrarComponent,constantes.tab_buscar_producto, constantes.tab_buscar_producto);
+      this.llenarOpciones(SaldoInicialInventarioComponent,constantes.tab_crear_saldo_inicial_inventario, constantes.tab_crear_saldo_inicial_inventario);
+      this.llenarOpciones(TablaEquivalenciaMedidaComponent,constantes.tab_crear_tabla_equivalencia_medida, constantes.tab_crear_tabla_equivalencia_medida);
+      this.llenarOpciones(TablaEquivalenciaMedidaMostrarComponent, constantes.tab_buscar_tabla_equivalencia_medida, constantes.tab_buscar_tabla_equivalencia_medida);
+      this.llenarOpciones(PresentacionProductoComponent,constantes.tab_crear_presentacion_producto, constantes.tab_crear_presentacion_producto);
+      this.llenarOpciones(PresentacionProductoMostrarComponent,constantes.tab_buscar_presentacion_producto, constantes.tab_buscar_presentacion_producto);
       this.llenarOpciones(PromocionComponent,'Promociones','Promociones/Combos');
     }
 
-    if (tabNombre == "CONTABILIDAD") {
-      this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
+    if (tabNombre == constantes.modulo_contabilidad) {
+      this.llenarOpciones(FacturaComponent, constantes.tab_crear_factura, constantes.tab_crear_factura);
+      this.llenarOpciones(FacturaMostrarComponent, constantes.tab_buscar_factura, constantes.tab_buscar_factura);
     }
 
-    if (tabNombre == "FINANCIERO") {
-      this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
+    if (tabNombre == constantes.modulo_financiero) {
+      this.llenarOpciones(FacturaComponent, constantes.tab_crear_factura, constantes.tab_crear_factura);
+      this.llenarOpciones(FacturaMostrarComponent, constantes.tab_buscar_factura, constantes.tab_buscar_factura);
     }
 
-    if (tabNombre == "ACTIVOS FIJOS") {
-      this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
+    if (tabNombre == constantes.modulo_activos_fijos) {
+      this.llenarOpciones(FacturaComponent, constantes.tab_crear_factura, constantes.tab_crear_factura);
+      this.llenarOpciones(FacturaMostrarComponent, constantes.tab_buscar_factura, constantes.tab_buscar_factura);
     }
 
-    if (tabNombre == "TALENTO HUMANO") {
-      this.llenarOpciones(TransportistaComponent,'Crear Transportista','Crear Transportista');
+    if (tabNombre == constantes.modulo_talento_humano) {
+      this.llenarOpciones(TransportistaComponent,constantes.tab_crear_transportista,constantes.tab_crear_transportista);
     }
 
-    if (tabNombre == "PRODUCCION") {
-      this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
+    if (tabNombre == constantes.modulo_produccion) {
+      this.llenarOpciones(FacturaComponent, constantes.tab_crear_factura, constantes.tab_crear_factura);
+      this.llenarOpciones(FacturaMostrarComponent, constantes.tab_buscar_factura, constantes.tab_buscar_factura);
     }
 
-    if (tabNombre == "IMPORTACION") {
-      this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
+    if (tabNombre == constantes.modulo_importacion) {
+      this.llenarOpciones(FacturaComponent, constantes.tab_crear_factura, constantes.tab_crear_factura);
+      this.llenarOpciones(FacturaMostrarComponent, constantes.tab_buscar_factura, constantes.tab_buscar_factura);
     }
 
-    if (tabNombre == "CONFIGURACION") {
-      this.llenarOpciones(GrupoClienteComponent, 'Crear Grupo Cliente', 'Crear Grupo Cliente');
-      this.llenarOpciones(TransportistaComponent, 'Crear Transportista', 'Crear Transportista');
-      this.llenarOpciones(ImportarComponent, 'Importar', 'Importar');
-      this.llenarOpciones(ExportarComponent, 'Exportar', 'Exportar');
+    if (tabNombre == constantes.modulo_configuracion) {
+      this.llenarOpciones(GrupoClienteComponent, constantes.tab_crear_grupo_cliente, constantes.tab_crear_grupo_cliente);
+      this.llenarOpciones(TransportistaComponent, constantes.tab_crear_transportista, constantes.tab_crear_transportista);
+      this.llenarOpciones(UbicacionComponent,constantes.tab_crear_ubicacion, constantes.tab_crear_ubicacion);
+      this.llenarOpciones(UbicacionMostrarComponent, constantes.tab_buscar_ubicacion, constantes.tab_buscar_ubicacion);
+      this.llenarOpciones(ImportarComponent, constantes.tab_crear_importacion, constantes.tab_crear_importacion);
+      this.llenarOpciones(ExportarComponent, constantes.tab_crear_exportacion, constantes.tab_crear_exportacion);
     }
     
-    if (tabNombre == "ESTADISTICAS") {
-      this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
+    if (tabNombre == constantes.modulo_estadisticas) {
+      this.llenarOpciones(FacturaComponent, constantes.tab_crear_factura, constantes.tab_crear_factura);
+      this.llenarOpciones(FacturaMostrarComponent, constantes.tab_buscar_factura, constantes.tab_buscar_factura);
     }
 
-    if (tabNombre == "CONTROL") {
-      this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
+    if (tabNombre == constantes.modulo_control) {
+      this.llenarOpciones(FacturaComponent, constantes.tab_crear_factura, constantes.tab_crear_factura,);
+      this.llenarOpciones(FacturaMostrarComponent, constantes.tab_buscar_factura, constantes.tab_buscar_factura);
     }
 
-    if (tabNombre == "AUDITORIA") {
-      this.llenarOpciones(FacturaComponent, 'Crear Factura', 'Crear Factura');
-      this.llenarOpciones(FacturaMostrarComponent, 'Buscar Factura', 'Buscar Factura');
+    if (tabNombre == constantes.modulo_auditoria) {
+      this.llenarOpciones(FacturaComponent, constantes.tab_crear_factura, constantes.tab_crear_factura);
+      this.llenarOpciones(FacturaMostrarComponent, constantes.tab_buscar_factura, constantes.tab_buscar_factura);
     }
 
-    if (tabNombre == "USUARIOS") {
-      this.llenarOpciones(UsuarioComponent,'Crear Usuario','Crear Usuario');
-      this.llenarOpciones(UsuarioMostrarComponent,'Buscar Usuario','Buscar Usuario');
-      this.llenarOpciones(EstablecimientoComponent,'Crear Establecimiento','Crear Establecimiento');
-      this.llenarOpciones(EstablecimientoMostrarComponent,'Buscar Establecimiento','Buscar Establecimiento');
-      this.llenarOpciones(PuntoVentaComponent,'Crear Punto de Venta','Crear Punto de Venta');
-      this.llenarOpciones(PuntoVentaMostrarComponent,'Buscar Punto de Venta','Buscar Punto de Venta');
-    }
-
-    if (tabNombre == "CONFIGURACION") {
-      this.llenarOpciones(UbicacionComponent,'Crear Ubicacion Cliente','Crear Ubicacion Cliente');
-      this.llenarOpciones(UbicacionMostrarComponent,'Buscar Ubicacion Cliente','Buscar Ubicacion Cliente');
-      this.llenarOpciones(ImportarComponent,'Importar', 'Importar');
-      this.llenarOpciones(ExportarComponent,'Exportar', 'Exportar');
+    if (tabNombre == constantes.modulo_usuarios) {
+      this.llenarOpciones(UsuarioComponent, constantes.tab_crear_usuario, constantes.tab_crear_usuario);
+      this.llenarOpciones(UsuarioMostrarComponent, constantes.tab_buscar_usuario, constantes.tab_buscar_usuario);
+      this.llenarOpciones(EstablecimientoComponent, constantes.tab_crear_establecimiento, constantes.tab_crear_establecimiento);
+      this.llenarOpciones(EstablecimientoMostrarComponent,constantes.tab_buscar_establecimiento, constantes.tab_buscar_establecimiento);
+      this.llenarOpciones(PuntoVentaComponent,constantes.tab_crear_punto_venta, constantes.tab_crear_punto_venta);
+      this.llenarOpciones(PuntoVentaMostrarComponent,constantes.tab_buscar_punto_venta, constantes.tab_buscar_punto_venta);
     }
   }  
 }

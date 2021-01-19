@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { GeneroService } from '../../servicios/genero.service';
 import { Genero } from '../../modelos/genero';
 import { TabService } from '../../componentes/services/tab.service';
+import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +23,7 @@ export class GeneroComponent implements OnInit {
   nuevo(event) {
     if (event!=null)
       event.preventDefault();
-    this.genero = new Genero();
+    this.tabService.addNewTab(GeneroComponent, constantes.tab_crear_genero);
   }
 
   crear(event) {
@@ -30,11 +31,10 @@ export class GeneroComponent implements OnInit {
       event.preventDefault();
     this.generoService.crear(this.genero).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
-        this.nuevo(null);
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
 
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -43,20 +43,20 @@ export class GeneroComponent implements OnInit {
       event.preventDefault();
     this.generoService.actualizar(this.genero).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.genero=res.resultado as Genero;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(genero: Genero) {
     this.generoService.eliminar(genero).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.genero=res.resultado as Genero
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -68,7 +68,7 @@ export class GeneroComponent implements OnInit {
         res => {
           Object.assign(this.genero, res.resultado as Genero);
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
   }

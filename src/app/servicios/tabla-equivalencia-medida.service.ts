@@ -78,7 +78,7 @@ export class TablaEquivalenciaMedidaService {
   }
 
   buscar(tabla_equivalencia_medida: TablaEquivalenciaMedida): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.tabla_equivalencia_medida+util.buscar+'/'+tabla_equivalencia_medida.medida1.id + '/'+tabla_equivalencia_medida.medida2.id+'/'+tabla_equivalencia_medida.equivalencia, util.options).pipe(
+    return this.http.post(environment.host + util.ruta + util.tabla_equivalencia_medida+util.buscar, tabla_equivalencia_medida, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

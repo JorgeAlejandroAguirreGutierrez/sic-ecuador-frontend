@@ -4,9 +4,8 @@ import { Respuesta } from '../respuesta';
 import * as util from '../util';
 import {HttpClient} from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Producto } from '../modelos/producto';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +13,13 @@ import { Producto } from '../modelos/producto';
 export class MedidaService {
 
   constructor(private http: HttpClient) { }
+
+  private messageSource = new BehaviorSubject(0);
+  currentMessage = this.messageSource.asObservable();
+
+  enviar(medida_id: number) {
+    this.messageSource.next(medida_id);
+  }
 
   crear(medida: Medida): Observable<Respuesta> {
     return this.http.post(environment.host + util.ruta + util.medida, JSON.stringify(medida), util.options).pipe(
@@ -24,13 +30,22 @@ export class MedidaService {
     );
   }
 
-  obtener(medida: Medida): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.medida + '/' + medida.id, util.options).pipe(
+  obtener(medida_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.medida + '/' + medida_id, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       })
     );
+  }
+
+  async obtenerAsync(medida_id: number): Promise<Respuesta> {
+    return await this.http.get<Respuesta>(environment.host + util.ruta + util.medida + '/' + medida_id, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    ).toPromise();
   }
 
   consultar(): Observable<Respuesta> {
@@ -52,6 +67,15 @@ export class MedidaService {
 
   eliminar(medida: Medida): Observable<Respuesta> {
     return this.http.delete(environment.host+util.ruta+util.producto + '/' + medida.id, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
+
+  buscar(medida: Medida): Observable<Respuesta> {
+    return this.http.get(environment.host + util.ruta + util.medida+util.buscar+'/'+medida.codigo_norma + '/'+medida.descripcion, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

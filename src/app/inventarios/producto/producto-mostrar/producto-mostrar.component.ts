@@ -1,15 +1,13 @@
 import { Component, OnInit, Type } from '@angular/core';
 import { Router } from '@angular/router';
-import { Factura} from '../../../modelos/factura';
-import { FacturaService } from '../../../servicios/factura.service';
 import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
 import { ProductoComponent } from '../producto.component';
 import { ProductoService } from '../../../servicios/producto.service';
 import { Producto } from '../../../modelos/producto';
+import * as constantes from '../../../constantes';
 
 
 @Component({
@@ -25,7 +23,7 @@ export class ProductoMostrarComponent implements OnInit {
   sesion: Sesion;
 
   constructor(private productoService: ProductoService, private tabService: TabService, 
-    private sesionService: SesionService,private router: Router, private modalService: NgbModal) { }
+    private sesionService: SesionService,private router: Router) { }
 
   productos: Producto[];
   producto: Producto;
@@ -35,10 +33,6 @@ export class ProductoMostrarComponent implements OnInit {
   ngOnInit() {
     this.consultar();
     this.sesion= this.sesionService.getSesion();
-  }
-
-  cambiar_buscar_producto_nombre(){
-    this.producto_buscar.nombre="";
   }
 
   consultar() {
@@ -52,15 +46,16 @@ export class ProductoMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-      this.productoService.buscarNombre(this.producto_buscar).subscribe(
-        res => {
-          if (res.resultado!=null) {
-            this.productos = res.resultado as Producto[]
-          } else {
-            Swal.fire('Error', res.mensaje, 'error');
-          }
+    this.productoService.buscar(this.producto_buscar).subscribe(
+      res => {
+        if (res.resultado!=null) {
+          this.productos = res.resultado as Producto[]
+        } else {
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
-      );
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    );
   }
 
   seleccion(producto: Producto) {
@@ -72,9 +67,9 @@ export class ProductoMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.producto != null){
       this.productoService.enviar(this.producto.id);
-      this.tabService.addNewTab(this.ComponenteProducto,'Actualizar Producto');
+      this.tabService.addNewTab(this.ComponenteProducto, constantes.tab_actualizar_producto);
     } else {
-      Swal.fire('Error', "Selecciona un Producto", 'error');
+      Swal.fire(constantes.error, "Selecciona un Producto", constantes.error_swal);
     }
   }
 
@@ -84,14 +79,14 @@ export class ProductoMostrarComponent implements OnInit {
     this.productoService.eliminar(this.producto).subscribe(
       res => {
         if (res.resultado!=null){
-          Swal.fire('Exito', res.mensaje, 'success');
+          Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.producto = res.resultado as Producto
           this.ngOnInit();
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }        
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 

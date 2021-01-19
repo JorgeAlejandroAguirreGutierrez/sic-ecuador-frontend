@@ -7,6 +7,7 @@ import { TabService } from "../../../componentes/services/tab.service";
 import { CategoriaClienteComponent } from '../categoria-cliente.component';
 import { CategoriaClienteService } from '../../../servicios/categoria-cliente.service';
 import { CategoriaCliente } from '../../../modelos/categoria-cliente';
+import * as constantes from '../../../constantes';
 
 
 @Component({
@@ -46,15 +47,16 @@ export class CategoriaClienteMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-      this.categoriaClienteService.buscar(this.categoria_cliente_buscar).subscribe(
-        res => {
-          if (res.resultado!=null) {
-            this.categorias_clientes = res.resultado as CategoriaCliente[]
-          } else {
-            Swal.fire('Error', res.mensaje, 'error');
-          }
+    this.categoriaClienteService.buscar(this.categoria_cliente_buscar).subscribe(
+      res => {
+        if (res.resultado!=null) {
+          this.categorias_clientes = res.resultado as CategoriaCliente[]
+        } else {
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }
-      );
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    );
   }
 
   seleccion(categoria_cliente: CategoriaCliente) {
@@ -66,9 +68,11 @@ export class CategoriaClienteMostrarComponent implements OnInit {
       event.preventDefault();
     if (this.categoria_cliente != null){
       this.categoriaClienteService.enviar(this.categoria_cliente.id);
+      let indice_tab_activo= constantes.tab_activo(this.tabService);
+      this.tabService.removeTab(indice_tab_activo);
       this.tabService.addNewTab(this.ComponenteCategoriaCliente,'Actualizar Categoria Cliente');
     } else {
-      Swal.fire('Error', "Selecciona un Grupo Cliente", 'error');
+      Swal.fire(constantes.error, "Selecciona un Grupo Cliente", constantes.error_swal);
     }
   }
 
@@ -78,26 +82,29 @@ export class CategoriaClienteMostrarComponent implements OnInit {
     this.categoriaClienteService.eliminar(this.categoria_cliente).subscribe(
       res => {
         if (res.resultado!=null){
-          Swal.fire('Exito', res.mensaje, 'success');
+          Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.categoria_cliente = res.resultado as CategoriaCliente
         } else {
-          Swal.fire('Error', res.mensaje, 'error');
+          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
         }        
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   cambiar_buscar_codigo(){
-
+    this.categoria_cliente_buscar.descripcion="";
+    this.categoria_cliente_buscar.abreviatura="";
   }
 
   cambiar_buscar_descripcion(){
-
+    this.categoria_cliente_buscar.codigo="";
+    this.categoria_cliente_buscar.abreviatura="";
   }
 
   cambiar_buscar_abreviatura(){
-
+    this.categoria_cliente_buscar.descripcion="";
+    this.categoria_cliente_buscar.codigo="";
   }
 
 }

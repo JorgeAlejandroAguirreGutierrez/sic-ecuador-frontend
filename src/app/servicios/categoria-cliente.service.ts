@@ -57,7 +57,7 @@ export class CategoriaClienteService {
   }
 
   buscar(categoria_cliente: CategoriaCliente): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.categoria_cliente+util.buscar+'/'+categoria_cliente.codigo + '/'+categoria_cliente.descripcion+'/'+categoria_cliente.abreviatura, util.options).pipe(
+    return this.http.post(environment.host + util.ruta + util.categoria_cliente+util.buscar, categoria_cliente, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

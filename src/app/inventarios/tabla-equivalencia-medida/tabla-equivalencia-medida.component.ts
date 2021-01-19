@@ -53,10 +53,8 @@ export class TablaEquivalenciaMedidaComponent implements OnInit {
     this.tablaEquivalenciaMedidaService.crear(this.tabla_equivalencia_medida).subscribe(
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.nuevo(null);
-
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire(constantes.error, err.error.message, constantes.error_swal)
     );
   }
 
@@ -68,7 +66,7 @@ export class TablaEquivalenciaMedidaComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.tabla_equivalencia_medida=res.resultado as TablaEquivalenciaMedida;
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire(constantes.error, err.error.message, constantes.error_swal)
     );
   }
 
@@ -78,7 +76,7 @@ export class TablaEquivalenciaMedidaComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.tabla_equivalencia_medida=res.resultado as TablaEquivalenciaMedida
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire(constantes.error, err.error.message, constantes.error_swal)
     );
   }
 
@@ -90,7 +88,7 @@ export class TablaEquivalenciaMedidaComponent implements OnInit {
         res => {
           Object.assign(this.tabla_equivalencia_medida, res.resultado as TablaEquivalenciaMedida);
         },
-        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        err => Swal.fire(constantes.error, err.error.message, constantes.error_swal)
       );
     }
   }

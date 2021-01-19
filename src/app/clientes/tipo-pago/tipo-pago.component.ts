@@ -3,6 +3,7 @@ import { TabService } from '../../componentes/services/tab.service';
 import Swal from 'sweetalert2';
 import { TipoPago } from '../../modelos/tipo-pago';
 import { TipoPagoService } from '../../servicios/tipo-pago.service';
+import * as constantes from '../../constantes';
 
 @Component({
   selector: 'app-tipo-pago',
@@ -22,7 +23,7 @@ export class TipoPagoComponent implements OnInit {
   nuevo(event) {
     if (event!=null)
       event.preventDefault();
-    this.tipo_pago = new TipoPago();
+    this.tabService.addNewTab(TipoPagoComponent, constantes.tab_crear_plazo_credito);
   }
 
   crear(event) {
@@ -30,11 +31,9 @@ export class TipoPagoComponent implements OnInit {
       event.preventDefault();
     this.tipoPagoService.crear(this.tipo_pago).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
-        this.nuevo(null);
-
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -43,20 +42,20 @@ export class TipoPagoComponent implements OnInit {
       event.preventDefault();
     this.tipoPagoService.actualizar(this.tipo_pago).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.tipo_pago=res.resultado as TipoPago;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
   eliminar(tipo_pago: TipoPago) {
     this.tipoPagoService.eliminar(tipo_pago).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.tipo_pago=res.resultado as TipoPago
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
@@ -68,7 +67,7 @@ export class TipoPagoComponent implements OnInit {
         res => {
           Object.assign(this.tipo_pago, res.resultado as TipoPago);
         },
-        err => Swal.fire('Error', err.error.mensaje, 'error')
+        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
   }

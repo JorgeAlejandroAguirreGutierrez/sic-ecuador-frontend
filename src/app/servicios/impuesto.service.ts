@@ -33,8 +33,8 @@ export class ImpuestoService {
     );
   }
 
-  obtener(plazo_credito_id: number): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.impuesto + '/' + plazo_credito_id, util.options).pipe(
+  obtener(impuesto_id: number): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.impuesto + '/' + impuesto_id, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

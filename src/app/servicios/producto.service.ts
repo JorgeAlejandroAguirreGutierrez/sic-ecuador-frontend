@@ -81,8 +81,8 @@ export class ProductoService {
       }));
   }
 
-  buscarNombre(producto: Producto): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.producto+util.buscar+util.nombre+'/'+producto.nombre, util.options).pipe(
+  buscar(producto: Producto): Observable<Respuesta> {
+    return this.http.post(environment.host + util.ruta + util.producto+util.buscar, producto, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
