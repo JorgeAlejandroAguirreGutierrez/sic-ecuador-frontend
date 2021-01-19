@@ -439,7 +439,7 @@ const routes: Routes = [
     SharedModule,
     HttpClientJsonpModule,
     NgImageSliderModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })
   ],
   providers: [DatoAdicionalService, PlazoCreditoService, ImpuestoService, RetencionService, ModeloService,
               TransportistaService, UbicacionService, TipoContribuyenteService, VehiculoTransporteService,

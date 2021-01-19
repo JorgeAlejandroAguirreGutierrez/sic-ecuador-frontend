@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TablaEditableComponent } from './tabla-editable.component';
 
@@ -6,7 +6,7 @@ describe('TablaEditableComponent', () => {
   let component: TablaEditableComponent;
   let fixture: ComponentFixture<TablaEditableComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TablaEditableComponent ]
     })

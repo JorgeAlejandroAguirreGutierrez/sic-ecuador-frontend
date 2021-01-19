@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { CuentaComponent } from './cuenta.component';
+import { ImportarComponent } from './importar.component';
 
-describe('CuentaComponent', () => {
-  let component: CuentaComponent;
-  let fixture: ComponentFixture<CuentaComponent>;
+describe('AdministracionComponent', () => {
+  let component: ImportarComponent;
+  let fixture: ComponentFixture<ImportarComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CuentaComponent ]
+      declarations: [ ImportarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CuentaComponent);
+    fixture = TestBed.createComponent(ImportarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
