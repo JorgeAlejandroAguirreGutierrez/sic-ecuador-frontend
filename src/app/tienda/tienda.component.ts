@@ -18,7 +18,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 @Component({
   selector: 'app-tienda-online',
   templateUrl: './tienda.component.html',
-  styleUrls: ['./tienda.component.css']
+  styleUrls: ['./tienda.component.scss']
 })
 export class TiendaComponent implements OnDestroy, AfterViewInit {
   mobileQuery: MediaQueryList;

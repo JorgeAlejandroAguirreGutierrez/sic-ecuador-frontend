@@ -1,7 +1,7 @@
 /*
 Template Name: Material Pro Admin
-Author: Themedesigner
-Email: niravjoshi87@gmail.com
+Author: Jorge Hidalgo
+Email: gatosohidalgo@gmail.com
 File: scss
 */
 /**
@@ -26,4 +26,22 @@ File: scss
 @import 'sidebar';
 @import 'responsive';
 
+@import "./navbar";
+@import './menu';
+
 //@import "../styles/icons/material-design-iconic-font/css/materialdesignicons.min.css";
+@import '~bootstrap/scss/bootstrap';
+// @import '~font-awesome/scss/font-awesome';
+// @import '~hamburgers/_sass/hamburgers/hamburgers';
+@import '~ngx-toastr/toastr-bs4-alert';
+
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+@import '~material-design-icons/iconfont/material-icons.css';
+@import "~roboto-fontface/css/roboto/roboto-fontface.css";
+
+
+
