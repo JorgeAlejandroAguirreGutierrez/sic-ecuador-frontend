@@ -30,6 +30,8 @@ File: scss
 @import './menu';
 
 //@import "../styles/icons/material-design-iconic-font/css/materialdesignicons.min.css";
+@import '~material-design-icons/iconfont/material-icons.css';
+
 @import '~bootstrap/scss/bootstrap';
 // @import '~font-awesome/scss/font-awesome';
 // @import '~hamburgers/_sass/hamburgers/hamburgers';
@@ -40,7 +42,7 @@ File: scss
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/brands';
 
-@import '~material-design-icons/iconfont/material-icons.css';
+
 @import "~roboto-fontface/css/roboto/roboto-fontface.css";
 
 
