@@ -146,7 +146,7 @@ export class ClienteComponent implements OnInit {
         this.generos = res.resultado as Genero[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
       }
     );
     this.estadoCivilService.consultar().subscribe(
