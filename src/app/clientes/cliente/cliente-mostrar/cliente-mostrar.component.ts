@@ -97,9 +97,11 @@ export class ClienteMostrarComponent implements OnInit {
 
   cambiar_buscar_identificacion(){
     this.cliente_buscar.razon_social="";
+    this.buscar(null);
   }
   cambiar_buscar_razon_social(){
     this.cliente_buscar.identificacion="";
+    this.buscar(null);
   }
 
 

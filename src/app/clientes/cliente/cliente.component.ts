@@ -331,6 +331,7 @@ export class ClienteComponent implements OnInit {
         if (res.resultado==null){
           this.clienteService.validarIdentificacion(this.cliente.identificacion).subscribe(
             res => {
+              console.log(res);
               if (res.resultado!=null){
                 this.cliente.tipo_identificacion=res.resultado.tipo_identificacion;
                 this.cliente.tipo_contribuyente=res.resultado.tipo_contribuyente as TipoContribuyente
