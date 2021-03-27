@@ -35,11 +35,11 @@ export class SesionService {
   }
 
   setSesion(sesion: Sesion) {
-    localStorage.setItem('sesion', JSON.stringify(sesion));
+    sessionStorage.setItem('sesion', JSON.stringify(sesion));
 
   }
 
   getSesion(): Sesion {
-    return JSON.parse(localStorage.getItem('sesion'));
+    return JSON.parse(sessionStorage.getItem('sesion'));
   }
 }

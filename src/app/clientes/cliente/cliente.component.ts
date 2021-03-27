@@ -130,7 +130,7 @@ export class ClienteComponent implements OnInit {
         this.tipos_contribuyentes = res.resultado as TipoContribuyente[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.grupoClienteService.consultar().subscribe(
@@ -138,7 +138,7 @@ export class ClienteComponent implements OnInit {
         this.grupos_clientes = res.resultado as GrupoCliente[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.generoService.consultar().subscribe(
@@ -146,7 +146,7 @@ export class ClienteComponent implements OnInit {
         this.generos = res.resultado as Genero[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.estadoCivilService.consultar().subscribe(
@@ -154,7 +154,7 @@ export class ClienteComponent implements OnInit {
         this.estados_civiles = res.resultado as EstadoCivil[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.origenIngresoService.consultar().subscribe(
@@ -162,7 +162,7 @@ export class ClienteComponent implements OnInit {
         this.origenes_ingresos = res.resultado as OrigenIngreso[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.categoriaClienteService.consultar().subscribe(
@@ -170,7 +170,7 @@ export class ClienteComponent implements OnInit {
         this.categorias_clientes = res.resultado as CategoriaCliente[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.plazoCreditoService.consultar().subscribe(
@@ -178,7 +178,7 @@ export class ClienteComponent implements OnInit {
         this.plazos_creditos = res.resultado as PlazoCredito[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.tipoPagoService.consultar().subscribe(
@@ -186,7 +186,7 @@ export class ClienteComponent implements OnInit {
         this.tipos_pagos = res.resultado as TipoPago[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.formaPagoService.consultar().subscribe(
@@ -194,7 +194,7 @@ export class ClienteComponent implements OnInit {
         this.formas_pagos = res.resultado as FormaPago[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.ubicacionService.obtenerProvincias().subscribe(
@@ -203,7 +203,7 @@ export class ClienteComponent implements OnInit {
         this.auxiliar_provincias = res.resultado as Ubicacion[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.tipoRetencionService.obtenerIvaBien().subscribe(
@@ -211,7 +211,7 @@ export class ClienteComponent implements OnInit {
         this.tipos_retenciones_iva_bien = res.resultado as TipoRetencion[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.tipoRetencionService.obtenerIvaServicio().subscribe(
@@ -219,7 +219,7 @@ export class ClienteComponent implements OnInit {
         this.tipos_retenciones_iva_servicio = res.resultado as TipoRetencion[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.tipoRetencionService.obtenerRentaBien().subscribe(
@@ -227,7 +227,7 @@ export class ClienteComponent implements OnInit {
         this.tipos_retenciones_renta_bien = res.resultado as TipoRetencion[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
     this.tipoRetencionService.obtenerRentaServicio().subscribe(
@@ -235,10 +235,9 @@ export class ClienteComponent implements OnInit {
         this.tipos_retenciones_renta_servicio = res.resultado as TipoRetencion[]
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({icon: constantes.error_swal,title: constantes.error,text: err.error.codigo,footer: err.error.message});
       }
     );
-    console.log(this.cliente);
   }
 
   @HostListener('window:keypress', ['$event'])
@@ -517,7 +516,6 @@ export class ClienteComponent implements OnInit {
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
     }
-    this.sesion= this.sesionService.getSesion();
     this.cliente.punto_venta=this.sesion.usuario.punto_venta;
     if (this.telefono.numero!=constantes.vacio)
       this.cliente.telefonos.push(this.telefono);
@@ -528,15 +526,11 @@ export class ClienteComponent implements OnInit {
     console.log(this.cliente);
     this.clienteService.crear(this.cliente).subscribe(
       res => {
-        if (res.resultado!= null) {
           this.cliente = res.resultado as Cliente;
           Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           /*let indice_tab_activo= constantes.tab_activo(this.tabService);
           this.tabService.removeTab(indice_tab_activo);
           this.tabService.addNewTab(ClienteComponent, constantes.tab_crear_cliente);*/
-        } else {
-          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
-        }
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     ); 
