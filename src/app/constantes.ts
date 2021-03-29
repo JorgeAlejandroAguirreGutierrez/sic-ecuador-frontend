@@ -216,9 +216,11 @@ export function tab_activo(tabService: TabService){
         }
     }
 }
-//let indice_tab_activo= constantes.tab_activo(this.tabService);
-//this.tabService.removeTab(indice_tab_activo);
-//this.tabService.addNewTab(ClienteComponent, constantes.tab_crear_cliente);
+
+export const identificacion_consumidor_final="9999999999999";
+export const tipo_contribuyente_natural="NATURAL";
+export const tipo_contribuyente_juridica="JURIDICA";
+export const tipo_contribuyente_publica="PUBLICA";
 
 
 

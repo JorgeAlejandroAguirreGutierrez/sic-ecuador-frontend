@@ -529,9 +529,9 @@ export class ClienteComponent implements OnInit {
       res => {
           this.cliente = res.resultado as Cliente;
           Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-          /*let indice_tab_activo= constantes.tab_activo(this.tabService);
+          let indice_tab_activo= constantes.tab_activo(this.tabService);
           this.tabService.removeTab(indice_tab_activo);
-          this.tabService.addNewTab(ClienteComponent, constantes.tab_crear_cliente);*/
+          this.tabService.addNewTab(ClienteComponent, constantes.tab_crear_cliente);
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     ); 
@@ -719,7 +719,7 @@ export class ClienteComponent implements OnInit {
   }
 
   validar_sexo_estado_civil_origen_ingreso(){
-    if (this.cliente.tipo_contribuyente.tipo=='JURIDICA') {
+    if (this.cliente.tipo_contribuyente.tipo==constantes.tipo_contribuyente_juridica) {
       this.activacion_s_es_oi=true;
     } else {
       this.activacion_s_es_oi=false;
@@ -730,6 +730,10 @@ export class ClienteComponent implements OnInit {
         this.cliente.categoria_cliente=this.categorias_clientes[0];
       }
     }
+  }
+
+  compareFn(a:any, b:any) {
+    return a && b && a.id == b.id;
   }
 
   importar(archivos: FileList){
@@ -744,5 +748,4 @@ export class ClienteComponent implements OnInit {
       }
     );
   }
-
 }
