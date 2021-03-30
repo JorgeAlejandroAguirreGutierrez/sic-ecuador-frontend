@@ -4,21 +4,21 @@ import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
-import { CategoriaClienteComponent } from '../categoria-cliente.component';
+import { CategoriaClienteCrearComponent } from '../categoria-cliente-crear/categoria-cliente-crear.component';
 import { CategoriaClienteService } from '../../../servicios/categoria-cliente.service';
 import { CategoriaCliente } from '../../../modelos/categoria-cliente';
 import * as constantes from '../../../constantes';
 
 
 @Component({
-  selector: 'app-categoria-cliente-mostrar',
-  templateUrl: './categoria-cliente-mostrar.component.html',
-  styleUrls: ['./categoria-cliente-mostrar.component.scss']
+  selector: 'app-categoria-cliente-leer',
+  templateUrl: './categoria-cliente-leer.component.html',
+  styleUrls: ['./categoria-cliente-leer.component.scss']
 })
-export class CategoriaClienteMostrarComponent implements OnInit {
+export class CategoriaClienteLeerComponent implements OnInit {
 
   collapsed = true;
-  ComponenteCategoriaCliente: Type<any> = CategoriaClienteComponent;
+  ComponenteCategoriaCliente: Type<any> = CategoriaClienteCrearComponent;
 
   sesion: Sesion;
 

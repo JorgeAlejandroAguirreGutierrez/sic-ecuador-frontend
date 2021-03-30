@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Cliente } from '../modelos/cliente';
 import { Respuesta } from '../respuesta';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { of, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -108,16 +108,10 @@ export class ClienteService {
     );
   }
 
-  buscarIdentificacion(identificacion: string): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.cliente+util.buscar+util.identificacion+'/'+identificacion, util.options).pipe(
-      map(response => response as Respuesta),
-      catchError(err => {
-        return throwError(err);
-      })
-    );
-  }
-  buscarRazonSocial(razon_social: string): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.cliente+util.buscar+util.razon_social+'/'+razon_social, util.options).pipe(
+  buscar(razon_social: string , identificacion: string): Observable<Respuesta> {
+    let params = new HttpParams().set("razon_social", razon_social)
+                                 .set("identificacion", identificacion);
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.cliente+util.buscar, {params: params, headers: util.options.headers}).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

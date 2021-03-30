@@ -7,8 +7,8 @@ import { OpcionMenu } from "../../modelos/opcion-menu.model";
 import { MapsComponent } from '../pages/maps/maps.component';
 import { UbicacionComponent } from '../../configuraciones/ubicacion/ubicacion.component';
 import { UbicacionMostrarComponent } from '../../configuraciones/ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
-import { ClienteComponent } from "../../clientes/cliente/cliente.component";
-import { ClienteMostrarComponent } from '../../clientes/cliente/cliente-mostrar/cliente-mostrar.component';
+import { ClienteCrearComponent } from "../../clientes/cliente/cliente-crear/cliente-crear.component";
+import { ClienteLeerComponent } from '../../clientes/cliente/cliente-leer/cliente-leer.component';
 import { GrupoClienteComponent } from '../../clientes/grupo-cliente/grupo-cliente.component';
 import { FacturaComponent } from "../../comprobantes/factura/factura.component";
 import { FacturaMostrarComponent } from '../../comprobantes/factura/factura-mostrar/factura-mostrar.component';
@@ -22,8 +22,8 @@ import { ProductoMostrarComponent } from '../../inventarios/producto/producto-mo
 import { ImportarComponent } from '../../configuraciones/importar/importar.component';
 import { ExportarComponent } from '../../configuraciones/exportar/exportar.component';
 import { GrupoClienteMostrarComponent } from '../../clientes/grupo-cliente/grupo-cliente-mostrar/grupo-cliente-mostrar.component';
-import { CategoriaClienteComponent } from '../../clientes/categoria-cliente/categoria-cliente.component';
-import { CategoriaClienteMostrarComponent } from '../../clientes/categoria-cliente/categoria-cliente-mostrar/categoria-cliente-mostrar.component';
+import { CategoriaClienteCrearComponent } from '../../clientes/categoria-cliente/categoria-cliente-crear/categoria-cliente-crear.component';
+import { CategoriaClienteLeerComponent } from '../../clientes/categoria-cliente/categoria-cliente-leer/categoria-cliente-leer.component';
 import { EstadoCivilComponent } from '../../clientes/estado-civil/estado-civil.component';
 import { EstadoCivilMostrarComponent } from '../../clientes/estado-civil/estado-civil-mostrar/estado-civil-mostrar.component';
 import { FormaPagoComponent } from '../../clientes/forma-pago/forma-pago.component';
@@ -129,12 +129,12 @@ export class MainComponent implements OnInit {
   menuOpciones(tabNombre: string) {
     this.opciones = [];
     if (tabNombre == constantes.modulo_clientes) {
-      this.llenarOpciones(ClienteComponent,constantes.tab_crear_cliente, constantes.tab_crear_cliente);
-      this.llenarOpciones(ClienteMostrarComponent,constantes.tab_buscar_cliente,constantes.tab_buscar_cliente);
+      this.llenarOpciones(ClienteCrearComponent,constantes.tab_crear_cliente, constantes.tab_crear_cliente);
+      this.llenarOpciones(ClienteLeerComponent,constantes.tab_buscar_cliente,constantes.tab_buscar_cliente);
       this.llenarOpciones(GrupoClienteComponent,constantes.tab_crear_grupo_cliente, constantes.tab_crear_grupo_cliente);
       this.llenarOpciones(GrupoClienteMostrarComponent,constantes.tab_buscar_grupo_cliente, constantes.tab_buscar_grupo_cliente);
-      this.llenarOpciones(CategoriaClienteComponent,constantes.tab_crear_categoria_cliente, constantes.tab_crear_categoria_cliente);
-      this.llenarOpciones(CategoriaClienteMostrarComponent,constantes.tab_buscar_categoria_cliente, constantes.tab_buscar_categoria_cliente);
+      this.llenarOpciones(CategoriaClienteCrearComponent,constantes.tab_crear_categoria_cliente, constantes.tab_crear_categoria_cliente);
+      this.llenarOpciones(CategoriaClienteLeerComponent,constantes.tab_buscar_categoria_cliente, constantes.tab_buscar_categoria_cliente);
       this.llenarOpciones(EstadoCivilComponent,constantes.tab_crear_estado_civil, constantes.tab_crear_estado_civil);
       this.llenarOpciones(EstadoCivilMostrarComponent, constantes.tab_buscar_estado_civil, constantes.tab_buscar_estado_civil);
       this.llenarOpciones(FormaPagoComponent, constantes.tab_crear_forma_pago, constantes.tab_crear_forma_pago);

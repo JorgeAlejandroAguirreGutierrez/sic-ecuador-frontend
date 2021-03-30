@@ -93,8 +93,8 @@ import { SesionComponent } from './usuarios/sesion/sesion.component';
 import { PermisoComponent } from './usuarios/permiso/permiso.component';
 
 // Molulo de Clientes
-import { ClienteComponent } from './clientes/cliente/cliente.component';
-import { ClienteMostrarComponent } from './clientes/cliente/cliente-mostrar/cliente-mostrar.component';
+import { ClienteCrearComponent } from './clientes/cliente/cliente-crear/cliente-crear.component';
+import { ClienteLeerComponent } from './clientes/cliente/cliente-leer/cliente-leer.component';
 import { GrupoClienteComponent } from './clientes/grupo-cliente/grupo-cliente.component';
 import { GrupoClienteMostrarComponent } from './clientes/grupo-cliente/grupo-cliente-mostrar/grupo-cliente-mostrar.component';
 import { TelefonoComponent } from './clientes/telefono/telefono.component';
@@ -104,8 +104,8 @@ import { AuxiliarComponent } from './clientes/auxiliar/auxiliar.component';
 import { DireccionComponent } from './clientes/direccion/direccion.component';
 import { OrigenIngresoComponent } from './clientes/origen-ingreso/origen-ingreso.component';
 import { OrigenIngresoMostrarComponent } from './clientes/origen-ingreso/origen-ingreso-mostrar/origen-ingreso-mostrar.component';
-import { CategoriaClienteComponent } from './clientes/categoria-cliente/categoria-cliente.component';
-import { CategoriaClienteMostrarComponent } from './clientes/categoria-cliente/categoria-cliente-mostrar/categoria-cliente-mostrar.component';
+import { CategoriaClienteCrearComponent } from './clientes/categoria-cliente/categoria-cliente-crear/categoria-cliente-crear.component';
+import { CategoriaClienteLeerComponent } from './clientes/categoria-cliente/categoria-cliente-leer/categoria-cliente-leer.component';
 import { TipoRetencionComponent } from './clientes/tipo-retencion/tipo-retencion.component';
 import { EstadoCivilComponent } from './clientes/estado-civil/estado-civil.component';
 import { EstadoCivilMostrarComponent } from './clientes/estado-civil/estado-civil-mostrar/estado-civil-mostrar.component';
@@ -252,16 +252,16 @@ const routes: Routes = [
   {path: 'cliente/genero-mostrar', component: GeneroMostrarComponent},
   {path: 'cliente/estadocivil', component: EstadoCivilComponent},
   {path: 'cliente/estadocivil-mostrar', component: EstadoCivilMostrarComponent},
-  {path: 'cliente/categoriacliente', component: CategoriaClienteComponent},
-  {path: 'cliente/categoriacliente-mostrar', component: CategoriaClienteMostrarComponent},
+  {path: 'cliente/categoriacliente-crear', component: CategoriaClienteCrearComponent},
+  {path: 'cliente/categoriacliente-leer', component: CategoriaClienteLeerComponent},
   {path: 'cliente/formapago', component: FormaPagoComponent},
   {path: 'cliente/formapago-mostrar', component: FormaPagoMostrarComponent},
   {path: 'cliente/origeningreso', component: OrigenIngresoComponent},
   {path: 'cliente/origeningreso-mostrar', component: OrigenIngresoMostrarComponent},
   {path: 'cliente/tipopago', component: TipoPagoComponent},
   {path: 'cliente/tipopago-mostrar', component: TipoPagoMostrarComponent},
-  {path: 'cliente', component: ClienteComponent},
-  {path: 'cliente-mostrar', component: ClienteMostrarComponent},
+  {path: 'cliente-crear', component: ClienteCrearComponent},
+  {path: 'cliente-leer', component: ClienteLeerComponent},
   {path: 'factura', component: FacturaComponent},
   {path: 'factura-mostrar', component: FacturaMostrarComponent},
   {path: 'recaudacion', component: RecaudacionComponent},
@@ -317,8 +317,8 @@ const routes: Routes = [
     UbicacionComponent,
     TipoContribuyenteComponent,
     VehiculoTransporteComponent,
-    ClienteComponent,
-    ClienteMostrarComponent,
+    ClienteCrearComponent,
+    ClienteLeerComponent,
     UbicacionMostrarComponent,
     EmpresaComponent,
     UsuarioComponent,
@@ -343,8 +343,8 @@ const routes: Routes = [
     FinanciamientoComponent,
     OrigenIngresoComponent,
     OrigenIngresoMostrarComponent,
-    CategoriaClienteComponent,
-    CategoriaClienteMostrarComponent,
+    CategoriaClienteCrearComponent,
+    CategoriaClienteLeerComponent,
     TipoRetencionComponent,
     EstadoCivilComponent,
     EstadoCivilMostrarComponent,
@@ -452,8 +452,8 @@ const routes: Routes = [
                 useClass: PathLocationStrategy
               }],
   bootstrap: [AppComponent],
-  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, BodegaComponent, 
-    SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteComponent,
+  entryComponents: [ClienteCrearComponent, FacturaComponent, ImportarComponent, ExportarComponent, BodegaComponent, 
+    SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteCrearComponent,
     EstadoCivilComponent, FormaPagoComponent, GeneroComponent, OrigenIngresoComponent, PlazoCreditoComponent,
     TipoPagoComponent, TablaEquivalenciaMedidaComponent, MedidaComponent, UsuarioComponent, PuntoVentaComponent, 
     PresentacionProductoComponent, EstablecimientoComponent]

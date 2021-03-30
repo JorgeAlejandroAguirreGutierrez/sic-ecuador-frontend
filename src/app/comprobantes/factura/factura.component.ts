@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 import { Factura } from '../../modelos/factura';
 import { ClienteService } from '../../servicios/cliente.service';
 import { Cliente } from '../../modelos/cliente';
-import { Medida } from '../../modelos/medida';
 import { Sesion } from '../../modelos/sesion';
 import { SesionService } from '../../servicios/sesion.service';
 import { FacturaDetalle } from '../../modelos/factura-detalle';

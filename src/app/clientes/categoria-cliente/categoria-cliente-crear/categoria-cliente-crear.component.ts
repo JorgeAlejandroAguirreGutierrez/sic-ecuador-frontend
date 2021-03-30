@@ -1,16 +1,16 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { CategoriaCliente } from '../../modelos/categoria-cliente';
-import { TabService } from '../../componentes/services/tab.service';
-import { CategoriaClienteService } from '../../servicios/categoria-cliente.service';
-import * as constantes from '../../constantes';
+import { CategoriaCliente } from '../../../modelos/categoria-cliente';
+import { TabService } from '../../../componentes/services/tab.service';
+import { CategoriaClienteService } from '../../../servicios/categoria-cliente.service';
+import * as constantes from '../../../constantes';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-categoria-cliente',
-  templateUrl: './categoria-cliente.component.html',
-  styleUrls: ['./categoria-cliente.component.scss']
+  selector: 'app-categoria-cliente-crear',
+  templateUrl: './categoria-cliente-crear.component.html',
+  styleUrls: ['./categoria-cliente-crear.component.scss']
 })
-export class CategoriaClienteComponent implements OnInit {
+export class CategoriaClienteCrearComponent implements OnInit {
 
   categoria_cliente= new CategoriaCliente();
 

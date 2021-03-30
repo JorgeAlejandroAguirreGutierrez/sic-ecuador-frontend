@@ -6,18 +6,18 @@ import { Sesion } from '../../../modelos/sesion';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
-import { ClienteComponent } from '../cliente.component';
+import { ClienteCrearComponent } from '../cliente-crear/cliente-crear.component';
 import * as constantes from '../../../constantes';
 
 @Component({
-  selector: 'app-cliente-mostrar',
-  templateUrl: './cliente-mostrar.component.html',
-  styleUrls: ['./cliente-mostrar.component.css']
+  selector: 'app-cliente-leer',
+  templateUrl: './cliente-leer.component.html',
+  styleUrls: ['./cliente-leer.component.css']
 })
-export class ClienteMostrarComponent implements OnInit {
+export class ClienteLeerComponent implements OnInit {
 
   collapsed = true;
-  ComponenteCliente: Type<any> = ClienteComponent;
+  ComponenteCliente: Type<any> = ClienteCrearComponent;
 
   clientes: Cliente[];
   cliente: Cliente;
@@ -74,33 +74,18 @@ export class ClienteMostrarComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-    if (this.cliente_buscar.identificacion!="" && this.cliente_buscar.razon_social=="") {
-      this.clienteService.buscarIdentificacion(this.cliente_buscar.identificacion).subscribe(
-        res => {
-          this.clientes = res.resultado as Cliente[]
-        },
-        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
-      );
-    } 
-    else if (this.cliente_buscar.identificacion=="" && this.cliente_buscar.razon_social!="") {
-      this.clienteService.buscarRazonSocial(this.cliente_buscar.razon_social).subscribe(
-        res => {
-          this.clientes = res.resultado as Cliente[]
-        },
-        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
-      );
-    }
-    else {
-      this.consultar();
-    }
+    this.clienteService.buscar(this.cliente_buscar.razon_social, this.cliente_buscar.identificacion).subscribe(
+      res => {
+        this.clientes = res.resultado as Cliente[]
+      },
+      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    );
   }
 
   cambiar_buscar_identificacion(){
-    this.cliente_buscar.razon_social="";
     this.buscar(null);
   }
   cambiar_buscar_razon_social(){
-    this.cliente_buscar.identificacion="";
     this.buscar(null);
   }
 
