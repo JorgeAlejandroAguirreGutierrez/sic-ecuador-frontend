@@ -331,34 +331,29 @@ export class ClienteComponent implements OnInit {
   validar_identificacion() {
     this.clienteService.obtenerIdentificacion(this.cliente.identificacion).subscribe(
       res => {
-        if (res.resultado == null) {
-          this.clienteService.validarIdentificacion(this.cliente.identificacion).subscribe(
-            res => {
-              console.log(res);
-              if (res.resultado != null) {
-                this.cliente.tipo_identificacion = res.resultado.tipo_identificacion;
-                this.cliente.tipo_contribuyente = res.resultado.tipo_contribuyente as TipoContribuyente
-                if (this.cliente.tipo_contribuyente == null) {
-                  this.habilitar_tipo_contribuyente = true;
-                } else {
-                  this.cliente.tipo_contribuyente = this.obtener_tipo_contribuyente();
-                }
-                this.validar_sexo_estado_civil_origen_ingreso();
+        this.clienteService.validarIdentificacion(this.cliente.identificacion).subscribe(
+          res => {
+              this.cliente.tipo_identificacion = res.resultado.tipo_identificacion;
+              this.cliente.tipo_contribuyente = res.resultado.tipo_contribuyente as TipoContribuyente
+              if (this.cliente.tipo_contribuyente == null) {
+                this.habilitar_tipo_contribuyente = true;
               } else {
-                this.cliente.tipo_identificacion = '';
-                this.cliente.identificacion = '';
-                Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
+                this.cliente.tipo_contribuyente = this.obtener_tipo_contribuyente();
               }
-            },
-            err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
-          );
-        } else {
-          this.cliente.tipo_identificacion = '';
-          this.cliente.identificacion = '';
-          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
-        }
+              this.validar_sexo_estado_civil_origen_ingreso();
+          },
+          err => {
+            this.cliente.tipo_identificacion = '';
+            this.cliente.tipo_contribuyente= new TipoContribuyente();
+            Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
+          }
+        );
       },
-      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
+      err => {
+        this.cliente.tipo_identificacion = '';
+        this.cliente.tipo_contribuyente= new TipoContribuyente();
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
+      }
     );
   }
 
