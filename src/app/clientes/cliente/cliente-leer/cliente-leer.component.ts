@@ -6,7 +6,7 @@ import { Sesion } from '../../../modelos/sesion';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
-import { ClienteCrearComponent } from '../cliente-crear/cliente-crear.component';
+import { ClienteComponent } from '../cliente.component';
 import * as constantes from '../../../constantes';
 
 @Component({
@@ -17,7 +17,7 @@ import * as constantes from '../../../constantes';
 export class ClienteLeerComponent implements OnInit {
 
   collapsed = true;
-  ComponenteCliente: Type<any> = ClienteCrearComponent;
+  ComponenteCliente: Type<any> = ClienteComponent;
 
   clientes: Cliente[];
   cliente: Cliente;
@@ -37,7 +37,7 @@ export class ClienteLeerComponent implements OnInit {
       res => {
         this.clientes = res.resultado as Cliente[]
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -78,7 +78,7 @@ export class ClienteLeerComponent implements OnInit {
       res => {
         this.clientes = res.resultado as Cliente[]
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -103,10 +103,9 @@ export class ClienteLeerComponent implements OnInit {
     this.clienteService.eliminar(this.cliente).subscribe(
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.cliente = res.resultado as Cliente
-        this.ngOnInit();
+        this.consultar();
       },
-      err => Swal.fire(constantes.exito, err.error.mensaje, constantes.exito_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 

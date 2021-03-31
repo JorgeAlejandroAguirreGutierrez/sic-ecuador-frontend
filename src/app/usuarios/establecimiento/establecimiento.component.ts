@@ -36,7 +36,7 @@ export class EstablecimientoComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.empresas=res.resultado as Empresa[];
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -47,9 +47,8 @@ export class EstablecimientoComponent implements OnInit {
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.nuevo(null);
-
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -61,17 +60,7 @@ export class EstablecimientoComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.establecimiento=res.resultado as Establecimiento;
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
-    );
-  }
-
-  eliminar(establecimiento: Establecimiento) {
-    this.establecimientoService.eliminar(establecimiento).subscribe(
-      res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.establecimiento=res.resultado as Establecimiento
-      },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -83,7 +72,7 @@ export class EstablecimientoComponent implements OnInit {
         res => {
           Object.assign(this.establecimiento, res.resultado as Establecimiento);
         },
-        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
       );
     }
   }
@@ -94,8 +83,6 @@ export class EstablecimientoComponent implements OnInit {
       this.crear(null);
     if (($event.shiftKey || $event.metaKey) && $event.keyCode == 78) //ASHIFT + N
       this.nuevo(null);
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 69) // SHIFT + E
-      this.eliminar(null);
   }
 
 }

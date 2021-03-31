@@ -4,30 +4,30 @@ import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
-import { CategoriaClienteComponent } from '../categoria-cliente.component';
-import { CategoriaClienteService } from '../../../servicios/categoria-cliente.service';
-import { CategoriaCliente } from '../../../modelos/categoria-cliente';
+import { FormaPagoComponent } from '../forma-pago.component';
+import { FormaPago } from '../../../modelos/forma-pago';
+import { FormaPagoService } from '../../../servicios/forma-pago.service';
 import * as constantes from '../../../constantes';
 
 
 @Component({
-  selector: 'app-categoria-cliente-leer',
-  templateUrl: './categoria-cliente-leer.component.html',
-  styleUrls: ['./categoria-cliente-leer.component.scss']
+  selector: 'app-forma-pago-leer',
+  templateUrl: './forma-pago-leer.component.html',
+  styleUrls: ['./forma-pago-leer.component.scss']
 })
-export class CategoriaClienteLeerComponent implements OnInit {
+export class FormaPagoLeerComponent implements OnInit {
 
   collapsed = true;
-  ComponenteCategoriaCliente: Type<any> = CategoriaClienteComponent;
+  ComponenteFormaPago: Type<any> = FormaPagoComponent;
 
   sesion: Sesion;
 
-  constructor(private categoriaClienteService: CategoriaClienteService, private tabService: TabService, 
+  constructor(private formaPagoService: FormaPagoService, private tabService: TabService, 
     private sesionService: SesionService,private router: Router) { }
 
-  categorias_clientes: CategoriaCliente[];
-  categoria_cliente: CategoriaCliente;
-  categoria_cliente_buscar: CategoriaCliente=new CategoriaCliente();
+  formas_pagos: FormaPago[];
+  forma_pago: FormaPago;
+  forma_pago_buscar: FormaPago=new FormaPago();
 
 
   ngOnInit() {
@@ -36,9 +36,9 @@ export class CategoriaClienteLeerComponent implements OnInit {
   }
 
   consultar() {
-    this.categoriaClienteService.consultar().subscribe(
+    this.formaPagoService.consultar().subscribe(
       res => {
-        this.categorias_clientes = res.resultado as CategoriaCliente[]
+        this.formas_pagos = res.resultado as FormaPago[]
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
@@ -47,38 +47,43 @@ export class CategoriaClienteLeerComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-    this.categoriaClienteService.buscar(this.categoria_cliente_buscar).subscribe(
+    this.formaPagoService.buscar(this.forma_pago_buscar).subscribe(
       res => {
-        this.categorias_clientes = res.resultado as CategoriaCliente[]
+        this.formas_pagos = res.resultado as FormaPago[]
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
-  seleccion(categoria_cliente: CategoriaCliente) {
-    this.categoria_cliente=categoria_cliente;
+  seleccion(forma_pago: FormaPago) {
+    this.forma_pago=forma_pago;
+  }
+
+  nuevo(event){
+    if (event!=null)
+      event.preventDefault();
   }
 
   actualizar(event){
     if (event!=null)
       event.preventDefault();
-    if (this.categoria_cliente != null){
-      this.categoriaClienteService.enviar(this.categoria_cliente.id);
+    if (this.forma_pago != null){
+      this.formaPagoService.enviar(this.forma_pago.id);
       let indice_tab_activo= constantes.tab_activo(this.tabService);
       this.tabService.removeTab(indice_tab_activo);
-      this.tabService.addNewTab(this.ComponenteCategoriaCliente,'Actualizar Categoria Cliente');
+      this.tabService.addNewTab(this.ComponenteFormaPago,'Actualizar Forma de Pago');
     } else {
-      Swal.fire(constantes.error, "Selecciona un Grupo Cliente", constantes.error_swal);
+      Swal.fire(constantes.error, "Selecciona una Forma de Pago", constantes.error_swal);
     }
   }
 
   eliminar(event) {
     if (event!=null)
       event.preventDefault();
-    this.categoriaClienteService.eliminar(this.categoria_cliente).subscribe(
+    this.formaPagoService.eliminar(this.forma_pago).subscribe(
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.categoria_cliente = res.resultado as CategoriaCliente      
+        this.forma_pago = res.resultado as FormaPago       
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );

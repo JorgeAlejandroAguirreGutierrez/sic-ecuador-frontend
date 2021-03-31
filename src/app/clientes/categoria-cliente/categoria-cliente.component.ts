@@ -1,38 +1,39 @@
-import { Component, OnInit, HostListener  } from '@angular/core';
-import { GrupoClienteService } from '../../servicios/grupo-cliente.service';
-import { GrupoCliente } from '../../modelos/grupo-cliente';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { CategoriaCliente } from '../../modelos/categoria-cliente';
 import { TabService } from '../../componentes/services/tab.service';
+import { CategoriaClienteService } from '../../servicios/categoria-cliente.service';
 import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-grupo-cliente',
-  templateUrl: './grupo-cliente.component.html',
-  styleUrls: ['./grupo-cliente.component.scss']
+  selector: 'app-categoria-cliente',
+  templateUrl: './categoria-cliente.component.html',
+  styleUrls: ['./categoria-cliente.component.scss']
 })
-export class GrupoClienteComponent implements OnInit {
+export class CategoriaClienteComponent implements OnInit {
 
-  grupo_cliente= new GrupoCliente();
+  categoria_cliente= new CategoriaCliente();
 
-  constructor(private tabService: TabService,private grupoClienteService: GrupoClienteService) { }
+  constructor(private tabService: TabService,private categoriaClienteService: CategoriaClienteService) { }
 
   ngOnInit() {
-    this.construir_grupo_cliente();
+    this.construir_categoria_cliente();
   }
 
   nuevo(event) {
     if (event!=null)
       event.preventDefault();
-    this.tabService.addNewTab(GrupoClienteComponent, constantes.tab_crear_genero);
+    this.categoria_cliente = new CategoriaCliente();
   }
 
   crear(event) {
     if (event!=null)
       event.preventDefault();
-    this.grupoClienteService.crear(this.grupo_cliente).subscribe(
+    this.categoriaClienteService.crear(this.categoria_cliente).subscribe(
       res => {
-        this.grupo_cliente=res.resultado as GrupoCliente
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.nuevo(null);
+
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
@@ -41,32 +42,32 @@ export class GrupoClienteComponent implements OnInit {
   actualizar(event) {
     if (event!=null)
       event.preventDefault();
-    this.grupoClienteService.actualizar(this.grupo_cliente).subscribe(
+    this.categoriaClienteService.actualizar(this.categoria_cliente).subscribe(
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.grupo_cliente=res.resultado as GrupoCliente;
+        this.categoria_cliente=res.resultado as CategoriaCliente;
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
-  eliminar(grupo_cliente: GrupoCliente) {
-    this.grupoClienteService.eliminar(grupo_cliente).subscribe(
+  eliminar(categoria_cliente: CategoriaCliente) {
+    this.categoriaClienteService.eliminar(categoria_cliente).subscribe(
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.grupo_cliente=res.resultado as GrupoCliente
+        this.categoria_cliente=res.resultado as CategoriaCliente
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
   }
 
-  async construir_grupo_cliente() {
-    let grupo_cliente_id=0;
-    this.grupoClienteService.currentMessage.subscribe(message => grupo_cliente_id = message);
-    if (grupo_cliente_id!= 0) {
-      await this.grupoClienteService.obtenerAsync(grupo_cliente_id).then(
+  async construir_categoria_cliente() {
+    let categoria_cliente_id=0;
+    this.categoriaClienteService.currentMessage.subscribe(message => categoria_cliente_id = message);
+    if (categoria_cliente_id!= 0) {
+      await this.categoriaClienteService.obtenerAsync(categoria_cliente_id).then(
         res => {
-          Object.assign(this.grupo_cliente, res.resultado as GrupoCliente);
+          Object.assign(this.categoria_cliente, res.resultado as CategoriaCliente);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );

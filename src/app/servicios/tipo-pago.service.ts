@@ -58,7 +58,7 @@ export class TipoPagoService {
   }
 
   buscar(tipo_pago: TipoPago): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.tipo_pago+util.buscar+'/'+tipo_pago.codigo + '/'+tipo_pago.descripcion+'/'+tipo_pago.abreviatura, util.options).pipe(
+    return this.http.post(environment.host + util.ruta + util.grupo_cliente+util.buscar, tipo_pago, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

@@ -76,54 +76,54 @@ import { EditableOnEnterDirective } from './componentes/tabla-editable/editable/
 import { DatoAdicionalComponent } from './configuraciones/dato-adicional/dato-adicional.component';
 import { EmpresaComponent } from './configuraciones/empresa/empresa.component';
 import { UbicacionComponent } from './configuraciones/ubicacion/ubicacion.component';
-import { UbicacionMostrarComponent } from './configuraciones/ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
+import { UbicacionLeerComponent } from './configuraciones/ubicacion/ubicacion-leer/ubicacion-leer.component';
 
 import { ModeloService } from './servicios/modelo.service';
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 
 // Módulo de Usuarios
 import { UsuarioComponent } from './usuarios/usuario/usuario.component';
-import { UsuarioMostrarComponent } from './usuarios/usuario/usuario-mostrar/usuario-mostrar.component';
+import { UsuarioMostrarComponent } from './usuarios/usuario/usuario-leer/usuario-leer.component';
 import { EstablecimientoComponent } from './usuarios/establecimiento/establecimiento.component';
-import { EstablecimientoMostrarComponent } from './usuarios/establecimiento/establecimiento-mostrar/establecimiento-mostrar.component';
+import { EstablecimientoMostrarComponent } from './usuarios/establecimiento/establecimiento-leer/establecimiento-leer.component';
 import { PuntoVentaComponent } from './usuarios/punto-venta/punto-venta.component';
-import { PuntoVentaMostrarComponent } from './usuarios/punto-venta/punto-.venta-mostrar/punto-venta-mostrar.component';
+import { PuntoVentaLeerComponent } from './usuarios/punto-venta/punto-.venta-leer/punto-venta-leer.component';
 import { PerfilComponent } from './usuarios/perfil/perfil.component';
 import { SesionComponent } from './usuarios/sesion/sesion.component';
 import { PermisoComponent } from './usuarios/permiso/permiso.component';
 
 // Molulo de Clientes
-import { ClienteCrearComponent } from './clientes/cliente/cliente-crear/cliente-crear.component';
+import { ClienteComponent } from './clientes/cliente/cliente.component';
 import { ClienteLeerComponent } from './clientes/cliente/cliente-leer/cliente-leer.component';
 import { GrupoClienteComponent } from './clientes/grupo-cliente/grupo-cliente.component';
-import { GrupoClienteMostrarComponent } from './clientes/grupo-cliente/grupo-cliente-mostrar/grupo-cliente-mostrar.component';
+import { GrupoClienteLeerComponent } from './clientes/grupo-cliente/grupo-cliente-leer/grupo-cliente-leer.component';
 import { TelefonoComponent } from './clientes/telefono/telefono.component';
 import { CorreoComponent } from './clientes/correo/correo.component';
 import { CelularComponent } from './clientes/celular/celular.component';
 import { AuxiliarComponent } from './clientes/auxiliar/auxiliar.component';
 import { DireccionComponent } from './clientes/direccion/direccion.component';
 import { OrigenIngresoComponent } from './clientes/origen-ingreso/origen-ingreso.component';
-import { OrigenIngresoMostrarComponent } from './clientes/origen-ingreso/origen-ingreso-mostrar/origen-ingreso-mostrar.component';
-import { CategoriaClienteCrearComponent } from './clientes/categoria-cliente/categoria-cliente-crear/categoria-cliente-crear.component';
+import { OrigenIngresoLeerComponent } from './clientes/origen-ingreso/origen-ingreso-leer/origen-ingreso-leer.component';
+import { CategoriaClienteComponent } from './clientes/categoria-cliente/categoria-cliente.component';
 import { CategoriaClienteLeerComponent } from './clientes/categoria-cliente/categoria-cliente-leer/categoria-cliente-leer.component';
 import { TipoRetencionComponent } from './clientes/tipo-retencion/tipo-retencion.component';
 import { EstadoCivilComponent } from './clientes/estado-civil/estado-civil.component';
-import { EstadoCivilMostrarComponent } from './clientes/estado-civil/estado-civil-mostrar/estado-civil-mostrar.component';
+import { EstadoCivilLeerComponent } from './clientes/estado-civil/estado-civil-leer/estado-civil-leer.component';
 import { GeneroComponent } from './clientes/genero/genero.component';
-import { GeneroMostrarComponent } from './clientes/genero/genero-mostrar/genero-mostrar.component';
+import { GeneroLeerComponent } from './clientes/genero/genero-leer/genero-leer.component';
 import { PlazoCreditoComponent } from './clientes/plazo-credito/plazo-credito.component';
-import { PlazoCreditoMostrarComponent } from './clientes/plazo-credito/plazo-credito-mostrar/plazo-credito-mostrar.component';
+import { PlazoCreditoLeerComponent } from './clientes/plazo-credito/plazo-credito-leer/plazo-credito-leer.component';
 import { ImpuestoComponent } from './clientes/impuesto/impuesto.component';
 import { RetencionComponent } from './clientes/retencion-cliente/retencion-cliente.component';
 import { TipoContribuyenteComponent } from './clientes/tipo-contribuyente/tipo-contribuyente.component';
 
 //Módulo de Inventarios
 import { BodegaComponent } from './inventarios/bodega/bodega.component';
-import { BodegaMostrarComponent } from './inventarios/bodega/bodega-mostrar/bodega-mostrar.component';
+import { BodegaLeerComponent } from './inventarios/bodega/bodega-leer/bodega-leer.component';
 import { MedidaComponent } from './inventarios/medida/medida.component';
-import { MedidaMostrarComponent } from './inventarios/medida/medida-mostrar/medida-mostrar.component';
+import { MedidaLeerComponent } from './inventarios/medida/medida-leer/medida-leer.component';
 import { PresentacionProductoComponent } from './inventarios/presentacion-producto/presentacion-producto.component';
-import { PresentacionProductoMostrarComponent } from './inventarios/presentacion-producto/presentacion-producto-mostrar/presentacion-producto-mostrar.component';
+import { PresentacionProductoLeerComponent } from './inventarios/presentacion-producto/presentacion-producto-leer/presentacion-producto-leer.component';
 import { KardexComponent } from './inventarios/kardex/kardex.component';
 import { ActivoFijoComponent } from './inventarios/activo-fijo/activo-fijo.component';
 import { FiltroSerie } from './pipes/filtro-serie';
@@ -141,7 +141,7 @@ import { VehiculoTransporteComponent } from './entregas/vehiculo-transporte/vehi
 
 //Módulo de Recaudaciones
 import { TipoPagoComponent } from './clientes/tipo-pago/tipo-pago.component';
-import { TipoPagoMostrarComponent } from './clientes/tipo-pago/tipo-pago-mostrar/tipo-pago-mostrar.component';
+import { TipoPagoLeerComponent } from './clientes/tipo-pago/tipo-pago-leer/tipo-pago-leer.component';
 import { FinanciamientoComponent } from './recaudaciones/financiamiento/financiamiento.component';
 import { RecaudacionComponent } from './recaudaciones/recaudacion/recaudacion.component';
 import { BancoComponent } from './recaudaciones/banco/banco.component';
@@ -153,7 +153,7 @@ import { ChequeComponent } from './recaudaciones/cheque/cheque.component';
 
 // Módulo de Comprobantes
 import { FacturaComponent } from './comprobantes/factura/factura.component';
-import { FacturaMostrarComponent } from './comprobantes/factura/factura-mostrar/factura-mostrar.component';
+import { FacturaLeerComponent } from './comprobantes/factura/factura-leer/factura-leer.component';
 import { EgresoComponent } from './comprobantes/egreso/egreso.component';
 import { PedidoComponent } from './comprobantes/pedido/pedido.component';
 import { ProformaComponent } from './comprobantes/proforma/proforma.component';
@@ -223,11 +223,11 @@ import { FacturaService } from './servicios/factura.service';
 import { ImportarComponent } from './configuraciones/importar/importar.component';
 import { ExportarComponent } from './configuraciones/exportar/exportar.component';
 import { SaldoInicialInventarioComponent } from './inventarios/saldo-inicial-inventario/saldo-inicial-inventario.component';
-import { ProductoMostrarComponent } from './inventarios/producto/producto-mostrar/producto-mostrar.component';
+import { ProductoLeerComponent } from './inventarios/producto/producto-leer/producto-leer.component';
 import { FormaPagoComponent } from './clientes/forma-pago/forma-pago.component';
-import { FormaPagoMostrarComponent } from './clientes/forma-pago/forma-pago-mostrar/forma-pago-mostrar.component';
+import { FormaPagoLeerComponent } from './clientes/forma-pago/forma-pago-leer/forma-pago-leer.component';
 import { TablaEquivalenciaMedidaComponent } from './inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida.component';
-import { TablaEquivalenciaMedidaMostrarComponent } from './inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida-mostrar/tabla-equivalencia-medida-mostrar.component';
+import { TablaEquivalenciaMedidaLeerComponent } from './inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida-leer/tabla-equivalencia-medida-leer.component';
 import { TablaEquivalenciaMedidaService } from './servicios/tabla-equivalencia-medida.service';
 import { PresentacionProductoService } from './servicios/presentacion-producto.service';
 
@@ -237,50 +237,50 @@ const routes: Routes = [
   {path: 'menu', component: MenuComponent},
   {path: 'cliente/datoadicional', component: DatoAdicionalComponent},
   {path: 'cliente/plazocredito', component: PlazoCreditoComponent},
-  {path: 'cliente/plazocredito-mostrar', component: PlazoCreditoMostrarComponent},
+  {path: 'cliente/plazocredito-leer', component: PlazoCreditoLeerComponent},
   {path: 'cliente/impuesto', component: ImpuestoComponent},
   {path: 'cliente/retencion', component: RetencionComponent},
   {path: 'cliente/grupocliente', component: GrupoClienteComponent},
-  {path: 'cliente/grupocliente-mostrar', component: GrupoClienteMostrarComponent},
+  {path: 'cliente/grupocliente-mostrar', component: GrupoClienteLeerComponent},
   {path: 'cliente/transportista', component: RetencionComponent},
   {path: 'cliente/tipocontribuyente', component: TipoContribuyenteComponent},
   {path: 'cliente/vehiculotransporte', component: VehiculoTransporteComponent},
   {path: 'cliente/ubicacion', component: UbicacionComponent},
-  {path: 'cliente/ubicacion-mostrar', component: UbicacionMostrarComponent},
+  {path: 'cliente/ubicacion-mostrar', component: UbicacionLeerComponent},
   {path: 'cliente/empresa', component: EmpresaComponent},
   {path: 'cliente/genero', component: GeneroComponent},
-  {path: 'cliente/genero-mostrar', component: GeneroMostrarComponent},
+  {path: 'cliente/genero-leer', component: GeneroLeerComponent},
   {path: 'cliente/estadocivil', component: EstadoCivilComponent},
-  {path: 'cliente/estadocivil-mostrar', component: EstadoCivilMostrarComponent},
-  {path: 'cliente/categoriacliente-crear', component: CategoriaClienteCrearComponent},
+  {path: 'cliente/estadocivil-leer', component: EstadoCivilLeerComponent},
+  {path: 'cliente/categoriacliente', component: CategoriaClienteComponent},
   {path: 'cliente/categoriacliente-leer', component: CategoriaClienteLeerComponent},
   {path: 'cliente/formapago', component: FormaPagoComponent},
-  {path: 'cliente/formapago-mostrar', component: FormaPagoMostrarComponent},
+  {path: 'cliente/formapago-leer', component: FormaPagoLeerComponent},
   {path: 'cliente/origeningreso', component: OrigenIngresoComponent},
-  {path: 'cliente/origeningreso-mostrar', component: OrigenIngresoMostrarComponent},
+  {path: 'cliente/origeningreso-leer', component: OrigenIngresoLeerComponent},
   {path: 'cliente/tipopago', component: TipoPagoComponent},
-  {path: 'cliente/tipopago-mostrar', component: TipoPagoMostrarComponent},
-  {path: 'cliente-crear', component: ClienteCrearComponent},
+  {path: 'cliente/tipopago-leer', component: TipoPagoLeerComponent},
+  {path: 'cliente', component: ClienteComponent},
   {path: 'cliente-leer', component: ClienteLeerComponent},
   {path: 'factura', component: FacturaComponent},
-  {path: 'factura-mostrar', component: FacturaMostrarComponent},
+  {path: 'factura-leer', component: FacturaLeerComponent},
   {path: 'recaudacion', component: RecaudacionComponent},
   {path: 'entrega', component: EntregaComponent},
   {path: 'main', component: MainComponent},
   {path: 'producto', component: ProductoComponent},
-  {path: 'producto-mostrar', component: ProductoMostrarComponent},
+  {path: 'producto-leer', component: ProductoLeerComponent},
   {path: 'inventario/medida', component: MedidaComponent},
-  {path: 'inventario/medida-mostrar', component: MedidaMostrarComponent},
+  {path: 'inventario/medida-leer', component: MedidaLeerComponent},
   {path: 'inventario/tablaequivalenciamedida', component: TablaEquivalenciaMedidaComponent},
-  {path: 'inventario/tablaequivalenciamedida-mostrar', component: TablaEquivalenciaMedidaMostrarComponent},
+  {path: 'inventario/tablaequivalenciamedida-leer', component: TablaEquivalenciaMedidaLeerComponent},
   {path: 'inventario/presentacionproducto', component: PresentacionProductoComponent},
-  {path: 'inventario/presentacionproducto-mostrar', component: PresentacionProductoMostrarComponent},
+  {path: 'inventario/presentacionproducto-mostrar', component: PresentacionProductoLeerComponent},
   {path: 'usuario', component: UsuarioComponent},
   {path: 'usuario-mostrar', component: UsuarioMostrarComponent},
   {path: 'usuario/establecimiento', component: EstablecimientoComponent},
   {path: 'usuario/establecimiento-mostrar', component: EstablecimientoMostrarComponent},
   {path: 'usuario/puntoventa', component: PuntoVentaComponent},
-  {path: 'usuario/puntoventa-mostrar', component: PuntoVentaMostrarComponent},
+  {path: 'usuario/puntoventa-mostrar', component: PuntoVentaLeerComponent},
   {path: 'tabla', component: TablaEditableComponent},
   {path: 'promocion', component: PromocionComponent},
   {path: 'proveedor', component: ProveedorComponent},
@@ -310,46 +310,46 @@ const routes: Routes = [
     InicioSesionComponent,
     DatoAdicionalComponent,
     PlazoCreditoComponent,
-    PlazoCreditoMostrarComponent,
+    PlazoCreditoLeerComponent,
     ImpuestoComponent,
     RetencionComponent,
     TransportistaComponent,
     UbicacionComponent,
     TipoContribuyenteComponent,
     VehiculoTransporteComponent,
-    ClienteCrearComponent,
+    ClienteComponent,
     ClienteLeerComponent,
-    UbicacionMostrarComponent,
+    UbicacionLeerComponent,
     EmpresaComponent,
     UsuarioComponent,
     UsuarioMostrarComponent,
     EstablecimientoComponent,
     EstablecimientoMostrarComponent,
     PuntoVentaComponent,
-    PuntoVentaMostrarComponent,
+    PuntoVentaLeerComponent,
     PerfilComponent,
     MenuComponent,
     GrupoClienteComponent,
-    GrupoClienteMostrarComponent,
+    GrupoClienteLeerComponent,
     TelefonoComponent,
     CorreoComponent,
     CelularComponent,
     AuxiliarComponent,
     DireccionComponent,
     FormaPagoComponent,
-    FormaPagoMostrarComponent,
+    FormaPagoLeerComponent,
     TipoPagoComponent,
-    TipoPagoMostrarComponent,
+    TipoPagoLeerComponent,
     FinanciamientoComponent,
     OrigenIngresoComponent,
-    OrigenIngresoMostrarComponent,
-    CategoriaClienteCrearComponent,
+    OrigenIngresoLeerComponent,
+    CategoriaClienteComponent,
     CategoriaClienteLeerComponent,
     TipoRetencionComponent,
     EstadoCivilComponent,
-    EstadoCivilMostrarComponent,
+    EstadoCivilLeerComponent,
     GeneroComponent,
-    GeneroMostrarComponent,
+    GeneroLeerComponent,
     RecaudacionComponent,
     BancoComponent,
     DepositoTransferenciaComponent,
@@ -358,7 +358,7 @@ const routes: Routes = [
     CompensacionComponent,
     ChequeComponent,
     FacturaComponent,
-    FacturaMostrarComponent,
+    FacturaLeerComponent,
     EgresoComponent,
     PedidoComponent,
     ProformaComponent,
@@ -366,9 +366,9 @@ const routes: Routes = [
     PermisoComponent,
     ContabilizacionComponent,
     BodegaComponent,
-    BodegaMostrarComponent,
+    BodegaLeerComponent,
     MedidaComponent,
-    MedidaMostrarComponent,
+    MedidaLeerComponent,
     KardexComponent,
     ActivoFijoComponent,
     MainComponent,
@@ -403,7 +403,7 @@ const routes: Routes = [
     EditableOnEnterDirective, 
     ExportarComponent, 
     SaldoInicialInventarioComponent,
-    ProductoMostrarComponent,
+    ProductoLeerComponent,
     PromocionComponent,
     DialogComponente,
     ProveedorComponent, 
@@ -415,9 +415,9 @@ const routes: Routes = [
     CuentaComponent, 
     PagoCompraComponent,
     TablaEquivalenciaMedidaComponent,
-    TablaEquivalenciaMedidaMostrarComponent,
+    TablaEquivalenciaMedidaLeerComponent,
     PresentacionProductoComponent,
-    PresentacionProductoMostrarComponent
+    PresentacionProductoLeerComponent
   ],
   imports: [
     BrowserModule,
@@ -452,8 +452,8 @@ const routes: Routes = [
                 useClass: PathLocationStrategy
               }],
   bootstrap: [AppComponent],
-  entryComponents: [ClienteCrearComponent, FacturaComponent, ImportarComponent, ExportarComponent, BodegaComponent, 
-    SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteCrearComponent,
+  entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, BodegaComponent, 
+    SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteComponent,
     EstadoCivilComponent, FormaPagoComponent, GeneroComponent, OrigenIngresoComponent, PlazoCreditoComponent,
     TipoPagoComponent, TablaEquivalenciaMedidaComponent, MedidaComponent, UsuarioComponent, PuntoVentaComponent, 
     PresentacionProductoComponent, EstablecimientoComponent]

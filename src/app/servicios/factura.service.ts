@@ -85,6 +85,15 @@ export class FacturaService {
     );
   }
 
+  buscar(factura_buscar: Factura): Observable<Respuesta> {
+    return this.http.post(environment.host + util.ruta + util.grupo_cliente+util.buscar, factura_buscar, util.options).pipe(
+      map(response => response as Respuesta),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
+
   generar_pdf(factura_id: number){
     return this.http.get(environment.host + util.ruta + util.factura+util.generar+util.pdf+'/'+factura_id, util.options_generar_archivo).pipe(
       map(response => response as Blob),
