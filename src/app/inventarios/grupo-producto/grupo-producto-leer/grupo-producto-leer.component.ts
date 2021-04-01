@@ -4,30 +4,30 @@ import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
-import { PresentacionProductoComponent } from '../presentacion-producto.component';
-import { PresentacionProductoService } from '../../../servicios/presentacion-producto.service';
-import { PresentacionProducto } from '../../../modelos/presentacion-producto';
 import * as constantes from '../../../constantes';
+import { GrupoProducto } from 'src/app/modelos/grupo-producto';
+import { GrupoProductoService } from 'src/app/servicios/grupo-producto.service';
+import { GrupoProductoComponent } from '../grupo-producto.component';
 
 
 @Component({
-  selector: 'app-presentacion-producto-leer',
-  templateUrl: './presentacion-producto-leer.component.html',
-  styleUrls: ['./presentacion-producto-leer.component.scss']
+  selector: 'app-grupo-producto-leer',
+  templateUrl: './grupo-producto-leer.component.html',
+  styleUrls: ['./grupo-producto-leer.component.scss']
 })
-export class PresentacionProductoLeerComponent implements OnInit {
+export class GrupoProductoLeerComponent implements OnInit {
 
   collapsed = true;
-  ComponentePresentacionProducto: Type<any> = PresentacionProductoComponent;
+  ComponentePresentacionProducto: Type<any> = GrupoProductoComponent;
 
   sesion: Sesion;
 
-  constructor(private presentacionProductoService: PresentacionProductoService, private tabService: TabService, 
+  constructor(private grupoProductoService: GrupoProductoService, private tabService: TabService, 
     private sesionService: SesionService,private router: Router) { }
 
-  presentaciones_productos: PresentacionProducto[];
-  presentacion_producto: PresentacionProducto= new PresentacionProducto();
-  presentacion_producto_buscar: PresentacionProducto=new PresentacionProducto();
+  grupos_productos: GrupoProducto[];
+  grupo_producto: GrupoProducto= new GrupoProducto();
+  grupo_producto_buscar: GrupoProducto=new GrupoProducto();
 
 
   ngOnInit() {
@@ -36,10 +36,9 @@ export class PresentacionProductoLeerComponent implements OnInit {
   }
 
   consultar() {
-    this.presentacionProductoService.consultar().subscribe(
+    this.grupoProductoService.consultar().subscribe(
       res => {
-        this.presentaciones_productos = res.resultado as PresentacionProducto[]
-        console.log(this.presentaciones_productos);
+        this.grupos_productos = res.resultado as GrupoProducto[];
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
@@ -48,16 +47,16 @@ export class PresentacionProductoLeerComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-    this.presentacionProductoService.buscar(this.presentacion_producto_buscar).subscribe(
+    this.grupoProductoService.buscar(this.grupo_producto_buscar).subscribe(
       res => {
-          this.presentaciones_productos = res.resultado as PresentacionProducto[]
+          this.grupos_productos = res.resultado as GrupoProducto[]
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
-  seleccion(presentacion_producto: PresentacionProducto) {
-    this.presentacion_producto=presentacion_producto;
+  seleccion(grupo_producto: GrupoProducto) {
+    this.grupo_producto=grupo_producto;
   }
 
   nuevo(event){
@@ -68,20 +67,20 @@ export class PresentacionProductoLeerComponent implements OnInit {
   actualizar(event){
     if (event!=null)
       event.preventDefault();
-    if (this.presentacion_producto != null){
-      this.presentacionProductoService.enviar(this.presentacion_producto.id);
+    if (this.grupo_producto != null){
+      this.grupoProductoService.enviar(this.grupo_producto.id);
       let indice_tab_activo= constantes.tab_activo(this.tabService);
       this.tabService.removeTab(indice_tab_activo);
-      this.tabService.addNewTab(this.ComponentePresentacionProducto,'Actualizar Tabla de Equivalencia Medida');
+      this.tabService.addNewTab(this.ComponentePresentacionProducto,'Actualizar Tabla de Grupo de Producto');
     } else {
-      Swal.fire(constantes.error, "Selecciona una tabla de equivalencia medida", constantes.error_swal);
+      Swal.fire(constantes.error, "Selecciona un Grupo de Producto", constantes.error_swal);
     }
   }
 
   eliminar(event) {
     if (event!=null)
       event.preventDefault();
-    this.presentacionProductoService.eliminar(this.presentacion_producto).subscribe(
+    this.grupoProductoService.eliminar(this.grupo_producto).subscribe(
       res => {
           Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.consultar();   

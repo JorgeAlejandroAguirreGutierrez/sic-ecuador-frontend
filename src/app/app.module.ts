@@ -122,8 +122,8 @@ import { BodegaComponent } from './inventarios/bodega/bodega.component';
 import { BodegaLeerComponent } from './inventarios/bodega/bodega-leer/bodega-leer.component';
 import { MedidaComponent } from './inventarios/medida/medida.component';
 import { MedidaLeerComponent } from './inventarios/medida/medida-leer/medida-leer.component';
-import { PresentacionProductoComponent } from './inventarios/presentacion-producto/presentacion-producto.component';
-import { PresentacionProductoLeerComponent } from './inventarios/presentacion-producto/presentacion-producto-leer/presentacion-producto-leer.component';
+import { GrupoProductoComponent } from './inventarios/grupo-producto/grupo-producto.component';
+import { GrupoProductoLeerComponent } from './inventarios/grupo-producto/grupo-producto-leer/grupo-producto-leer.component';
 import { KardexComponent } from './inventarios/kardex/kardex.component';
 import { ActivoFijoComponent } from './inventarios/activo-fijo/activo-fijo.component';
 import { FiltroSerie } from './pipes/filtro-serie';
@@ -229,7 +229,6 @@ import { FormaPagoLeerComponent } from './clientes/forma-pago/forma-pago-leer/fo
 import { TablaEquivalenciaMedidaComponent } from './inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida.component';
 import { TablaEquivalenciaMedidaLeerComponent } from './inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida-leer/tabla-equivalencia-medida-leer.component';
 import { TablaEquivalenciaMedidaService } from './servicios/tabla-equivalencia-medida.service';
-import { PresentacionProductoService } from './servicios/presentacion-producto.service';
 
 const routes: Routes = [
   {path: 'index', redirectTo: '/iniciosesion', pathMatch: 'full'},
