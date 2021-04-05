@@ -45,7 +45,7 @@
                                 <div class="form-group col-4">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Razon Social</mat-label>
-                                        <input matInput type="text" [(ngModel)]="empresa.razon_social" class="form-control-sm">
+                                        <input matInput type="text" [(ngModel)]="empresa.razon_social" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                             </div>

@@ -39,13 +39,13 @@
                                 <div class="form-group col-4">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Descripcion</mat-label>
-                                        <input matInput type="text" [(ngModel)]="categoria_cliente.descripcion" class="form-control-sm">
+                                        <input matInput type="text" [(ngModel)]="categoria_cliente.descripcion" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                                 <div class="form-group col-4">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Abreviatura</mat-label>
-                                        <input matInput type="text" [(ngModel)]="categoria_cliente.abreviatura" class="form-control-sm">
+                                        <input matInput type="text" [(ngModel)]="categoria_cliente.abreviatura" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                             </div>

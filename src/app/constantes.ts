@@ -91,7 +91,6 @@ export const tab_crear_usuario='Crear Usuario';
 export const tab_crear_establecimiento='Crear Establecimiento';
 export const tab_crear_punto_venta='Crear Punto de Venta';
 export const tab_crear_grupo_producto='Crear Grupo de Producto';
-export const tab_crear_presentacion_producto='Crear Presentacion Prod';
 
 export const tab_buscar_auxiliar='Buscar Auxiliar';
 export const tab_buscar_categoria_cliente='Buscar Categoria Cliente';

@@ -93,6 +93,10 @@ export class TablaEquivalenciaMedidaComponent implements OnInit {
     }
   }
 
+  compareFn(a: any, b: any) {
+    return a && b && a.id == b.id;
+  }
+
   @HostListener('window:keypress', ['$event'])
   keyEvent($event: KeyboardEvent) {
     if (($event.shiftKey || $event.metaKey) && $event.keyCode == 71) //SHIFT + G

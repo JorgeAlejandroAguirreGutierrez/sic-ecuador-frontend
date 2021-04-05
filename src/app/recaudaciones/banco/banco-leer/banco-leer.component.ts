@@ -5,29 +5,29 @@ import { SesionService } from '../../../servicios/sesion.service';
 import Swal from 'sweetalert2';
 import { TabService } from "../../../componentes/services/tab.service";
 import * as constantes from '../../../constantes';
-import { GrupoProducto } from '../../../modelos/grupo-producto';
-import { GrupoProductoService } from '../../../servicios/grupo-producto.service';
-import { GrupoProductoComponent } from '../grupo-producto.component';
+import { BancoComponent } from '../banco.component';
+import { BancoService } from '../../../servicios/banco.service';
+import { Banco } from '../../../modelos/banco';
 
 
 @Component({
-  selector: 'app-grupo-producto-leer',
-  templateUrl: './grupo-producto-leer.component.html',
-  styleUrls: ['./grupo-producto-leer.component.scss']
+  selector: 'app-banco-leer',
+  templateUrl: './banco-leer.component.html',
+  styleUrls: ['./banco-leer.component.scss']
 })
-export class GrupoProductoLeerComponent implements OnInit {
+export class BancoLeerComponent implements OnInit {
 
   collapsed = true;
-  ComponentePresentacionProducto: Type<any> = GrupoProductoComponent;
+  ComponenteBanco: Type<any> = BancoComponent;
 
   sesion: Sesion;
 
-  constructor(private grupoProductoService: GrupoProductoService, private tabService: TabService, 
+  constructor(private bancoService: BancoService, private tabService: TabService, 
     private sesionService: SesionService,private router: Router) { }
 
-  grupos_productos: GrupoProducto[];
-  grupo_producto: GrupoProducto= new GrupoProducto();
-  grupo_producto_buscar: GrupoProducto=new GrupoProducto();
+  bancos: Banco[];
+  banco: Banco= new Banco();
+  banco_buscar: Banco=new Banco();
 
 
   ngOnInit() {
@@ -36,9 +36,9 @@ export class GrupoProductoLeerComponent implements OnInit {
   }
 
   consultar() {
-    this.grupoProductoService.consultar().subscribe(
+    this.bancoService.consultar().subscribe(
       res => {
-        this.grupos_productos = res.resultado as GrupoProducto[];
+        this.bancos = res.resultado as Banco[];
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
@@ -47,16 +47,16 @@ export class GrupoProductoLeerComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-    this.grupoProductoService.buscar(this.grupo_producto_buscar).subscribe(
+    this.bancoService.buscar(this.banco_buscar).subscribe(
       res => {
-          this.grupos_productos = res.resultado as GrupoProducto[]
+          this.bancos = res.resultado as Banco[]
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
-  seleccion(grupo_producto: GrupoProducto) {
-    this.grupo_producto=grupo_producto;
+  seleccion(banco: Banco) {
+    this.banco=banco;
   }
 
   nuevo(event){
@@ -67,20 +67,20 @@ export class GrupoProductoLeerComponent implements OnInit {
   actualizar(event){
     if (event!=null)
       event.preventDefault();
-    if (this.grupo_producto != null){
-      this.grupoProductoService.enviar(this.grupo_producto.id);
+    if (this.banco != null){
+      this.bancoService.enviar(this.banco.id);
       let indice_tab_activo= constantes.tab_activo(this.tabService);
       this.tabService.removeTab(indice_tab_activo);
-      this.tabService.addNewTab(this.ComponentePresentacionProducto,'Actualizar Tabla de Grupo de Producto');
+      this.tabService.addNewTab(this.ComponenteBanco,'Actualizar un Banco');
     } else {
-      Swal.fire(constantes.error, "Selecciona un Grupo de Producto", constantes.error_swal);
+      Swal.fire(constantes.error, "Selecciona un Banco", constantes.error_swal);
     }
   }
 
   eliminar(event) {
     if (event!=null)
       event.preventDefault();
-    this.grupoProductoService.eliminar(this.grupo_producto).subscribe(
+    this.bancoService.eliminar(this.banco).subscribe(
       res => {
           Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.consultar();   
@@ -93,28 +93,13 @@ export class GrupoProductoLeerComponent implements OnInit {
     this.buscar(null);
   }
 
-  cambiar_buscar_grupo(){
+  cambiar_buscar_nombre(){
     this.buscar(null);
   }
-
-  cambiar_buscar_sub_grupo(){
+  cambiar_buscar_tipo(){
     this.buscar(null);
   }
-
-  cambiar_buscar_categoria(){
+  cambiar_buscar_abreviatura(){
     this.buscar(null);
   }
-
-  cambiar_buscar_linea(){
-    this.buscar(null);
-  }
-
-  cambiar_buscar_sub_linea(){
-    this.buscar(null);
-  }
-
-  cambiar_buscar_presentacion(){
-    this.buscar(null);
-  }
-
 }

@@ -2,14 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
-
 import { GrupoProducto } from '../../modelos/grupo-producto';
 import { GrupoProductoService } from '../../servicios/grupo-producto.service';
-import { SubGrupoProducto } from '../../modelos/sub-grupo-producto';
-import { CategoriaProducto } from '../../modelos/categoria-producto';
-import { LineaProducto } from '../../modelos/linea-producto';
-import { SubLineaProducto } from '../../modelos/sub-linea-producto';
-import { PresentacionProducto } from '../../modelos/presentacion-producto';
 import { Producto } from '../../modelos/producto';
 import { TipoGasto } from '../../modelos/tipo-gasto';
 import { TipoGastoService } from '../../servicios/tipo-gasto.service';
@@ -71,25 +65,25 @@ export class ProductoComponent implements OnInit {
   seleccion_grupo_producto = new FormControl();
   filtro_grupos_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
 
-  sub_grupos_productos: SubGrupoProducto[]=[];
+  sub_grupos_productos: GrupoProducto[]=[];
   seleccion_sub_grupo_producto = new FormControl();
-  filtro_sub_grupos_productos: Observable<SubGrupoProducto[]> = new Observable<SubGrupoProducto[]>();
+  filtro_sub_grupos_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
 
-  categorias_productos: CategoriaProducto[]=[];
+  categorias_productos: GrupoProducto[]=[];
   seleccion_categoria_producto = new FormControl();
-  filtro_categorias_productos: Observable<CategoriaProducto[]> = new Observable<CategoriaProducto[]>();
+  filtro_categorias_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
 
-  lineas_productos: LineaProducto[]=[];
+  lineas_productos: GrupoProducto[]=[];
   seleccion_linea_producto = new FormControl();
-  filtro_lineas_productos: Observable<LineaProducto[]> = new Observable<LineaProducto[]>();
+  filtro_lineas_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
 
-  sub_lineas_productos: SubLineaProducto[]=[];
+  sub_lineas_productos: GrupoProducto[]=[];
   seleccion_sub_linea_producto = new FormControl();
-  filtro_sub_lineas_productos: Observable<SubLineaProducto[]> = new Observable<SubLineaProducto[]>();
+  filtro_sub_lineas_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
 
-  presentaciones_productos: PresentacionProducto[]=[];
+  presentaciones_productos: GrupoProducto[]=[];
   seleccion_presentacion_producto = new FormControl();
-  filtro_presentaciones_productos: Observable<PresentacionProducto[]> = new Observable<PresentacionProducto[]>();
+  filtro_presentaciones_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
 
   medidas: Medida[]=[];
 
@@ -176,7 +170,7 @@ export class ProductoComponent implements OnInit {
         map(grupo_producto => typeof grupo_producto === 'string' ? this.filtro_grupo_producto(grupo_producto) : this.grupos_productos.slice())
       );
 
-    this.filtro_sub_grupos_productos = this.seleccion_sub_grupo_producto.valueChanges
+    /*this.filtro_sub_grupos_productos = this.seleccion_sub_grupo_producto.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' || value==null ? value : value.id),
@@ -205,7 +199,7 @@ export class ProductoComponent implements OnInit {
         startWith(''),
         map(value => typeof value === 'string' || value==null ? value : value.id),
         map(presentacion_producto => typeof presentacion_producto === 'string' ? this.filtro_presentacion_producto(presentacion_producto) : this.presentaciones_productos.slice())
-      );
+      );*/
     this.filtro_cantidad_medida();
   }
 
@@ -219,67 +213,67 @@ export class ProductoComponent implements OnInit {
   private filtro_grupo_producto(value: string): GrupoProducto[] {
     if(this.grupos_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.grupos_productos.filter(grupo_producto => grupo_producto.nombre.toLowerCase().includes(filterValue));
+      return this.grupos_productos.filter(grupo_producto => grupo_producto.grupo.toLowerCase().includes(filterValue));
     }
     return [];
   }
   ver_grupo_producto(grupo_producto: GrupoProducto): string {
-    return grupo_producto && grupo_producto.nombre ? grupo_producto.nombre : '';
+    return grupo_producto && grupo_producto.grupo ? grupo_producto.grupo : '';
   }
 
-  private filtro_sub_grupo_producto(value: string): SubGrupoProducto[] {
+  private filtro_sub_grupo_producto(value: string): GrupoProducto[] {
     if(this.sub_grupos_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.sub_grupos_productos.filter(sub_grupo_producto => sub_grupo_producto.nombre.toLowerCase().includes(filterValue));
+      return this.sub_grupos_productos.filter(sub_grupo_producto => sub_grupo_producto.sub_grupo.toLowerCase().includes(filterValue));
     }
     return [];
   }
-  ver_sub_grupo_producto(sub_grupo_producto: SubGrupoProducto): string {
-    return sub_grupo_producto && sub_grupo_producto.nombre ? sub_grupo_producto.nombre : '';
+  ver_sub_grupo_producto(sub_grupo_producto: GrupoProducto): string {
+    return sub_grupo_producto && sub_grupo_producto.sub_grupo ? sub_grupo_producto.sub_grupo : '';
   }
 
-  private filtro_categoria_producto(value: string): CategoriaProducto[] {
+  private filtro_categoria_producto(value: string): GrupoProducto[] {
     if(this.categorias_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.categorias_productos.filter(categoria_producto => categoria_producto.nombre.toLowerCase().includes(filterValue));
+      return this.categorias_productos.filter(categoria_producto => categoria_producto.categoria.toLowerCase().includes(filterValue));
     }
     return [];
   }
-  ver_categoria_producto(categoria_producto: CategoriaProducto): string {
-    return categoria_producto && categoria_producto.nombre ? categoria_producto.nombre : '';
+  ver_categoria_producto(categoria_producto: GrupoProducto): string {
+    return categoria_producto && categoria_producto.categoria ? categoria_producto.categoria : '';
   }
 
-  private filtro_linea_producto(value: string): LineaProducto[] {
+  private filtro_linea_producto(value: string): GrupoProducto[] {
     if(this.lineas_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.lineas_productos.filter(linea_producto => linea_producto.nombre.toLowerCase().includes(filterValue));
+      return this.lineas_productos.filter(linea_producto => linea_producto.linea.toLowerCase().includes(filterValue));
     }
     return [];
   }
-  ver_linea_producto(linea_producto: LineaProducto): string {
-    return linea_producto && linea_producto.nombre ? linea_producto.nombre : '';
+  ver_linea_producto(linea_producto: GrupoProducto): string {
+    return linea_producto && linea_producto.linea ? linea_producto.linea : '';
   }
 
-  private filtro_sub_linea_producto(value: string): SubLineaProducto[] {
+  private filtro_sub_linea_producto(value: string): GrupoProducto[] {
     if(this.sub_lineas_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.sub_lineas_productos.filter(sub_linea_producto => sub_linea_producto.nombre.toLowerCase().includes(filterValue));
+      return this.sub_lineas_productos.filter(sub_linea_producto => sub_linea_producto.sub_linea.toLowerCase().includes(filterValue));
     }
     return [];
   }
-  ver_sub_linea_producto(sub_linea_producto: SubLineaProducto): string {
-    return sub_linea_producto && sub_linea_producto.nombre ? sub_linea_producto.nombre : '';
+  ver_sub_linea_producto(sub_linea_producto: GrupoProducto): string {
+    return sub_linea_producto && sub_linea_producto.sub_linea ? sub_linea_producto.sub_linea : '';
   }
 
-  private filtro_presentacion_producto(value: string): PresentacionProducto[] {
+  private filtro_presentacion_producto(value: string): GrupoProducto[] {
     if(this.presentaciones_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.presentaciones_productos.filter(presentacion_producto => presentacion_producto.nombre.toLowerCase().includes(filterValue));
+      return this.presentaciones_productos.filter(presentacion_producto => presentacion_producto.presentacion.toLowerCase().includes(filterValue));
     }
     return [];
   }
-  ver_presentacion_producto(presentacion_producto: PresentacionProducto): string {
-    return presentacion_producto && presentacion_producto.nombre ? presentacion_producto.nombre : '';
+  ver_presentacion_producto(presentacion_producto: GrupoProducto): string {
+    return presentacion_producto && presentacion_producto.presentacion ? presentacion_producto.presentacion : '';
   }
 
   nuevo(event){
@@ -397,25 +391,25 @@ export class ProductoComponent implements OnInit {
     this.sub_grupos_productos=this.seleccion_grupo_producto.value.sub_grupos_productos;
   }
   seleccionar_sub_grupo_producto(){
-    this.producto.sub_grupo_producto=this.seleccion_sub_grupo_producto.value;
+    this.producto.grupo_producto=this.seleccion_sub_grupo_producto.value;
     this.categorias_productos=this.seleccion_sub_grupo_producto.value.categorias_productos;
   }
   seleccionar_categoria_producto(){
-    this.producto.categoria_producto=this.seleccion_categoria_producto.value;
+    this.producto.grupo_producto=this.seleccion_categoria_producto.value;
     this.lineas_productos=this.seleccion_categoria_producto.value.lineas_productos;
   }
   seleccionar_linea_producto(){
-    this.producto.linea_producto=this.seleccion_linea_producto.value;
+    this.producto.grupo_producto=this.seleccion_linea_producto.value;
     this.producto.nombre=this.obtener_nombre_producto();
     this.sub_lineas_productos=this.seleccion_linea_producto.value.sub_lineas_productos;
   }
   seleccionar_sub_linea_producto(){
-    this.producto.sub_linea_producto=this.seleccion_sub_linea_producto.value;
+    this.producto.grupo_producto=this.seleccion_sub_linea_producto.value;
     this.producto.nombre=this.obtener_nombre_producto();
     this.presentaciones_productos=this.seleccion_sub_linea_producto.value.presentaciones_productos;
   }
   seleccionar_presentacion_producto(){
-    this.producto.presentacion_producto=this.seleccion_presentacion_producto.value;
+    this.producto.grupo_producto=this.seleccion_presentacion_producto.value;
     this.producto.nombre=this.obtener_nombre_producto();
   }
 
@@ -643,11 +637,6 @@ export class ProductoComponent implements OnInit {
           }
           this.eliminar_medidas_actualizacion();
           this.seleccion_grupo_producto.setValue(this.producto.grupo_producto);
-          this.seleccion_sub_grupo_producto.setValue(this.producto.sub_grupo_producto);
-          this.seleccion_categoria_producto.setValue(this.producto.categoria_producto);
-          this.seleccion_linea_producto.setValue(this.producto.linea_producto);
-          this.seleccion_sub_linea_producto.setValue(this.producto.sub_linea_producto);
-          this.seleccion_presentacion_producto.setValue(this.producto.presentacion_producto);
           for(let i=0; i<this.producto.medidas_precios.length; i++){
             let precios=[];
             Object.assign(precios, this.producto.medidas_precios[i].precios as Precio[]);

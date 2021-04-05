@@ -99,4 +99,8 @@ export class UsuarioComponent implements OnInit {
     );
   }
 
+  compareFn(a: any, b: any) {
+    return a && b && a.id == b.id;
+  }
+
 }

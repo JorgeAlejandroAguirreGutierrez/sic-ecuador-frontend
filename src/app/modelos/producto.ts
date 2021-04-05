@@ -4,12 +4,7 @@ import { Impuesto } from './impuesto';
 import { Caracteristica } from './caracteristica';
 import { Bodega } from './bodega';
 import { TipoGasto } from './tipo-gasto';
-import { PresentacionProducto } from './presentacion-producto';
-import { SubGrupoProducto } from './sub-grupo-producto';
-import { CategoriaProducto } from './categoria-producto';
 import { GrupoProducto } from './grupo-producto';
-import { LineaProducto } from './linea-producto';
-import { SubLineaProducto } from './sub-linea-producto';
 import { MedidaPrecio } from './medida-precio';
 
 export class Producto {
@@ -24,11 +19,6 @@ export class Producto {
   tipo_gasto: TipoGasto;
   tipo_producto: TipoProducto;
   grupo_producto: GrupoProducto;
-  sub_grupo_producto: SubGrupoProducto;
-  categoria_producto: CategoriaProducto;
-  linea_producto: LineaProducto;
-  sub_linea_producto: SubLineaProducto;
-  presentacion_producto: PresentacionProducto;
   impuesto: Impuesto;
   
   //BODEGA SELECCIONADO
@@ -52,11 +42,6 @@ export class Producto {
     this.tipo_producto=new TipoProducto();
     this.tipo_gasto=new TipoGasto();
     this.grupo_producto=new GrupoProducto();
-    this.sub_grupo_producto=new SubGrupoProducto();
-    this.categoria_producto=new CategoriaProducto();
-    this.linea_producto=new LineaProducto();
-    this.sub_linea_producto=new SubLineaProducto();
-    this.presentacion_producto=new PresentacionProducto();
     this.impuesto=new Impuesto();
     this.bodega=new Bodega();
 

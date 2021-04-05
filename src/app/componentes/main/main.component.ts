@@ -45,8 +45,8 @@ import { EstablecimientoMostrarComponent } from '../../usuarios/establecimiento/
 import { PuntoVentaComponent } from '../../usuarios/punto-venta/punto-venta.component';
 import { PuntoVentaLeerComponent } from '../../usuarios/punto-venta/punto-.venta-leer/punto-venta-leer.component';
 import * as constantes from '../../constantes';
-import { PresentacionProductoComponent } from '../../inventarios/presentacion-producto/presentacion-producto.component';
-import { PresentacionProductoLeerComponent } from '../../inventarios/presentacion-producto/presentacion-producto-leer/presentacion-producto-leer.component';
+import { GrupoProductoComponent } from '../../inventarios/grupo-producto/grupo-producto.component';
+import { GrupoProductoLeerComponent } from '../../inventarios/grupo-producto/grupo-producto-leer/grupo-producto-leer.component';
 
 @Component({
   selector: 'app-main',
@@ -167,8 +167,8 @@ export class MainComponent implements OnInit {
       this.llenarOpciones(SaldoInicialInventarioComponent,constantes.tab_crear_saldo_inicial_inventario, constantes.tab_crear_saldo_inicial_inventario);
       this.llenarOpciones(TablaEquivalenciaMedidaComponent,constantes.tab_crear_tabla_equivalencia_medida, constantes.tab_crear_tabla_equivalencia_medida);
       this.llenarOpciones(TablaEquivalenciaMedidaLeerComponent, constantes.tab_buscar_tabla_equivalencia_medida, constantes.tab_buscar_tabla_equivalencia_medida);
-      this.llenarOpciones(PresentacionProductoComponent,constantes.tab_crear_presentacion_producto, constantes.tab_crear_presentacion_producto);
-      this.llenarOpciones(PresentacionProductoLeerComponent,constantes.tab_buscar_presentacion_producto, constantes.tab_buscar_presentacion_producto);
+      this.llenarOpciones(GrupoProductoComponent,constantes.tab_crear_grupo_producto, constantes.tab_crear_grupo_producto);
+      this.llenarOpciones(GrupoProductoLeerComponent,constantes.tab_buscar_grupo_producto, constantes.tab_buscar_grupo_producto);
       this.llenarOpciones(PromocionComponent,'Promociones','Promociones/Combos');
     }
 

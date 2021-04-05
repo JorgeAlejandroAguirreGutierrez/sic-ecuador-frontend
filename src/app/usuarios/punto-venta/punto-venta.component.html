@@ -40,15 +40,15 @@
                                 <div class="form-group col-4">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Descripcion</mat-label>
-                                        <input matInput type="text" [(ngModel)]="punto_venta.descripcion" class="form-control-sm">
+                                        <input matInput type="text" [(ngModel)]="punto_venta.descripcion" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                                 <div class="form-group col-4">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Establecimiento</mat-label>
-                                        <mat-select [(ngModel)]="punto_venta.establecimiento.id" class="form-control-sm">
+                                        <mat-select [(ngModel)]="punto_venta.establecimiento" [compareWith]="compareFn" class="form-control-sm">
                                             <mat-option *ngFor="let establecimiento of establecimientos"
-                                                [value]="establecimiento.id">
+                                                [value]="establecimiento">
                                                 {{establecimiento.descripcion}}
                                             </mat-option>
                                         </mat-select>

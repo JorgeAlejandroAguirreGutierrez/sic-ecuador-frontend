@@ -2,8 +2,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { TabService } from '../../componentes/services/tab.service';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
-import { GrupoProducto } from 'src/app/modelos/grupo-producto';
-import { GrupoProductoService } from 'src/app/servicios/grupo-producto.service';
+import { GrupoProducto } from '../../modelos/grupo-producto';
+import { GrupoProductoService } from '../../servicios/grupo-producto.service';
 
 @Component({
   selector: 'app-grupo-producto',
