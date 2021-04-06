@@ -61,29 +61,31 @@ export class ProductoComponent implements OnInit {
   kardex_inicial: Kardex=new Kardex();
   kardex_final: Kardex=new Kardex();
 
-  grupos_productos: GrupoProducto[]=[];
+  grupo_producto: GrupoProducto=null as any;
+
+  grupos_productos: string[]=[];
   seleccion_grupo_producto = new FormControl();
-  filtro_grupos_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
+  filtro_grupos_productos: Observable<string[]> = new Observable<string[]>();
 
-  sub_grupos_productos: GrupoProducto[]=[];
+  sub_grupos_productos: string[]=[];
   seleccion_sub_grupo_producto = new FormControl();
-  filtro_sub_grupos_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
+  filtro_sub_grupos_productos: Observable<string[]> = new Observable<string[]>();
 
-  categorias_productos: GrupoProducto[]=[];
+  categorias_productos: string[]=[];
   seleccion_categoria_producto = new FormControl();
-  filtro_categorias_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
+  filtro_categorias_productos: Observable<string[]> = new Observable<string[]>();
 
-  lineas_productos: GrupoProducto[]=[];
+  lineas_productos: string[]=[];
   seleccion_linea_producto = new FormControl();
-  filtro_lineas_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
+  filtro_lineas_productos: Observable<string[]> = new Observable<string[]>();
 
-  sub_lineas_productos: GrupoProducto[]=[];
+  sub_lineas_productos: string[]=[];
   seleccion_sub_linea_producto = new FormControl();
-  filtro_sub_lineas_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
+  filtro_sub_lineas_productos: Observable<string[]> = new Observable<string[]>();
 
-  presentaciones_productos: GrupoProducto[]=[];
+  presentaciones_productos: string[]=[];
   seleccion_presentacion_producto = new FormControl();
-  filtro_presentaciones_productos: Observable<GrupoProducto[]> = new Observable<GrupoProducto[]>();
+  filtro_presentaciones_productos: Observable<string[]> = new Observable<string[]>();
 
   medidas: Medida[]=[];
 
@@ -104,7 +106,7 @@ export class ProductoComponent implements OnInit {
     this.producto.consignacion=0;
     this.grupoProductoService.consultar().subscribe(
       res => {
-        this.grupos_productos = res.resultado as GrupoProducto[];
+        this.grupos_productos = res.resultado as string[];
       },
       err => {
         Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
@@ -170,7 +172,7 @@ export class ProductoComponent implements OnInit {
         map(grupo_producto => typeof grupo_producto === 'string' ? this.filtro_grupo_producto(grupo_producto) : this.grupos_productos.slice())
       );
 
-    /*this.filtro_sub_grupos_productos = this.seleccion_sub_grupo_producto.valueChanges
+    this.filtro_sub_grupos_productos = this.seleccion_sub_grupo_producto.valueChanges
       .pipe(
         startWith(''),
         map(value => typeof value === 'string' || value==null ? value : value.id),
@@ -199,7 +201,7 @@ export class ProductoComponent implements OnInit {
         startWith(''),
         map(value => typeof value === 'string' || value==null ? value : value.id),
         map(presentacion_producto => typeof presentacion_producto === 'string' ? this.filtro_presentacion_producto(presentacion_producto) : this.presentaciones_productos.slice())
-      );*/
+      );
     this.filtro_cantidad_medida();
   }
 
@@ -210,10 +212,10 @@ export class ProductoComponent implements OnInit {
     }
   }
 
-  private filtro_grupo_producto(value: string): GrupoProducto[] {
+  private filtro_grupo_producto(value: string): string[] {
     if(this.grupos_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.grupos_productos.filter(grupo_producto => grupo_producto.grupo.toLowerCase().includes(filterValue));
+      return this.grupos_productos.filter(grupo_producto => grupo_producto.toLowerCase().includes(filterValue));
     }
     return [];
   }
@@ -221,21 +223,21 @@ export class ProductoComponent implements OnInit {
     return grupo_producto && grupo_producto.grupo ? grupo_producto.grupo : '';
   }
 
-  private filtro_sub_grupo_producto(value: string): GrupoProducto[] {
+  private filtro_sub_grupo_producto(value: string): string[] {
     if(this.sub_grupos_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.sub_grupos_productos.filter(sub_grupo_producto => sub_grupo_producto.sub_grupo.toLowerCase().includes(filterValue));
+      return this.sub_grupos_productos.filter(sub_grupo_producto => sub_grupo_producto.toLowerCase().includes(filterValue));
     }
     return [];
   }
-  ver_sub_grupo_producto(sub_grupo_producto: GrupoProducto): string {
-    return sub_grupo_producto && sub_grupo_producto.sub_grupo ? sub_grupo_producto.sub_grupo : '';
+  ver_sub_grupo_producto(sub_grupo_producto: string): string {
+    return sub_grupo_producto && sub_grupo_producto ? sub_grupo_producto : '';
   }
 
-  private filtro_categoria_producto(value: string): GrupoProducto[] {
+  private filtro_categoria_producto(value: string): string[] {
     if(this.categorias_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.categorias_productos.filter(categoria_producto => categoria_producto.categoria.toLowerCase().includes(filterValue));
+      return this.categorias_productos.filter(categoria_producto => categoria_producto.toLowerCase().includes(filterValue));
     }
     return [];
   }
@@ -243,32 +245,32 @@ export class ProductoComponent implements OnInit {
     return categoria_producto && categoria_producto.categoria ? categoria_producto.categoria : '';
   }
 
-  private filtro_linea_producto(value: string): GrupoProducto[] {
+  private filtro_linea_producto(value: string): string[] {
     if(this.lineas_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.lineas_productos.filter(linea_producto => linea_producto.linea.toLowerCase().includes(filterValue));
+      return this.lineas_productos.filter(linea_producto => linea_producto.toLowerCase().includes(filterValue));
     }
     return [];
   }
-  ver_linea_producto(linea_producto: GrupoProducto): string {
-    return linea_producto && linea_producto.linea ? linea_producto.linea : '';
+  ver_linea_producto(linea_producto: string): string {
+    return linea_producto && linea_producto ? linea_producto : '';
   }
 
-  private filtro_sub_linea_producto(value: string): GrupoProducto[] {
+  private filtro_sub_linea_producto(value: string): string[] {
     if(this.sub_lineas_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.sub_lineas_productos.filter(sub_linea_producto => sub_linea_producto.sub_linea.toLowerCase().includes(filterValue));
+      return this.sub_lineas_productos.filter(sub_linea_producto => sub_linea_producto.toLowerCase().includes(filterValue));
     }
     return [];
   }
   ver_sub_linea_producto(sub_linea_producto: GrupoProducto): string {
-    return sub_linea_producto && sub_linea_producto.sub_linea ? sub_linea_producto.sub_linea : '';
+    return sub_linea_producto && sub_linea_producto.sublinea ? sub_linea_producto.sublinea : '';
   }
 
-  private filtro_presentacion_producto(value: string): GrupoProducto[] {
+  private filtro_presentacion_producto(value: string): string[] {
     if(this.presentaciones_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.presentaciones_productos.filter(presentacion_producto => presentacion_producto.presentacion.toLowerCase().includes(filterValue));
+      return this.presentaciones_productos.filter(presentacion_producto => presentacion_producto.toLowerCase().includes(filterValue));
     }
     return [];
   }
@@ -387,30 +389,80 @@ export class ProductoComponent implements OnInit {
   }
 
   seleccionar_grupo_producto(){
-    this.producto.grupo_producto=this.seleccion_grupo_producto.value;
-    this.sub_grupos_productos=this.seleccion_grupo_producto.value.sub_grupos_productos;
+    let grupo=this.seleccion_grupo_producto.value;
+    this.grupoProductoService.consultar_subgrupos(grupo).subscribe(
+      res => {
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.sub_grupos_productos=res.resultado as string[];
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
+    );
   }
   seleccionar_sub_grupo_producto(){
-    this.producto.grupo_producto=this.seleccion_sub_grupo_producto.value;
-    this.categorias_productos=this.seleccion_sub_grupo_producto.value.categorias_productos;
+    let grupo=this.seleccion_grupo_producto.value;
+    let subgrupo=this.seleccion_sub_grupo_producto.value;
+    this.grupoProductoService.consultar_categorias(grupo, subgrupo).subscribe(
+      res => {
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.sub_grupos_productos=res.resultado as string[];
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
+    );
   }
   seleccionar_categoria_producto(){
-    this.producto.grupo_producto=this.seleccion_categoria_producto.value;
-    this.lineas_productos=this.seleccion_categoria_producto.value.lineas_productos;
+    let grupo=this.seleccion_grupo_producto.value;
+    let subgrupo=this.seleccion_sub_grupo_producto.value;
+    let categoria=this.seleccion_categoria_producto.value;
+    this.grupoProductoService.consultar_lineas(grupo, subgrupo, categoria).subscribe(
+      res => {
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.lineas_productos=res.resultado as string[];
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
+    );
   }
   seleccionar_linea_producto(){
-    this.producto.grupo_producto=this.seleccion_linea_producto.value;
-    this.producto.nombre=this.obtener_nombre_producto();
-    this.sub_lineas_productos=this.seleccion_linea_producto.value.sub_lineas_productos;
+    let grupo=this.seleccion_grupo_producto.value;
+    let subgrupo=this.seleccion_sub_grupo_producto.value;
+    let categoria=this.seleccion_categoria_producto.value;
+    let linea=this.seleccion_linea_producto.value;
+    this.grupoProductoService.consultar_sublineas(grupo, subgrupo, categoria, linea).subscribe(
+      res => {
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.sub_lineas_productos=res.resultado as string[];
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
+    );
   }
   seleccionar_sub_linea_producto(){
-    this.producto.grupo_producto=this.seleccion_sub_linea_producto.value;
-    this.producto.nombre=this.obtener_nombre_producto();
-    this.presentaciones_productos=this.seleccion_sub_linea_producto.value.presentaciones_productos;
+    let grupo=this.seleccion_grupo_producto.value;
+    let subgrupo=this.seleccion_sub_grupo_producto.value;
+    let categoria=this.seleccion_categoria_producto.value;
+    let linea=this.seleccion_linea_producto.value;
+    let sublinea=this.seleccion_sub_linea_producto.value;
+    this.grupoProductoService.consultar_presentaciones(grupo, subgrupo, categoria, linea, sublinea).subscribe(
+      res => {
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.presentaciones_productos=res.resultado as string[];
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
+    );
   }
   seleccionar_presentacion_producto(){
-    this.producto.grupo_producto=this.seleccion_presentacion_producto.value;
     this.producto.nombre=this.obtener_nombre_producto();
+    let grupo=this.seleccion_grupo_producto.value;
+    let subgrupo=this.seleccion_sub_grupo_producto.value;
+    let categoria=this.seleccion_categoria_producto.value;
+    let linea=this.seleccion_linea_producto.value;
+    let sublinea=this.seleccion_sub_linea_producto.value;
+    let presentacion=this.seleccion_presentacion_producto.value;
+    this.grupoProductoService.obtener_grupo_producto(grupo, subgrupo, categoria, linea, sublinea, presentacion).subscribe(
+      res => {
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.grupo_producto=res.resultado as GrupoProducto;
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
+    );
   }
 
   crear_precio(){

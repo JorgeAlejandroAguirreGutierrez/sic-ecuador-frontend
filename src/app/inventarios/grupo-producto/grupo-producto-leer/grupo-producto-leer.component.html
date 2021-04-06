@@ -36,7 +36,7 @@
         <div class="form-group col-4">
             <mat-form-field appearance="standard" class="grande">
                 <mat-label>Sub Grupo Producto</mat-label>
-                <input matInput type="text" [(ngModel)]="grupo_producto_buscar.sub_grupo" (change)="cambiar_buscar_sub_grupo()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                <input matInput type="text" [(ngModel)]="grupo_producto_buscar.subgrupo" (change)="cambiar_buscar_sub_grupo()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
             </mat-form-field>
         </div>
         <div class="form-group col-4">
@@ -56,7 +56,7 @@
         <div class="form-group col-4">
             <mat-form-field appearance="standard" class="grande">
                 <mat-label>Sub Linea Producto</mat-label>
-                <input matInput type="text" [(ngModel)]="grupo_producto_buscar.sub_linea" (change)="cambiar_buscar_sub_linea()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                <input matInput type="text" [(ngModel)]="grupo_producto_buscar.sublinea" (change)="cambiar_buscar_sub_linea()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
             </mat-form-field>
         </div>
         <div class="form-group col-4">
@@ -90,10 +90,10 @@
                         </td>
                         <td>{{grupo_producto.codigo}}</td>
                         <td>{{grupo_producto.grupo}}</td>
-                        <td>{{grupo_producto.sub_grupo}}</td>
+                        <td>{{grupo_producto.subgrupo}}</td>
                         <td>{{grupo_producto.categoria}}</td>
                         <td>{{grupo_producto.linea}}</td>
-                        <td>{{grupo_producto.sub_linea}}</td>
+                        <td>{{grupo_producto.sublinea}}</td>
                         <td>{{grupo_producto.presentacion}}</td>
                     </tr>
                 </tbody>

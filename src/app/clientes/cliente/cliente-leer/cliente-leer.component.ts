@@ -74,7 +74,7 @@ export class ClienteLeerComponent implements OnInit {
   buscar(event) {
     if (event!=null)
       event.preventDefault();
-    this.clienteService.buscar(this.cliente_buscar.razon_social, this.cliente_buscar.identificacion).subscribe(
+    this.clienteService.buscar(this.cliente_buscar).subscribe(
       res => {
         this.clientes = res.resultado as Cliente[]
       },
