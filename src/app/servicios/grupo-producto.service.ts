@@ -61,7 +61,7 @@ export class GrupoProductoService {
   consultar_categorias(grupo: string, subgrupo:string): Observable<Respuesta> {
     let params = new HttpParams().set("grupo", grupo)
                                  .set("subgrupo", subgrupo)
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.grupo_producto+ util.consultar_subgrupos, {params: params, headers: util.options.headers}).pipe(
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.grupo_producto+ util.consultar_categorias, {params: params, headers: util.options.headers}).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

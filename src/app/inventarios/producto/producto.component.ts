@@ -61,8 +61,6 @@ export class ProductoComponent implements OnInit {
   kardex_inicial: Kardex=new Kardex();
   kardex_final: Kardex=new Kardex();
 
-  grupo_producto: GrupoProducto=null as any;
-
   grupos_productos: string[]=[];
   seleccion_grupo_producto = new FormControl();
   filtro_grupos_productos: Observable<string[]> = new Observable<string[]>();
@@ -104,12 +102,12 @@ export class ProductoComponent implements OnInit {
     this.construir_producto();
     this.producto.estado=1;
     this.producto.consignacion=0;
-    this.grupoProductoService.consultar().subscribe(
+    this.grupoProductoService.consultar_grupos().subscribe(
       res => {
         this.grupos_productos = res.resultado as string[];
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
     this.tipoGastoService.consultar().subscribe(
@@ -118,7 +116,7 @@ export class ProductoComponent implements OnInit {
         this.producto.tipo_gasto.id=this.tipos_gastos[0].id;
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
     this.tipoProductoService.consultar().subscribe(
@@ -127,7 +125,7 @@ export class ProductoComponent implements OnInit {
         this.producto.tipo_producto.id=this.tipos_productos[0].id;
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
     this.impuestoService.consultar().subscribe(
@@ -136,7 +134,7 @@ export class ProductoComponent implements OnInit {
         this.producto.impuesto=this.impuestos[0];
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
     this.medidaService.consultar().subscribe(
@@ -145,7 +143,7 @@ export class ProductoComponent implements OnInit {
         this.total_medidas=this.medidas.length;
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
     this.medidaService.consultar().subscribe(
@@ -153,7 +151,7 @@ export class ProductoComponent implements OnInit {
         this.medidas_inicial = res.resultado as Medida[];
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
     this.segmentoService.consultar().subscribe(
@@ -161,46 +159,40 @@ export class ProductoComponent implements OnInit {
         this.segmentos=res.resultado as Segmento[];
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
     
     this.filtro_grupos_productos = this.seleccion_grupo_producto.valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' || value==null ? value : value.id),
-        map(grupo_producto => typeof grupo_producto === 'string' ? this.filtro_grupo_producto(grupo_producto) : this.grupos_productos.slice())
+        map(grupo_producto => this.filtro_grupo_producto(grupo_producto))
       );
 
     this.filtro_sub_grupos_productos = this.seleccion_sub_grupo_producto.valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' || value==null ? value : value.id),
-        map(sub_grupo_producto => typeof sub_grupo_producto === 'string' ? this.filtro_sub_grupo_producto(sub_grupo_producto) : this.sub_grupos_productos.slice())
+        map(sub_grupo_producto => this.filtro_sub_grupo_producto(sub_grupo_producto))
       );
     this.filtro_categorias_productos = this.seleccion_categoria_producto.valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' || value==null ? value : value.id),
-        map(categoria_producto => typeof categoria_producto === 'string' ? this.filtro_categoria_producto(categoria_producto) : this.categorias_productos.slice())
+        map(categoria_producto => this.filtro_categoria_producto(categoria_producto))
       );
     this.filtro_lineas_productos = this.seleccion_linea_producto.valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' || value==null ? value : value.id),
-        map(linea_producto => typeof linea_producto === 'string' ? this.filtro_linea_producto(linea_producto) : this.lineas_productos.slice())
+        map(linea_producto => this.filtro_linea_producto(linea_producto))
       );
     this.filtro_sub_lineas_productos = this.seleccion_sub_linea_producto.valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' || value==null ? value : value.id),
-        map(sub_linea_producto => typeof sub_linea_producto === 'string' ? this.filtro_sub_linea_producto(sub_linea_producto) : this.sub_lineas_productos.slice())
+        map(sub_linea_producto =>this.filtro_sub_linea_producto(sub_linea_producto))
       );
     this.filtro_presentaciones_productos = this.seleccion_presentacion_producto.valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' || value==null ? value : value.id),
-        map(presentacion_producto => typeof presentacion_producto === 'string' ? this.filtro_presentacion_producto(presentacion_producto) : this.presentaciones_productos.slice())
+        map(presentacion_producto => this.filtro_presentacion_producto(presentacion_producto))
       );
     this.filtro_cantidad_medida();
   }
@@ -219,8 +211,8 @@ export class ProductoComponent implements OnInit {
     }
     return [];
   }
-  ver_grupo_producto(grupo_producto: GrupoProducto): string {
-    return grupo_producto && grupo_producto.grupo ? grupo_producto.grupo : '';
+  ver_grupo_producto(grupo_producto: string): string {
+    return grupo_producto ? grupo_producto : '';
   }
 
   private filtro_sub_grupo_producto(value: string): string[] {
@@ -231,7 +223,7 @@ export class ProductoComponent implements OnInit {
     return [];
   }
   ver_sub_grupo_producto(sub_grupo_producto: string): string {
-    return sub_grupo_producto && sub_grupo_producto ? sub_grupo_producto : '';
+    return sub_grupo_producto ? sub_grupo_producto : '';
   }
 
   private filtro_categoria_producto(value: string): string[] {
@@ -241,8 +233,8 @@ export class ProductoComponent implements OnInit {
     }
     return [];
   }
-  ver_categoria_producto(categoria_producto: GrupoProducto): string {
-    return categoria_producto && categoria_producto.categoria ? categoria_producto.categoria : '';
+  ver_categoria_producto(categoria_producto: string): string {
+    return categoria_producto  ? categoria_producto : '';
   }
 
   private filtro_linea_producto(value: string): string[] {
@@ -253,7 +245,7 @@ export class ProductoComponent implements OnInit {
     return [];
   }
   ver_linea_producto(linea_producto: string): string {
-    return linea_producto && linea_producto ? linea_producto : '';
+    return linea_producto ? linea_producto : '';
   }
 
   private filtro_sub_linea_producto(value: string): string[] {
@@ -263,8 +255,8 @@ export class ProductoComponent implements OnInit {
     }
     return [];
   }
-  ver_sub_linea_producto(sub_linea_producto: GrupoProducto): string {
-    return sub_linea_producto && sub_linea_producto.sublinea ? sub_linea_producto.sublinea : '';
+  ver_sub_linea_producto(sub_linea_producto: string): string {
+    return sub_linea_producto ? sub_linea_producto : '';
   }
 
   private filtro_presentacion_producto(value: string): string[] {
@@ -274,8 +266,8 @@ export class ProductoComponent implements OnInit {
     }
     return [];
   }
-  ver_presentacion_producto(presentacion_producto: GrupoProducto): string {
-    return presentacion_producto && presentacion_producto.presentacion ? presentacion_producto.presentacion : '';
+  ver_presentacion_producto(presentacion_producto: string): string {
+    return presentacion_producto ? presentacion_producto : '';
   }
 
   nuevo(event){
@@ -333,7 +325,7 @@ export class ProductoComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
   } 
@@ -383,7 +375,7 @@ export class ProductoComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
   }
@@ -392,7 +384,6 @@ export class ProductoComponent implements OnInit {
     let grupo=this.seleccion_grupo_producto.value;
     this.grupoProductoService.consultar_subgrupos(grupo).subscribe(
       res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.sub_grupos_productos=res.resultado as string[];
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
@@ -403,8 +394,7 @@ export class ProductoComponent implements OnInit {
     let subgrupo=this.seleccion_sub_grupo_producto.value;
     this.grupoProductoService.consultar_categorias(grupo, subgrupo).subscribe(
       res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.sub_grupos_productos=res.resultado as string[];
+        this.categorias_productos=res.resultado as string[];
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
@@ -415,7 +405,6 @@ export class ProductoComponent implements OnInit {
     let categoria=this.seleccion_categoria_producto.value;
     this.grupoProductoService.consultar_lineas(grupo, subgrupo, categoria).subscribe(
       res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.lineas_productos=res.resultado as string[];
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
@@ -428,7 +417,6 @@ export class ProductoComponent implements OnInit {
     let linea=this.seleccion_linea_producto.value;
     this.grupoProductoService.consultar_sublineas(grupo, subgrupo, categoria, linea).subscribe(
       res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.sub_lineas_productos=res.resultado as string[];
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
@@ -442,7 +430,6 @@ export class ProductoComponent implements OnInit {
     let sublinea=this.seleccion_sub_linea_producto.value;
     this.grupoProductoService.consultar_presentaciones(grupo, subgrupo, categoria, linea, sublinea).subscribe(
       res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.presentaciones_productos=res.resultado as string[];
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
@@ -456,10 +443,10 @@ export class ProductoComponent implements OnInit {
     let linea=this.seleccion_linea_producto.value;
     let sublinea=this.seleccion_sub_linea_producto.value;
     let presentacion=this.seleccion_presentacion_producto.value;
+    this.producto.nombre=linea+" "+sublinea+" "+presentacion;
     this.grupoProductoService.obtener_grupo_producto(grupo, subgrupo, categoria, linea, sublinea, presentacion).subscribe(
       res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.grupo_producto=res.resultado as GrupoProducto;
+        this.producto.grupo_producto=res.resultado as GrupoProducto;
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
@@ -524,7 +511,7 @@ export class ProductoComponent implements OnInit {
         this.precio.costo=Number(this.precio.costo.toFixed(2));
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
   }
@@ -657,7 +644,7 @@ export class ProductoComponent implements OnInit {
         this.producto.impuesto = res.resultado as Impuesto;
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
   }
@@ -704,7 +691,7 @@ export class ProductoComponent implements OnInit {
           this.eliminar_medida_inicial()
           this.filtro_cantidad_medida();
         },
-        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
       );
     }
   }
@@ -715,11 +702,7 @@ export class ProductoComponent implements OnInit {
       this.router.navigate([actual]);
       });
   }
-
-  openDialog(){
-
-  }
-
+  
   private tab_activo(){
     for(let i=0; i<this.tabService.tabs.length; i++){
       if(this.tabService.tabs[i].active){
