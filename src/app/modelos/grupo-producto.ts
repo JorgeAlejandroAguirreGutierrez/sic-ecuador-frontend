@@ -2,8 +2,8 @@ export class GrupoProducto {
     id:number;
     codigo: string;
     grupo: string;
-    subgrupo: string;
-    categoria: string;
+    subgrupo : string;
+    categoria : string;
     linea: string;
     sublinea: string;
     presentacion: string;

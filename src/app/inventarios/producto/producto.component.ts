@@ -666,7 +666,10 @@ export class ProductoComponent implements OnInit {
     if (producto_id!= 0) {
       await this.productoService.obtenerAsync(producto_id).then(
         res => {
-          Object.assign(this.producto, res.resultado as Producto);
+          console.log(res);
+          this.producto= res.resultado as Producto;
+          console.log(this.producto);
+          console.log(this.producto.grupo_producto.grupo);
           this.activo=this.producto.estado;
           if(this.producto.kardexs.length>0){
             this.habilitar_saldo_inicial=true;
@@ -675,7 +678,12 @@ export class ProductoComponent implements OnInit {
             this.kardex_inicial=this.producto.kardexs[0];
           }
           this.eliminar_medidas_actualizacion();
-          this.seleccion_grupo_producto.setValue(this.producto.grupo_producto);
+          this.seleccion_grupo_producto.setValue(this.producto.grupo_producto.grupo);
+          this.seleccion_sub_grupo_producto.setValue(this.producto.grupo_producto.subgrupo);
+          this.seleccion_categoria_producto.setValue(this.producto.grupo_producto.categoria);
+          this.seleccion_linea_producto.setValue(this.producto.grupo_producto.linea);
+          this.seleccion_sub_linea_producto.setValue(this.producto.grupo_producto.sublinea);
+          this.seleccion_presentacion_producto.setValue(this.producto.grupo_producto.presentacion);
           for(let i=0; i<this.producto.medidas_precios.length; i++){
             let precios=[];
             Object.assign(precios, this.producto.medidas_precios[i].precios as Precio[]);
@@ -702,7 +710,7 @@ export class ProductoComponent implements OnInit {
       this.router.navigate([actual]);
       });
   }
-  
+
   private tab_activo(){
     for(let i=0; i<this.tabService.tabs.length; i++){
       if(this.tabService.tabs[i].active){
