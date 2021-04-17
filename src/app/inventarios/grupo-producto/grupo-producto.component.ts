@@ -66,7 +66,6 @@ export class GrupoProductoComponent implements OnInit {
     if (presentacion_producto_id!= 0) {
       this.grupoProductoService.obtener(presentacion_producto_id).subscribe(
         res => {
-          Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.grupo_producto=res.resultado as GrupoProducto
         },
         err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })

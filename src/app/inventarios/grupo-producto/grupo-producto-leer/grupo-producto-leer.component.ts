@@ -18,7 +18,7 @@ import { GrupoProductoComponent } from '../grupo-producto.component';
 export class GrupoProductoLeerComponent implements OnInit {
 
   collapsed = true;
-  ComponentePresentacionProducto: Type<any> = GrupoProductoComponent;
+  ComponenteGrupoProducto: Type<any> = GrupoProductoComponent;
 
   sesion: Sesion;
 
@@ -71,7 +71,7 @@ export class GrupoProductoLeerComponent implements OnInit {
       this.grupoProductoService.enviar(this.grupo_producto.id);
       let indice_tab_activo= constantes.tab_activo(this.tabService);
       this.tabService.removeTab(indice_tab_activo);
-      this.tabService.addNewTab(this.ComponentePresentacionProducto,'Actualizar Tabla de Grupo de Producto');
+      this.tabService.addNewTab(this.ComponenteGrupoProducto,'Actualizar Tabla de Grupo de Producto');
     } else {
       Swal.fire(constantes.error, "Selecciona un Grupo de Producto", constantes.error_swal);
     }
