@@ -415,6 +415,7 @@ export class ProductoComponent implements OnInit {
     let subgrupo=this.seleccion_sub_grupo_producto.value;
     let categoria=this.seleccion_categoria_producto.value;
     let linea=this.seleccion_linea_producto.value;
+    this.producto.nombre=linea;
     this.grupoProductoService.consultar_sublineas(grupo, subgrupo, categoria, linea).subscribe(
       res => {
         this.sub_lineas_productos=res.resultado as string[];
@@ -428,6 +429,7 @@ export class ProductoComponent implements OnInit {
     let categoria=this.seleccion_categoria_producto.value;
     let linea=this.seleccion_linea_producto.value;
     let sublinea=this.seleccion_sub_linea_producto.value;
+    this.producto.nombre=linea+constantes.espacio+sublinea;
     this.grupoProductoService.consultar_presentaciones(grupo, subgrupo, categoria, linea, sublinea).subscribe(
       res => {
         this.presentaciones_productos=res.resultado as string[];
@@ -443,7 +445,7 @@ export class ProductoComponent implements OnInit {
     let linea=this.seleccion_linea_producto.value;
     let sublinea=this.seleccion_sub_linea_producto.value;
     let presentacion=this.seleccion_presentacion_producto.value;
-    this.producto.nombre=linea+" "+sublinea+" "+presentacion;
+    this.producto.nombre=linea+constantes.espacio+sublinea+constantes.espacio+presentacion;
     this.grupoProductoService.obtener_grupo_producto(grupo, subgrupo, categoria, linea, sublinea, presentacion).subscribe(
       res => {
         this.producto.grupo_producto=res.resultado as GrupoProducto;

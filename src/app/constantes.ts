@@ -37,6 +37,7 @@ export const exito='Exito';
 export const SI="SI";
 export const NO="NO";
 export const vacio="";
+export const espacio=" ";
 
 //CAMPOS PARA CONSULTAS DINAMICAS
 export const codigo="codigo";
