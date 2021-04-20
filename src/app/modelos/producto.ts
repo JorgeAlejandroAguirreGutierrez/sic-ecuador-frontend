@@ -12,7 +12,7 @@ export class Producto {
   codigo: string;
   nombre: string;
   costo: number;
-  consignacion: number;
+  consignacion: boolean;
   estado: boolean;
   serie_autogenerado: number;
   stock_total: number;
@@ -32,7 +32,7 @@ export class Producto {
     this.id=0;
     this.codigo="";
     this.nombre="";
-    this.consignacion=0;
+    this.consignacion=false;
     this.serie_autogenerado=0;
     this.stock_total=0;
     this.estado=true;

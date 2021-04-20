@@ -100,7 +100,6 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit() {
     this.construir_producto();
-    this.producto.consignacion=0;
     this.grupoProductoService.consultar_grupos().subscribe(
       res => {
         this.grupos_productos = res.resultado as string[];
