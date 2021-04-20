@@ -91,7 +91,7 @@ export class ProductoComponent implements OnInit {
 
   tabla_equivalencia_medida: TablaEquivalenciaMedida=null;
 
-  activo: number=0;
+  activo: boolean=true;
 
   constructor(private productoService: ProductoService, private grupoProductoService: GrupoProductoService, private kardexService: KardexService,
     private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService, private router: Router, private modalService: NgbModal,
@@ -100,7 +100,6 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit() {
     this.construir_producto();
-    this.producto.estado=1;
     this.producto.consignacion=0;
     this.grupoProductoService.consultar_grupos().subscribe(
       res => {
@@ -317,7 +316,6 @@ export class ProductoComponent implements OnInit {
       Swal.fire(constantes.error, constantes.error_tipo_producto, constantes.error_swal);
       return;
     }
-    this.producto.estado=this.activo;
     console.log(this.producto);
     this.productoService.crear(this.producto).subscribe(
       res => {

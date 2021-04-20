@@ -13,7 +13,7 @@ export class Producto {
   nombre: string;
   costo: number;
   consignacion: number;
-  estado: number;
+  estado: boolean;
   serie_autogenerado: number;
   stock_total: number;
   tipo_gasto: TipoGasto;
@@ -35,7 +35,7 @@ export class Producto {
     this.consignacion=0;
     this.serie_autogenerado=0;
     this.stock_total=0;
-    this.estado=0;
+    this.estado=true;
     this.medidas_precios=[];
     this.caracteristicas=[];
     this.kardexs=[];
