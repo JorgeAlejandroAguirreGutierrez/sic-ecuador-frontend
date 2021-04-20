@@ -31,8 +31,11 @@ export class GrupoProductoComponent implements OnInit {
       event.preventDefault();
     this.grupoProductoService.crear(this.grupo_producto).subscribe(
       res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.grupo_producto=res.resultado as GrupoProducto;
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        let indice_tab_activo = constantes.tab_activo(this.tabService);
+        this.tabService.removeTab(indice_tab_activo);
+        this.tabService.addNewTab(GrupoProductoComponent, constantes.tab_crear_grupo_producto);
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );

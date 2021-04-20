@@ -321,8 +321,11 @@ export class ProductoComponent implements OnInit {
     console.log(this.producto);
     this.productoService.crear(this.producto).subscribe(
       res => {
-        Object.assign(this.producto, res.resultado as Producto);
+        this.producto=res.resultado as Producto;
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        let indice_tab_activo = constantes.tab_activo(this.tabService);
+        this.tabService.removeTab(indice_tab_activo);
+        this.tabService.addNewTab(ProductoComponent, constantes.tab_crear_producto);
       },
       err => {
         Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
