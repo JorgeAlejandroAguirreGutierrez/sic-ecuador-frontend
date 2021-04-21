@@ -46,7 +46,7 @@ export class SaldoInicialInventarioComponent implements OnInit {
         this.segmentos=res.resultado as Segmento[];
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
     this.filtro_productos = this.seleccion_producto.valueChanges
@@ -64,7 +64,7 @@ export class SaldoInicialInventarioComponent implements OnInit {
         this.medidas = res.resultado as Medida[];
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
   }
@@ -74,7 +74,7 @@ export class SaldoInicialInventarioComponent implements OnInit {
     res => {
       this.productos = res.resultado as Producto[]
     },
-    err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+    err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -123,7 +123,7 @@ export class SaldoInicialInventarioComponent implements OnInit {
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
     this.kardexService.crear(this.kardex).subscribe(
       res => {
@@ -131,7 +131,7 @@ export class SaldoInicialInventarioComponent implements OnInit {
         this.seleccion_producto.setValue('');
         this.kardex=new Kardex();
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -146,7 +146,7 @@ export class SaldoInicialInventarioComponent implements OnInit {
           Swal.fire(constantes.error, constantes.error_kardex, constantes.error_swal)
         }
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
       );
   }
 
