@@ -70,9 +70,9 @@ export class FacturaComponent implements OnInit {
   filtro_razon_social_clientes_factura: Observable<Cliente[]> = new Observable<Cliente[]>();
 
   constructor(private clienteService: ClienteService, private auxiliarService: AuxiliarService, private sesionService: SesionService, 
-    private medidaService: MedidaService, private impuestoService: ImpuestoService, private router: Router,
+    private impuestoService: ImpuestoService, private router: Router,
     private facturaService: FacturaService, private productoService: ProductoService, private bodegaService: BodegaService,
-    private caracteristicaService: CaracteristicaService, private modalService: NgbModal, private _formBuilder: FormBuilder) { }
+    private modalService: NgbModal, private _formBuilder: FormBuilder) { }
 
   factura_crear: Factura=new Factura();
   factura: Factura = new Factura();
@@ -293,7 +293,7 @@ export class FacturaComponent implements OnInit {
           this.facturaService.enviar(0);
         },
         err => {
-          Swal.fire('Error', err.error.mensaje, 'error')
+          Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
         }
       )
     }
@@ -304,7 +304,9 @@ export class FacturaComponent implements OnInit {
       res => {
         this.clientes = res.resultado as Cliente[]
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => {
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
+      }
     );
   }
 
@@ -312,6 +314,9 @@ export class FacturaComponent implements OnInit {
     this.impuestoService.consultar().subscribe(
       res => {
         this.impuestos = res.resultado as Impuesto[]
+      },
+      err => {
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
   }
@@ -319,6 +324,9 @@ export class FacturaComponent implements OnInit {
     this.bodegaService.consultar().subscribe(
       res => {
         this.bodegas = res.resultado as Bodega[]
+      },
+      err => {
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
   }
@@ -330,7 +338,7 @@ export class FacturaComponent implements OnInit {
       res => {
         this.productos = res.resultado as Producto[]
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
   consultar_servicios(event) {
@@ -339,7 +347,8 @@ export class FacturaComponent implements OnInit {
     this.productoService.consultarServicio().subscribe(
       res => {
         this.productos = res.resultado as Producto[]
-      }
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
   consultar_activos_fijos(event) {
@@ -348,7 +357,8 @@ export class FacturaComponent implements OnInit {
     this.productoService.consultarActivoFijo().subscribe(
       res => {
         this.productos = res.resultado as Producto[]
-      }
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -381,13 +391,13 @@ export class FacturaComponent implements OnInit {
         }
         this.habilitar_cliente_tce=false;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
     this.auxiliarService.consultarClienteID(this.auxiliar_buscar).subscribe(
       res => {
         this.auxiliares = res.resultado as Auxiliar[]
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -420,13 +430,13 @@ export class FacturaComponent implements OnInit {
         }
         this.habilitar_cliente_tce=false;
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
     this.auxiliarService.consultarClienteID(this.auxiliar_buscar).subscribe(
       res => {
         this.auxiliares = res.resultado as Auxiliar[]
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -445,7 +455,8 @@ export class FacturaComponent implements OnInit {
         if (this.factura.cliente_factura.correos.length>0)
           this.primer_correo_cliente_factura= this.factura.cliente_factura.correos[0].email;
         this.habilitar_cliente_factura_tce=false;
-      }
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -464,7 +475,8 @@ export class FacturaComponent implements OnInit {
         if (this.factura.cliente_factura.correos.length>0)
           this.primer_correo_cliente_factura= this.factura.cliente_factura.correos[0].email;
         this.habilitar_cliente_factura_tce=false;
-      }
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -529,6 +541,11 @@ export class FacturaComponent implements OnInit {
 
   seleccionar_producto() {
     this.detalle.producto=this.seleccion_producto.value;
+    if(this.detalle.producto.kardexs.length==0){
+      this.detalle.producto=new Producto();
+      Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: constantes.error_kardex_VACIO, footer: constantes.error_kardex_VACIO_MENSAJE });
+      return;
+    }
     this.costo_unitario=this.detalle.producto.kardexs[this.detalle.producto.kardexs.length-1].costo_unitario;
     this.costo_promedio=this.detalle.producto.kardexs[this.detalle.producto.kardexs.length-1].costo_promedio;
     this.saldo=this.detalle.producto.kardexs[this.detalle.producto.kardexs.length-1].cantidad;
@@ -571,14 +588,10 @@ export class FacturaComponent implements OnInit {
       res => {
         this.factura_crear = res.resultado as Factura
         this.stepper.next();
-        if (res.mensaje){
-          Swal.fire(constantes.exito, constantes.exito_crear_factura, constantes.exito_swal);
-        } else {
-          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
-        }
+        Swal.fire(constantes.exito, constantes.exito_crear_factura, constantes.exito_swal);
       },
       err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal);
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
       }
     );
   }
@@ -589,13 +602,10 @@ export class FacturaComponent implements OnInit {
     console.log(this.factura);
     this.facturaService.actualizar(this.factura).subscribe(
       res => {
-        this.factura_crear = res.resultado as Factura
-        if (res.mensaje){
-          Swal.fire(constantes.exito, constantes.exito_actualizar_factura, constantes.exito_swal);
-        } else {
-          Swal.fire(constantes.error, res.mensaje, constantes.error_swal);
-        }
-      }
+        this.factura_crear = res.resultado as Factura;
+        Swal.fire(constantes.exito, constantes.exito_actualizar_factura, constantes.exito_swal);
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -705,7 +715,7 @@ export class FacturaComponent implements OnInit {
       res => {
         this.auxiliares = res.resultado as Auxiliar[]
       },
-      err => Swal.fire('Error', err.error.mensaje, 'error')
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
   limpiar_identificacion_cliente(){
