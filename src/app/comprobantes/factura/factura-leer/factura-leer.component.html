@@ -31,8 +31,8 @@
     <div class="form-row">
         <div class="form-group col-12">
             <mat-form-field appearance="standard">
-                <mat-label>Numero Factura</mat-label>
-                <input matInput type="text" [(ngModel)]="factura_buscar.numero" (change)="cambiar_buscar_numero()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                <mat-label>Secuencia Factura</mat-label>
+                <input matInput type="text" [(ngModel)]="factura_buscar.secuencia" (change)="buscar(null)" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
             </mat-form-field>
         </div>
     </div>
@@ -40,7 +40,7 @@
         <div class="form-group col-12">
             <mat-form-field appearance="standard">
                 <mat-label>Razon Social Cliente</mat-label>
-                <input matInput type="text" [(ngModel)]="factura_buscar.cliente.razon_social" (change)="cambiar_buscar_cliente_razon_social()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                <input matInput type="text" [(ngModel)]="factura_buscar.cliente.razon_social" (change)="buscar(null)" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
             </mat-form-field>
         </div>
     </div>
@@ -48,16 +48,16 @@
         <div class="col-12">
             <h2>FACTURAS</h2>
             <hr>
-            <table class="table table-hover table-bordered table-responsive" style="font-size: 0.7rem">
+            <table class="table table-hover table-bordered" style="font-size: 0.7rem">
                 <thead class="table-active">
                     <tr>
-                        <th rowspan="2" class="col-1">SEL</th>
-                        <th rowspan="2" class="col-1">CODIGO</th>
-                        <th rowspan="2" class="col-1">NUMERO</th>
-                        <th rowspan="2" class="col-1">CLIENTE</th>
-                        <th rowspan="2" class="col-1">FECHA</th>
-                        <th rowspan="2" class="col-1">TOTAL</th>
-                        <th rowspan="2" class="col-1">COMENTARIO</th>
+                        <th>SEL</th>
+                        <th>CODIGO</th>
+                        <th>SECUENCIA</th>
+                        <th>CLIENTE</th>
+                        <th>FECHA</th>
+                        <th>TOTAL</th>
+                        <th>COMENTARIO</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,7 +66,7 @@
                             <input type="radio" name="seleccion" (click)="seleccion(factura)">
                         </td>
                         <td>{{factura.codigo}}</td>
-                        <td>{{factura.numero}}</td>
+                        <td>{{factura.secuencia}}</td>
                         <td>{{factura.cliente.razon_social}}</td>
                         <td>{{factura.fecha | date:'yyyy-MM-dd'}}</td>
                         <td>{{factura.total_con_descuento}}</td>

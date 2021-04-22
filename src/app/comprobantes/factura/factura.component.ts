@@ -614,7 +614,7 @@ export class FacturaComponent implements OnInit {
       Swal.fire(constantes.error, constantes.error_bodega, constantes.error_swal);
       return;
     }
-    if (this.detalle.producto.impuesto.id==0){
+    if (this.detalle.impuesto.id==0){
       Swal.fire(constantes.error, constantes.error_impuesto, constantes.error_swal);
       return;
     }
@@ -622,7 +622,6 @@ export class FacturaComponent implements OnInit {
       Swal.fire(constantes.error, constantes.error_cantidad, constantes.error_swal);
       return;
     }
-    this.detalle.entregado=this.detalle_entregado==constantes.SI? true: false;
     this.detalle.calcular();
     this.factura.factura_detalles.push(this.detalle);
     this.factura.calcular();

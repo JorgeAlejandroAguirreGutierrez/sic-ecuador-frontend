@@ -36,13 +36,6 @@ export class FacturaLeerComponent implements OnInit {
     this.sesion = this.sesionService.getSesion();
   }
 
-  cambiar_buscar_cliente_razon_social() {
-    this.buscar(null);
-  }
-  cambiar_buscar_numero() {
-    this.buscar(null);
-  }
-
   consultar() {
     this.facturaService.consultar().subscribe(
       res => {

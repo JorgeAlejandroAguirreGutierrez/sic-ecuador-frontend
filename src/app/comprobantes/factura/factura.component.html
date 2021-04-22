@@ -90,7 +90,7 @@
                             <div class="form-group col-2">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Secuencia</mat-label>
-                                    <input matInput type="text" class="form-control-sm" [(ngModel)]="factura.numero"
+                                    <input matInput type="text" class="form-control-sm" [(ngModel)]="factura.secuencia"
                                         disabled>
                                 </mat-form-field>
                             </div>
@@ -552,9 +552,9 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>Entregado</mat-label>
-                                        <mat-select class="form-control-sm" [(ngModel)]="detalle_entregado">
-                                            <mat-option value="NO">NO</mat-option>
-                                            <mat-option value="SI">SI</mat-option>
+                                        <mat-select class="form-control-sm" [(ngModel)]="detalle.entregado">
+                                            <mat-option [value]="false">NO</mat-option>
+                                            <mat-option [value]="true">SI</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
