@@ -39,19 +39,13 @@
                                 <div class="form-group col-3">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Medida 1</mat-label>
-                                        <mat-select [(ngModel)]="tabla_equivalencia_medida.medida1" [compareWith]="compareFn" class="form-control-sm">
-                                            <mat-option *ngFor="let medida1 of medidas1" [value]="medida1">
-                                                {{medida1.descripcion}}</mat-option>
-                                        </mat-select>
+                                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida.medida1.descripcion" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                                 <div class="form-group col-3">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Medida 2</mat-label>
-                                        <mat-select [(ngModel)]="tabla_equivalencia_medida.medida2" [compareWith]="compareFn" class="form-control-sm">
-                                            <mat-option *ngFor="let medida2 of medidas2" [value]="medida2">
-                                                {{medida2.descripcion}}</mat-option>
-                                        </mat-select>
+                                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida.medida2.descripcion" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                                 <div class="form-group col-3">
