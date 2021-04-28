@@ -70,6 +70,7 @@ export class GrupoProductoComponent implements OnInit {
       this.grupoProductoService.obtener(presentacion_producto_id).subscribe(
         res => {
           this.grupo_producto=res.resultado as GrupoProducto
+          this.grupoProductoService.enviar(0);
         },
         err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
       );

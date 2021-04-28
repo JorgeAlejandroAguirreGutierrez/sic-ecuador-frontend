@@ -69,6 +69,7 @@ export class UbicacionComponent implements OnInit {
       await this.ubicacionService.obtenerAsync(ubicacion_id).then(
         res => {
           Object.assign(this.ubicacion, res.resultado as Ubicacion);
+          this.ubicacionService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );

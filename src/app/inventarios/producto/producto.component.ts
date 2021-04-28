@@ -670,8 +670,6 @@ export class ProductoComponent implements OnInit {
         res => {
           console.log(res);
           this.producto= res.resultado as Producto;
-          console.log(this.producto);
-          console.log(this.producto.grupo_producto.grupo);
           this.activo=this.producto.estado;
           if(this.producto.kardexs.length>0){
             this.habilitar_saldo_inicial=true;
@@ -700,6 +698,7 @@ export class ProductoComponent implements OnInit {
           }
           this.eliminar_medida_inicial()
           this.filtro_cantidad_medida();
+          this.productoService.enviar(0);
         },
         err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
       );

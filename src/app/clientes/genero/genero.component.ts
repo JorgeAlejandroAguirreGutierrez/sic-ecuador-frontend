@@ -67,6 +67,7 @@ export class GeneroComponent implements OnInit {
       await this.generoService.obtenerAsync(genero_id).then(
         res => {
           Object.assign(this.genero, res.resultado as Genero);
+          this.generoService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );

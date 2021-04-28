@@ -67,6 +67,7 @@ export class BodegaComponent implements OnInit {
       await this.bodegaService.obtenerAsync(bodega_id).then(
         res => {
           Object.assign(this.bodega, res.resultado as Bodega);
+          this.bodegaService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );

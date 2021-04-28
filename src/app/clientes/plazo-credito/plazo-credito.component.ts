@@ -67,6 +67,7 @@ export class PlazoCreditoComponent implements OnInit {
       await this.plazoCreditoService.obtenerAsync(plazo_credito_id).then(
         res => {
           Object.assign(this.plazo_credito, res.resultado as PlazoCredito);
+          this.plazoCreditoService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );

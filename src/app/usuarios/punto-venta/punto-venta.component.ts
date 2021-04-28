@@ -63,6 +63,7 @@ export class PuntoVentaComponent implements OnInit {
       await this.puntoVentaService.obtenerAsync(punto_venta_id).then(
         res => {
           Object.assign(this.punto_venta, res.resultado as PuntoVenta);
+          this.puntoVentaService.enviar(0);
         },
         err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
       );

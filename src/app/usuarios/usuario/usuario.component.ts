@@ -65,6 +65,7 @@ export class UsuarioComponent implements OnInit {
       await this.usuarioService.obtenerAsync(usuario_id).then(
         res => {
           Object.assign(this.usuario, res.resultado as Usuario);
+          this.usuarioService.enviar(0);
         },
         err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
       );

@@ -66,8 +66,8 @@ export class BancoComponent implements OnInit {
     if (banco_id!= 0) {
       this.bancoService.obtener(banco_id).subscribe(
         res => {
-          Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
           this.banco=res.resultado as Banco
+          this.bancoService.enviar(0);
         },
         err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
       );

@@ -67,6 +67,7 @@ export class MedidaComponent implements OnInit {
       await this.medidaService.obtenerAsync(medida_id).then(
         res => {
           Object.assign(this.medida, res.resultado as Medida);
+          this.medidaService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );

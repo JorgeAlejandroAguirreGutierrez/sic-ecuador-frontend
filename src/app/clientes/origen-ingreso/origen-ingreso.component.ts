@@ -66,6 +66,7 @@ export class OrigenIngresoComponent implements OnInit {
       await this.origenIngresoService.obtenerAsync(origen_ingreso_id).then(
         res => {
           Object.assign(this.origen_ingreso, res.resultado as OrigenIngreso);
+          this.origenIngresoService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );

@@ -71,6 +71,7 @@ export class EstablecimientoComponent implements OnInit {
       await this.establecimientoService.obtenerAsync(establecimiento_id).then(
         res => {
           Object.assign(this.establecimiento, res.resultado as Establecimiento);
+          this.establecimientoService.enviar(0);
         },
         err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
       );

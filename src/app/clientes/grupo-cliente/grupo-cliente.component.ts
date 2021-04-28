@@ -67,6 +67,7 @@ export class GrupoClienteComponent implements OnInit {
       await this.grupoClienteService.obtenerAsync(grupo_cliente_id).then(
         res => {
           Object.assign(this.grupo_cliente, res.resultado as GrupoCliente);
+          this.grupoClienteService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );

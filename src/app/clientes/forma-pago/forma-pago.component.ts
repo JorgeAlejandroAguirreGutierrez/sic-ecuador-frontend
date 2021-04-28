@@ -66,6 +66,7 @@ export class FormaPagoComponent implements OnInit {
       await this.formaPagoService.obtenerAsync(forma_pago_id).then(
         res => {
           Object.assign(this.forma_pago, res.resultado as FormaPago);
+          this.formaPagoService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
