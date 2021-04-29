@@ -425,7 +425,7 @@
                             <div class="form-group col-3">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Bodega</mat-label>
-                                    <mat-select class="form-control-sm" [(ngModel)]="detalle.producto.bodega">
+                                    <mat-select (selectionChange)="agregar_detalle()" class="form-control-sm" [(ngModel)]="detalle.bodega">
                                         <mat-option *ngFor="let bodega of bodegas; let i=index" [value]="bodega">
                                             {{bodega.codigo}}
                                         </mat-option>
@@ -478,9 +478,6 @@
                                 <br>
                                 <button class="btn btn-primary btn-circle " disabled>
                                     <mat-icon>visibility</mat-icon>
-                                </button>&nbsp;&nbsp;
-                                <button class="btn btn-primary btn-circle" (click)="agregar_factura_detalle()">
-                                    <mat-icon>add</mat-icon>
                                 </button>
                             </div>
                             <div class="form-row">
@@ -535,7 +532,7 @@
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>IVA</mat-label>
                                         <mat-select [(ngModel)]="detalle.impuesto" class="form-control-sm"
-                                            (selectionChange)="seleccionar_impuesto()">
+                                            (selectionChange)="seleccionar_impuesto();">
                                             <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto">
                                                 {{impuesto.porcentaje}}
                                             </mat-option>

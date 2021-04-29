@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,7 +16,6 @@ import { SesionService } from '../../servicios/sesion.service';
 import { FacturaDetalle } from '../../modelos/factura-detalle';
 import { ProductoService } from '../../servicios/producto.service';
 import { Producto } from '../../modelos/producto';
-import { MedidaService } from '../../servicios/medida.service';
 import { ImpuestoService } from '../../servicios/impuesto.service';
 import { Impuesto } from '../../modelos/impuesto';
 import { FacturaService } from '../../servicios/factura.service';
@@ -70,9 +69,14 @@ export class FacturaComponent implements OnInit {
   filtro_razon_social_clientes_factura: Observable<Cliente[]> = new Observable<Cliente[]>();
 
   constructor(private clienteService: ClienteService, private auxiliarService: AuxiliarService, private sesionService: SesionService, 
-    private impuestoService: ImpuestoService, private router: Router,
+    private impuestoService: ImpuestoService, private router: Router, private cdref: ChangeDetectorRef,
     private facturaService: FacturaService, private productoService: ProductoService, private bodegaService: BodegaService,
     private modalService: NgbModal, private _formBuilder: FormBuilder) { }
+
+
+    ngAfterContentChecked() {
+      this.cdref.detectChanges();    
+    }
 
   factura_crear: Factura=new Factura();
   factura: Factura = new Factura();
@@ -557,13 +561,16 @@ export class FacturaComponent implements OnInit {
         this.precios_seleccionados=this.detalle.producto.medidas_precios[i].precios;
       }
     }
+    this.agregar_detalle();
   }
 
   seleccionar_precio() {
     this.detalle.calcular();
+    this.agregar_detalle();
   }
   seleccionar_cantidad() {
     this.detalle.calcular();
+    this.agregar_detalle();
   }
 
   seleccionar_valor_descuento_individual() {
@@ -576,6 +583,36 @@ export class FacturaComponent implements OnInit {
 
   seleccionar_impuesto(){
     this.detalle.calcular();
+    this.agregar_detalle();
+  }
+
+  agregar_detalle(){
+    if (this.detalle.bodega.id==0){
+      return;
+    }
+    if (this.detalle.cantidad==0){
+      return;
+    }
+    if (this.detalle.medida.id==0){
+      return;
+    }
+    if (this.detalle.precio.id==0){
+      return;
+    }
+    if (this.detalle.impuesto.id==0){
+      return;
+    }
+    if(this.detalle.producto.kardexs[this.detalle.producto.kardexs.length-1].cantidad<this.detalle.cantidad){
+      Swal.fire(constantes.error, constantes.error_cantidad, constantes.error_swal);
+      return;
+    }
+    this.detalle.calcular();
+    this.factura.factura_detalles.push(this.detalle);
+    this.factura.calcular();
+    this.detalle=new FacturaDetalle();
+    this.limpiar_producto();
+    this.data_detalle_factura = new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
+    Swal.fire(constantes.exito, constantes.exito_agregar_detalle_factura, constantes.exito_swal);
   }
 
   crear(event) {
@@ -607,28 +644,6 @@ export class FacturaComponent implements OnInit {
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
-  }
-
-  agregar_factura_detalle(){
-    if (this.detalle.producto.bodega.id==0){
-      Swal.fire(constantes.error, constantes.error_bodega, constantes.error_swal);
-      return;
-    }
-    if (this.detalle.impuesto.id==0){
-      Swal.fire(constantes.error, constantes.error_impuesto, constantes.error_swal);
-      return;
-    }
-    if(this.detalle.producto.kardexs[this.detalle.producto.kardexs.length-1].cantidad<this.detalle.cantidad){
-      Swal.fire(constantes.error, constantes.error_cantidad, constantes.error_swal);
-      return;
-    }
-    this.detalle.calcular();
-    this.factura.factura_detalles.push(this.detalle);
-    this.factura.calcular();
-    this.detalle=new FacturaDetalle();
-    this.limpiar_producto();
-    this.data_detalle_factura = new MatTableDataSource<FacturaDetalle>(this.factura.factura_detalles);
-    Swal.fire(constantes.exito, constantes.exito_agregar_detalle_factura, constantes.exito_swal);
   }
 
   cambiar_productos(tipo_producto: string){

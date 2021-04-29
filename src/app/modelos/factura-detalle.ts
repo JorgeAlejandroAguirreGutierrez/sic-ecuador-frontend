@@ -45,6 +45,9 @@ export class FacturaDetalle {
   producto: Producto;
   //IMPUESTO SELECCIONADO
   impuesto: Impuesto;
+  //BODEGA SELECCIONADO
+  bodega: Bodega;
+
   
 
   constructor() {
@@ -71,6 +74,7 @@ export class FacturaDetalle {
     this.precio=new Precio();
     this.medida=new Medida();
     this.impuesto=new Impuesto();
+    this.bodega=new Bodega();
     this.caracteristicas=[];
   }
 
