@@ -485,14 +485,14 @@
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>Cantidad</mat-label>
                                         <input matInput type="text" [(ngModel)]="detalle.cantidad"
-                                            (change)="seleccionar_cantidad()" class="form-control-sm">
+                                            (change)="seleccionar_cantidad(); agregar_detalle()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>Medida</mat-label>
                                         <mat-select [(ngModel)]="detalle.medida"
-                                            (selectionChange)="seleccionar_medida()" class="form-control-sm">
+                                            (selectionChange)="seleccionar_medida(); agregar_detalle()" class="form-control-sm">
                                             <mat-option *ngFor="let medida_precio of detalle.producto.medidas_precios"
                                                 [value]="medida_precio.medida">
                                                 {{medida_precio.medida.descripcion}}
@@ -503,7 +503,7 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>P. Unit.</mat-label>
-                                        <mat-select (selectionChange)="seleccionar_precio()"
+                                        <mat-select (selectionChange)="seleccionar_precio(); agregar_detalle()"
                                             [(ngModel)]="detalle.precio" class="form-control-sm">
                                             <mat-option *ngFor="let precio of precios_seleccionados" [value]="precio">
                                                 {{precio.precio_venta_publico}}
@@ -532,7 +532,7 @@
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>IVA</mat-label>
                                         <mat-select [(ngModel)]="detalle.impuesto" class="form-control-sm"
-                                            (selectionChange)="seleccionar_impuesto();">
+                                            (selectionChange)="seleccionar_impuesto(); agregar_detalle()">
                                             <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto">
                                                 {{impuesto.porcentaje}}
                                             </mat-option>

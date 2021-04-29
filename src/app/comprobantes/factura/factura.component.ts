@@ -561,16 +561,13 @@ export class FacturaComponent implements OnInit {
         this.precios_seleccionados=this.detalle.producto.medidas_precios[i].precios;
       }
     }
-    this.agregar_detalle();
   }
 
   seleccionar_precio() {
     this.detalle.calcular();
-    this.agregar_detalle();
   }
   seleccionar_cantidad() {
     this.detalle.calcular();
-    this.agregar_detalle();
   }
 
   seleccionar_valor_descuento_individual() {
@@ -583,7 +580,6 @@ export class FacturaComponent implements OnInit {
 
   seleccionar_impuesto(){
     this.detalle.calcular();
-    this.agregar_detalle();
   }
 
   agregar_detalle(){
