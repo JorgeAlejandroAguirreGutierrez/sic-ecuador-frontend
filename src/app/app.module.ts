@@ -52,16 +52,15 @@ import { MapsComponent } from './componentes/pages/maps/maps.component';
 import { NotificationsComponent } from './componentes/pages/notifications/notifications.component';
 
 import { HeaderComponent } from './componentes/header/header.component';
-import { HtmlFooterComponent } from './componentes/footer/footer.component';
-import { FooterComponent } from './componentes/components/footer/footer.component';
-import { NavbarComponent } from './componentes/components/navbar/navbar.component';
-import { SidebarComponent } from './componentes/components/sidebar/sidebar.component';
+import { FooterComponent } from './componentes/footer/footer.component';
+import { NavbarComponent } from './componentes/navbar/navbar.component';
+import { SidebarComponent } from './componentes/sidebar/sidebar.component';
 
 // Componentes de las pestañas
 import { MainComponent } from './componentes/main/main.component';
 import { TabContentComponent } from "./componentes/tab-content.component";
 import { ContentContainerDirective } from "./componentes/content-container.directive";
-import { TabService } from "./componentes/services/tab.service";
+import { TabService } from "./servicios/services/tab.service";
 import { MenuComponent } from './componentes/menu/menu.component';
 
 // Diseño de tabla editable
@@ -79,7 +78,7 @@ import { UbicacionComponent } from './configuraciones/ubicacion/ubicacion.compon
 import { UbicacionMostrarComponent } from './configuraciones/ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
 
 import { ModeloService } from './servicios/modelo.service';
-import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
+import { InicioSesionComponent } from './componentes/inicio-sesion/inicio-sesion.component';
 
 // Módulo de Usuarios
 import { UsuarioComponent } from './usuarios/usuario/usuario.component';
@@ -306,7 +305,6 @@ const routes: Routes = [
     NotificationsComponent,    
     HeaderComponent,
     FooterComponent,
-    HtmlFooterComponent,
     InicioSesionComponent,
     DatoAdicionalComponent,
     PlazoCreditoComponent,

@@ -6,7 +6,7 @@ import { Factura} from '../../../modelos/factura';
 import { FacturaService } from '../../../servicios/factura.service';
 import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
-import { TabService } from "../../../componentes/services/tab.service";
+import { TabService } from "../../../servicios/services/tab.service";
 import { FacturaComponent } from '../factura.component';
 
 

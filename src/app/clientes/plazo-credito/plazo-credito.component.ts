@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener} from '@angular/core';
 import { PlazoCreditoService } from '../../servicios/plazo-credito.service';
 import { PlazoCredito } from '../../modelos/plazo-credito';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 

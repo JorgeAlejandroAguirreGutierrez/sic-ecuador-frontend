@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener  } from '@angular/core';
 import { GrupoClienteService } from '../../servicios/grupo-cliente.service';
 import { GrupoCliente } from '../../modelos/grupo-cliente';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 

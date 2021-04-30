@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { EstablecimientoService } from '../../servicios/establecimiento.service';
 import { Establecimiento } from '../../modelos/establecimiento';
 import Swal from 'sweetalert2';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import * as constantes from '../../constantes';
 import { Empresa } from '../../modelos/empresa';
 import { EmpresaService } from '../../servicios/empresa.service';

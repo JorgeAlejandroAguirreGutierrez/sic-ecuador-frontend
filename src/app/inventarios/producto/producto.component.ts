@@ -29,7 +29,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Kardex } from '../../modelos/kardex';
 import { startWith, map } from 'rxjs/operators';
 import { KardexService } from '../../servicios/kardex.service';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import { MedidaPrecio } from '../../modelos/medida-precio';
 import { TablaEquivalenciaMedidaService } from '../../servicios/tabla-equivalencia-medida.service';
 import { TablaEquivalenciaMedida } from '../../modelos/tabla-equivalencia-medida'

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Type } from '@angular/core';
-import { TabService } from "../services/tab.service";
+import { TabService } from "../../servicios/services/tab.service";
 import { Tab } from "../../modelos/tab.model";
 import { MenuComponent } from '../menu/menu.component';
 import { OpcionMenu } from "../../modelos/opcion-menu.model";

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MedidaService } from '../../servicios/medida.service';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import { Medida } from '../../modelos/medida';
 import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';

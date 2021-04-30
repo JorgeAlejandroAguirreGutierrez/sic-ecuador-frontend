@@ -4,46 +4,13 @@ Author: Jorge Hidalgo
 Email: gatosohidalgo@gmail.com
 File: scss
 */
-/**
- * Table Of Content
- *
- * 	1. Globals
- *	2. Headers
- *	3. Navigations
- *	4. Banners
- *	5. Footers
- *	6. app
- *	7. Widgets
- *	8. Custom Templates
- */
 
-@import 'variable';
-
-@import 'spinner';
-@import 'app';
+@import 'variable'; // Debe ir primero para definir las variables
 @import 'header';
-@import 'pages';
-@import 'sidebar';
-@import 'responsive';
-
-@import "./navbar";
+@import 'material';
 @import './menu';
-
-//@import "../styles/icons/material-design-iconic-font/css/materialdesignicons.min.css";
-@import '~material-design-icons/iconfont/material-icons.css';
-
-@import '~bootstrap/scss/bootstrap';
-// @import '~font-awesome/scss/font-awesome';
-// @import '~hamburgers/_sass/hamburgers/hamburgers';
-@import '~ngx-toastr/toastr-bs4-alert';
-
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/brands';
-
-
-@import "~roboto-fontface/css/roboto/roboto-fontface.css";
-
-
-
+@import "./navbar";
+@import 'pages';
+@import 'responsive';
+@import 'sidebar';
+@import 'spinner';

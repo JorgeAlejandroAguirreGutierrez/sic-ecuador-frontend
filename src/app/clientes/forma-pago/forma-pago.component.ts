@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormaPago } from '../../modelos/forma-pago';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import { FormaPagoService } from '../../servicios/forma-pago.service';
 import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';

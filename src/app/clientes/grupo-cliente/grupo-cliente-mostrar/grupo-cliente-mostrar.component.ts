@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
 import Swal from 'sweetalert2';
-import { TabService } from "../../../componentes/services/tab.service";
+import { TabService } from "../../../servicios/services/tab.service";
 import { GrupoClienteComponent } from '../grupo-cliente.component';
 import { GrupoClienteService } from '../../../servicios/grupo-cliente.service';
 import { GrupoCliente } from '../../../modelos/grupo-cliente';

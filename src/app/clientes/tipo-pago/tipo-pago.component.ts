@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import Swal from 'sweetalert2';
 import { TipoPago } from '../../modelos/tipo-pago';
 import { TipoPagoService } from '../../servicios/tipo-pago.service';

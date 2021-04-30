@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { OrigenIngresoService } from '../../servicios/origen-ingreso.service';
 import { OrigenIngreso } from '../../modelos/origen-ingreso';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 

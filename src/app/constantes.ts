@@ -1,6 +1,6 @@
 'use strict';
 
-import { TabService } from './componentes/services/tab.service';
+import { TabService } from './servicios/services/tab.service';
 
 export const tabla_amortizacion_francesa: string='FRANCESA';
 export const tabla_amortizacion_alemana: string='ALEMANA';

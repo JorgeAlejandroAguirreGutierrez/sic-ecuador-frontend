@@ -1,8 +1,8 @@
-import { AppService } from '../../services/app.service';
+import { AppService } from '../../servicios/services/app.service';
 import { Component, OnInit } from '@angular/core';
-import { EmpresaService } from '../../../servicios/empresa.service';
-import { Empresa } from '../../../modelos/empresa';
-import { environment } from '../../../../environments/environment';
+import { EmpresaService } from '../../servicios/empresa.service';
+import { Empresa } from '../../modelos/empresa';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-navbar',

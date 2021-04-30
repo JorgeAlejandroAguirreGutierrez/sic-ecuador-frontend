@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { GeneroService } from '../../servicios/genero.service';
 import { Genero } from '../../modelos/genero';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';
 

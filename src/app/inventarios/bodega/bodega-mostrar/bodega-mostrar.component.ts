@@ -2,7 +2,7 @@ import { Component, OnInit, Type } from '@angular/core';
 import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
 import Swal from 'sweetalert2';
-import { TabService } from "../../../componentes/services/tab.service";
+import { TabService } from "../../../servicios/services/tab.service";
 import { BodegaComponent } from '../bodega.component';
 import { BodegaService } from '../../../servicios/bodega.service';
 import { Bodega } from '../../../modelos/bodega';

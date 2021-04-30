@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
 import Swal from 'sweetalert2';
-import { TabService } from "../../../componentes/services/tab.service";
+import { TabService } from "../../../servicios/services/tab.service";
 import { PlazoCreditoComponent } from '../plazo-credito.component';
 import { PlazoCreditoService } from '../../../servicios/plazo-credito.service';
 import { PlazoCredito } from '../../../modelos/plazo-credito';

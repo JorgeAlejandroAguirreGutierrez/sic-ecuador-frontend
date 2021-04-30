@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Sesion } from '../../../modelos/sesion';
 import { SesionService } from '../../../servicios/sesion.service';
 import Swal from 'sweetalert2';
-import { TabService } from "../../../componentes/services/tab.service";
+import { TabService } from "../../../servicios/services/tab.service";
 import { TipoPagoComponent } from '../tipo-pago.component';
 import { TipoPagoService } from '../../../servicios/tipo-pago.service';
 import { TipoPago } from '../../../modelos/tipo-pago';

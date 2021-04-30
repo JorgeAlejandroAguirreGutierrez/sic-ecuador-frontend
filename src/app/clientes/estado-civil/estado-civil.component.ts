@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import { EstadoCivil } from '../../modelos/estado-civil';
 import { EstadoCivilService } from '../../servicios/estado-civil.service';
 import * as constantes from '../../constantes';

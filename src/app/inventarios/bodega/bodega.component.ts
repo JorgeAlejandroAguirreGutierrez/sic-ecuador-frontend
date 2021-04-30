@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { BodegaService } from '../../servicios/bodega.service';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import { Bodega } from '../../modelos/bodega';
 import * as constantes from '../../constantes';
 import Swal from 'sweetalert2';

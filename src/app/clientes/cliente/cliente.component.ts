@@ -39,7 +39,7 @@ import { TipoContribuyenteService } from '../../servicios/tipo-contribuyente.ser
 import { TelefonoAuxiliar } from '../../modelos/telefono-auxiliar';
 import { CorreoAuxiliar } from '../../modelos/correo-auxiliar';
 import { CelularAuxiliar } from '../../modelos/celular-auxiliar';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 
 @Component({
   selector: 'app-cliente',

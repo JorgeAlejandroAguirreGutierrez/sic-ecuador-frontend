@@ -3,7 +3,7 @@ import { PuntoVentaService } from '../../servicios/punto-venta.service';
 import { PuntoVenta } from '../../modelos/punto-venta';
 import Swal from 'sweetalert2';
 import * as constantes from '../../constantes';
-import { TabService } from '../../componentes/services/tab.service';
+import { TabService } from '../../servicios/services/tab.service';
 import { Establecimiento } from '../../modelos/establecimiento';
 import { EstablecimientoService } from '../../servicios/establecimiento.service';
 

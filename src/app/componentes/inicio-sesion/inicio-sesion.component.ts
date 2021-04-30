@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Sesion } from '../modelos/sesion';
-import { SesionService } from '../servicios/sesion.service';
-import { Empresa } from '../modelos/empresa';
-import { Parametro } from '../modelos/parametro';
-import { EmpresaService } from '../servicios/empresa.service';
-import { ParametroService } from '../servicios/parametro.service';
-import { environment } from '../../environments/environment';
-import * as constantes from '../constantes';
+import { Sesion } from '../../modelos/sesion';
+import { SesionService } from '../../servicios/sesion.service';
+import { Empresa } from '../../modelos/empresa';
+import { Parametro } from '../../modelos/parametro';
+import { EmpresaService } from '../../servicios/empresa.service';
+import { ParametroService } from '../../servicios/parametro.service';
+import { environment } from '../../../environments/environment';
+import * as constantes from '../../constantes';
 
 @Component({
   selector: 'app-inicio-sesion',
