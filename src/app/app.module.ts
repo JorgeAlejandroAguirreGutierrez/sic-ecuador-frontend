@@ -78,7 +78,8 @@ import { UbicacionComponent } from './configuraciones/ubicacion/ubicacion.compon
 import { UbicacionMostrarComponent } from './configuraciones/ubicacion/ubicacion-mostrar/ubicacion-mostrar.component';
 
 import { ModeloService } from './servicios/modelo.service';
-import { InicioSesionComponent } from './componentes/inicio-sesion/inicio-sesion.component';
+import { InicioSesionComponent, CambioCredencialesComponent } from './componentes/inicio-sesion/inicio-sesion.component';
+
 
 // Módulo de Usuarios
 import { UsuarioComponent } from './usuarios/usuario/usuario.component';
@@ -306,6 +307,7 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     InicioSesionComponent,
+    CambioCredencialesComponent,
     DatoAdicionalComponent,
     PlazoCreditoComponent,
     PlazoCreditoMostrarComponent,
@@ -454,7 +456,7 @@ const routes: Routes = [
     SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteComponent,
     EstadoCivilComponent, FormaPagoComponent, GeneroComponent, OrigenIngresoComponent, PlazoCreditoComponent,
     TipoPagoComponent, TablaEquivalenciaMedidaComponent, MedidaComponent, UsuarioComponent, PuntoVentaComponent, 
-    PresentacionProductoComponent, EstablecimientoComponent]
+    PresentacionProductoComponent, EstablecimientoComponent, CambioCredencialesComponent]
 })
 export class AppModule {
   constructor() {

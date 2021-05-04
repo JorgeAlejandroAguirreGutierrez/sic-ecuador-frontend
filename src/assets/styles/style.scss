@@ -8,8 +8,7 @@ File: scss
 @import 'variable'; // Debe ir primero para definir las variables
 @import 'header';
 @import 'material';
-@import './menu';
-@import "./navbar";
+@import 'navbar';
 @import 'pages';
 @import 'responsive';
 @import 'sidebar';

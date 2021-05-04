@@ -1,5 +1,8 @@
 
+// Importa el tipo de letra Roboto
 @import "~roboto-fontface/css/roboto/roboto-fontface.css";
+
+//Importa los componentes de boostrap, eliminé de angular json para que no se dupliquen
 @import '~bootstrap/scss/bootstrap';
 
 // Para los iconos, fortawersome (fa) tiene mas de 400 iconos
@@ -14,12 +17,5 @@
 // Sirve para enviar mensajes flotantes a la pantalla ej: https://ngx-toastr.vercel.app/
 @import '~ngx-toastr/toastr-bs4-alert';
 
+// Mis estilos personalizados
 @import './assets/styles/style';
-
-html, body { 
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: 'Poppins', 'Roboto', 'Helvetica Neue', sans-serif; 
-}
