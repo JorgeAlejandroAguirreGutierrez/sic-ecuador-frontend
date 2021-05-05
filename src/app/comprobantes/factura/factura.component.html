@@ -90,7 +90,7 @@
                             <div class="form-group col-2">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Secuencia</mat-label>
-                                    <input matInput type="text" class="form-control-sm" [(ngModel)]="factura.numero"
+                                    <input matInput type="text" class="form-control-sm" [(ngModel)]="factura.secuencia"
                                         disabled>
                                 </mat-form-field>
                             </div>
@@ -259,7 +259,12 @@
                     <mat-divider></mat-divider>
                     <div class="row">
                         <div class="form-row col-12">
-                            <div class="form-group col-1"></div>
+                            <div class="form-group col-1">
+                                <b>Habilitar</b><br>
+                                <mat-checkbox [disabled]="habilitar_facturar" [(ngModel)]="seleccion_facturar"
+                                    [labelPosition]="'before'" (change)="asignar_facturar()" class="form-control-sm"
+                                    color="primary"></mat-checkbox>
+                            </div>
                             <div class="form-group col-3">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Identificación</mat-label>
@@ -293,21 +298,19 @@
                                         [matAutocomplete]="razon_social_cliente_factura">
                                 </mat-form-field>
                             </div>
-                            <div class="form-group col-1">
-                                <b>Habilitar</b><br>
-                                <mat-checkbox [disabled]="habilitar_facturar" [(ngModel)]="seleccion_facturar"
-                                    [labelPosition]="'before'" (change)="asignar_facturar()" class="form-control-sm"
-                                    color="primary"></mat-checkbox>
-                            </div>
+                        </div>
+                        <div class="form-row col-12">
                             <div class="form-group col-12">
-                                <mat-form-field appearance="standard">
+                                <mat-form-field appearance="standard" class="grande">
                                     <mat-label>Dirección</mat-label>
                                     <input matInput type="text"
                                         [(ngModel)]="factura.cliente_factura?.direccion.direccion"
                                         class="form-control-sm" [disabled]="habilitar">
                                 </mat-form-field>
                             </div>
-                            <div class="form-group col-2">
+                        </div>
+                        <div class="form-row col-12">
+                            <div class="form-group col-3">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Teléfono</mat-label>
                                     <b matPrefix>+593 &nbsp;</b>
@@ -322,7 +325,7 @@
                                     <mat-icon>visibility</mat-icon>
                                 </button>
                             </div>
-                            <div class="form-group col-2">
+                            <div class="form-group col-3">
                                 <mat-form-field appearance="standard" class="grande">
                                     <mat-label>Celular</mat-label>
                                     <b matPrefix>+593 &nbsp;</b>
@@ -351,7 +354,6 @@
                                     <mat-icon>visibility</mat-icon>
                                 </button>
                             </div>
-
                         </div>
                     </div>
                 </mat-expansion-panel>
@@ -387,8 +389,8 @@
                                     <mat-label>Consig.</mat-label>
                                     <mat-select class="form-control-sm" [(ngModel)]="detalle.producto.consignacion"
                                         disabled>
-                                        <mat-option [value]="0">NO</mat-option>
-                                        <mat-option [value]="1">SI</mat-option>
+                                        <mat-option [value]="false">NO</mat-option>
+                                        <mat-option [value]="true">SI</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
@@ -409,8 +411,7 @@
                             <div class="form-group col-1">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Saldo</mat-label>
-                                    <input matInput type="text" [(ngModel)]="saldo" class="form-control-sm"
-                                        disabled>
+                                    <input matInput type="text" [(ngModel)]="saldo" class="form-control-sm" disabled>
                                 </mat-form-field>
                             </div>
                             <div class="form-group col-1 ">
@@ -424,7 +425,7 @@
                             <div class="form-group col-3">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Bodega</mat-label>
-                                    <mat-select class="form-control-sm" [(ngModel)]="detalle.producto.bodega">
+                                    <mat-select (selectionChange)="agregar_detalle()" class="form-control-sm" [(ngModel)]="detalle.bodega">
                                         <mat-option *ngFor="let bodega of bodegas; let i=index" [value]="bodega">
                                             {{bodega.codigo}}
                                         </mat-option>
@@ -477,9 +478,6 @@
                                 <br>
                                 <button class="btn btn-primary btn-circle " disabled>
                                     <mat-icon>visibility</mat-icon>
-                                </button>&nbsp;&nbsp;
-                                <button class="btn btn-primary btn-circle" (click)="agregar_factura_detalle()">
-                                    <mat-icon>add</mat-icon>
                                 </button>
                             </div>
                             <div class="form-row">
@@ -487,14 +485,16 @@
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>Cantidad</mat-label>
                                         <input matInput type="text" [(ngModel)]="detalle.cantidad"
-                                            (change)="seleccionar_cantidad()" class="form-control-sm">
+                                            (change)="seleccionar_cantidad(); agregar_detalle()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>Medida</mat-label>
-                                        <mat-select [(ngModel)]="detalle.medida" (selectionChange)="seleccionar_medida()" class="form-control-sm">
-                                            <mat-option *ngFor="let medida_precio of detalle.producto.medidas_precios" [value]="medida_precio.medida">
+                                        <mat-select [(ngModel)]="detalle.medida"
+                                            (selectionChange)="seleccionar_medida(); agregar_detalle()" class="form-control-sm">
+                                            <mat-option *ngFor="let medida_precio of detalle.producto.medidas_precios"
+                                                [value]="medida_precio.medida">
                                                 {{medida_precio.medida.descripcion}}
                                             </mat-option>
                                         </mat-select>
@@ -503,7 +503,7 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>P. Unit.</mat-label>
-                                        <mat-select (selectionChange)="seleccionar_precio()"
+                                        <mat-select (selectionChange)="seleccionar_precio(); agregar_detalle()"
                                             [(ngModel)]="detalle.precio" class="form-control-sm">
                                             <mat-option *ngFor="let precio of precios_seleccionados" [value]="precio">
                                                 {{precio.precio_venta_publico}}
@@ -531,7 +531,8 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>IVA</mat-label>
-                                        <mat-select [(ngModel)]="detalle.impuesto" class="form-control-sm" (selectionChange)="seleccionar_impuesto()">
+                                        <mat-select [(ngModel)]="detalle.impuesto" class="form-control-sm"
+                                            (selectionChange)="seleccionar_impuesto(); agregar_detalle()">
                                             <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto">
                                                 {{impuesto.porcentaje}}
                                             </mat-option>
@@ -548,9 +549,9 @@
                                 <div class="form-group col-1">
                                     <mat-form-field appearance="standard" class="grande">
                                         <mat-label>Entregado</mat-label>
-                                        <mat-select class="form-control-sm" [(ngModel)]="detalle_entregado">
-                                            <mat-option value="NO">NO</mat-option>
-                                            <mat-option value="SI">SI</mat-option>
+                                        <mat-select class="form-control-sm" [(ngModel)]="detalle.entregado">
+                                            <mat-option [value]="false">NO</mat-option>
+                                            <mat-option [value]="true">SI</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
@@ -584,57 +585,66 @@
                                     <!-- Descripcion Columna -->
                                     <ng-container matColumnDef="Medida">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Med </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.medida.codigo_norma}} </td>
+                                        <td mat-cell *matCellDef="let detalle"> {{detalle.medida.abreviatura}} </td>
                                     </ng-container>
                                     <!-- Cantidad Columna -->
                                     <ng-container matColumnDef="cantidad">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cant </th>
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cant </th>
                                         <td mat-cell *matCellDef="let detalle"> {{detalle.cantidad}} </td>
                                     </ng-container>
                                     <!-- Valor Columna -->
                                     <ng-container matColumnDef="valor">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.precio.precio_venta_publico_iva | currency}} </td>
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Valor </th>
+                                        <td mat-cell *matCellDef="let detalle" class="text-center">
+                                            {{detalle.precio.precio_venta_publico_iva | currency}} </td>
                                     </ng-container>
                                     <!-- Descuento Columna -->
                                     <ng-container matColumnDef="descuento">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.valor_descuento_individual}} </td>
+                                        <td mat-cell *matCellDef="let detalle" class="text-center">
+                                            {{detalle.valor_descuento_individual}} </td>
                                     </ng-container>
                                     <!-- Descuento% Columna -->
                                     <ng-container matColumnDef="desc_por">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc% </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.porcentaje_descuento_individual}} </td>
+                                        <td mat-cell *matCellDef="let detalle" class="text-center">
+                                            {{detalle.porcentaje_descuento_individual}} </td>
                                     </ng-container>
                                     <!-- Descuento SubTotal Columna -->
                                     <ng-container matColumnDef="desc_sub">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. ST. </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.valor_descuento_individual_subtotales}} </td>
+                                        <td mat-cell *matCellDef="let detalle" class="text-center">
+                                            {{detalle.valor_descuento_individual_subtotales}} </td>
                                     </ng-container>
                                     <!-- Descuento SubTotal% Columna -->
                                     <ng-container matColumnDef="desc_por_sub">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. ST% </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.porcentaje_descuento_individual_subtotales}} </td>
+                                        <td mat-cell *matCellDef="let detalle" class="text-center">
+                                            {{detalle.porcentaje_descuento_individual_subtotales}} </td>
                                     </ng-container>
                                     <!-- Descuento al Total Columna -->
                                     <ng-container matColumnDef="desc_tot">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. T </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.valor_descuento_individual_totales}} </td>
+                                        <td mat-cell *matCellDef="let detalle" class="text-center">
+                                            {{detalle.valor_descuento_individual_totales}} </td>
                                     </ng-container>
                                     <!-- Descuento al Total % Columna -->
                                     <ng-container matColumnDef="desc_por_tot">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. T% </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.porcentaje_descuento_individual_totales}} </td>
+                                        <td mat-cell *matCellDef="let detalle" class="text-center">
+                                            {{detalle.porcentaje_descuento_individual_totales}} </td>
                                     </ng-container>
                                     <!-- Impuesto Columna -->
                                     <ng-container matColumnDef="impuesto">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> IVA </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.impuesto.porcentaje}} </td>
+                                        <td mat-cell *matCellDef="let detalle" class="text-center">
+                                            {{detalle.impuesto.porcentaje}} </td>
                                     </ng-container>
                                     <!-- Descuento Columna -->
                                     <ng-container matColumnDef="total">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
-                                        <td mat-cell *matCellDef="let detalle"> {{detalle.total_con_descuento | currency}} </td>
+                                        <td mat-cell *matCellDef="let detalle" class="text-center">
+                                            {{detalle.total_con_descuento | currency}} </td>
                                     </ng-container>
                                     <!-- Serie Columna -->
                                     <ng-container matColumnDef="serie">

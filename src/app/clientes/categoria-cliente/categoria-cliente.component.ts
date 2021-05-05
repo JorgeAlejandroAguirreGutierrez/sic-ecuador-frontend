@@ -68,6 +68,7 @@ export class CategoriaClienteComponent implements OnInit {
       await this.categoriaClienteService.obtenerAsync(categoria_cliente_id).then(
         res => {
           Object.assign(this.categoria_cliente, res.resultado as CategoriaCliente);
+          this.categoriaClienteService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );

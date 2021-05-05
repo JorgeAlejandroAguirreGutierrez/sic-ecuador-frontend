@@ -15,30 +15,11 @@ import * as constantes from '../../constantes';
 export class TablaEquivalenciaMedidaComponent implements OnInit {
 
   tabla_equivalencia_medida= new TablaEquivalenciaMedida();
-  medidas1: Medida[]=[];
-  medidas2: Medida[]=[];
 
   constructor(private tabService: TabService,private tablaEquivalenciaMedidaService: TablaEquivalenciaMedidaService, private medidaService: MedidaService) { }
 
   ngOnInit() {
     this.construir_tabla_equivalencia_medida();
-    this.medidaService.consultar().subscribe(
-      res => {
-        this.medidas1 = res.resultado as Medida[];
-      },
-      err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
-      }
-    );
-
-    this.medidaService.consultar().subscribe(
-      res => {
-        this.medidas2 = res.resultado as Medida[];
-      },
-      err => {
-        Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
-      }
-    );
   }
 
   nuevo(event) {
@@ -87,10 +68,15 @@ export class TablaEquivalenciaMedidaComponent implements OnInit {
       await this.tablaEquivalenciaMedidaService.obtenerAsync(tabla_equivalencia_medida_id).then(
         res => {
           Object.assign(this.tabla_equivalencia_medida, res.resultado as TablaEquivalenciaMedida);
+          this.tablaEquivalenciaMedidaService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.message, constantes.error_swal)
       );
     }
+  }
+
+  compareFn(a: any, b: any) {
+    return a && b && a.id == b.id;
   }
 
   @HostListener('window:keypress', ['$event'])

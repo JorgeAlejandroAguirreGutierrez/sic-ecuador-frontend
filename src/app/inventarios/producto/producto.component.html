@@ -45,7 +45,7 @@
                                         <mat-label>Grupo</mat-label>
                                         <mat-autocomplete autoActiveFirstOption #grupo_producto="matAutocomplete" [displayWith]="ver_grupo_producto" (optionSelected)="seleccionar_grupo_producto()">
                                             <mat-option *ngFor="let grupo_producto of filtro_grupos_productos | async" [value]="grupo_producto">
-                                                {{grupo_producto.nombre}}
+                                                {{grupo_producto}}
                                             </mat-option>
                                         </mat-autocomplete>
                                         <input type="text" matInput aria-label="grupo_producto" class="form-control-sm" [formControl]="seleccion_grupo_producto" [matAutocomplete]="grupo_producto">
@@ -56,7 +56,7 @@
                                         <mat-label>Sub Grupo</mat-label>
                                         <mat-autocomplete autoActiveFirstOption #sub_grupo_producto="matAutocomplete" [displayWith]="ver_sub_grupo_producto" (optionSelected)="seleccionar_sub_grupo_producto()">
                                             <mat-option *ngFor="let sub_grupo_producto of filtro_sub_grupos_productos | async" [value]="sub_grupo_producto">
-                                                {{sub_grupo_producto.nombre}}
+                                                {{sub_grupo_producto}}
                                             </mat-option>
                                         </mat-autocomplete>
                                         <input matInput type="text" class="form-control-sm" [formControl]="seleccion_sub_grupo_producto" [matAutocomplete]="sub_grupo_producto">
@@ -67,7 +67,7 @@
                                         <mat-label>Categoria Producto</mat-label>
                                         <mat-autocomplete autoActiveFirstOption #categoria_producto="matAutocomplete" [displayWith]="ver_categoria_producto" (optionSelected)="seleccionar_categoria_producto()">
                                             <mat-option *ngFor="let categoria_producto of filtro_categorias_productos | async" [value]="categoria_producto">
-                                                {{categoria_producto.nombre}}
+                                                {{categoria_producto}}
                                             </mat-option>
                                         </mat-autocomplete>
                                         <input matInput type="text" class="form-control-sm" [formControl]="seleccion_categoria_producto" [matAutocomplete]="categoria_producto">
@@ -80,7 +80,7 @@
                                         <mat-label>Linea Producto</mat-label>
                                         <mat-autocomplete autoActiveFirstOption #linea_producto="matAutocomplete" [displayWith]="ver_linea_producto" (optionSelected)="seleccionar_linea_producto()">
                                             <mat-option *ngFor="let linea_producto of filtro_lineas_productos | async" [value]="linea_producto">
-                                                {{linea_producto.nombre}}
+                                                {{linea_producto}}
                                             </mat-option>
                                         </mat-autocomplete>
                                         <input matInput type="text" class="form-control-sm" [formControl]="seleccion_linea_producto" [matAutocomplete]="linea_producto">
@@ -91,7 +91,7 @@
                                         <mat-label>Sub Linea Producto</mat-label>
                                         <mat-autocomplete autoActiveFirstOption #sub_linea_producto="matAutocomplete" [displayWith]="ver_sub_linea_producto" (optionSelected)="seleccionar_sub_linea_producto()">
                                             <mat-option *ngFor="let sub_linea_producto of filtro_sub_lineas_productos | async" [value]="sub_linea_producto">
-                                                {{sub_linea_producto.nombre}}
+                                                {{sub_linea_producto}}
                                             </mat-option>
                                         </mat-autocomplete>
                                         <input matInput type="text" class="form-control-sm" [formControl]="seleccion_sub_linea_producto" [matAutocomplete]="sub_linea_producto">
@@ -102,7 +102,7 @@
                                         <mat-label>Presentacion Producto</mat-label>
                                         <mat-autocomplete autoActiveFirstOption #presentacion_producto="matAutocomplete" [displayWith]="ver_presentacion_producto" (optionSelected)="seleccionar_presentacion_producto()">
                                             <mat-option *ngFor="let presentacion_producto of filtro_presentaciones_productos | async" [value]="presentacion_producto">
-                                                {{presentacion_producto.nombre}}
+                                                {{presentacion_producto}}
                                             </mat-option>
                                         </mat-autocomplete>
                                         <input matInput type="text" class="form-control-sm" [formControl]="seleccion_presentacion_producto" [matAutocomplete]="presentacion_producto">
@@ -124,9 +124,9 @@
                                 <div class="form-group col-5">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Activo</mat-label>
-                                        <mat-select [(ngModel)]="activo" class="form-control-sm">
-                                            <mat-option [value]="1">SI</mat-option>
-                                            <mat-option [value]="0">NO</mat-option>
+                                        <mat-select [(ngModel)]="producto.estado" class="form-control-sm">
+                                            <mat-option [value]="true">SI</mat-option>
+                                            <mat-option [value]="false">NO</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
@@ -167,8 +167,8 @@
                                     <mat-form-field appearance="standard">
                                         <mat-label>Consig.</mat-label>
                                         <mat-select type="text" [(ngModel)]="producto.consignacion" class="form-control-sm">
-                                            <mat-option [value]="1">SI</mat-option>
-                                            <mat-option [value]="0">NO</mat-option>
+                                            <mat-option [value]="true">SI</mat-option>
+                                            <mat-option [value]="false">NO</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>

@@ -1,15 +1,21 @@
-import { SubGrupoProducto } from './sub-grupo-producto';
-
 export class GrupoProducto {
     id:number;
     codigo: string;
-    nombre: string;
-    sub_grupos_productos: SubGrupoProducto[];
+    grupo: string;
+    subgrupo : string;
+    categoria : string;
+    linea: string;
+    sublinea: string;
+    presentacion: string;
 
     constructor() {
         this.id=0;
         this.codigo="";
-        this.nombre="";
-        this.sub_grupos_productos=[];
+        this.grupo="";
+        this.subgrupo="";
+        this.categoria="";
+        this.linea="";
+        this.sublinea="";
+        this.presentacion="";
     }
 }

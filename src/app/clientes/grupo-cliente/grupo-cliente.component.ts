@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener  } from '@angular/core';
+import { Component, OnInit, HostListener  } from '@angular/core';
 import { GrupoClienteService } from '../../servicios/grupo-cliente.service';
 import { GrupoCliente } from '../../modelos/grupo-cliente';
 import { TabService } from '../../componentes/services/tab.service';
@@ -67,6 +67,7 @@ export class GrupoClienteComponent implements OnInit {
       await this.grupoClienteService.obtenerAsync(grupo_cliente_id).then(
         res => {
           Object.assign(this.grupo_cliente, res.resultado as GrupoCliente);
+          this.grupoClienteService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );

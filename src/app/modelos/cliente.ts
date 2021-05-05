@@ -47,6 +47,8 @@ export class Cliente {
 
     constructor() {
         this.id=0;
+        this.razon_social="";
+        this.identificacion="";
         this.estado=true;
         this.especial=false;
         this.punto_venta=new PuntoVenta();

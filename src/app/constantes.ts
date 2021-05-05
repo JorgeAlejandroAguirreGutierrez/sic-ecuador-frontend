@@ -29,6 +29,8 @@ export const error_costo_unitario: string='ERROR EN COSTO UNITARIO';
 export const error_costo_total: string='ERROR EN COSTO TOTAL';
 export const error_producto: string='ERROR EN EL PRODUCTO';
 export const error_kardex: string='ERROR KARDEX EXISTENTE';
+export const error_kardex_VACIO: string='ERROR KARDEX VACIO';
+export const error_kardex_VACIO_MENSAJE: string='INGRESA UN KARDEX';
 export const error_bodega: string='ERROR EN BODEGA';
 export const error_swal='error';
 export const error='Error';
@@ -37,6 +39,7 @@ export const exito='Exito';
 export const SI="SI";
 export const NO="NO";
 export const vacio="";
+export const espacio=" ";
 
 //CAMPOS PARA CONSULTAS DINAMICAS
 export const codigo="codigo";
@@ -50,7 +53,7 @@ export const tab_crear_celular='Crear Celular';
 export const tab_crear_cliente='Crear Cliente';
 export const tab_crear_correo='Crear Correo';
 export const tab_crear_direccion='Crear Direccion';
-export const tab_crear_estado_civil='Crear estado_civil';
+export const tab_crear_estado_civil='Crear Estado Civil';
 export const tab_crear_forma_pago='Crear Forma de Pago';
 export const tab_crear_genero='Crear Genero';
 export const tab_crear_grupo_cliente='Crear Grupo de Cliente';
@@ -91,7 +94,6 @@ export const tab_crear_usuario='Crear Usuario';
 export const tab_crear_establecimiento='Crear Establecimiento';
 export const tab_crear_punto_venta='Crear Punto de Venta';
 export const tab_crear_grupo_producto='Crear Grupo de Producto';
-export const tab_crear_presentacion_producto='Crear Presentacion Prod';
 
 export const tab_buscar_auxiliar='Buscar Auxiliar';
 export const tab_buscar_categoria_cliente='Buscar Categoria Cliente';
@@ -216,9 +218,11 @@ export function tab_activo(tabService: TabService){
         }
     }
 }
-//let indice_tab_activo= constantes.tab_activo(this.tabService);
-//this.tabService.removeTab(indice_tab_activo);
-//this.tabService.addNewTab(ClienteComponent, constantes.tab_crear_cliente);
+
+export const identificacion_consumidor_final="9999999999999";
+export const tipo_contribuyente_natural="NATURAL";
+export const tipo_contribuyente_juridica="JURIDICA";
+export const tipo_contribuyente_publica="PUBLICA";
 
 
 

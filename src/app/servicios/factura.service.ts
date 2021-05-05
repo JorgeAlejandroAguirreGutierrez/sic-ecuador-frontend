@@ -67,17 +67,8 @@ export class FacturaService {
     );
   }
 
-  buscarNumero(factura: Factura): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.factura+util.buscar+util.numero+'/'+factura.numero, util.options).pipe(
-      map(response => response as Respuesta),
-      catchError(err => {
-        return throwError(err);
-      })
-    );
-  }
-
-  buscarClienteRazonSocial(factura: Factura): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.factura+util.buscar+util.cliente+util.razon_social+'/'+factura.cliente.razon_social, util.options).pipe(
+  buscar(factura_buscar: Factura): Observable<Respuesta> {
+    return this.http.post(environment.host + util.ruta + util.grupo_cliente+util.buscar, factura_buscar, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

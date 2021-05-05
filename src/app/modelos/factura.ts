@@ -7,7 +7,7 @@ import { Sesion } from './sesion';
 export class Factura {
   id: number;
   codigo: string;
-  numero: string;
+  secuencia: string;
   fecha: Date;
   estado: boolean;
   eliminado: boolean;
@@ -44,6 +44,7 @@ export class Factura {
   
   constructor() {
     this.id=0;
+    this.secuencia="";
     this.fecha=new Date();
     this.estado=true;
     this.eliminado=false;

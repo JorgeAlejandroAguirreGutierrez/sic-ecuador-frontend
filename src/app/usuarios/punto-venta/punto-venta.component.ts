@@ -40,7 +40,7 @@ export class PuntoVentaComponent implements OnInit {
         this.nuevo(null);
 
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -52,17 +52,7 @@ export class PuntoVentaComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.punto_venta=res.resultado as PuntoVenta;
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
-    );
-  }
-
-  eliminar(punto_venta: PuntoVenta) {
-    this.puntoVentaService.eliminar(punto_venta).subscribe(
-      res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.punto_venta=res.resultado as PuntoVenta
-      },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -73,20 +63,11 @@ export class PuntoVentaComponent implements OnInit {
       await this.puntoVentaService.obtenerAsync(punto_venta_id).then(
         res => {
           Object.assign(this.punto_venta, res.resultado as PuntoVenta);
+          this.puntoVentaService.enviar(0);
         },
-        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
       );
     }
-  }
-
-  @HostListener('window:keypress', ['$event'])
-  keyEvent($event: KeyboardEvent) {
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 71) //SHIFT + G
-      this.crear(null);
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 78) //ASHIFT + N
-      this.nuevo(null);
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 69) // SHIFT + E
-      this.eliminar(null);
   }
 
   consultar_establecimientos(){
@@ -95,7 +76,19 @@ export class PuntoVentaComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.establecimientos=res.resultado as Establecimiento[]
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
+  }
+
+  compareFn(a: any, b: any) {
+    return a && b && a.id == b.id;
+  }
+
+  @HostListener('window:keypress', ['$event'])
+  keyEvent($event: KeyboardEvent) {
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 71) //SHIFT + G
+      this.crear(null);
+    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 78) //ASHIFT + N
+      this.nuevo(null);
   }
 }

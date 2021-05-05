@@ -7,6 +7,9 @@ export class PuntoVenta {
     establecimiento: Establecimiento;
 
     constructor() {
+        this.id=0;
+        this.codigo="";
+        this.descripcion="";
         this.establecimiento=new Establecimiento();
     }
 }

@@ -33,25 +33,25 @@
                                 <div class="form-group col-3">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Codigo Norma</mat-label>
-                                        <input matInput type="text" [(ngModel)]="ubicacion.codigo_norma" class="form-control-sm">
+                                        <input matInput type="text" [(ngModel)]="ubicacion.codigo_norma" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                                 <div class="form-group col-3">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Provincia</mat-label>
-                                        <input matInput type="text" [(ngModel)]="ubicacion.provincia" class="form-control-sm">
+                                        <input matInput type="text" [(ngModel)]="ubicacion.provincia" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                                 <div class="form-group col-3">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Canton</mat-label>
-                                        <input matInput type="text" [(ngModel)]="ubicacion.canton" class="form-control-sm">
+                                        <input matInput type="text" [(ngModel)]="ubicacion.canton" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                                 <div class="form-group col-3">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Parroquia</mat-label>
-                                        <input matInput type="text" [(ngModel)]="ubicacion.parroquia" class="form-control-sm">
+                                        <input matInput type="text" [(ngModel)]="ubicacion.parroquia" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                     </mat-form-field>
                                 </div>
                             </div>

@@ -41,9 +41,8 @@ export class UsuarioComponent implements OnInit {
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.nuevo(null);
-
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -55,17 +54,7 @@ export class UsuarioComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.usuario=res.resultado as Usuario;
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
-    );
-  }
-
-  eliminar(usuario: Usuario) {
-    this.usuarioService.eliminar(usuario).subscribe(
-      res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.usuario=res.resultado as Usuario
-      },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -76,8 +65,9 @@ export class UsuarioComponent implements OnInit {
       await this.usuarioService.obtenerAsync(usuario_id).then(
         res => {
           Object.assign(this.usuario, res.resultado as Usuario);
+          this.usuarioService.enviar(0);
         },
-        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+        err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
       );
     }
   }
@@ -88,8 +78,6 @@ export class UsuarioComponent implements OnInit {
       this.crear(null);
     if (($event.shiftKey || $event.metaKey) && $event.keyCode == 78) //ASHIFT + N
       this.nuevo(null);
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 69) // SHIFT + E
-      this.eliminar(null);
   }
 
   consultar_perfiles(){
@@ -98,7 +86,7 @@ export class UsuarioComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.perfiles=res.resultado as Perfil[]
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
@@ -108,8 +96,12 @@ export class UsuarioComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.puntos_ventas=res.resultado as PuntoVenta[]
       },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
+  }
+
+  compareFn(a: any, b: any) {
+    return a && b && a.id == b.id;
   }
 
 }

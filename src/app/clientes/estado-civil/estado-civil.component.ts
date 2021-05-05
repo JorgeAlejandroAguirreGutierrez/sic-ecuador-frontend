@@ -66,6 +66,7 @@ export class EstadoCivilComponent implements OnInit {
       await this.estadoCivilService.obtenerAsync(estado_civil_id).then(
         res => {
           Object.assign(this.estado_civil, res.resultado as EstadoCivil);
+          this.estadoCivilService.enviar(0);
         },
         err => Swal.fire(constantes.exito, err.error.mensaje, constantes.exito_swal)
       );

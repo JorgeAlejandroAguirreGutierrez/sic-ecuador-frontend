@@ -66,6 +66,7 @@ export class TipoPagoComponent implements OnInit {
       await this.tipoPagoService.obtenerAsync(tipo_pago_id).then(
         res => {
           Object.assign(this.tipo_pago, res.resultado as TipoPago);
+          this.tipoPagoService.enviar(0);
         },
         err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
       );
