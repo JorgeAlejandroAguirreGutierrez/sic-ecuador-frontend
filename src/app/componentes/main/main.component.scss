@@ -1,29 +1,39 @@
-/*:host ::ng-deep .mat-tab-header {
-  position: fixed !important;
-  z-index:1000;
-}*/
+// Contenedor de toda la aplicación
+.container-fluid {
+  width: 100%;
+  padding: 0 4px;
+  margin: 0 auto;
+}
 
-/*:host ::ng-deep .mat-tab-header {
-  position: sticky;
-  top: 45px; // required as well.
-  z-index:1020;
-  background-color: gray;
-}*/
+.mtab-main {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
 
-::ng-deep .tab-group1{
+.mtab-sec {
+  width: 95%;
+  padding-right: 10px; // Para el espacio de la barra de acciones
+  padding-left: 5px;
+  margin: 0 auto; //auto para centrar izq y der con el slide
+}
+
+::ng-deep .tab-group-main{
   .mat-tab-header {
     position: sticky;
-    top: 48px; // required as well.
+    top: 42px; // Posición fijada desde el margen superior para el tab principal.
     z-index:990;
     background-color: white;
   }
 }
 
-::ng-deep .tab-group2{
+::ng-deep .tab-group-sec{
   .mat-tab-header {
     position: fixed;
-    max-width: 75%;
-    top: 80px; // required as well.
+    max-width: calc(100% - 290px); // Poner -100px cuando el toogle esta cerrado
+    //max-width: 76.7%;
+    width: 100%;
+    top: 75px; // Posición fijada desde el margen superior para el tab secundario.
     z-index:990;
     background-color: white;
   }
@@ -43,42 +53,3 @@
   background: #5b6582;
   height: 3px;
 } 
-.container-fluid {
-  width: 100%;
-  padding-right: 5px;
-  padding-left: 5px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.mt-1 {
-  margin-top: 2px!important;
-  width: 100%;
-  padding-right: 30px;
-  padding-left: 0px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.mt-2 {
-  margin-top: 1px!important;
-  width: 95%;
-  padding-right: 10px;
-  padding-left: 5px;
-  margin-right: auto;
-  margin-left: auto; //auto para centrar con el slide
-}
-
-.separacion{
-  margin-top: 30px!important;
-}
-
-.fijo{
-  position: fixed;
-  top: 68px; 
-
-}
-
-.relativo{
-  max-width: 75%;
-}
