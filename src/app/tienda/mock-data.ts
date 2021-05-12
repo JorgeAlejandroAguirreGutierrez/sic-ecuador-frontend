@@ -28,7 +28,7 @@ export const DATA: any  = {
         1,
         4
       ],
-      'img': 'assets/img/aguacate.jpg',
+      'img': 'assets/images/tienda/aguacate.jpg',
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu.',
       'unidadesDisponibles': 100
     },
@@ -41,7 +41,7 @@ export const DATA: any  = {
       'categories': [
         4
       ],
-      'img': 'assets/img/ajo.jpg',
+      'img': 'assets/images/tienda/ajo.jpg',
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu.',
       'unidadesDisponibles': 200
     },
@@ -54,7 +54,7 @@ export const DATA: any  = {
       'categories': [
         4
       ],
-      'img': 'assets/img/almendras.jpg',
+      'img': 'assets/images/tienda/almendras.jpg',
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu.',
       'unidadesDisponibles': 300
     },
@@ -68,7 +68,7 @@ export const DATA: any  = {
         1,
         2
       ],
-      'img': 'assets/img/arandanos.jpg',
+      'img': 'assets/images/tienda/arandanos.jpg',
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu.',
       'unidadesDisponibles': 400
     },
@@ -82,7 +82,7 @@ export const DATA: any  = {
         1,
         4
       ],
-      'img': 'assets/img/canela.jpg',
+      'img': 'assets/images/tienda/canela.jpg',
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu.',
       'unidadesDisponibles': 500
     },
@@ -96,7 +96,7 @@ export const DATA: any  = {
         1,
         4
       ],
-      'img': 'assets/img/manzana.jpg',
+      'img': 'assets/images/tienda/manzana.jpg',
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu.',
       'unidadesDisponibles': 600
     },
@@ -110,7 +110,7 @@ export const DATA: any  = {
         1,
         3
       ],
-      'img': 'assets/img/fresa.jpg',
+      'img': 'assets/images/tienda/fresa.jpg',
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu.',
       'unidadesDisponibles': 700
     },
@@ -124,7 +124,7 @@ export const DATA: any  = {
         1,
         3
       ],
-      'img': 'assets/img/tomate.jpg',
+      'img': 'assets/images/tienda/tomate.jpg',
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu.',
       'unidadesDisponibles': 800
     },
@@ -138,7 +138,7 @@ export const DATA: any  = {
         2,
         4
       ],
-      'img': 'assets/img/naranja.jpg',
+      'img': 'assets/images/tienda/naranja.jpg',
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu.'
     },
     {
@@ -151,7 +151,7 @@ export const DATA: any  = {
         2,
         3
       ],
-      'img': 'assets/img/papa.jpg',
+      'img': 'assets/images/tienda/papa.jpg',
       'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu.',
       'unidadesDisponibles': 900
     }

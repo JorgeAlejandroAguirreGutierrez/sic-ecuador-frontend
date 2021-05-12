@@ -7,7 +7,7 @@ import { TypographyComponent } from './componentes/pages/typography/typography.c
 import { MapsComponent } from './componentes/pages/maps/maps.component';
 import { NotificationsComponent } from './componentes/pages/notifications/notifications.component';
 
-import { HtmlFooterComponent } from './componentes/footer/footer.component';
+import { FooterComponent } from './componentes/footer/footer.component';
 
 import {LoginComponent} from "./tienda/login/login.component";
 import { PedidosComponent } from "./tienda/pedidos/pedidos.component";
@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: 'typography', component: TypographyComponent},
   {path: 'maps', component: MapsComponent},
   {path: 'notifications', component: NotificationsComponent},
-  {path: 'footer', component: HtmlFooterComponent},
+  {path: 'footer', component: FooterComponent},
   
   {path: 'login', component: LoginComponent},
   {path: 'pedidos', component: PedidosComponent},

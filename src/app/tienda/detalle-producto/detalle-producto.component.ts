@@ -91,33 +91,33 @@ export class DetalleProductoComponent implements OnInit {
   //Lightbox
   setImageObject() {
     this.imageObject = [{
-        image: 'assets/img/aguacate.jpg',
-        thumbImage: 'assets/img/aguacate.jpg',
+        image: 'assets/images/tienda/aguacate.jpg',
+        thumbImage: 'assets/images/tienda/aguacate.jpg',
         alt: 'imagen uno',
         title: 'Aguacate'
     }, {
-        image: 'assets/img/ajo.jpg',
-        thumbImage: 'assets/img/ajo.jpg',
+        image: 'assets/images/tienda/ajo.jpg',
+        thumbImage: 'assets/images/tienda/ajo.jpg',
         alt: 'imagen 2',
         title: 'Ajo'
     }, {
-        image: 'assets/img/cebolla.jpg',
-        thumbImage: 'assets/img/cebolla.jpg',
+        image: 'assets/images/tienda/cebolla.jpg',
+        thumbImage: 'assets/images/tienda/cebolla.jpg',
         alt: 'alt of imagen tres',
         title: 'Cebolla'
     }, {
-        image: 'assets/img/fresa.jpg',
-        thumbImage: 'assets/img/fresa.jpg',
+        image: 'assets/images/tienda/fresa.jpg',
+        thumbImage: 'assets/images/tienda/fresa.jpg',
         alt: 'imagen 4',
         title: 'Fresa'
     }, {
-        image: 'assets/img/kiwi.jpg',
-        thumbImage: 'assets/img/kiwi.jpg',
+        image: 'assets/images/tienda/kiwi.jpg',
+        thumbImage: 'assets/images/tienda/kiwi.jpg',
         alt: 'imagen 5',
         title: 'Kiwi'
     }, {
-        image: 'assets/img/limon.jpg',
-        thumbImage: 'assets/img/limon.jpg',
+        image: 'assets/images/tienda/limon.jpg',
+        thumbImage: 'assets/images/tienda/limon.jpg',
         alt: 'alt of imagen 6',
         title: 'Limon'
     }];

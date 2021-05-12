@@ -41,22 +41,22 @@ export class SliderComponent implements OnInit {
     },
     {
       name: 'Ajo',
-      img: '../../assets/img/ajo.jpg',
+      img: '../../assets/images/tienda/ajo.jpg',
       desc: 'El ajo es muy bueno para combatir el coronavirus.'
     },
     {
       name: 'Canela',
-      img: '../../assets/img/canela.jpg',
+      img: '../../assets/images/tienda/canela.jpg',
       desc: 'El secreto de la cura de la gripe.'
     },
     {
       name: 'Brocoli',
-      img: '../../assets/img/brocoli.png',
+      img: '../../assets/images/tienda/brocoli.png',
       desc: 'Tu cuerpo necesita verduras.'
     },
     {
       name: 'Kiwi',
-      img: '../../assets/img/kiwi.jpg',
+      img: '../../assets/images/tienda/kiwi.jpg',
       desc: 'Es una fruta afrodisiaca.'
     }
   ];

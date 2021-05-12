@@ -7,7 +7,7 @@ import { AppService } from './componentes/services/app.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'siice web';
+  title = 'SIICE WEB';
 
   constructor(private appService: AppService) {}
   getClasses() {

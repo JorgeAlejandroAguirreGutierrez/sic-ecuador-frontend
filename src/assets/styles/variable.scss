@@ -1,14 +1,12 @@
 /*
 Template Name: Material Pro Admin
-Author: Themedesigner
-Email: niravjoshi87@gmail.com
+Author: Jorge Hidalgo
+Email: gatosohidalgo@gmail.com
 File: scss
 */
 // Variables
 
-//@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
-
-$bodyfont: 'Poppins', sans-serif;
+$bodyfont: 'Poppins', 'Roboto', 'Helvetica Neue', sans-serif, 'Open sans';
 $headingfont: 'Poppins', sans-serif;
 
 @import '~@angular/material/theming';
@@ -44,7 +42,7 @@ $sidebar-white: #e5edef;
 $sidebar-alt: #f2f6f8;
 $bodycolor: #eef5f9;
 $headingtext: #455a64;
-$bodytext: #67757c;
+$bodytext: #67757c; //#02476e; //Azul
 $sidebar-text: #607d8b;
 $sidebar-icons: #99abb4;
 
@@ -103,3 +101,27 @@ $card-brd: #d7dfe3;
 $dark-text: #848a96;
 $radius: 4px;
 $form-brd: #d9d9d9;
+
+// Variables que vienen de style principal
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+
+$hamburger-padding-x           : 0px !default;
+$hamburger-padding-y           : 0px !default;
+$hamburger-layer-width         : 25px !default;
+$hamburger-layer-height        : 2px !default;
+$hamburger-layer-spacing       : 5px !default;
+$hamburger-layer-color         : #9b9ea2 !default;
+$hamburger-layer-border-radius : 4px !default;
+$hamburger-hover-opacity       : 0.7 !default;
+
+$navbar-height: 50px;
+$sidebar-width:260px;
+$sidebar-pinned-wdth:70px;
+
+$bg-color:#f2f3f8;
+$navbar-bg-color : #3d4465; //#242939
+$navbar-color:#6e7899;
+$sidebar-bg-color:#fff;
+$sidebar-color:#3d4465;
+$sidebar-icon-color:#c4cff9;
+$border-color: #f2f3f8;
