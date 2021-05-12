@@ -52,10 +52,9 @@ import { MapsComponent } from './componentes/pages/maps/maps.component';
 import { NotificationsComponent } from './componentes/pages/notifications/notifications.component';
 
 import { HeaderComponent } from './componentes/header/header.component';
-import { HtmlFooterComponent } from './componentes/footer/footer.component';
-import { FooterComponent } from './componentes/components/footer/footer.component';
-import { NavbarComponent } from './componentes/components/navbar/navbar.component';
-import { SidebarComponent } from './componentes/components/sidebar/sidebar.component';
+import { FooterComponent } from './componentes/footer/footer.component';
+import { NavbarComponent } from './componentes/navbar/navbar.component';
+import { SidebarComponent } from './componentes/sidebar/sidebar.component';
 
 // Componentes de las pestañas
 import { MainComponent } from './componentes/main/main.component';
@@ -79,7 +78,8 @@ import { UbicacionComponent } from './configuraciones/ubicacion/ubicacion.compon
 import { UbicacionLeerComponent } from './configuraciones/ubicacion/ubicacion-leer/ubicacion-leer.component';
 
 import { ModeloService } from './servicios/modelo.service';
-import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
+import { InicioSesionComponent, CambioCredencialesComponent } from './componentes/inicio-sesion/inicio-sesion.component';
+
 
 // Módulo de Usuarios
 import { UsuarioComponent } from './usuarios/usuario/usuario.component';
@@ -306,8 +306,8 @@ const routes: Routes = [
     NotificationsComponent,    
     HeaderComponent,
     FooterComponent,
-    HtmlFooterComponent,
     InicioSesionComponent,
+    CambioCredencialesComponent,
     DatoAdicionalComponent,
     PlazoCreditoComponent,
     PlazoCreditoLeerComponent,
@@ -455,8 +455,8 @@ const routes: Routes = [
   entryComponents: [ClienteComponent, FacturaComponent, ImportarComponent, ExportarComponent, BodegaComponent, 
     SaldoInicialInventarioComponent, DialogComponente, GrupoClienteComponent, CategoriaClienteComponent,
     EstadoCivilComponent, FormaPagoComponent, GeneroComponent, OrigenIngresoComponent, PlazoCreditoComponent,
-    TipoPagoComponent, TablaEquivalenciaMedidaComponent, MedidaComponent, UsuarioComponent, PuntoVentaComponent, 
-    GrupoProductoComponent, EstablecimientoComponent]
+    TipoPagoComponent, TablaEquivalenciaMedidaComponent, MedidaComponent, UsuarioComponent, PuntoVentaComponent,
+    GrupoProductoComponent, EstablecimientoComponent, CambioCredencialesComponent]
 })
 export class AppModule {
   constructor() {

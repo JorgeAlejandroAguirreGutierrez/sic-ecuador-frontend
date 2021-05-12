@@ -6,18 +6,18 @@ import { EmpresaService } from '../../servicios/empresa.service';
 import { Empresa } from '../../modelos/empresa';
 import { environment } from '../../../environments/environment';
 import { TabService } from "../services/tab.service";
-import { HtmlFooterComponent } from "../footer/footer.component";
+import { FooterComponent } from "../footer/footer.component";
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
 
   sesion: Sesion;
 
-  piePagina: Type<any> = HtmlFooterComponent; 
+  piePagina: Type<any> = FooterComponent; 
 
   permiso_clientes: boolean;
   permiso_proveedores: boolean;

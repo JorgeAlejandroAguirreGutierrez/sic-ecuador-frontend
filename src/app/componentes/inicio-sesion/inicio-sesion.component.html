@@ -1,0 +1,101 @@
+<div class="contenedor">
+    <div class="form-row card card-principal">
+        <div class="col-12">
+            <div class="text-center" title="SISTEMA INTEGRADO DE INFORMACIÓN CONTABLE EMPRESARIAL">
+                <figure>
+                    <img class="imagen-logo" alt="" src="{{url_logo}}" />
+                    <figcaption>
+                        <div class="text-center">
+                            <h3>SISTEMA INTEGRADO DE INFORMACIÓN CONTABLE EMPRESARIAL</h3>
+                        </div>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+        <br>
+        <div class="row col-12">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <hr>
+                <div class="row">
+                    <div class="col-4 centrar-ico">
+                        <mat-icon>location_city</mat-icon>
+                    </div>
+                    <!--div class="col-3 centrar-izq">
+                        <span class="texto">Empresa:</span>
+                    </div-->
+                    <div class="col-8 centrar-izq">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Empresa</mat-label>
+                            <mat-select [(ngModel)]="empresa.id" name="empresa">
+                                <mat-option *ngFor="let empresa of empresas" [value]="empresa.id">
+                                    {{empresa.razon_social}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+
+                        <!--select [(ngModel)]="empresa.id" class="form-control form-control-sm" [value]="0">
+                            <option value="0">Seleccione la Empresa</option>
+                            <option *ngFor="let empresa of empresas" [value]="empresa.id">
+                                {{empresa.razon_social}}
+                            </option>
+                        </select-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 centrar-ico">
+                        <mat-icon>account_box</mat-icon>
+                    </div>
+                    <!--div class="col-3 centrar-izq">
+                        <span class="texto">Usuario:</span>
+                    </div-->
+                    <div class="col-8 centrar-izq">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Cual es su usuario?</mat-label>
+                            <input matInput [(ngModel)]="sesion.usuario.identificacion">
+                        </mat-form-field>
+                        <!--input type="text" [(ngModel)]="sesion.usuario.identificacion" class="form-control"-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 centrar-ico">
+                        <mat-icon>vpn_key</mat-icon>
+                    </div>
+                    <!--div for="contrasena" class="col-3 centrar-izq">
+                        <span class="texto">Contraseña:</span>
+                    </div-->
+                    <div class="col-8 centrar-izq">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Ingrese su contraseña</mat-label>
+                            <input type="password" matInput [(ngModel)]="sesion.usuario.contrasena"
+                                (keyup.enter)="iniciarSesion()">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row centrar m-t-10">
+                    <button type="button" class="btn btn-primary boton text-center" (click)="iniciarSesion()">
+                        <b>Iniciar Sesión</b></button>
+                </div>
+                <div class="row centrar m-t-10 font-10">
+                    <p class="text-center" (click)="openDialog()">Olvidó su contraseña</p>
+                    <p class="text-center" (click)="openDialog()">Crea tu usuario aquí</p>
+                </div>
+            </div>
+            <div class="col-4"></div>
+        </div>
+        <div class="row col-12">
+            <ol>
+                <li>
+                    <mat-form-field>
+                        <mat-label>Cual es su usuario?</mat-label>
+                        <input matInput [(ngModel)]="usuario">
+                    </mat-form-field>
+                </li>
+                <li *ngIf="clave">
+                    You chose: <i>{{clave}}</i>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>

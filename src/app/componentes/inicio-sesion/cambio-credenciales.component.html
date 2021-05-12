@@ -1,0 +1,59 @@
+
+<h1 mat-dialog-title>Hola {{data.usuario}}, Cree su nuevo Usuarios</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Identificación</mat-label>
+    <!--input matInput [(ngModel)]="data.clave"-->
+    <input matInput [(ngModel)]="sesion.usuario.identificacion">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Correo</mat-label>
+    <input matInput [(ngModel)]="sesion.usuario.correo">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Contraseña</mat-label>
+    <input type="password" matInput [(ngModel)]="sesion.usuario.contrasena">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Repita la Contraseña</mat-label>
+    <input type="password" matInput [(ngModel)]="repetir_contrasena">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Clave</mat-label>
+    <input matInput [(ngModel)]="data.clave">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data.clave" cdkFocusInitial>Guardar</button>
+</div>
+<!--
+<div class="form-group form-row">
+    <label class="col-4 col-form-label">Identificacion</label>
+    <div class="col-8">
+        <input type="text" [(ngModel)]="sesion.usuario.identificacion" class="form-control">
+    </div>
+</div>
+<div class="form-group form-row">
+    <label class="col-4 col-form-label">Correo</label>
+    <div class="col-8">
+        <input type="email" [(ngModel)]="sesion.usuario.correo" class="form-control">
+    </div>
+</div>
+<div class="form-group form-row">
+    <label class="col-4 col-form-label">Contraseña</label>
+    <div class="col-8">
+        <input type="password" [(ngModel)]="sesion.usuario.contrasena" class="form-control"
+            required>
+    </div>
+</div>
+<div class="form-group form-row">
+    <label class="col-4 col-form-label">Repetir Contraseña</label>
+    <div class="col-8">
+        <input type="password" [(ngModel)]="repetir_contrasena" class="form-control" required>
+    </div>
+</div>
+<div class="form-group text-center">
+    <button class="btn btn-info" (click)="activarSesion()">Activar Sesion</button>
+</div>
+-->

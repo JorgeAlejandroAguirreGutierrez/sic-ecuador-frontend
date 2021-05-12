@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TabService } from "../../services/tab.service";
-import { MainComponent } from "../../main/main.component";
+import { TabService } from "../services/tab.service";
+import { MainComponent } from "../main/main.component";
 
 @Component({
   selector: 'app-sidebar',
