@@ -16,6 +16,7 @@ import { FooterComponent } from "../footer/footer.component";
 export class MenuComponent implements OnInit {
 
   sesion: Sesion;
+  gridColumns = 7;
 
   piePagina: Type<any> = FooterComponent; 
 
