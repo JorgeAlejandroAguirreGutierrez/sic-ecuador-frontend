@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Type } from '@angular/core';
 import { TabService } from "../../servicios/services/tab.service";
+import { SidebarService } from '../../servicios/services/sidebar.service';
 import { Tab } from "../../modelos/tab.model";
 import { MenuComponent } from '../menu/menu.component';
 import { OpcionMenu } from "../../modelos/opcion-menu.model";
@@ -70,7 +71,7 @@ export class MainComponent implements OnInit {
 
   opciones = new Array<OpcionMenu>();
 
-  constructor(private tabService: TabService) { }
+  constructor(private tabService: TabService, private sidebarService: SidebarService) { }
 
   ngOnInit() {
     this.tabService.addNewTab1(MenuComponent, 'MENU');
@@ -81,6 +82,7 @@ export class MainComponent implements OnInit {
       //devuelve el índice del primer elemento de un array que cumpla con la función de prueba proporcionada
       this.selectedTab1 = tabs1.findIndex(tab1 => tab1.active);
     });
+    
     
     //Se suscribe al tab Interior
     this.tabService.tabSub.subscribe(tabs => {
@@ -94,6 +96,15 @@ export class MainComponent implements OnInit {
         this.selectedTabGroup[i] = tabsGroup[i].findIndex(tab => tab.active);
       }
     });
+  }
+
+  getClasses() {
+    const classes = {
+      'pinned-sidebar': this.sidebarService.getSidebarStat().isSidebarPinned,
+      'toggeled-sidebar': this.sidebarService.getSidebarStat().isSidebarToggeled
+    }
+    console.log(classes);
+    return classes;
   }
 
   //El Tab se refiere al tab interno, es decir al relacionado con la barra de opciones 

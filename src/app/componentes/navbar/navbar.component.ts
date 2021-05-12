@@ -1,4 +1,4 @@
-import { AppService } from '../../servicios/services/app.service';
+import { SidebarService } from '../../servicios/services/sidebar.service';
 import { Component, OnInit } from '@angular/core';
 import { EmpresaService } from '../../servicios/empresa.service';
 import { Empresa } from '../../modelos/empresa';
@@ -11,32 +11,37 @@ import { environment } from '../../../environments/environment';
 })
 export class NavbarComponent implements OnInit {
 
-  url_logo: string ="";
-  nombre_empresa: string="";
+  url_logo: string = "";
+  nombre_empresa: string = "";
 
-  constructor(private appService: AppService, private empresaService: EmpresaService) { }
+  constructor(private sidebarService: SidebarService, private empresaService: EmpresaService) { }
   isCollapsed = true;
 
   ngOnInit() {
     this.obtenerEmpresa();
-  }  
-    obtenerEmpresa(){
-      let empresa=new Empresa();
-      empresa.id=1;
-      this.empresaService.obtener(empresa).subscribe(
-        res => {
-          empresa= res.resultado as Empresa
-          this.url_logo=environment.prefijo_url_imagenes+"logos/"+empresa.logo;
-          this.nombre_empresa=empresa.razon_social;
-        }
-      );
-    }   
+
+  }
+
+  obtenerEmpresa() {
+    let empresa = new Empresa();
+    empresa.id = 1;
+    this.empresaService.obtener(empresa).subscribe(
+      res => {
+        empresa = res.resultado as Empresa
+        this.url_logo = environment.prefijo_url_imagenes + "logos/" + empresa.logo;
+        this.nombre_empresa = empresa.razon_social;
+      }
+    );
+  }
+
+
 
   toggleSidebarPin() {
-    this.appService.toggleSidebarPin();
+    this.sidebarService.toggleSidebarPin();
   }
+
   toggleSidebar() {
-    this.appService.toggleSidebar();
+    this.sidebarService.toggleSidebar();
   }
 
 }
