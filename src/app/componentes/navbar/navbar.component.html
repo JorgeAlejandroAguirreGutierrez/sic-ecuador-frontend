@@ -2,7 +2,7 @@
    <!--button class="sidebar-toggler ml-4" type="button">
     <i class="fa fa-navicon"></i>
   </button--> 
-  <!-- header -->
+  <!-- Cabecera -->
   <div class="navbar-header pl-2 pr-2 ml-3 text-center">
     <a class="navbar-brand m-0 w-100" href="#">
       <!-- <i class="fa fa-flash mr-1"></i> -->
@@ -10,11 +10,11 @@
       <span class="ml-1">SIICE Web</span>
     </a>
   </div>
-  <!-- sidebar toggler -->
+  <!-- Boton conmutable del sidebar para cuando la pantalla es pequeña  -->
   <div class="sidebar-toggler ml-auto mr-3">
     <a class="btn nav-link" (click)="toggleSidebar()"><i class="fa fa-bars"></i></a>
   </div>
-  <!-- right menu toggler -->
+  <!-- Menu derecha del navBar, para cuando la pantalla es pequeña -->
   <div class="nav-toggler-right mr-4 d-md-none">
     <button class="" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
       aria-controls="collapseBasic">
@@ -23,8 +23,8 @@
     </button>
     <span class="user-profile nav-alert bg-danger"></span>
   </div>
-  <!-- left box -->
-  <ul class="navbar-nav flex-fill mt-1 align-items-center left-nav">
+  <!-- Parte izquierda del navBar, incluye el Boton conmutable para el sideBar cuando pantalla grande fija -->
+  <ul class="navbar-nav flex-fill mt-1 align-items-center left-nav" *ngIf="!istabMenu">
     <li class="nav-item navicon">
       <a class="btn nav-link" (click)="toggleSidebarPin()"><i class="fa fa-bars"></i></a>
     </li>

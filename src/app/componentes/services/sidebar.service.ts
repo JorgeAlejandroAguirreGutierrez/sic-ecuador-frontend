@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,18 @@ export class SidebarService {
   isSidebarPinned = false;
   isSidebarToggeled = false;
 
-  constructor() { }
+  isSidebarVisible: boolean = true;
+  sidebarVisibilityChange: Subject<boolean> = new Subject<boolean>();
+
+  constructor() { 
+    this.sidebarVisibilityChange.subscribe((value) => {
+      this.isSidebarVisible = value
+    });
+  }
+
+  toggleSidebarVisibility() {
+    this.sidebarVisibilityChange.next(!this.isSidebarVisible);
+  }
 
   toggleSidebar() {
     this.isSidebarToggeled = ! this.isSidebarToggeled;
@@ -21,7 +33,7 @@ export class SidebarService {
   getSidebarStat() {
     return {
       isSidebarPinned: this.isSidebarPinned,
-      isSidebarToggeled: this.isSidebarToggeled
+      isSidebarToggeled: this.isSidebarToggeled,
     }
   }
 

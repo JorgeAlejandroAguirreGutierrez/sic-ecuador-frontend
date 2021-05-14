@@ -1,5 +1,5 @@
 import { SidebarService } from '../../componentes/services/sidebar.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { EmpresaService } from '../../servicios/empresa.service';
 import { Empresa } from '../../modelos/empresa';
 import { environment } from '../../../environments/environment';
@@ -11,11 +11,13 @@ import { environment } from '../../../environments/environment';
 })
 export class NavbarComponent implements OnInit {
 
+  @Input() istabMenu:boolean;
   url_logo: string = "";
   nombre_empresa: string = "";
 
   constructor(private sidebarService: SidebarService, private empresaService: EmpresaService) { }
   isCollapsed = true;
+
 
   ngOnInit() {
     this.obtenerEmpresa();
@@ -34,12 +36,18 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  get isSidebarVisible(): boolean {
+    return this.sidebarService.isSidebarVisible;
+  }
+
   toggleSidebarPin() {
     this.sidebarService.toggleSidebarPin();
+    this.sidebarService.toggleSidebarVisibility();
   }
 
   toggleSidebar() {
     this.sidebarService.toggleSidebar();
+    this.sidebarService.toggleSidebarVisibility();
   }
 
 }

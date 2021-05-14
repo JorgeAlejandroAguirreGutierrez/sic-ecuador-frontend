@@ -63,8 +63,12 @@ export class MainComponent implements OnInit {
 
   selectedTab: number = 0;
   selectedTab1: number = 0;
+  istabMenu: boolean = true;
 
   selectedTabGroup: Array<number> = [];
+
+  asideVisible: boolean;
+  claseExpandirTabSec: string;
 
   title: string = "Cliente";
   title1: string = "Cliente1";
@@ -82,8 +86,6 @@ export class MainComponent implements OnInit {
       //devuelve el índice del primer elemento de un array que cumpla con la función de prueba proporcionada
       this.selectedTab1 = tabs1.findIndex(tab1 => tab1.active);
     });
-    
-    
     //Se suscribe al tab Interior
     this.tabService.tabSub.subscribe(tabs => {
       this.tabs = tabs;
@@ -96,18 +98,24 @@ export class MainComponent implements OnInit {
         this.selectedTabGroup[i] = tabsGroup[i].findIndex(tab => tab.active);
       }
     });
+    // Se subscribe para ver el estado del tab
+    this.sidebarService.sidebarVisibilityChange.subscribe(value => {
+      this.asideVisible = value;
+      this.claseExpandirTabSec = this.asideVisible ? 'tam-sm':'tam-lg';
+    });
   }
 
+  // pinned-sidebar: clase true para la pantalla grande; toggeled-sidebar: clase true pantalla pequeña
   getClasses() {
+    var sideBarEstado = this.sidebarService.getSidebarStat();
     const classes = {
-      'pinned-sidebar': this.sidebarService.getSidebarStat().isSidebarPinned,
-      'toggeled-sidebar': this.sidebarService.getSidebarStat().isSidebarToggeled
+      'pinned-sidebar': sideBarEstado.isSidebarPinned,
+      'toggeled-sidebar': sideBarEstado.isSidebarToggeled,
     }
-    console.log(classes);
     return classes;
   }
 
-  //El Tab se refiere al tab interno, es decir al relacionado con la barra de opciones 
+  //El Tab se refiere al tab interno, es decir el secundario, relacionado al sideBar 
   public tabChanged(event) {
     //console.log("tab interno changed");
     this.tabService.activarTab(event);
@@ -115,7 +123,8 @@ export class MainComponent implements OnInit {
 
   //El Tab1 se refiere al tab externo, es decir al principal
   public tabChanged1(event) {
-    //console.log("tab externo changed");
+    //console.log("Cambió el tab externo");
+    this.istabMenu = event.index == 0 ? true : false; 
     this.tabService.activarTab1(event);
     // Carga las opciones en el slide bar de acuerdo al titulo de la pestaña
     this.menuOpciones(this.tabs1[event.index].title);

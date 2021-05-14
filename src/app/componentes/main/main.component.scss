@@ -12,7 +12,7 @@
 }
 
 .mtab-sec {
-  width: 95%;
+  width: 100%;
   padding-right: 10px; // Para el espacio de la barra de acciones
   padding-left: 5px;
   margin: 0 auto; //auto para centrar izq y der con el slide
@@ -30,12 +30,36 @@
 ::ng-deep .tab-group-sec{
   .mat-tab-header {
     position: fixed;
-    max-width: calc(100% - 290px); // Poner -100px cuando el toogle esta cerrado
-    //max-width: 76.7%;
     width: 100%;
-    top: 75px; // Posición fijada desde el margen superior para el tab secundario.
+    top: 72px; // Posición fijada desde el margen superior para el tab secundario.
     z-index:990;
     background-color: white;
+    max-width: calc(100% - 290px); // Para iniciar
+    @media (max-width: 768px) {
+      max-width: calc(100% - 30px);
+    }
+  }
+}
+
+::ng-deep .tam-lg{
+  .tab-group-sec{
+    .mat-tab-header {
+      max-width: calc(100% - 100px); // Poner -100px cuando el sideBar esta pequeño
+      @media (max-width: 768px) {
+        max-width: calc(100% - 30px);
+      }
+    }
+  }
+}
+
+::ng-deep .tam-sm{
+  .tab-group-sec{
+    .mat-tab-header {
+      max-width: calc(100% - 290px); // Poner -290px cuando el sideBar esta abierto
+      @media (max-width: 768px) {
+        max-width: calc(100% - 30px);
+      }
+    }
   }
 }
 
