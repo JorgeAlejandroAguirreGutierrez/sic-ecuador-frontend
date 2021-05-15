@@ -1,23 +1,26 @@
 <aside class="sidebar shadow-sm">
   <nav class="sidebar-menu pt-5 pb-2">
-    <div class="menu-header mt-1 mb-2">
+    <div class="menu-header mt-1 mb-1">
+      <span>OPCIONES:</span>
+    </div>
+    <div class="menu-header-min mt-1 mb-1">
+      <a>OPC:</a>
+    </div>
+    <ul class="menu-items puntero">
+      <li *ngFor="let opcion of mainComponent.opciones">
+        <a (click)="tabService.addNewTab(opcion.componente, opcion.tabTitulo)">
+          <i class="{{opcion.icoItem}}"></i>
+          <span>{{opcion.itemNombre}}</span>
+        </a>
+      </li>
+    </ul>
+    <!--div class="menu-header mt-1 mb-2">
       <ul class="menu-items">
         <li class="nav-item flex-fill">
           <input class="form-control navbar-search" type="text" placeholder="Buscar . . .">
         </li>
       </ul>
-    </div>
-    <div class="menu-header mt-3 mb-2">
-      Seleccione una opción
-    </div>
-    <ul class="menu-items">
-      <li *ngFor="let opcion of mainComponent.opciones">
-        <a (click)="tabService.addNewTab(opcion.componente, opcion.tabTitulo)">
-          <i class="fa fa-file-text-o"></i>
-          <span>{{opcion.nombre}}</span>
-        </a>
-      </li>
-    </ul>
+    </div-->
     <div class="menu-header mt-4 mb-4">
       Pagina Web
     </div>

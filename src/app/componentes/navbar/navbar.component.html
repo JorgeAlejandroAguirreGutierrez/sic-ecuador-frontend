@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-dark flex-fill">
-   <!--button class="sidebar-toggler ml-4" type="button">
+  <!--button class="sidebar-toggler ml-4" type="button">
     <i class="fa fa-navicon"></i>
-  </button--> 
+  </button-->
   <!-- Cabecera -->
-  <div class="navbar-header pl-2 pr-2 ml-3 text-center">
+  <div class="navbar-header pl-2 pr-2 ml-3">
     <a class="navbar-brand m-0 w-100" href="#">
       <!-- <i class="fa fa-flash mr-1"></i> -->
       <img src="{{url_logo}}" alt="Empresa" width="50px">
-      <span class="ml-1">SIICE Web</span>
+      <span class="ml-2">RioTour S.A.</span>
     </a>
   </div>
   <!-- Boton conmutable del sidebar para cuando la pantalla es pequeña  -->
@@ -29,7 +29,13 @@
       <a class="btn nav-link" (click)="toggleSidebarPin()"><i class="fa fa-bars"></i></a>
     </li>
   </ul>
-
+  <ul class="navbar-nav flex-fill left-nav" *ngIf="istabMenu"></ul>
+  <!-- Nombre del Sistema Centrado-->
+  <ul class="navbar-nav mt-1 align-items-center left-nav text-center">
+    <li>
+      <span class="flex-fill ml-1 titulo">SIICE Web</span>
+    </li>
+  </ul>
   <!-- right menu -->
   <div class="collapse navbar-collapse right-nav" id="collapseBasic" [collapse]="isCollapsed">
     <ul class="navbar-nav ">
