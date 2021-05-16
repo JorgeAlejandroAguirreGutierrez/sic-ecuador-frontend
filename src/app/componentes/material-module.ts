@@ -1,11 +1,7 @@
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * Modulo para importar todos los componentes de Angular Material
  */
-
+ 
 import {NgModule} from '@angular/core';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
@@ -22,7 +18,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
-
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -38,7 +33,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatStepperModule} from '@angular/material/stepper';
-
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatRippleModule} from '@angular/material/core';
 import {CdkTableModule} from '@angular/cdk/table';
@@ -49,6 +43,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import {PlatformModule} from '@angular/cdk/platform';
 import {ObserversModule} from '@angular/cdk/observers';
 import {PortalModule} from '@angular/cdk/portal';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatDividerModule} from '@angular/material/divider';
 
 /**
  * NgModule that includes all Material modules that are required to serve the demo-app.
@@ -95,6 +91,8 @@ import {PortalModule} from '@angular/cdk/portal';
     OverlayModule,
     PlatformModule,
     PortalModule,
+    MatBadgeModule,
+    MatDividerModule,
   ]
 })
-export class DemoMaterialModule {}
+export class MaterialModule {}
