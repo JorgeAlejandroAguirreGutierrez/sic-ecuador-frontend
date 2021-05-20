@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-auxiliar',
   templateUrl: './auxiliar.component.html',
-  styleUrls: ['./auxiliar.component.css']
+  styleUrls: ['./auxiliar.component.scss']
 })
 export class AuxiliarComponent implements OnInit {
 

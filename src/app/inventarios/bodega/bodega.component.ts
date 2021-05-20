@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-bodega',
   templateUrl: './bodega.component.html',
-  styleUrls: ['./bodega.component.css']
+  styleUrls: ['./bodega.component.scss']
 })
 export class BodegaComponent implements OnInit {
 

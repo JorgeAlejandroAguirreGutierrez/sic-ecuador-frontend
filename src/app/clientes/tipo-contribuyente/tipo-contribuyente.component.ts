@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-tipo-contribuyente',
   templateUrl: './tipo-contribuyente.component.html',
-  styleUrls: ['./tipo-contribuyente.component.css']
+  styleUrls: ['./tipo-contribuyente.component.scss']
 })
 export class TipoContribuyenteComponent implements OnInit {
 

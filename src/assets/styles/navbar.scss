@@ -11,6 +11,17 @@ Clase de main.component que hace que todo el contenido de la aplicación sea fle
 
 //Clase de para el control del navbar toogle sidebar para todas las paginas
 
+.nav-fijo {
+  position: fixed;
+  top: 120px;
+  right: 15px;
+  z-index: 900;
+  height: 120px!important;
+  margin: 3px!important;
+padding: 2px!important;
+  background-color: transparent;
+}
+
 .wrapper.default-theme {
 
   background: $bg-color;

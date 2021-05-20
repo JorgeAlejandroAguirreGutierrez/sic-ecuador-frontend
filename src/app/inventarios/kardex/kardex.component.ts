@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-kardex',
   templateUrl: './kardex.component.html',
-  styleUrls: ['./kardex.component.css']
+  styleUrls: ['./kardex.component.scss']
 })
 export class KardexComponent implements OnInit {
 

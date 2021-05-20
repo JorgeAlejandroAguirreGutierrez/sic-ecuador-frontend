@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-egreso',
   templateUrl: './egreso.component.html',
-  styleUrls: ['./egreso.component.css']
+  styleUrls: ['./egreso.component.scss']
 })
 export class EgresoComponent implements OnInit {
 

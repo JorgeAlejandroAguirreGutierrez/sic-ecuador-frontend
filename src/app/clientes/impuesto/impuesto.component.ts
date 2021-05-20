@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-impuesto',
   templateUrl: './impuesto.component.html',
-  styleUrls: ['./impuesto.component.css']
+  styleUrls: ['./impuesto.component.scss']
 })
 export class ImpuestoComponent implements OnInit {
 

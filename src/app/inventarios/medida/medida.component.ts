@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-medida',
   templateUrl: './medida.component.html',
-  styleUrls: ['./medida.component.css']
+  styleUrls: ['./medida.component.scss']
 })
 export class MedidaComponent implements OnInit {
 

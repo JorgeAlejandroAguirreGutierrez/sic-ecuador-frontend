@@ -1,7 +1,8 @@
 // Modifica el estilo de contenedor establecido para todo el sistema
-.contenedor{
+.contenedor-menu{
     max-width: 85%;
-    margin-top:45px;
+    width: 100%;
+    margin: 45px auto;
     padding: 0px;
 }
 
@@ -13,10 +14,9 @@
 .card-body{
     padding: 0.8rem;
 }
+
 mat-card{
-    margin: 0px;
     height: 100%;
-    border-radius: 8px;
     border-style: ridge;
     overflow:hidden;
 }

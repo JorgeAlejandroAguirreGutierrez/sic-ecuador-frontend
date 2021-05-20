@@ -12,7 +12,7 @@ import * as constantes from '../../../constantes';
 @Component({
   selector: 'app-bodega-leer',
   templateUrl: './bodega-leer.component.html',
-  styleUrls: ['./bodega-leer.component.css']
+  styleUrls: ['./bodega-leer.component.scss']
 })
 export class BodegaLeerComponent implements OnInit {
 
