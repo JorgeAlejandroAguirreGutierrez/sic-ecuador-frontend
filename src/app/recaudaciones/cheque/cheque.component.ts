@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-cheque',
   templateUrl: './cheque.component.html',
-  styleUrls: ['./cheque.component.css']
+  styleUrls: ['./cheque.component.scss']
 })
 export class ChequeComponent implements OnInit {
 

@@ -317,6 +317,10 @@ use profile section
             text-transform: uppercase;
             font-weight: 700;
           }
+
+          .menu-header-min{
+            display:none;
+          }
   
           ul {
             list-style-type: none;
@@ -362,6 +366,7 @@ use profile section
       }
     }
   
+    // Código css para transformar el sideBar en mas pequeño cuando el conmutador cambia
     &.pinned-sidebar {
       @media (min-width: 768px) {
         .navbar-header{
@@ -387,6 +392,15 @@ use profile section
           .menu-header,
           .view-source {
             display: none;
+          }
+
+          .menu-header-min{
+            display:block!important;
+            padding: 0 1.5rem;
+            font-size: .75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: rgba($sidebar-color, .5);
           }
   
           .sidebar-menu {

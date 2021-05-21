@@ -21,7 +21,7 @@ export class TabService {
     if (this.tabs.length > 0) {
       this.tabs[this.tabs.length - 1].active = true;
     }
-    this.tabSub.next(this.tabs); //guarda el tabs y le entregamos al otro componente suscrito
+    this.tabSub.next(this.tabs); //guarda el tabs y le expone al otro componente suscrito
     this.tabsGroupSub.next(this.tabsGroup);
   }
 
@@ -137,7 +137,7 @@ export class TabService {
         this.tabs[i].active = true;
       }
     }
-    this.tabSub.next(this.tabs); //guarda los cambios y ejecuta el observable suscrito
+    this.tabSub.next(this.tabs); //guarda los cambios y emite el evento para el observable suscrito
   }
 
 // Para actualizar la pestaña ACTIVA del (tab1) y las subpestañas relacionadas en el (tab)
@@ -160,7 +160,7 @@ export class TabService {
         }
       }
     }
-    this.tabSub1.next(this.tabs1); //guarda los cambios y ejecuta el observable suscrito
+    this.tabSub1.next(this.tabs1); //guarda los cambios y emite el evento para el observable suscrito
     
   }
 

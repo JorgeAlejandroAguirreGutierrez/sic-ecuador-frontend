@@ -12,7 +12,7 @@ import * as constantes from '../../../constantes';
 @Component({
   selector: 'app-cliente-leer',
   templateUrl: './cliente-leer.component.html',
-  styleUrls: ['./cliente-leer.component.css']
+  styleUrls: ['./cliente-leer.component.scss']
 })
 export class ClienteLeerComponent implements OnInit {
 

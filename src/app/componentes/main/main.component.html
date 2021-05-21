@@ -1,5 +1,5 @@
 <div class="wrapper default-theme" [ngClass]="getClasses()">
-  <app-navbar></app-navbar>
+  <app-navbar [istabMenu]="istabMenu"></app-navbar>
   <main>
     <div class="container-fluid">
       <mat-tab-group class="tab-group-main mtab-main" [selectedIndex]="selectedTab1"
@@ -10,7 +10,7 @@
             <i *ngIf="tabIndexMain != 0" class="material-icons" (click)="removeTab1(tabIndexMain)">close</i>
           </ng-template>
           <div *ngIf="tabIndexMain != 0">
-            <main>
+            <main [class]="claseExpandirTabSec">
               <div>
                 <app-sidebar></app-sidebar>
               </div>

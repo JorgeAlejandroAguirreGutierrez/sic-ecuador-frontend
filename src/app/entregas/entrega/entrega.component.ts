@@ -21,7 +21,7 @@ import * as constantes from '../../constantes';
 @Component({
   selector: 'app-entrega',
   templateUrl: './entrega.component.html',
-  styleUrls: ['./entrega.component.css']
+  styleUrls: ['./entrega.component.scss']
 })
 export class EntregaComponent implements OnInit {
 

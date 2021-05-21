@@ -8,7 +8,7 @@ import { BancoService } from '../../servicios/banco.service';
 @Component({
   selector: 'app-banco',
   templateUrl: './banco.component.html',
-  styleUrls: ['./banco.component.css']
+  styleUrls: ['./banco.component.scss']
 })
 export class BancoComponent implements OnInit {
 

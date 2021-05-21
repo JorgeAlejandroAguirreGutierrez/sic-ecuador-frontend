@@ -1,0 +1,168 @@
+// COMPONENTES DE ANGULAR MATERIAL
+
+/* 1. Para los elementos standar*/
+/*******************
+froms
+*******************/
+.form-control{
+    //border: 0px; // Error borra los bordes de los input
+    line-height: 25px;
+    padding: 10px;
+    width: 100%;
+    font-size:$font-16;
+}
+
+.form-control-sm{
+    height: calc(0.3em + 0.3rem + 2px)!important;
+    padding: 0!important;
+}
+
+.mat-form-field-underline{
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.mat-form-field{
+   width: 100%;
+}
+/*******************
+Mat card
+*******************/
+.mat-card{
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)!important;  
+    -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)!important; 
+    padding: 0px!important; // Tiene margen 0 por defecto
+    border-radius: $radius!important;
+    
+    .mat-card-content{
+        font-size:1rem;
+        line-height: 23px;
+        padding: 24px;    
+    }
+    .mat-card-image {
+        width: calc(100% + 0px);
+        margin: 0 0px 0px 0px;
+    }
+    .mat-card-header{
+        padding: 12px;
+        border-radius: $radius $radius 0 0;
+        .mat-card-title{
+            margin-bottom: 2px;
+            font-size: 20px;
+            text-align: center !important;
+        }
+        .mat-card-subtitle, .mat-card-subtitle:not(:first-child){
+            margin-bottom: 0px;
+            margin-top: 0px;
+            font-size: 14px;
+        }
+        &.text-white{
+           .mat-card-title{
+            color:$white;
+            }
+            .mat-card-subtitle{
+                color:rgba(255, 255, 255, 0.7);
+            }
+        }
+    }
+    .mat-card-title{
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+    .mat-card-subtitle{
+        margin-bottom: 20px;
+    }
+    .mat-card-actions{
+        margin: 0px!important;
+    }
+}
+  
+.mat-checkbox{
+    padding-top: 20px!important;
+}
+
+.mat-form-field {
+    text-align: center!important; // centra el titulo y el texto
+    //width: 95%!important; // Se debe remplazar con un margin-left=5px;
+}
+
+.peque.mat-form-field{
+    width: 90% !important;
+}
+
+// Esta hay que eliminar de todo el sistema
+.grande.mat-form-field{
+    width: 100% !important;
+}
+
+.mat-form-field-wrapper{
+    padding-bottom: 0.8em !important; // Para que se separen las filas, em se calcula en función del tamaño de letra
+}
+
+// Para los elementos standar
+.mat-form-field-appearance-standard .mat-form-field-flex { 
+    padding-top:0px !important; // Para que el contenido empiece desde arriba
+    //align-items: center !important; // Centra el contenido de los listados
+}
+
+
+/*para los elementos outline*/
+.mat-form-field-appearance-outline .mat-form-field-wrapper { margin: 3px 0px 0px 0px !important; padding-bottom: 15px;}
+.mat-form-field-appearance-outline .mat-form-field-infix { border-top:0px !important; padding-top: 10px !important;}
+.mat-form-field-appearance-outline .mat-form-field-label{ margin-top: 3px !important; }
+.mat-form-field-appearance-outline .mat-form-field-flex { padding:0px !important; }
+
+.mat-form-field-flex > .mat-form-field-infix { 
+    padding: 0.3em 0 !important; // separación entre la linea y el título, arriba y abajo del texto
+}
+
+.mat-form-field-underline{
+    position: initial !important; // Para que la linea empiece desde abajo
+}
+
+/* Para el acodion*/
+.mat-accordion{
+    padding: 0px!important;
+}
+.mat-expansion-panel-spacing{
+    margin: 5px 0!important;
+}
+.mat-expansion-panel-body{
+    padding: 0 5px!important;
+}
+.mat-expansion-panel-header{
+    padding: 0px 15px!important; 
+    height: 35px!important;
+}
+
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0!important;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between!important;
+  align-items: center!important;
+}
+
+.headers-align .mat-form-field + .mat-form-field {
+  margin-left: 0px!important;
+  padding: 0px!important;
+}
+
+// Para el stteper
+
+
+.mat-stepper-horizontal {
+    margin-top: 0px;
+  }
+
+// Para el Stepper
+.mat-horizontal-stepper-header{ height: 40px !important; } 
+.mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}
+
+// Para las tablas
+.mat-table .mat-form-field-underline{ width: 90% !important;}
+.mat-table .mat-form-field-flex { width: 90% !important; }
+

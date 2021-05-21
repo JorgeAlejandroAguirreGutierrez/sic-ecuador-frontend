@@ -14,7 +14,7 @@ import * as constantes from '../../../constantes';
 @Component({
   selector: 'app-factura-leer',
   templateUrl: './factura-leer.component.html',
-  styleUrls: ['./factura-leer.component.css']
+  styleUrls: ['./factura-leer.component.scss']
 })
 export class FacturaLeerComponent implements OnInit {
 

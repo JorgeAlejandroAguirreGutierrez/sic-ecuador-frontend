@@ -52,7 +52,7 @@ import { Credito } from '../../modelos/credito';
 @Component({
   selector: 'app-recaudacion',
   templateUrl: './recaudacion.component.html',
-  styleUrls: ['./recaudacion.component.css'],
+  styleUrls: ['./recaudacion.component.scss'],
   providers: [
     {provide: DateAdapter, useClass: AppDateAdapter},
     {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}

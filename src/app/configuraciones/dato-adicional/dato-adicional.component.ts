@@ -8,7 +8,7 @@ import { DatoAdicional } from '../../modelos/dato-adicional';
 @Component({
   selector: 'app-dato-adicional',
   templateUrl: './dato-adicional.component.html',
-  styleUrls: ['./dato-adicional.component.css']
+  styleUrls: ['./dato-adicional.component.scss']
 })
 export class DatoAdicionalComponent implements OnInit {
 

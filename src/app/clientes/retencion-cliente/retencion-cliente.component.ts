@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-retencion_cliente',
   templateUrl: './retencion-cliente.component.html',
-  styleUrls: ['./retencion-cliente.component.css']
+  styleUrls: ['./retencion-cliente.component.scss']
 })
 export class RetencionComponent implements OnInit {
 

@@ -7,7 +7,7 @@ import * as constantes from '../../constantes';
 @Component({
   selector: 'app-importar',
   templateUrl: './importar.component.html',
-  styleUrls: ['./importar.component.css']
+  styleUrls: ['./importar.component.scss']
 })
 export class ImportarComponent implements OnInit {
 

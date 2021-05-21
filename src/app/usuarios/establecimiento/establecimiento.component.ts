@@ -10,7 +10,7 @@ import { EmpresaService } from '../../servicios/empresa.service';
 @Component({
   selector: 'app-establecimiento',
   templateUrl: './establecimiento.component.html',
-  styleUrls: ['./establecimiento.component.css']
+  styleUrls: ['./establecimiento.component.scss']
 })
 export class EstablecimientoComponent implements OnInit {
 

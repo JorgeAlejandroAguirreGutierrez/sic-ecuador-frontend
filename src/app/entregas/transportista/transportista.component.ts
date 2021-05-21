@@ -8,7 +8,7 @@ import * as constantes from '../../constantes';
 @Component({
   selector: 'app-transportista',
   templateUrl: './transportista.component.html',
-  styleUrls: ['./transportista.component.css']
+  styleUrls: ['./transportista.component.scss']
 })
 export class TransportistaComponent implements OnInit {
 
