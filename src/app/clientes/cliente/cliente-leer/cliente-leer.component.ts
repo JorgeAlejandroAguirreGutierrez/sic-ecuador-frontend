@@ -94,7 +94,7 @@ export class ClienteLeerComponent implements OnInit {
     if (event!=null)
       event.preventDefault();
     this.clienteService.enviar(this.cliente.id);
-    this.tabService.addNewTab(this.ComponenteCliente,'Actualizar cliente');
+    this.tabService.addNewTab(this.ComponenteCliente,'Actualizar Cliente');
   }
 
   eliminar(event) {

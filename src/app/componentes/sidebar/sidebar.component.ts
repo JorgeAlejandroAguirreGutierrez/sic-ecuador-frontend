@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Type } from '@angular/core';
 import { TabService } from "../services/tab.service";
 import { MainComponent } from "../main/main.component";
 
@@ -16,4 +17,7 @@ export class SidebarComponent implements OnInit {
 
   }
 
+  abrirItem(componente: Type<any>, tabTitulo: string){
+    this.tabService.addNewTab(componente, tabTitulo);
+  }
 }

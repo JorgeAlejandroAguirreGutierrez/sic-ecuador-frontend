@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostListener, Input, Type } from '@angular/core';
 import * as constantes from '../../constantes';
 import { ClienteService } from '../../servicios/cliente.service';
 import { GeneroService } from '../../servicios/genero.service';
@@ -40,6 +40,7 @@ import { TelefonoAuxiliar } from '../../modelos/telefono-auxiliar';
 import { CorreoAuxiliar } from '../../modelos/correo-auxiliar';
 import { CelularAuxiliar } from '../../modelos/celular-auxiliar';
 import { TabService } from '../../componentes/services/tab.service';
+//import { ClienteLeerComponent } from '../cliente/cliente-leer/cliente-leer.component';
 
 @Component({
   selector: 'app-cliente',
@@ -48,6 +49,7 @@ import { TabService } from '../../componentes/services/tab.service';
 })
 export class ClienteComponent implements OnInit {
   collapsed = true;
+  //ComponenteLeerCliente: Type<any> = ClienteLeerComponent;
   habilitar_tipo_contribuyente = false;
   indice_tipo_contribuyente: number = -1;
   habilitar_celular_telefono_correo_auxiliar = true;
@@ -242,15 +244,16 @@ export class ClienteComponent implements OnInit {
 
   @HostListener('window:keypress', ['$event'])
   keyEvent($event: KeyboardEvent) {
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 71)
-      this.crear(null);
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 78)
-      this.nuevo(null);
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 69)
+    if (($event.shiftKey || $event.metaKey) && $event.key == "G")
+      this.crearCliente(null);
+    if (($event.shiftKey || $event.metaKey) && $event.key == "N")
+      this.nuevoCliente(null);
+    if (($event.shiftKey || $event.metaKey) && $event.key == "E")
       console.log('SHIFT + E');
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 66)
+    if (($event.shiftKey || $event.metaKey) && $event.key == "B")
+      //this.buscarCliente(null);
       console.log('SHIFT + B');
-    if (($event.shiftKey || $event.metaKey) && $event.keyCode == 65)
+    if (($event.shiftKey || $event.metaKey) && $event.key == "A")
       console.log('SHIFT + A');
 
   }
@@ -303,12 +306,18 @@ export class ClienteComponent implements OnInit {
     );
   }
 
-  nuevo(event) {
+  nuevoCliente(event) {
     if (event != null)
       event.preventDefault();
     this.tabService.addNewTab(ClienteComponent, constantes.tab_crear_cliente);
   }
-
+/* // Este componente genera dependencia circular
+  buscarCliente(event) {
+    if (event != null)
+      event.preventDefault();
+    this.tabService.addNewTab(this.ComponenteLeerCliente, constantes.tab_buscar_cliente);
+  }
+*/
   open(content: any, event) {
     if (event != null)
       event.preventDefault();
@@ -480,7 +489,7 @@ export class ClienteComponent implements OnInit {
       this.habilitar_celular_telefono_correo_auxiliar = true;
   }
 
-  async crear(event) {
+  async crearCliente(event) {
     if (event != null)
       event.preventDefault();
     //AGREGAR AUXILIAR

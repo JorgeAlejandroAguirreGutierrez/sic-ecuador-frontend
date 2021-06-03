@@ -8,7 +8,7 @@
     </div>
     <ul class="menu-items puntero">
       <li *ngFor="let opcion of mainComponent.opciones">
-        <a (click)="tabService.addNewTab(opcion.componente, opcion.tabTitulo)">
+        <a (click)="abrirItem(opcion.componente, opcion.tabTitulo)">
           <i class="{{opcion.icoItem}}"></i>
           <span>{{opcion.itemNombre}}</span>
         </a>
