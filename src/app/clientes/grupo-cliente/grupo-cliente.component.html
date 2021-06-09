@@ -57,23 +57,30 @@
             </mat-expansion-panel-header>
             <hr>
             <div class="form-group form-row">
-                <div class="col-3">
+                <div class="col-2">
                     <mat-form-field appearance="standard">
                         <mat-label>Codigo</mat-label>
                         <input matInput type="text" [(ngModel)]="grupo_cliente.codigo" class="form-control-sm"
                             [disabled]="true">
                     </mat-form-field>
                 </div>
-                <div class="col-6">
+                <div class="col-5">
                     <mat-form-field appearance="standard">
                         <mat-label>Descripcion</mat-label>
                         <input matInput type="text" [(ngModel)]="grupo_cliente.descripcion"
                             oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                     </mat-form-field>
                 </div>
-                <div class="col-3">
+                <div class="col-1">
                     <mat-form-field appearance="standard">
                         <mat-label>Abreviatura</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_cliente.abreviatura"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-4">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Cuenta Contable</mat-label>
                         <input matInput type="text" [(ngModel)]="grupo_cliente.abreviatura"
                             oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                     </mat-form-field>
