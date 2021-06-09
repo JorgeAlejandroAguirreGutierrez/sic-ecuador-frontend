@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import * as constantes from '../../constantes';
 import { Sesion } from '../../modelos/sesion';
 import { SesionService } from '../../servicios/sesion.service';
-import { TabService } from '../../componentes/services/tab.service';
 import { GrupoClienteService } from '../../servicios/grupo-cliente.service';
 import { GrupoCliente } from '../../modelos/grupo-cliente';
 
@@ -16,25 +15,23 @@ import { GrupoCliente } from '../../modelos/grupo-cliente';
 
 export class GrupoClienteComponent implements OnInit {
 
-  grupo_cliente= new GrupoCliente();
   collapsed = true;
   abrirPanelNuevoGrupo = true;
   abrirPanelAdminGrupo = false;
 
   sesion: Sesion;
-  //ComponenteGrupoCliente: Type<any> = GrupoClienteComponent;
 
   grupos_clientes: GrupoCliente[];
-  //grupo_cliente: GrupoCliente;
+  grupo_cliente: GrupoCliente= new GrupoCliente();
+  grupo_cliente_actualizar: GrupoCliente= new GrupoCliente();
   grupo_cliente_buscar: GrupoCliente=new GrupoCliente();
 
-  constructor(private tabService: TabService,private grupoClienteService: GrupoClienteService,
+  constructor(private grupoClienteService: GrupoClienteService,
               private sesionService: SesionService, private router: Router) { }
 
   ngOnInit() {
     this.sesion= this.sesionService.getSesion();
     this.consultar();
-    this.construir_grupo_cliente();
   }
 
   @HostListener('window:keypress', ['$event'])
@@ -50,18 +47,22 @@ export class GrupoClienteComponent implements OnInit {
   nuevo(event) {
     if (event!=null)
       event.preventDefault();
-    this.tabService.addNewTab(GrupoClienteComponent, constantes.tab_crear_grupo_cliente);
+    this.grupo_cliente=new GrupoCliente();
   }
 
-  // Este metodo es el que quiero corregir
   borrar(event){
-    console.log(event);
     if (event!=null){
       event.preventDefault()};
-      this.grupo_cliente.id = 0;
-      this.grupo_cliente.codigo = "";
-      this.grupo_cliente.descripcion = "";
-      this.grupo_cliente.abreviatura = "";
+      if(this.grupo_cliente.id!=0){
+        let id=this.grupo_cliente.id;
+        let codigo=this.grupo_cliente.codigo;
+        this.grupo_cliente=new GrupoCliente();
+        this.grupo_cliente.id=id;
+        this.grupo_cliente.codigo=codigo;
+      }
+      else{
+        this.grupo_cliente=new GrupoCliente();
+      }
   }
 
   crear(event) {
@@ -69,8 +70,9 @@ export class GrupoClienteComponent implements OnInit {
       event.preventDefault();
     this.grupoClienteService.crear(this.grupo_cliente).subscribe(
       res => {
-        this.grupo_cliente=res.resultado as GrupoCliente
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
+        this.grupo_cliente=new GrupoCliente();
+        this.consultar();
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
@@ -82,7 +84,8 @@ export class GrupoClienteComponent implements OnInit {
     this.grupoClienteService.actualizar(this.grupo_cliente).subscribe(
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.grupo_cliente=res.resultado as GrupoCliente;
+        this.grupo_cliente=new GrupoCliente();
+        this.consultar();
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
@@ -93,53 +96,25 @@ export class GrupoClienteComponent implements OnInit {
       event.preventDefault();
       this.abrirPanelNuevoGrupo = true;
       this.abrirPanelAdminGrupo = false;
-    /*if (this.grupo_cliente != null){
-      this.grupoClienteService.enviar(this.grupo_cliente.id);
-      let indice_tab_activo= constantes.tab_activo(this.tabService);
-      this.tabService.removeTab(indice_tab_activo);
-      this.tabService.addNewTab(this.ComponenteGrupoCliente,'Actualizar Grupo Cliente');
-    } else {
-      Swal.fire('Error', "Selecciona un Grupo Cliente", 'error');
-    }*/
+      if(this.grupo_cliente_actualizar.id!=0){
+        this.grupo_cliente={... this.grupo_cliente_actualizar};
+        this.grupo_cliente_actualizar=new GrupoCliente();
+      }
+      
   }
 
-  eliminar(grupo_cliente: GrupoCliente) {
-    this.grupoClienteService.eliminar(grupo_cliente).subscribe(
-      res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-        this.grupo_cliente=res.resultado as GrupoCliente
-      },
-      err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
-    );
-  }
-
-  eliminarLeer(event) {
+  eliminar(event) {
     if (event!=null)
       event.preventDefault();
     this.grupoClienteService.eliminar(this.grupo_cliente).subscribe(
       res => {
-        Swal.fire('Exito', res.mensaje, 'success');
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.grupo_cliente = res.resultado as GrupoCliente;     
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
 
-  async construir_grupo_cliente() {
-    let grupo_cliente_id=0;
-    this.grupoClienteService.currentMessage.subscribe(message => grupo_cliente_id = message);
-    if (grupo_cliente_id!= 0) {
-      await this.grupoClienteService.obtenerAsync(grupo_cliente_id).then(
-        res => {
-          Object.assign(this.grupo_cliente, res.resultado as GrupoCliente);
-          this.grupoClienteService.enviar(0);
-        },
-        err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
-      );
-    }
-  }
-
-  // Desde aqui lo que estaba en leer Grupo CLiente
   consultar() {
     this.grupoClienteService.consultar().subscribe(
       res => {
@@ -161,7 +136,7 @@ export class GrupoClienteComponent implements OnInit {
   }
 
   seleccion(grupo_cliente: GrupoCliente) {
-    this.grupo_cliente=grupo_cliente;
+    this.grupo_cliente_actualizar=grupo_cliente;
   }
 
   cambiar_buscar_codigo(){
