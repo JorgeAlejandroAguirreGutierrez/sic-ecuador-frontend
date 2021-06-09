@@ -2,7 +2,7 @@
 
 /* 1. Para los elementos standar*/
 /*******************
-froms
+Forms
 *******************/
 .form-control{
     //border: 0px; // Error borra los bordes de los input
@@ -17,13 +17,49 @@ froms
     padding: 0!important;
 }
 
+/**************************
+    MAT-FORM
+***************************/
+.mat-form-field {
+    width: 100%!important; 
+    text-align: center!important; // centra el titulo y el texto
+    line-height: 1.0!important;
+}
+
+.peque.mat-form-field{
+    width: 90% !important;
+}
+
+// Esta hay que eliminar de todo el sistema
+.grande.mat-form-field{
+    width: 100% !important;
+}
+
+.mat-form-field-wrapper{
+    padding-bottom: 0.8em !important; // Para que se separen las filas, em se calcula en función del tamaño de letra
+}
+
+.mat-form-field-flex > .mat-form-field-infix { 
+    padding: 0.3em 0 !important; // separación entre la linea y el título, arriba y abajo del texto
+}
+
 .mat-form-field-underline{
+    position: initial !important; // Para que la linea empiece desde abajo
     background-color: rgba(0, 0, 0, 0.25);
 }
 
-.mat-form-field{
-   width: 100%;
+// Elementos standar
+.mat-form-field-appearance-standard .mat-form-field-flex { 
+    padding-top:0px !important; // Para que el contenido empiece desde arriba
+    //align-items: center !important; // Centra el contenido de los listados
 }
+
+// Elementos outline
+.mat-form-field-appearance-outline .mat-form-field-wrapper { margin: 3px 0px 0px 0px !important; padding-bottom: 15px;}
+.mat-form-field-appearance-outline .mat-form-field-infix { border-top:0px !important; padding-top: 10px !important;}
+.mat-form-field-appearance-outline .mat-form-field-label{ margin-top: 3px !important; }
+.mat-form-field-appearance-outline .mat-form-field-flex { padding:0px !important; }
+
 /*******************
 Mat card
 *******************/
@@ -75,51 +111,17 @@ Mat card
         margin: 0px!important;
     }
 }
-  
+
+/*****************
+    MAT-CHECKBOX
+******************/
 .mat-checkbox{
     padding-top: 20px!important;
 }
 
-.mat-form-field {
-    text-align: center!important; // centra el titulo y el texto
-    //width: 95%!important; // Se debe remplazar con un margin-left=5px;
-}
-
-.peque.mat-form-field{
-    width: 90% !important;
-}
-
-// Esta hay que eliminar de todo el sistema
-.grande.mat-form-field{
-    width: 100% !important;
-}
-
-.mat-form-field-wrapper{
-    padding-bottom: 0.8em !important; // Para que se separen las filas, em se calcula en función del tamaño de letra
-}
-
-// Para los elementos standar
-.mat-form-field-appearance-standard .mat-form-field-flex { 
-    padding-top:0px !important; // Para que el contenido empiece desde arriba
-    //align-items: center !important; // Centra el contenido de los listados
-}
-
-
-/*para los elementos outline*/
-.mat-form-field-appearance-outline .mat-form-field-wrapper { margin: 3px 0px 0px 0px !important; padding-bottom: 15px;}
-.mat-form-field-appearance-outline .mat-form-field-infix { border-top:0px !important; padding-top: 10px !important;}
-.mat-form-field-appearance-outline .mat-form-field-label{ margin-top: 3px !important; }
-.mat-form-field-appearance-outline .mat-form-field-flex { padding:0px !important; }
-
-.mat-form-field-flex > .mat-form-field-infix { 
-    padding: 0.3em 0 !important; // separación entre la linea y el título, arriba y abajo del texto
-}
-
-.mat-form-field-underline{
-    position: initial !important; // Para que la linea empiece desde abajo
-}
-
-/* Para el acodion*/
+/******************
+    MAT-ACCORDION
+******************/
 .mat-accordion{
     padding: 0px!important;
 }
@@ -134,35 +136,44 @@ Mat card
     height: 35px!important;
 }
 
-.headers-align .mat-expansion-panel-header-title,
-.headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0!important;
+.headers-align .mat-expansion-panel-header-title {
+    flex-basis: 0!important;
 }
 
 .headers-align .mat-expansion-panel-header-description {
-  justify-content: space-between!important;
-  align-items: center!important;
+    flex-basis: 0!important;
+    justify-content: space-between!important;
+    align-items: center!important;
 }
 
 .headers-align .mat-form-field + .mat-form-field {
-  margin-left: 0px!important;
-  padding: 0px!important;
+    margin-left: 0px!important;
+    padding: 0px!important;
 }
 
-// Para el stteper
-
-
+/********************
+    MAT-STEPPER
+*********************/
 .mat-stepper-horizontal {
     margin-top: 0px;
   }
 
-// Para el Stepper
-.mat-horizontal-stepper-header{ height: 40px !important; } 
+.mat-horizontal-stepper-header{ 
+    height: 40px !important; 
+} 
+
 .mat-horizontal-stepper-header {
     pointer-events: none !important;
 }
 
-// Para las tablas
-.mat-table .mat-form-field-underline{ width: 90% !important;}
-.mat-table .mat-form-field-flex { width: 90% !important; }
+/******************
+    MAT-TABLE
+******************/
+.mat-table .mat-form-field-underline{ 
+    width: 90% !important;
+}
+
+.mat-table .mat-form-field-flex { 
+    width: 90% !important; 
+}
 

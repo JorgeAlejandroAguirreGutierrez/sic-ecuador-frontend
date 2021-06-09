@@ -18,8 +18,11 @@ Clase de main.component que hace que todo el contenido de la aplicación sea fle
   z-index: 900;
   height: 120px!important;
   margin: 3px!important;
-padding: 2px!important;
+  padding: 2px!important;
   background-color: transparent;
+  .nav-link{
+    padding: 0.2rem 0;
+  }
 }
 
 .wrapper.default-theme {
