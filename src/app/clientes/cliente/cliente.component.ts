@@ -383,7 +383,7 @@ export class ClienteComponent implements OnInit {
   }
 
   cambiar_forma_pago() {
-    if (this.cliente.financiamiento.forma_pago.abreviatura == "EF") {
+    if (this.cliente.financiamiento.forma_pago.descripcion == "PREPAGO") {
       this.activacion_plazo_credito = true;
       this.cliente.financiamiento.plazo_credito = null;
     } else {

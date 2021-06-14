@@ -414,7 +414,7 @@
                                     <mat-select [(ngModel)]="cliente.genero" [compareWith]="compareFn"
                                         class="form-control-sm" [disabled]="activacion_s_es_oi">
                                         <mat-option *ngFor="let genero of generos " [value]="genero">
-                                            {{genero.abreviatura}}
+                                            {{genero.descripcion}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -425,31 +425,31 @@
                                     <mat-select [(ngModel)]="cliente.estado_civil" [compareWith]="compareFn"
                                         class="form-control-sm " [disabled]="activacion_s_es_oi">
                                         <mat-option *ngFor="let estado_civil of estados_civiles" [value]="estado_civil">
-                                            {{estado_civil.abreviatura}}
+                                            {{estado_civil.descripcion}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6 ">
+                            <div class="col-6">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Origen ingresos</mat-label>
                                     <mat-select [(ngModel)]="cliente.origen_ingreso" [compareWith]="compareFn"
                                         class="form-control-sm " [disabled]="activacion_s_es_oi">
                                         <mat-option *ngFor="let origen_ingreso of origenes_ingresos"
                                             [value]="origen_ingreso">
-                                            {{origen_ingreso.abreviatura}}
+                                            {{origen_ingreso.descripcion}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
-                            <div class="col-6 ">
+                            <div class="col-6">
                                 <mat-form-field appearance="standard">
-                                    <mat-label>Categoría</mat-label>
+                                    <mat-label>Calificación</mat-label>
                                     <mat-select [(ngModel)]="cliente.categoria_cliente" [compareWith]="compareFn"
                                         class="form-control-sm " [disabled]="activacion_s_es_oi">
                                         <mat-option *ngFor="let categoria_cliente of categorias_clientes"
                                             [value]="categoria_cliente">
-                                            {{categoria_cliente.abreviatura}}
+                                            {{categoria_cliente.descripcion}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -461,9 +461,21 @@
                     <div class="card-header text-center">
                         COMERCIALIZACION
                     </div>
-                    <div class="card-body ">
-                        <div class="form-row ">
-                            <div class="col-6">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-12">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Forma de pago</mat-label>
+                                    <mat-select [(ngModel)]="cliente.financiamiento.forma_pago"
+                                        [compareWith]="compareFn" (selectionChange)="cambiar_forma_pago()"
+                                        class="form-control-sm">
+                                        <mat-option *ngFor="let forma_pago of formas_pagos" [value]="forma_pago">
+                                            {{forma_pago.descripcion}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!--div class="col-6">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Tipo</mat-label>
                                     <mat-select [(ngModel)]="cliente.financiamiento.tipo_pago" [compareWith]="compareFn"
@@ -473,28 +485,10 @@
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
-                            </div>
-                            <div class="col-6 ">
+                            </div-->
+                            <div class="col-6">
                                 <mat-form-field appearance="standard">
-                                    <mat-label>Monto</mat-label>
-                                    <input matInput [(ngModel)]="cliente.financiamiento.monto" class="form-control-sm ">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-6 ">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Forma</mat-label>
-                                    <mat-select [(ngModel)]="cliente.financiamiento.forma_pago"
-                                        [compareWith]="compareFn" (selectionChange)="cambiar_forma_pago()"
-                                        class="form-control-sm">
-                                        <mat-option *ngFor="let forma_pago of formas_pagos" [value]="forma_pago">
-                                            {{forma_pago.abreviatura}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-6 ">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Plazo</mat-label>
+                                    <mat-label>Plazo/días</mat-label>
                                     <mat-select [disabled]="activacion_plazo_credito"
                                         [(ngModel)]="cliente.financiamiento.plazo_credito" [compareWith]="compareFn"
                                         class="form-control-sm">
@@ -503,6 +497,13 @@
                                             {{plazo_credito.plazo}}
                                         </mat-option>
                                     </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field appearance="standard">
+                                    <mat-label>Monto</mat-label>
+                                    <input matInput [(ngModel)]="cliente.financiamiento.monto" class="form-control-sm "
+                                        [disabled]="activacion_plazo_credito">
                                 </mat-form-field>
                             </div>
                         </div>
@@ -519,7 +520,7 @@
                         </div>
                         <div class="col-5">
                             <mat-form-field appearance="standard">
-                                <mat-label>Cod.</mat-label>
+                                <mat-label>Código</mat-label>
                                 <mat-select type="text" [(ngModel)]="cliente.retenciones_cliente[0].tipo_retencion"
                                     [compareWith]="compareFn" class="form-control-sm ">
                                     <mat-option *ngFor="let tipo_retencion_iva_bien of tipos_retenciones_iva_bien "
@@ -547,7 +548,7 @@
                         </div>
                         <div class="col-5">
                             <mat-form-field appearance="standard">
-                                <mat-label>Cod.</mat-label>
+                                <mat-label>Código</mat-label>
                                 <mat-select type="text" [(ngModel)]="cliente.retenciones_cliente[2].tipo_retencion"
                                     [compareWith]="compareFn" class="form-control-sm ">
                                     <mat-option [value]="tipo_retencion_iva_servicio"
@@ -582,7 +583,7 @@
                         </div>
                         <div class="col-5">
                             <mat-form-field appearance="standard">
-                                <mat-label>Cod.</mat-label>
+                                <mat-label>Código</mat-label>
                                 <mat-select type="text " [(ngModel)]="cliente.retenciones_cliente[1].tipo_retencion"
                                     [compareWith]="compareFn" class="form-control-sm ">
                                     <mat-option [value]="tipo_retencion_renta_bien"
@@ -610,7 +611,7 @@
                         </div>
                         <div class="col-5">
                             <mat-form-field appearance="standard">
-                                <mat-label>Cod.</mat-label>
+                                <mat-label>Código</mat-label>
                                 <mat-select type="text " [(ngModel)]="cliente.retenciones_cliente[3].tipo_retencion"
                                     [compareWith]="compareFn" class="form-control-sm ">
                                     <mat-option [value]="tipo_rentenciones_renta_servicio"

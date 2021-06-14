@@ -51,7 +51,7 @@ export const abreviatura="abreviatura";
  **********************************/
 //PARA CREAR TABS
 export const tab_crear_auxiliar='Crear Auxiliar';
-export const tab_crear_categoria_cliente='Administrar Categorias';
+export const tab_crear_categoria_cliente='Calificaciones';
 export const tab_crear_celular='Crear Celular';
 export const tab_crear_cliente='Crear Cliente';
 export const tab_crear_correo='Crear Correo';
@@ -59,7 +59,7 @@ export const tab_crear_direccion='Crear Direccion';
 export const tab_crear_estado_civil='Crear Estado Civil';
 export const tab_crear_forma_pago='Crear Forma de Pago';
 export const tab_crear_genero='Crear Genero';
-export const tab_crear_grupo_cliente='Administrar Grupos';
+export const tab_crear_grupo_cliente='Grupo Clientes';
 export const tab_crear_impuesto='Crear Impuesto';
 export const tab_crear_origen_ingreso='Crear Origen de Ingreso';
 export const tab_crear_plazo_credito='Crear Plazo de Credito';
@@ -203,7 +203,7 @@ export const tab_actualizar_presentacion_producto='Actualizar Presentacion Produ
  **********************************/
 //PARA CREAR TABS
 export const item_crear_auxiliar='Crear Auxiliar';
-export const item_crear_categoria_cliente='Categorias';
+export const item_crear_categoria_cliente='Calificaciones';
 export const item_crear_celular='Crear Celular';
 export const item_crear_cliente='Nuevo Cliente';
 export const item_crear_correo='Crear Correo';
@@ -211,7 +211,7 @@ export const item_crear_direccion='Crear Direccion';
 export const item_crear_estado_civil='Estados Civiles';
 export const item_crear_forma_pago='Formas de Pago';
 export const item_crear_genero='Generos';
-export const item_crear_grupo_cliente='Administrar Grupos';
+export const item_crear_grupo_cliente='Grupos';
 export const item_crear_impuesto='Crear Impuesto';
 export const item_crear_origen_ingreso='Origen de los Ingresos';
 export const item_crear_plazo_credito='Plazos de Crédito';

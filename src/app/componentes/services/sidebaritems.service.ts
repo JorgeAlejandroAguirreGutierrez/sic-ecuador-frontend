@@ -67,18 +67,12 @@ export class SidebarItemsService {
       //this.llenarOpciones(GrupoClienteLeerComponent,constantes.tab_buscar_grupo_cliente, constantes.item_buscar_grupo_cliente, constantes.ico_buscar_grupo_cliente);
       this.llenarOpciones(CategoriaClienteComponent,constantes.tab_crear_categoria_cliente, constantes.item_crear_categoria_cliente, constantes.ico_crear_categoria_cliente);
       //this.llenarOpciones(CategoriaClienteLeerComponent,constantes.tab_buscar_categoria_cliente, constantes.item_buscar_categoria_cliente, constantes.ico_buscar_categoria_cliente);
-      this.llenarOpciones(EstadoCivilComponent,constantes.tab_crear_estado_civil, constantes.item_crear_estado_civil, constantes.ico_crear_estado_civil);
-      //this.llenarOpciones(EstadoCivilLeerComponent, constantes.tab_buscar_estado_civil, constantes.item_buscar_estado_civil, constantes.ico_buscar_estado_civil);
       this.llenarOpciones(FormaPagoComponent, constantes.tab_crear_forma_pago, constantes.item_crear_forma_pago, constantes.ico_crear_forma_pago);
       //this.llenarOpciones(FormaPagoLeerComponent,constantes.tab_buscar_forma_pago, constantes.item_buscar_forma_pago, constantes.ico_buscar_forma_pago);
-      this.llenarOpciones(GeneroComponent, constantes.tab_crear_genero, constantes.item_crear_genero, constantes.ico_crear_genero);
-      //this.llenarOpciones(GeneroLeerComponent,constantes.tab_buscar_genero, constantes.item_buscar_genero, constantes.ico_buscar_genero);
       this.llenarOpciones(OrigenIngresoComponent,constantes.tab_crear_origen_ingreso, constantes.item_crear_origen_ingreso, constantes.ico_crear_origen_ingreso);
       //this.llenarOpciones(OrigenIngresoLeerComponent,constantes.tab_buscar_origen_ingreso,constantes.item_buscar_origen_ingreso, constantes.ico_buscar_origen_ingreso);
       this.llenarOpciones(PlazoCreditoComponent,constantes.tab_crear_plazo_credito, constantes.item_crear_plazo_credito, constantes.ico_crear_plazo_credito);
       //this.llenarOpciones(PlazoCreditoLeerComponent,constantes.tab_buscar_plazo_credito,constantes.item_buscar_plazo_credito, constantes.ico_buscar_plazo_credito);
-      this.llenarOpciones(TipoPagoComponent,constantes.tab_crear_tipo_pago, constantes.item_crear_tipo_pago, constantes.ico_crear_tipo_pago);
-      //this.llenarOpciones(TipoPagoLeerComponent,constantes.tab_buscar_tipo_pago, constantes.item_buscar_tipo_pago, constantes.ico_buscar_tipo_pago);
       this.llenarOpciones(MapsComponent,constantes.tab_mapa_cliente, constantes.item_mapa_cliente,constantes.ico_mapa_cliente);
     }
 
@@ -134,7 +128,13 @@ export class SidebarItemsService {
     }
 
     if (tabNombre == constantes.modulo_configuracion) {
-      this.llenarOpciones(GrupoClienteComponent, constantes.tab_crear_grupo_cliente, constantes.item_crear_grupo_cliente, constantes.ico_crear_grupo_cliente);
+      this.llenarOpciones(EstadoCivilComponent,constantes.tab_crear_estado_civil, constantes.item_crear_estado_civil, constantes.ico_crear_estado_civil);
+      //this.llenarOpciones(EstadoCivilLeerComponent, constantes.tab_buscar_estado_civil, constantes.item_buscar_estado_civil, constantes.ico_buscar_estado_civil);
+      this.llenarOpciones(GeneroComponent, constantes.tab_crear_genero, constantes.item_crear_genero, constantes.ico_crear_genero);
+      this.llenarOpciones(GeneroLeerComponent,constantes.tab_buscar_genero, constantes.item_buscar_genero, constantes.ico_buscar_genero);
+      this.llenarOpciones(TipoPagoComponent,constantes.tab_crear_tipo_pago, constantes.item_crear_tipo_pago, constantes.ico_crear_tipo_pago);
+      //Integrar con TipoPago
+      this.llenarOpciones(TipoPagoLeerComponent,constantes.tab_buscar_tipo_pago, constantes.item_buscar_tipo_pago, constantes.ico_buscar_tipo_pago);
       this.llenarOpciones(TransportistaComponent, constantes.tab_crear_transportista, constantes.item_crear_transportista, constantes.ico_crear_transportista);
       this.llenarOpciones(UbicacionComponent,constantes.tab_crear_ubicacion, constantes.item_crear_ubicacion, constantes.ico_crear_ubicacion);
       this.llenarOpciones(UbicacionLeerComponent, constantes.tab_buscar_ubicacion, constantes.item_buscar_ubicacion, constantes.ico_buscar_ubicacion);

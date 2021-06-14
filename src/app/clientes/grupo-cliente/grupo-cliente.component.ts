@@ -72,6 +72,7 @@ export class GrupoClienteComponent implements OnInit {
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.grupo_cliente=new GrupoCliente();
+        this.nuevo(null);
         this.consultar();
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
