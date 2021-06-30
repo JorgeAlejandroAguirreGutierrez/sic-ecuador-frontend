@@ -25,7 +25,6 @@ import { EstadoCivilLeerComponent } from '../../clientes/estado-civil/estado-civ
 import { FormaPagoComponent } from '../../clientes/forma-pago/forma-pago.component';
 import { FormaPagoLeerComponent } from '../../clientes/forma-pago/forma-pago-leer/forma-pago-leer.component';
 import { GeneroComponent } from '../../clientes/genero/genero.component';
-import { GeneroLeerComponent } from '../../clientes/genero/genero-leer/genero-leer.component';
 import { OrigenIngresoComponent } from '../../clientes/origen-ingreso/origen-ingreso.component';
 import { OrigenIngresoLeerComponent } from '../../clientes/origen-ingreso/origen-ingreso-leer/origen-ingreso-leer.component';
 import { PlazoCreditoComponent } from '../../clientes/plazo-credito/plazo-credito.component';
@@ -131,7 +130,6 @@ export class SidebarItemsService {
       this.llenarOpciones(EstadoCivilComponent,constantes.tab_crear_estado_civil, constantes.item_crear_estado_civil, constantes.ico_crear_estado_civil);
       //this.llenarOpciones(EstadoCivilLeerComponent, constantes.tab_buscar_estado_civil, constantes.item_buscar_estado_civil, constantes.ico_buscar_estado_civil);
       this.llenarOpciones(GeneroComponent, constantes.tab_crear_genero, constantes.item_crear_genero, constantes.ico_crear_genero);
-      this.llenarOpciones(GeneroLeerComponent,constantes.tab_buscar_genero, constantes.item_buscar_genero, constantes.ico_buscar_genero);
       this.llenarOpciones(TipoPagoComponent,constantes.tab_crear_tipo_pago, constantes.item_crear_tipo_pago, constantes.ico_crear_tipo_pago);
       //Integrar con TipoPago
       this.llenarOpciones(TipoPagoLeerComponent,constantes.tab_buscar_tipo_pago, constantes.item_buscar_tipo_pago, constantes.ico_buscar_tipo_pago);

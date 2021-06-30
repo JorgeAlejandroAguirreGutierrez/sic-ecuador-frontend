@@ -49,7 +49,6 @@ import { TipoRetencionComponent } from './clientes/tipo-retencion/tipo-retencion
 import { EstadoCivilComponent } from './clientes/estado-civil/estado-civil.component';
 import { EstadoCivilLeerComponent } from './clientes/estado-civil/estado-civil-leer/estado-civil-leer.component';
 import { GeneroComponent } from './clientes/genero/genero.component';
-import { GeneroLeerComponent } from './clientes/genero/genero-leer/genero-leer.component';
 import { PlazoCreditoComponent } from './clientes/plazo-credito/plazo-credito.component';
 import { PlazoCreditoLeerComponent } from './clientes/plazo-credito/plazo-credito-leer/plazo-credito-leer.component';
 import { ImpuestoComponent } from './clientes/impuesto/impuesto.component';
@@ -150,7 +149,6 @@ const routes: Routes = [
   {path: 'cliente/transportista', component: RetencionComponent},
   {path: 'cliente/tipocontribuyente', component: TipoContribuyenteComponent},
   {path: 'cliente/genero', component: GeneroComponent},
-  {path: 'cliente/genero-leer', component: GeneroLeerComponent},
   {path: 'cliente/estadocivil', component: EstadoCivilComponent},
   {path: 'cliente/estadocivil-leer', component: EstadoCivilLeerComponent},
   {path: 'cliente/categoriacliente', component: CategoriaClienteComponent},
@@ -252,7 +250,6 @@ export const RoutingComponents = [
   EstadoCivilComponent,
   EstadoCivilLeerComponent,
   GeneroComponent,
-  GeneroLeerComponent,
   FormaPagoComponent,
   FormaPagoLeerComponent,
   TipoPagoComponent,
