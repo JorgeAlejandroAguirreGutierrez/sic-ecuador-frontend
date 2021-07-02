@@ -91,7 +91,7 @@ export class SidebarItemsService {
       this.llenarOpciones(ProductoLeerComponent,constantes.tab_buscar_producto, constantes.item_buscar_producto, constantes.ico_buscar_producto);
       this.llenarOpciones(SaldoInicialInventarioComponent,constantes.tab_crear_saldo_inicial_inventario, constantes.item_crear_saldo_inicial_inventario, constantes.ico_crear_saldo_inicial_inventario);
       this.llenarOpciones(TablaEquivalenciaMedidaComponent,constantes.tab_crear_tabla_equivalencia_medida, constantes.item_crear_tabla_equivalencia_medida, constantes.ico_crear_tabla_equivalencia_medida);
-      this.llenarOpciones(TablaEquivalenciaMedidaLeerComponent, constantes.tab_buscar_tabla_equivalencia_medida, constantes.item_buscar_tabla_equivalencia_medida, constantes.ico_buscar_tabla_equivalencia_medida);
+      //this.llenarOpciones(TablaEquivalenciaMedidaLeerComponent, constantes.tab_buscar_tabla_equivalencia_medida, constantes.item_buscar_tabla_equivalencia_medida, constantes.ico_buscar_tabla_equivalencia_medida);
       this.llenarOpciones(GrupoProductoComponent,constantes.tab_crear_grupo_producto, constantes.item_crear_grupo_producto, constantes.ico_crear_grupo_producto);
       this.llenarOpciones(GrupoProductoLeerComponent,constantes.tab_buscar_grupo_producto, constantes.item_buscar_grupo_producto, constantes.ico_buscar_grupo_producto);
       this.llenarOpciones(PromocionComponent,constantes.tab_promociones,constantes.item_promociones,constantes.ico_promociones);

@@ -1,64 +1,166 @@
 <nav class="navbar-light nav-fijo">
     <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
-                <mat-icon>file</mat-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <ng-container *ngIf="tabla_equivalencia_medida.id==0">
-                <a class="nav-link" href="#" role="button" (click)="crear($event)">
+        <ng-container *ngIf="abrirPanelNuevaEquivalencia">
+            <li class="nav-item">
+                <a class="nav-link" title="Nuevo" role="button" (click)="nuevo($event)">
+                    <mat-icon>note_add</mat-icon>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" title="Borrar" role="button" (click)="borrar($event)">
+                    <mat-icon>backspace</mat-icon>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="tabla_equivalencia_medida.id==0">
+                <a class="nav-link" title="Guardar" role="button" (click)="crear($event)">
                     <mat-icon>save</mat-icon>
                 </a>
-            </ng-container>
-            <ng-container *ngIf="tabla_equivalencia_medida.id!=0">
-                <a class="nav-link" href="#" role="button" (click)="actualizar($event)">
-                    <mat-icon>save</mat-icon>
+            </li>
+            <li class="nav-item" *ngIf="tabla_equivalencia_medida.id!=0">
+                <a class="nav-link" title="Actualizar" role="button" (click)="actualizar($event)">
+                    <mat-icon>update</mat-icon>
                 </a>
-            </ng-container>
-        </li>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" title="Eliminar" role="button" (click)="eliminar($event)">
+                    <mat-icon>delete</mat-icon>
+                </a>
+            </li>
+        </ng-container>
+        <ng-container *ngIf="abrirPanelAdminEquivalencia">
+            <li class="nav-item">
+                <a class="nav-link" title="Buscar" role="button" (click)="buscar($event)">
+                    <mat-icon>search</mat-icon>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" title="Editar" role="button" (click)="actualizarLeer($event)">
+                    <mat-icon>edit</mat-icon>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" title="Eliminar" role="button" (click)="eliminarLeer($event)">
+                    <mat-icon>delete</mat-icon>
+                </a>
+            </li>
+        </ng-container>
     </ul>
 </nav>
 <div class="contenedor">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    &nbsp;&nbsp;&nbsp;&nbsp;<i><u>CREAR TABLA EQUIVALENCIA MEDIDA</u></i>
+    <mat-accordion class="headers-align">
+        <mat-expansion-panel (opened)="abrirPanelNuevaEquivalencia = true"
+            (closed)="abrirPanelNuevaEquivalencia = false" [expanded]="abrirPanelNuevaEquivalencia">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i><u>NUEVA EQUIVALENCIA DE MEDIDA</u></i>
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{abrirPanelNuevaEquivalencia ? 'Ocultar crear equivalencia de medida para el kardex' : 'Crear nueva
+                    equivalencia de medida para el kardex'}}
+                    <mat-icon>playlist_add</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <hr>
+            <div class="form-group form-row">
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Código</mat-label>
+                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida.codigo"
+                            class="form-control-sm" [disabled]="true">
+                    </mat-form-field>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-row">
-                                <div class="form-group col-3">
-                                    <mat-form-field appearance="standard">
-                                        <mat-label>Codigo</mat-label>
-                                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida.codigo" class="form-control-sm" [disabled]="true">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group col-3">
-                                    <mat-form-field appearance="standard">
-                                        <mat-label>Medida 1</mat-label>
-                                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida.medida1.descripcion" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group col-3">
-                                    <mat-form-field appearance="standard">
-                                        <mat-label>Medida 2</mat-label>
-                                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida.medida2.descripcion" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group col-3">
-                                    <mat-form-field appearance="standard">
-                                        <mat-label>Equivalencia</mat-label>
-                                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida.equivalencia" class="form-control-sm">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Medida Kardex</mat-label>
+                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida.medida1.descripcion"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>V. Equivalencia</mat-label>
+                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida.equivalencia"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Medida Venta</mat-label>
+                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida.medida2.descripcion"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
                 </div>
             </div>
-        </div>
-    </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="abrirPanelAdminEquivalencia = true"
+            (closed)="abrirPanelAdminEquivalencia = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i><u>ADMINISTRAR EQUIVALENCIAS</u></i>
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{abrirPanelAdminEquivalencia ? 'Ocultar administrador de equivalencias' : 'Gestionar
+                    equivalencias existentes'}}
+                    <mat-icon>playlist_add_check</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <hr>
+            <div class="form-group form-row">
+                <div class="col-3">
+                    <mat-form-field appearance="standard" class="grande">
+                        <mat-label>Código</mat-label>
+                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida_buscar.codigo"
+                            (change)="cambiar_buscar_codigo()" oninput="this.value = this.value.toUpperCase()"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard" class="grande">
+                        <mat-label>Medida Kardex</mat-label>
+                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida_buscar.medida1.descripcion"
+                            (change)="cambiar_buscar_medida1()" oninput="this.value = this.value.toUpperCase()"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard" class="grande">
+                        <mat-label>V. Equivalencia</mat-label>
+                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida_buscar.equivalencia"
+                            (change)="cambiar_buscar_equivalencia()" oninput="this.value = this.value.toUpperCase()"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard" class="grande">
+                        <mat-label>Medida Venta</mat-label>
+                        <input matInput type="text" [(ngModel)]="tabla_equivalencia_medida_buscar.medida2.descripcion"
+                            (change)="cambiar_buscar_medida2()" oninput="this.value = this.value.toUpperCase()"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div>
+            </div>
+            <table class="table table-hover table-bordered" style="font-size: 0.7rem">
+                <thead class="table-active text-center">
+                    <tr>
+                        <th>OPCION</th>
+                        <th>CODIGO</th>
+                        <th>MEDIDA KARDEX</th>
+                        <th>EQUIVALENCIA</th>
+                        <th>MEDIDA VENTA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tabla_equivalencia_medida of tablas_equivalencias_medidas">
+                        <td>
+                            <input type="radio" name="seleccion" (click)="seleccion(tabla_equivalencia_medida)">
+                        </td>
+                        <td>{{tabla_equivalencia_medida.codigo}}</td>
+                        <td>{{tabla_equivalencia_medida.medida1.descripcion}}</td>
+                        <td>{{tabla_equivalencia_medida.equivalencia}}</td>
+                        <td>{{tabla_equivalencia_medida.medida2.descripcion}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>
