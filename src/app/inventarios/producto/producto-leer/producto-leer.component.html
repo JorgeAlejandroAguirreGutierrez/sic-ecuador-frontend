@@ -28,22 +28,24 @@
     </ul>
 </nav>
 <div class="contenedor">
-    <div class="form-row">
-        <div class="form-group col-12">
-            <mat-form-field appearance="standard" class="grande">
-                <mat-label>Nombre Producto</mat-label>
-                <input matInput type="text" [(ngModel)]="producto_buscar.nombre" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-            </mat-form-field>
+    <div class="card">
+        <div class="card-header">
+            &nbsp;&nbsp;&nbsp;<i><u>ADMINISTRAR PRODUCTOS</u></i>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <h2>PRODUCTOS</h2>
-            <hr>
+        <div class="card-body">
+            <div class="form-group form-row">
+                <div class="col-12">
+                    <mat-form-field appearance="standard" class="grande">
+                        <mat-label>Nombre Producto</mat-label>
+                        <input matInput type="text" [(ngModel)]="producto_buscar.nombre"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+            </div>
             <table class="table table-hover table-bordered" style="font-size: 0.7rem">
-                <thead class="table-active">
+                <thead class="table-active text-center">
                     <tr>
-                        <th>SEL</th>
+                        <th>OPCION</th>
                         <th>CODIGO</th>
                         <th>NOMBRE</th>
                         <th>TIPO DE GASTO</th>

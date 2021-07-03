@@ -1,19 +1,4 @@
 
-  table {
-    width: 100%;
-    align-content: center;
-  }
-
-  .centrar{
-    align-content: center;
-    font-weight: bold;
-    align-items: center;
-  }
- 
-
 .mat-card-title{
     text-align: center !important;
 }
-
-// VErificar
-::ng-deep { .cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; } }

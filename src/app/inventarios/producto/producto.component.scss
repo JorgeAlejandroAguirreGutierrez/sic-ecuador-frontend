@@ -1,13 +1,8 @@
- table {
-    width: 100%;
-    align-content: center;
-}
 
-.centrar{
-    align-content: center!important;
-    font-weight: bold;
-    align-items: center!important;
-    text-align: center!important;
+
+.fondo{
+  background-color: #5b6582;
+  color: white;
 }
 
 .iconos > .mat-icon{
@@ -28,4 +23,8 @@
 
 .derecha{
     justify-content: end;
+}
+
+.lowercase {
+  text-transform: lowercase;
 }

@@ -28,8 +28,8 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group form-row">
-                        <div class="col-4 pr-3">
-                            <!--div class="form-row">
+
+                        <!--div class="form-row">
                                 <div class="form-group col-12">
                                     <mat-form-field appearance="standard">
                                         <mat-label>Codigo</mat-label>
@@ -37,28 +37,28 @@
                                     </mat-form-field>
                                 </div>
                             </div-->
-                            <div class="col-12">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Grupo Producto</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.grupo"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-12">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Sub Grupo Producto</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.subgrupo"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-12">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Categoria Producto</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.categoria"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <!--div class="col-4">
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Grupo Producto</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.grupo"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Sub Grupo Producto</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.subgrupo"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Categoria Producto</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.categoria"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
+                        </div>
+                        <!--div class="col-4">
                                 <mat-form-field appearance="standard">
                                     <mat-label>Linea Producto</mat-label>
                                     <input matInput type="text" [(ngModel)]="grupo_producto.linea"
@@ -79,71 +79,68 @@
                                         oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                                 </mat-form-field>
                             </div-->
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Afectación</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.linea"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
                         </div>
-                        <div class="form-row col-8 linea-vertical">
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Tipo Cuenta</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.linea"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Venta</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.sublinea"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Costo Venta</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.presentacion"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Dev. Compra</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.sublinea"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Desc. Compra</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.presentacion"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Inventario</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.linea"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Dev. Venta</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.linea"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Desc. Venta</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.sublinea"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Dev. Costo Venta</mat-label>
-                                    <input matInput type="text" [(ngModel)]="grupo_producto.presentacion"
-                                        oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                </mat-form-field>
-                            </div>
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Inventario</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.linea"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Costo Venta</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.presentacion"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Dev. Compra</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.sublinea"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Desc. Compra</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.presentacion"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Venta</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.sublinea"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Dev. Venta</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.linea"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Desc. Venta</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.sublinea"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field appearance="standard">
+                                <mat-label>Dev. Costo Venta</mat-label>
+                                <input matInput type="text" [(ngModel)]="grupo_producto.presentacion"
+                                    oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                            </mat-form-field>
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 Template Name: Material Pro Admin
 Author: Jorge Hidalgo
 Email: gatosohidalgo@gmail.com
-File: scss
+File: pages.scss
 */
 /**
  * Table Of Content
@@ -80,9 +80,24 @@ table {
 }
 
 .centrar{
+  //display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center!important;
+  //text-align: center;
+  //flex-direction: column;
+}
+
+.centrar-titulo{
   align-content: center;
   font-weight: bold;
   align-items: center;
+  text-align: center!important;
+}
+
+.azul{
+  color:#5b6582;
 }
 
 // Borrar luego de retirar de todas las pantallas
