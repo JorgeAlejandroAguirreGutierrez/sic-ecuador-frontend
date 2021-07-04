@@ -10,6 +10,7 @@ import { GrupoClienteLeerComponent } from '../../clientes/grupo-cliente/grupo-cl
 import { FacturaComponent } from "../../comprobantes/factura/factura.component";
 import { FacturaLeerComponent } from '../../comprobantes/factura/factura-leer/factura-leer.component';
 import { ProductoComponent } from "../../inventarios/producto/producto.component";
+import { ServicioComponent } from "../../inventarios/servicio-activo/servicio.component";
 import { PromocionComponent } from "../../inventarios/promocion/promocion.component";
 import { ProveedorComponent } from '../../compras/proveedor/proveedor.component';
 import { FacturaCompraComponent } from '../../compras/factura-compra/factura-compra.component';
@@ -31,6 +32,8 @@ import { PlazoCreditoComponent } from '../../clientes/plazo-credito/plazo-credit
 import { PlazoCreditoLeerComponent } from '../../clientes/plazo-credito/plazo-credito-leer/plazo-credito-leer.component';
 import { TipoPagoComponent } from '../../clientes/tipo-pago/tipo-pago.component';
 import { TipoPagoLeerComponent } from '../../clientes/tipo-pago/tipo-pago-leer/tipo-pago-leer.component';
+import { MedidaComponent } from '../../inventarios/medida/medida.component';
+import { MedidaLeerComponent } from '../../inventarios/medida/medida-leer/medida-leer.component';
 import { TablaEquivalenciaMedidaComponent } from '../../inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida.component';
 import { TablaEquivalenciaMedidaLeerComponent } from '../../inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida-leer/tabla-equivalencia-medida-leer.component';
 import { UsuarioComponent } from '../../usuarios/usuario/usuario.component';
@@ -88,8 +91,11 @@ export class SidebarItemsService {
 
     if (tabNombre == constantes.modulo_inventarios) {
       this.llenarOpciones(ProductoComponent,constantes.tab_crear_producto, constantes.item_crear_producto, constantes.ico_crear_producto);
+      this.llenarOpciones(ServicioComponent,constantes.tab_crear_servicio, constantes.item_crear_servicio, constantes.ico_crear_servicio);
       this.llenarOpciones(ProductoLeerComponent,constantes.tab_buscar_producto, constantes.item_buscar_producto, constantes.ico_buscar_producto);
       this.llenarOpciones(SaldoInicialInventarioComponent,constantes.tab_crear_saldo_inicial_inventario, constantes.item_crear_saldo_inicial_inventario, constantes.ico_crear_saldo_inicial_inventario);
+      this.llenarOpciones(MedidaComponent,constantes.tab_crear_medida, constantes.item_crear_medida, constantes.ico_crear_medida);
+      //this.llenarOpciones(MedidaLeerComponent,constantes.tab_buscar_medida, constantes.item_buscar_medida, constantes.ico_buscar_medida);
       this.llenarOpciones(TablaEquivalenciaMedidaComponent,constantes.tab_crear_tabla_equivalencia_medida, constantes.item_crear_tabla_equivalencia_medida, constantes.ico_crear_tabla_equivalencia_medida);
       //this.llenarOpciones(TablaEquivalenciaMedidaLeerComponent, constantes.tab_buscar_tabla_equivalencia_medida, constantes.item_buscar_tabla_equivalencia_medida, constantes.ico_buscar_tabla_equivalencia_medida);
       this.llenarOpciones(GrupoProductoComponent,constantes.tab_crear_grupo_producto, constantes.item_crear_grupo_producto, constantes.ico_crear_grupo_producto);

@@ -91,6 +91,17 @@ export class GeneroComponent implements OnInit {
     );
   }
 
+  actualizarLeer(event){
+    if (event!=null)
+      event.preventDefault();
+      this.abrirPanelNuevoGenero = true;
+      this.abrirPanelAdminGenero = false;
+    if (this.genero_actualizar.id != 0){
+      this.genero={... this.genero_actualizar};
+      this.genero_actualizar=new Genero();
+    }
+  }
+
   eliminar(genero: Genero) {
     this.generoService.eliminar(genero).subscribe(
       res => {
@@ -101,6 +112,18 @@ export class GeneroComponent implements OnInit {
     );
   }
 
+  eliminarLeer(event) {
+    if (event!=null)
+      event.preventDefault();
+    this.generoService.eliminar(this.genero).subscribe(
+      res => {
+          Swal.fire('Exito', res.mensaje, 'success');
+          this.consultar();   
+      },
+      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
+    );
+  }
+  
   async construir_genero() {
     let genero_id=0;
     this.generoService.currentMessage.subscribe(message => genero_id = message);
@@ -137,30 +160,6 @@ export class GeneroComponent implements OnInit {
 
   seleccion(genero: Genero) {
     this.genero=genero;
-  }
-
-
-  actualizarLeer(event){
-    if (event!=null)
-      event.preventDefault();
-      this.abrirPanelNuevoGenero = true;
-      this.abrirPanelAdminGenero = false;
-    if (this.genero_actualizar.id != 0){
-      this.genero={... this.genero_actualizar};
-      this.genero_actualizar=new Genero();
-    }
-  }
-
-  eliminarLeer(event) {
-    if (event!=null)
-      event.preventDefault();
-    this.generoService.eliminar(this.genero).subscribe(
-      res => {
-          Swal.fire('Exito', res.mensaje, 'success');
-          this.consultar();   
-      },
-      err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
-    );
   }
 
   cambiar_buscar_codigo(){

@@ -1,0 +1,294 @@
+<nav class="navbar-light nav-fijo">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <ng-container *ngIf="producto.id==0">
+                <a class="nav-link" title="Guardar" role="button" (click)="crear($event)">
+                    <mat-icon>save</mat-icon>
+                </a>
+            </ng-container>
+            <ng-container *ngIf="producto.id!=0">
+                <a class="nav-link" title="Actualizar" role="button" (click)="actualizar($event)">
+                    <mat-icon>update</mat-icon>
+                </a>
+            </ng-container>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="nuevo($event)">
+                <mat-icon>note_add</mat-icon>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                <mat-icon>archive</mat-icon>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" role="button" (click)="$event.preventDefault()">
+                <mat-icon>publish</mat-icon>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="contenedor">
+    <div class="card">
+        <div class="card-header">
+            &nbsp;&nbsp;&nbsp;<i><u>CREAR SERVICIO</u></i>
+        </div>
+        <div class="card-body">
+            <div class="form-group form-row">
+                <div class="form-row col-8 pr-3">
+                    <div class="col-4">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Grupo</mat-label>
+                            <mat-autocomplete autoActiveFirstOption #grupo_producto="matAutocomplete"
+                                [displayWith]="ver_grupo_producto" (optionSelected)="seleccionar_grupo_producto()">
+                                <mat-option *ngFor="let grupo_producto of filtro_grupos_productos | async"
+                                    [value]="grupo_producto">
+                                    {{grupo_producto}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <input type="text" matInput aria-label="grupo_producto" class="form-control-sm"
+                                [formControl]="seleccion_grupo_producto" [matAutocomplete]="grupo_producto">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Sub Grupo</mat-label>
+                            <mat-autocomplete autoActiveFirstOption #sub_grupo_producto="matAutocomplete"
+                                [displayWith]="ver_sub_grupo_producto"
+                                (optionSelected)="seleccionar_sub_grupo_producto()">
+                                <mat-option *ngFor="let sub_grupo_producto of filtro_sub_grupos_productos | async"
+                                    [value]="sub_grupo_producto">
+                                    {{sub_grupo_producto}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <input matInput type="text" class="form-control-sm"
+                                [formControl]="seleccion_sub_grupo_producto" [matAutocomplete]="sub_grupo_producto">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Categoria</mat-label>
+                            <mat-autocomplete autoActiveFirstOption #categoria_producto="matAutocomplete"
+                                [displayWith]="ver_categoria_producto"
+                                (optionSelected)="seleccionar_categoria_producto()">
+                                <mat-option *ngFor="let categoria_producto of filtro_categorias_productos | async"
+                                    [value]="categoria_producto">
+                                    {{categoria_producto}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <input matInput type="text" class="form-control-sm"
+                                [formControl]="seleccion_categoria_producto" [matAutocomplete]="categoria_producto">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-9">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput type="text" oninput="this.value = this.value.toUpperCase()"
+                                [(ngModel)]="producto.nombre" class="form-control-sm">
+                            <button mat-button matSuffix mat-icon-button>
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-2">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Costo Unit.</mat-label>
+                            <input matInput type="text" [(ngModel)]="kardex_inicial.costo_unitario"
+                                [disabled]="habilitar_saldo_inicial" (change)="seleccionar_costo_unitario()"
+                                class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-1 iconos">
+                        <button mat-icon-button mat-button [disabled]="habilitar_saldo_inicial">
+                            <mat-icon (click)="cargar_saldo_inicial()">add</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-5">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Medida</mat-label>
+                            <mat-select [(ngModel)]="kardex_inicial.medida.id"
+                                (selectionChange)="obtener_medida_saldo_inicial()"
+                                [disabled]="habilitar_saldo_inicial">
+                                <mat-option *ngFor="let medida of medidas_inicial" [value]="medida.id">
+                                    {{medida.descripcion}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Saldo Ini.</mat-label>
+                            <input matInput type="text" [(ngModel)]="kardex_inicial.cantidad"
+                                [disabled]="habilitar_saldo_inicial" (change)="seleccionar_cantidad()"
+                                class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-row col-4 linea-vertical">
+                    <div class="col-5">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Servicio/AF</mat-label>
+                            <mat-select [(ngModel)]="producto.tipo_producto.id" class="form-control-sm">
+                                <mat-option *ngFor="let tipo_producto of tipos_productos" [value]="tipo_producto.id">
+                                    {{tipo_producto.descripcion}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-7">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Código</mat-label>
+                            <input matInput type="text" [(ngModel)]="producto.codigo" disabled class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Tipo de Gasto</mat-label>
+                            <mat-select [(ngModel)]="producto.tipo_gasto.id" class="form-control-sm">
+                                <mat-option *ngFor="let tipo_gasto of tipos_gastos" [value]="tipo_gasto.id">
+                                    {{tipo_gasto.nombre}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>IVA</mat-label>
+                            <mat-select [(ngModel)]="producto.impuesto.id" (selectionChange)="obtener_impuesto()"
+                                class="form-control-sm">
+                                <mat-option *ngFor="let impuesto of impuestos" [value]="impuesto.id">
+                                    {{impuesto.porcentaje}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Activo</mat-label>
+                            <mat-select [(ngModel)]="producto.estado" class="form-control-sm">
+                                <mat-option [value]="true">SI</mat-option>
+                                <mat-option [value]="false">NO</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="centrar-titulo col-12 fondo" *ngIf="habilitar_saldo_inicial">
+        <mat-label>CONFIGURACIÓN DE PRECIOS</mat-label>
+    </div>
+    <mat-accordion class="headers-align">
+        <!-- Esta parte adaptar a la superior, es para probar el funcionamiento con datos-->
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true"
+            *ngFor="let dato of datos; let i = index">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i><u>{{producto.medidas_precios[i].medida.descripcion}}</u></i>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <span class="lowercase">Precio de cada {{producto.medidas_precios[i].medida.descripcion}} por segmento</span> 
+                    <mat-icon>monetization_on</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-divider></mat-divider>
+            <div class="form-group form-row">
+                <div class="col-8">
+                    <div class="centrar-titulo col 12 azul">
+                        <mat-label>PRECIO SUGERIDO</mat-label>
+                    </div> 
+                    <table mat-table [dataSource]="dato" class="mat-elevation-z8 centrar">
+                        <!-- Medida Column -->
+                        <ng-container matColumnDef="medida">
+                            <th mat-header-cell *matHeaderCellDef>MEDIDA</th>
+                            <td mat-cell *matCellDef="let precio"> {{producto.medidas_precios[i].medida.descripcion}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Segmento Column -->
+                        <ng-container matColumnDef="segmento">
+                            <th mat-header-cell *matHeaderCellDef>SEGMENTO</th>
+                            <td mat-cell *matCellDef="let precio"> {{precio.segmento.nombre}} </td>
+                        </ng-container>
+
+                        <!-- Costo Column -->
+                        <ng-container matColumnDef="costo">
+                            <th mat-header-cell *matHeaderCellDef>COSTO</th>
+                            <td mat-cell *matCellDef="let precio; let index = index">
+                                <editable (update)="actualizar_calculos_precios(i, index, 'costo')">
+                                    <ng-template viewMode>
+                                        {{precio.costo}}
+                                    </ng-template>
+                                    <ng-template editMode>
+                                        <input [formControl]="getControl(i, index, 'costo')" focusable editableOnEnter>
+                                    </ng-template>
+                                </editable>
+                            </td>
+                        </ng-container>
+
+                        <!-- Ganancia Column -->
+                        <ng-container matColumnDef="margen_ganancia">
+                            <th mat-header-cell *matHeaderCellDef>MG%</th>
+                            <td mat-cell *matCellDef="let precio;let index = index">
+                                <editable (update)="actualizar_calculos_precios(i, index, 'margen_ganancia')">
+                                    <ng-template viewMode>
+                                        {{precio.margen_ganancia}}
+                                    </ng-template>
+                                    <ng-template editMode>
+                                        <input [formControl]="getControl(i, index, 'margen_ganancia')" focusable
+                                            editableOnEnter>
+                                    </ng-template>
+                                </editable>
+                            </td>
+                        </ng-container>
+                        <!-- PVP Column -->
+                        <ng-container matColumnDef="precio_venta_publico">
+                            <th mat-header-cell *matHeaderCellDef>PVP</th>
+                            <td mat-cell *matCellDef="let precio"> {{precio.precio_venta_publico}} </td>
+                        </ng-container>
+                        <!-- PVP Column -->
+                        <ng-container matColumnDef="precio_venta_publico_iva">
+                            <th mat-header-cell *matHeaderCellDef>PVP IVA</th>
+                            <td mat-cell *matCellDef="let precio"> {{precio.precio_venta_publico_iva}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsSugerido"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsSugerido;"></tr>
+                    </table>
+                </div>
+                <div class="col-4">
+                    <div class="centrar-titulo col 12 azul">
+                        <mat-label>PRECIO DE VENTA</mat-label>
+                    </div> 
+                    <table mat-table [dataSource]="dato" class="mat-elevation-z8 centrar">
+                        <!-- PvpF Column -->
+                        <ng-container matColumnDef="precio_venta_publico_manual">
+                            <th mat-header-cell *matHeaderCellDef>PVP MAN</th>
+                            <td mat-cell *matCellDef="let precio;let index = index">
+                                <editable
+                                    (update)="actualizar_calculos_precios(i, index, 'precio_venta_publico_manual')">
+                                    <ng-template viewMode>
+                                        {{precio.precio_venta_publico_manual}}
+                                    </ng-template>
+                                    <ng-template editMode>
+                                        <input [formControl]="getControl(i, index, 'precio_venta_publico_manual')"
+                                            focusable editableOnEnter>
+                                    </ng-template>
+                                </editable>
+                            </td>
+                        </ng-container>
+                        <!-- Segmento Column -->
+                        <ng-container matColumnDef="utilidad">
+                            <th mat-header-cell *matHeaderCellDef>UTILIDAD</th>
+                            <td mat-cell *matCellDef="let precio">{{precio.utilidad}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="utilidad_porcentaje">
+                            <th mat-header-cell *matHeaderCellDef> UTIL% </th>
+                            <td mat-cell *matCellDef="let precio">{{precio.utilidad_porcentaje}}</td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsVenta"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsVenta;"></tr>
+                    </table>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
