@@ -70,7 +70,7 @@ import { KardexComponent } from './inventarios/kardex/kardex.component';
 import { ActivoFijoComponent } from './inventarios/activo-fijo/activo-fijo.component';
 import { FiltroSerie } from './pipes/filtro-serie';
 import { ProductoComponent } from './inventarios/producto/producto.component';
-import { ServicioComponent } from './inventarios/servicio-activo/servicio.component';
+import { ServicioComponent } from './inventarios/servicio/servicio.component';
 import { PromocionComponent, DialogComponente } from './inventarios/promocion/promocion.component';
 import { TablaPromoIndComponent } from './inventarios/promocion/tabla-promo-ind/tabla-promo-ind.component';
 import { TablaPromoGrupComponent } from './inventarios/promocion/tabla-promo-grup/tabla-promo-grup.component';

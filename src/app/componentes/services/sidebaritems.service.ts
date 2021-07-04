@@ -10,7 +10,7 @@ import { GrupoClienteLeerComponent } from '../../clientes/grupo-cliente/grupo-cl
 import { FacturaComponent } from "../../comprobantes/factura/factura.component";
 import { FacturaLeerComponent } from '../../comprobantes/factura/factura-leer/factura-leer.component';
 import { ProductoComponent } from "../../inventarios/producto/producto.component";
-import { ServicioComponent } from "../../inventarios/servicio-activo/servicio.component";
+import { ServicioComponent } from "../../inventarios/servicio/servicio.component";
 import { PromocionComponent } from "../../inventarios/promocion/promocion.component";
 import { ProveedorComponent } from '../../compras/proveedor/proveedor.component';
 import { FacturaCompraComponent } from '../../compras/factura-compra/factura-compra.component';
