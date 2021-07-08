@@ -74,7 +74,7 @@ export class MedidaComponent implements OnInit {
     this.medidaService.crear(this.medida).subscribe(
       res => {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
-
+        this.consultar();
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
@@ -85,8 +85,9 @@ export class MedidaComponent implements OnInit {
       event.preventDefault();
     this.medidaService.actualizar(this.medida).subscribe(
       res => {
-        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         this.medida=res.resultado as Medida;
+        this.consultar();
+        Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
       },
       err => Swal.fire(constantes.error, err.error.mensaje, constantes.error_swal)
     );
