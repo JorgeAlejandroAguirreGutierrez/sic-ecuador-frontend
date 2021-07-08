@@ -6,6 +6,7 @@ import { Bodega } from './bodega';
 import { TipoGasto } from './tipo-gasto';
 import { GrupoProducto } from './grupo-producto';
 import { MedidaPrecio } from './medida-precio';
+import { Proveedor } from './proveedor';
 
 export class Producto {
   id: number;
@@ -20,6 +21,7 @@ export class Producto {
   tipo_producto: TipoProducto;
   grupo_producto: GrupoProducto;
   impuesto: Impuesto;
+  proveedor: Proveedor;
   
   //BODEGA SELECCIONADO
   bodega: Bodega;
@@ -43,6 +45,7 @@ export class Producto {
     this.tipo_gasto=new TipoGasto();
     this.grupo_producto=new GrupoProducto();
     this.impuesto=new Impuesto();
+    this.proveedor=new Proveedor();
     this.bodega=new Bodega();
 
   }

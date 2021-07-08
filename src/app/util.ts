@@ -59,6 +59,7 @@ export const amortizacion: string= "/amortizacion";
 export const entrega: string= "/entrega";
 export const guia_remision: string= "/guiaremision";
 export const grupo_producto: string = "/grupoproducto";
+export const proveedor: string = "/proveedor";
 export const consultar_grupos: string = "/consultargrupos";
 export const consultar_subgrupos: string = "/consultarsubgrupos";
 export const consultar_categorias: string = "/consultarcategorias";

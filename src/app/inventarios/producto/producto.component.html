@@ -185,9 +185,9 @@
                     <div class="col-8">
                         <mat-form-field appearance="standard">
                             <mat-label>Proveedor</mat-label>
-                            <mat-select [(ngModel)]="producto.tipo_producto.id" class="form-control-sm">
-                                <mat-option *ngFor="let tipo_producto of tipos_productos" [value]="tipo_producto.id">
-                                    {{tipo_producto.descripcion}}</mat-option>
+                            <mat-select [(ngModel)]="producto.proveedor.id" class="form-control-sm">
+                                <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id">
+                                    {{proveedor.nombre}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>

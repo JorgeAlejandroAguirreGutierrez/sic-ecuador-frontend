@@ -27,6 +27,8 @@ import { TabService } from '../../componentes/services/tab.service';
 import { MedidaPrecio } from '../../modelos/medida-precio';
 import { TablaEquivalenciaMedidaService } from '../../servicios/tabla-equivalencia-medida.service';
 import { TablaEquivalenciaMedida } from '../../modelos/tabla-equivalencia-medida'
+import { Proveedor } from '../../modelos/proveedor';
+import { ProveedorService } from '../../servicios/proveedor.service';
 
 @Component({
   selector: 'app-producto',
@@ -51,6 +53,7 @@ export class ProductoComponent implements OnInit {
   tipos_gastos: TipoGasto[]=[];
   segmentos: Segmento[]=[];
   impuestos: Impuesto[]=[];
+  proveedores: Proveedor[]=[];
   
   tipos_productos: TipoProducto[]=[];
   habilitar_otras_medidas: boolean=true;
@@ -95,7 +98,7 @@ export class ProductoComponent implements OnInit {
 
   constructor(private productoService: ProductoService, private grupoProductoService: GrupoProductoService, private kardexService: KardexService,
     private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService, private router: Router, private modalService: NgbModal,
-    private segmentoService: SegmentoService, private tipoProductoService: TipoProductoService,
+    private segmentoService: SegmentoService, private tipoProductoService: TipoProductoService, private proveedorService: ProveedorService,
     private tabService: TabService, private medidaService: MedidaService, private tablaEquivalenciaService: TablaEquivalenciaMedidaService) { }
 
   ngOnInit() {
@@ -112,6 +115,15 @@ export class ProductoComponent implements OnInit {
       res => {
         this.tipos_gastos = res.resultado as TipoGasto[];
         this.producto.tipo_gasto.id=this.tipos_gastos[0].id;
+      },
+      err => {
+        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
+      }
+    );
+    this.proveedorService.consultar().subscribe(
+      res => {
+        this.proveedores = res.resultado as Proveedor[];
+        this.producto.proveedor.id=this.proveedores[0].id;
       },
       err => {
         Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
