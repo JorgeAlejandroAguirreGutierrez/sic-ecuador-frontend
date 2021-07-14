@@ -85,8 +85,16 @@ table {
   align-content: center;
   align-items: center;
   text-align: center!important;
-  //text-align: center;
   //flex-direction: column;
+}
+
+.centrar-vertical{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center!important;
+  flex-direction: column;
 }
 
 .centrar-titulo{
@@ -98,6 +106,27 @@ table {
 
 .azul{
   color:#5b6582;
+}
+
+.fondo{
+  background-color: #5b6582;
+  color: white;
+}
+
+.iconos > .mat-icon{
+  margin: 0;
+  color: rgb(6, 6, 90);
+  cursor: pointer;
+}
+
+.iconos{
+  margin: 0;
+  color: rgb(6, 6, 90);
+  cursor: pointer;
+}
+
+.mat-icon-button {
+    width: 25px;
 }
 
 // Borrar luego de retirar de todas las pantallas

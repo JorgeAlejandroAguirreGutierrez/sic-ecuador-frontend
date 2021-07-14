@@ -17,7 +17,7 @@ export const error_costo: string='ERROR EN COSTO';
 export const error_medida: string='ERROR EN MEDIDA';
 export const error_grupo_producto: string='ERROR EN GRUPO DE PRODUCTO';
 export const error_sub_grupo_producto: string='ERROR EN SUB GRUPO DE PRODUCTO';
-export const error_categoria_producto: string='ERROR EN CATEGORIA DE PRODUCTO';
+export const error_seccion_producto: string='ERROR EN CATEGORIA DE PRODUCTO';
 export const error_linea_producto: string='ERROR EN LINEA DE PRODUCTO';
 export const error_sub_linea_producto: string='ERROR EN SUB LINEA DE PRODUCTO';
 export const error_presentacion_producto: string='ERROR EN PRESENTACION DE PRODUCTO';
@@ -89,7 +89,7 @@ export const tab_crear_activo_fijo='Crear Activo Fijo';
 export const tab_crear_bodega='Crear Bodega';
 export const tab_crear_kardex='Crear Kardex';
 export const tab_crear_medida='Crear Medida';
-export const tab_crear_producto='Crear Producto';
+export const tab_crear_producto='Crear Bien';
 export const tab_crear_servicio='Crear Servicio-AF';
 export const tab_crear_promocion='Crear Promocion';
 export const tab_crear_saldo_inicial_inventario='Saldo inicial';
@@ -97,7 +97,7 @@ export const tab_crear_tabla_equivalencia_medida='Equivalencias';
 export const tab_crear_usuario='Crear Usuario';
 export const tab_crear_establecimiento='Crear Establecimiento';
 export const tab_crear_punto_venta='Crear Punto de Venta';
-export const tab_crear_grupo_producto='Crear Grupo de Producto';
+export const tab_crear_grupo_producto='Configurar Grupos';
 
 //TABS DE BUSCAR
 export const tab_buscar_auxiliar='Buscar Auxiliar';
@@ -242,15 +242,16 @@ export const item_crear_activo_fijo='Crear Activo Fijo';
 export const item_crear_bodega='Crear Bodega';
 export const item_crear_kardex='Crear Kardex';
 export const item_crear_medida='Medidas';
-export const item_crear_producto='Nuevo Producto';
-export const item_crear_servicio='Nuevo Servicio y AF';
+export const item_crear_producto='Bienes';
+export const item_crear_servicio='Servicios y Activos Fijos';
 export const item_crear_promocion='Crear Promocion';
 export const item_crear_saldo_inicial_inventario='Saldo Inicial Producto';
 export const item_crear_tabla_equivalencia_medida='Equivalencia Medidas';
 export const item_crear_usuario='Crear Usuario';
 export const item_crear_establecimiento='Crear Establecimiento';
 export const item_crear_punto_venta='Crear Punto de Venta';
-export const item_crear_grupo_producto='Crear Grupo de Producto';
+export const item_crear_grupo_producto='Configurar Grupos';
+export const item_crear_grupo_servicio='Configurar Servicios';
 
 //TABS DE BUSCAR
 export const item_buscar_auxiliar='Buscar Auxiliar';

@@ -13,7 +13,8 @@ Forms
 }
 
 .form-control-sm{
-    height: calc(0.3em + 0.3rem + 2px)!important;
+    height: calc(0.3em + 0.3rem + 5px)!important;
+    line-height: 1.125!important;
     padding: 0!important;
 }
 
@@ -23,7 +24,7 @@ Forms
 .mat-form-field {
     width: 100%!important; 
     text-align: center!important; // centra el titulo y el texto
-    line-height: 1.0!important;
+    //line-height: 1.0!important; // no se ve todo el texto como la g
 }
 
 .peque.mat-form-field{

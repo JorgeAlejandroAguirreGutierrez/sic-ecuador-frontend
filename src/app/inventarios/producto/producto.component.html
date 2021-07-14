@@ -68,17 +68,17 @@
                     </div>
                     <div class="col-4">
                         <mat-form-field appearance="standard">
-                            <mat-label>Categoria</mat-label>
-                            <mat-autocomplete autoActiveFirstOption #categoria_producto="matAutocomplete"
-                                [displayWith]="ver_categoria_producto"
-                                (optionSelected)="seleccionar_categoria_producto()">
-                                <mat-option *ngFor="let categoria_producto of filtro_categorias_productos | async"
-                                    [value]="categoria_producto">
-                                    {{categoria_producto}}
+                            <mat-label>Seccion</mat-label>
+                            <mat-autocomplete autoActiveFirstOption #seccion_producto="matAutocomplete"
+                                [displayWith]="ver_seccion_producto"
+                                (optionSelected)="seleccionar_seccion_producto()">
+                                <mat-option *ngFor="let seccion_producto of filtro_secciones_productos | async"
+                                    [value]="seccion_producto">
+                                    {{seccion_producto}}
                                 </mat-option>
                             </mat-autocomplete>
                             <input matInput type="text" class="form-control-sm"
-                                [formControl]="seleccion_categoria_producto" [matAutocomplete]="categoria_producto">
+                                [formControl]="seleccion_seccion_producto" [matAutocomplete]="seccion_producto">
                         </mat-form-field>
                     </div>
                     <div class="col-4">

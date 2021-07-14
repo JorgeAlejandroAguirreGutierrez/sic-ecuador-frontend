@@ -72,9 +72,9 @@ export class ProductoComponent implements OnInit {
   seleccion_sub_grupo_producto = new FormControl();
   filtro_sub_grupos_productos: Observable<string[]> = new Observable<string[]>();
 
-  categorias_productos: string[]=[];
-  seleccion_categoria_producto = new FormControl();
-  filtro_categorias_productos: Observable<string[]> = new Observable<string[]>();
+  secciones_productos: string[]=[];
+  seleccion_seccion_producto = new FormControl();
+  filtro_secciones_productos: Observable<string[]> = new Observable<string[]>();
 
   lineas_productos: string[]=[];
   seleccion_linea_producto = new FormControl();
@@ -184,10 +184,10 @@ export class ProductoComponent implements OnInit {
         startWith(''),
         map(sub_grupo_producto => this.filtro_sub_grupo_producto(sub_grupo_producto))
       );
-    this.filtro_categorias_productos = this.seleccion_categoria_producto.valueChanges
+    this.filtro_secciones_productos = this.seleccion_seccion_producto.valueChanges
       .pipe(
         startWith(''),
-        map(categoria_producto => this.filtro_categoria_producto(categoria_producto))
+        map(seccion_producto => this.filtro_seccion_producto(seccion_producto))
       );
     this.filtro_lineas_productos = this.seleccion_linea_producto.valueChanges
       .pipe(
@@ -236,15 +236,15 @@ export class ProductoComponent implements OnInit {
     return sub_grupo_producto ? sub_grupo_producto : '';
   }
 
-  private filtro_categoria_producto(value: string): string[] {
-    if(this.categorias_productos.length>0) {
+  private filtro_seccion_producto(value: string): string[] {
+    if(this.secciones_productos.length>0) {
       const filterValue = value.toLowerCase();
-      return this.categorias_productos.filter(categoria_producto => categoria_producto.toLowerCase().includes(filterValue));
+      return this.secciones_productos.filter(seccion_producto => seccion_producto.toLowerCase().includes(filterValue));
     }
     return [];
   }
-  ver_categoria_producto(categoria_producto: string): string {
-    return categoria_producto  ? categoria_producto : '';
+  ver_seccion_producto(seccion_producto: string): string {
+    return seccion_producto  ? seccion_producto : '';
   }
 
   private filtro_linea_producto(value: string): string[] {
@@ -299,8 +299,8 @@ export class ProductoComponent implements OnInit {
       Swal.fire(constantes.error, constantes.error_sub_grupo_producto, constantes.error_swal);
       return;
     }
-    if (this.seleccion_categoria_producto.value.id==0){
-      Swal.fire(constantes.error, constantes.error_categoria_producto, constantes.error_swal);
+    if (this.seleccion_seccion_producto.value.id==0){
+      Swal.fire(constantes.error, constantes.error_seccion_producto, constantes.error_swal);
       return;
     }
     if (this.seleccion_linea_producto.value.id==0){
@@ -353,8 +353,8 @@ export class ProductoComponent implements OnInit {
       Swal.fire(constantes.error, constantes.error_sub_grupo_producto, constantes.error_swal);
       return;
     }
-    if (this.seleccion_categoria_producto.value.id==0){
-      Swal.fire(constantes.error, constantes.error_categoria_producto, constantes.error_swal);
+    if (this.seleccion_seccion_producto.value.id==0){
+      Swal.fire(constantes.error, constantes.error_seccion_producto, constantes.error_swal);
       return;
     }
     if (this.seleccion_linea_producto.value.id==0){
@@ -404,18 +404,18 @@ export class ProductoComponent implements OnInit {
   seleccionar_sub_grupo_producto(){
     let grupo=this.seleccion_grupo_producto.value;
     let subgrupo=this.seleccion_sub_grupo_producto.value;
-    this.grupoProductoService.consultar_categorias(grupo, subgrupo).subscribe(
+    this.grupoProductoService.consultar_secciones(grupo, subgrupo).subscribe(
       res => {
-        this.categorias_productos=res.resultado as string[];
+        this.secciones_productos=res.resultado as string[];
       },
       err => Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message })
     );
   }
-  seleccionar_categoria_producto(){
+  seleccionar_seccion_producto(){
     let grupo=this.seleccion_grupo_producto.value;
     let subgrupo=this.seleccion_sub_grupo_producto.value;
-    let categoria=this.seleccion_categoria_producto.value;
-    this.grupoProductoService.consultar_lineas(grupo, subgrupo, categoria).subscribe(
+    let seccion=this.seleccion_seccion_producto.value;
+    this.grupoProductoService.consultar_lineas(grupo, subgrupo, seccion).subscribe(
       res => {
         this.lineas_productos=res.resultado as string[];
       },
@@ -425,10 +425,10 @@ export class ProductoComponent implements OnInit {
   seleccionar_linea_producto(){
     let grupo=this.seleccion_grupo_producto.value;
     let subgrupo=this.seleccion_sub_grupo_producto.value;
-    let categoria=this.seleccion_categoria_producto.value;
+    let seccion=this.seleccion_seccion_producto.value;
     let linea=this.seleccion_linea_producto.value;
     this.producto.nombre=linea;
-    this.grupoProductoService.consultar_sublineas(grupo, subgrupo, categoria, linea).subscribe(
+    this.grupoProductoService.consultar_sublineas(grupo, subgrupo, seccion, linea).subscribe(
       res => {
         this.sub_lineas_productos=res.resultado as string[];
       },
@@ -438,11 +438,11 @@ export class ProductoComponent implements OnInit {
   seleccionar_sub_linea_producto(){
     let grupo=this.seleccion_grupo_producto.value;
     let subgrupo=this.seleccion_sub_grupo_producto.value;
-    let categoria=this.seleccion_categoria_producto.value;
+    let seccion=this.seleccion_seccion_producto.value;
     let linea=this.seleccion_linea_producto.value;
     let sublinea=this.seleccion_sub_linea_producto.value;
     this.producto.nombre=linea+constantes.espacio+sublinea;
-    this.grupoProductoService.consultar_presentaciones(grupo, subgrupo, categoria, linea, sublinea).subscribe(
+    this.grupoProductoService.consultar_presentaciones(grupo, subgrupo, seccion, linea, sublinea).subscribe(
       res => {
         this.presentaciones_productos=res.resultado as string[];
       },
@@ -453,12 +453,12 @@ export class ProductoComponent implements OnInit {
     this.producto.nombre=this.obtener_nombre_producto();
     let grupo=this.seleccion_grupo_producto.value;
     let subgrupo=this.seleccion_sub_grupo_producto.value;
-    let categoria=this.seleccion_categoria_producto.value;
+    let seccion=this.seleccion_seccion_producto.value;
     let linea=this.seleccion_linea_producto.value;
     let sublinea=this.seleccion_sub_linea_producto.value;
     let presentacion=this.seleccion_presentacion_producto.value;
     this.producto.nombre=linea+constantes.espacio+sublinea+constantes.espacio+presentacion;
-    this.grupoProductoService.obtener_grupo_producto(grupo, subgrupo, categoria, linea, sublinea, presentacion).subscribe(
+    this.grupoProductoService.obtener_grupo_producto(grupo, subgrupo, seccion, linea, sublinea, presentacion).subscribe(
       res => {
         this.producto.grupo_producto=res.resultado as GrupoProducto;
       },
@@ -645,11 +645,11 @@ export class ProductoComponent implements OnInit {
   }
 
   private obtener_nombre_producto(){
-    let categoria_producto=this.seleccion_categoria_producto.value!= null ? this.seleccion_categoria_producto.value.nombre: "";
+    let seccion_producto=this.seleccion_seccion_producto.value!= null ? this.seleccion_seccion_producto.value.nombre: "";
     let linea_producto=this.seleccion_linea_producto.value!= null ? this.seleccion_linea_producto.value.nombre: "";
     let sub_linea_producto=this.seleccion_sub_linea_producto.value!= null ? this.seleccion_sub_linea_producto.value.nombre: "";
     let presentacion_producto=this.seleccion_presentacion_producto.value!= null ? this.seleccion_presentacion_producto.value.nombre: "";
-    return categoria_producto+" "+linea_producto+" "+sub_linea_producto+" "+presentacion_producto;
+    return seccion_producto+" "+linea_producto+" "+sub_linea_producto+" "+presentacion_producto;
   }
 
   obtener_impuesto(){
@@ -692,7 +692,7 @@ export class ProductoComponent implements OnInit {
           this.eliminar_medidas_actualizacion();
           this.seleccion_grupo_producto.setValue(this.producto.grupo_producto.grupo);
           this.seleccion_sub_grupo_producto.setValue(this.producto.grupo_producto.subgrupo);
-          this.seleccion_categoria_producto.setValue(this.producto.grupo_producto.categoria);
+          this.seleccion_seccion_producto.setValue(this.producto.grupo_producto.seccion);
           this.seleccion_linea_producto.setValue(this.producto.grupo_producto.linea);
           this.seleccion_sub_linea_producto.setValue(this.producto.grupo_producto.sublinea);
           this.seleccion_presentacion_producto.setValue(this.producto.grupo_producto.presentacion);
