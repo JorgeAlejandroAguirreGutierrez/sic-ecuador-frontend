@@ -2,7 +2,7 @@
 Template Name: Material Pro Admin
 Author: Jorge Hidalgo
 Email: gatosohidalgo@gmail.com
-File: scss
+File: pages.scss
 */
 /**
  * Table Of Content
@@ -80,9 +80,53 @@ table {
 }
 
 .centrar{
+  //display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center!important;
+  //flex-direction: column;
+}
+
+.centrar-vertical{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center!important;
+  flex-direction: column;
+}
+
+.centrar-titulo{
   align-content: center;
   font-weight: bold;
   align-items: center;
+  text-align: center!important;
+}
+
+.azul{
+  color:#5b6582;
+}
+
+.fondo{
+  background-color: #5b6582;
+  color: white;
+}
+
+.iconos > .mat-icon{
+  margin: 0;
+  color: rgb(6, 6, 90);
+  cursor: pointer;
+}
+
+.iconos{
+  margin: 0;
+  color: rgb(6, 6, 90);
+  cursor: pointer;
+}
+
+.mat-icon-button {
+    width: 25px;
 }
 
 // Borrar luego de retirar de todas las pantallas

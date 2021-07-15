@@ -27,17 +27,15 @@ import { TabService } from '../../componentes/services/tab.service';
 import { MedidaPrecio } from '../../modelos/medida-precio';
 import { TablaEquivalenciaMedidaService } from '../../servicios/tabla-equivalencia-medida.service';
 import { TablaEquivalenciaMedida } from '../../modelos/tabla-equivalencia-medida'
-import { Proveedor } from '../../modelos/proveedor';
-import { ProveedorService } from '../../servicios/proveedor.service';
 
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.component.html',
-  styleUrls: ['./producto.component.scss']
+  selector: 'app-servicio',
+  templateUrl: './servicio.component.html',
+  styleUrls: ['./servicio.component.scss']
 })
 
 
-export class ProductoComponent implements OnInit {
+export class ServicioComponent implements OnInit {
   panelOpenState=false;
   displayedColumnsSugerido: string[] = ['medida', 'segmento', 'costo', 'margen_ganancia', 'precio_venta_publico', 'precio_venta_publico_iva'];
   displayedColumnsVenta: string[] = ['precio_venta_publico_manual', 'utilidad', 'utilidad_porcentaje'];
@@ -53,7 +51,6 @@ export class ProductoComponent implements OnInit {
   tipos_gastos: TipoGasto[]=[];
   segmentos: Segmento[]=[];
   impuestos: Impuesto[]=[];
-  proveedores: Proveedor[]=[];
   
   tipos_productos: TipoProducto[]=[];
   habilitar_otras_medidas: boolean=true;
@@ -98,7 +95,7 @@ export class ProductoComponent implements OnInit {
 
   constructor(private productoService: ProductoService, private grupoProductoService: GrupoProductoService, private kardexService: KardexService,
     private tipoGastoService: TipoGastoService, private impuestoService: ImpuestoService, private router: Router, private modalService: NgbModal,
-    private segmentoService: SegmentoService, private tipoProductoService: TipoProductoService, private proveedorService: ProveedorService,
+    private segmentoService: SegmentoService, private tipoProductoService: TipoProductoService,
     private tabService: TabService, private medidaService: MedidaService, private tablaEquivalenciaService: TablaEquivalenciaMedidaService) { }
 
   ngOnInit() {
@@ -115,15 +112,6 @@ export class ProductoComponent implements OnInit {
       res => {
         this.tipos_gastos = res.resultado as TipoGasto[];
         this.producto.tipo_gasto.id=this.tipos_gastos[0].id;
-      },
-      err => {
-        Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
-      }
-    );
-    this.proveedorService.consultar().subscribe(
-      res => {
-        this.proveedores = res.resultado as Proveedor[];
-        this.producto.proveedor.id=this.proveedores[0].id;
       },
       err => {
         Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
@@ -285,7 +273,7 @@ export class ProductoComponent implements OnInit {
       event.preventDefault();
       let indice_tab_activo= this.tab_activo();
       this.tabService.removeTab(indice_tab_activo);
-      this.tabService.addNewTab(ProductoComponent, constantes.tab_crear_producto);
+      this.tabService.addNewTab(ServicioComponent, constantes.tab_crear_producto);
   }
   
   crear(event){
@@ -334,7 +322,7 @@ export class ProductoComponent implements OnInit {
         Swal.fire(constantes.exito, res.mensaje, constantes.exito_swal);
         let indice_tab_activo = constantes.tab_activo(this.tabService);
         this.tabService.removeTab(indice_tab_activo);
-        this.tabService.addNewTab(ProductoComponent, constantes.tab_crear_producto);
+        this.tabService.addNewTab(ServicioComponent, constantes.tab_crear_producto);
       },
       err => {
         Swal.fire({ icon: constantes.error_swal, title: constantes.error, text: err.error.codigo, footer: err.error.message });
@@ -732,4 +720,3 @@ export class ProductoComponent implements OnInit {
     }
   }
 }
-

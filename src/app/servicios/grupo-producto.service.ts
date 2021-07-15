@@ -17,8 +17,8 @@ export class GrupoProductoService {
 
   constructor(private http: HttpClient) { }
 
-  enviar(categoria_cliente_id: number) {
-    this.messageSource.next(categoria_cliente_id);
+  enviar(seccion_cliente_id: number) {
+    this.messageSource.next(seccion_cliente_id);
   }
 
   crear(grupo_producto: GrupoProducto): Observable<Respuesta> {
@@ -58,10 +58,10 @@ export class GrupoProductoService {
     );
   }
 
-  consultar_categorias(grupo: string, subgrupo:string): Observable<Respuesta> {
+  consultar_secciones(grupo: string, subgrupo:string): Observable<Respuesta> {
     let params = new HttpParams().set("grupo", grupo)
                                  .set("subgrupo", subgrupo)
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.grupo_producto+ util.consultar_categorias, {params: params, headers: util.options.headers}).pipe(
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.grupo_producto+ util.consultar_secciones, {params: params, headers: util.options.headers}).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
@@ -69,10 +69,10 @@ export class GrupoProductoService {
     );
   }
 
-  consultar_lineas(grupo: string, subgrupo:string, categoria: string): Observable<Respuesta> {
+  consultar_lineas(grupo: string, subgrupo:string, seccion: string): Observable<Respuesta> {
     let params = new HttpParams().set("grupo", grupo)
                                  .set("subgrupo", subgrupo)
-                                 .set("categoria", categoria)
+                                 .set("seccion", seccion)
     return this.http.get<Respuesta>(environment.host + util.ruta + util.grupo_producto+ util.consultar_lineas, {params: params, headers: util.options.headers}).pipe(
       map(response => response as Respuesta),
       catchError(err => {
@@ -81,10 +81,10 @@ export class GrupoProductoService {
     );
   }
 
-  consultar_sublineas(grupo: string, subgrupo:string, categoria: string, linea: string): Observable<Respuesta> {
+  consultar_sublineas(grupo: string, subgrupo:string, seccion: string, linea: string): Observable<Respuesta> {
     let params = new HttpParams().set("grupo", grupo)
                                  .set("subgrupo", subgrupo)
-                                 .set("categoria", categoria)
+                                 .set("seccion", seccion)
                                  .set("linea", linea)
     return this.http.get<Respuesta>(environment.host + util.ruta + util.grupo_producto+ util.consultar_sublineas, {params: params, headers: util.options.headers}).pipe(
       map(response => response as Respuesta),
@@ -94,10 +94,10 @@ export class GrupoProductoService {
     );
   }
 
-  consultar_presentaciones(grupo: string, subgrupo:string, categoria: string, linea: string, sublinea: string): Observable<Respuesta> {
+  consultar_presentaciones(grupo: string, subgrupo:string, seccion: string, linea: string, sublinea: string): Observable<Respuesta> {
     let params = new HttpParams().set("grupo", grupo)
                                  .set("subgrupo", subgrupo)
-                                 .set("categoria", categoria)
+                                 .set("seccion", seccion)
                                  .set("linea", linea)
                                  .set("sublinea", sublinea)
     return this.http.get<Respuesta>(environment.host + util.ruta + util.grupo_producto+ util.consultar_presentaciones, {params: params, headers: util.options.headers}).pipe(
@@ -108,10 +108,10 @@ export class GrupoProductoService {
     );
   }
 
-  obtener_grupo_producto(grupo: string, subgrupo:string, categoria: string, linea: string, sublinea: string, presentacion:string): Observable<Respuesta> {
+  obtener_grupo_producto(grupo: string, subgrupo:string, seccion: string, linea: string, sublinea: string, presentacion:string): Observable<Respuesta> {
     let params = new HttpParams().set("grupo", grupo)
                                  .set("subgrupo", subgrupo)
-                                 .set("categoria", categoria)
+                                 .set("seccion", seccion)
                                  .set("linea", linea)
                                  .set("sublinea", sublinea)
                                  .set("presentacion", presentacion)

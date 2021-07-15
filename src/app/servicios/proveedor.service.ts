@@ -6,17 +6,17 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Banco } from '../modelos/banco';
-import { TipoGasto } from '../modelos/tipo-gasto';
+import { Proveedor } from '../modelos/proveedor';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TipoGastoService {
+export class ProveedorService {
 
   constructor(private http: HttpClient) { }
 
-  crear(tipo_gasto: TipoGasto): Observable<Respuesta> {
-    return this.http.post(environment.host + util.ruta + util.tipo_gasto, JSON.stringify(tipo_gasto), util.options).pipe(
+  crear(proveedor: Proveedor): Observable<Respuesta> {
+    return this.http.post(environment.host + util.ruta + util.proveedor, JSON.stringify(proveedor), util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
@@ -24,8 +24,8 @@ export class TipoGastoService {
     );
   }
 
-  obtener(tipo_gasto: TipoGasto): Observable<Respuesta> {
-    return this.http.get<Respuesta>(environment.host + util.ruta + util.tipo_gasto + '/' + tipo_gasto.id, util.options).pipe(
+  obtener(proveedor: Proveedor): Observable<Respuesta> {
+    return this.http.get<Respuesta>(environment.host + util.ruta + util.proveedor + '/' + proveedor.id, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
@@ -34,15 +34,15 @@ export class TipoGastoService {
   }
 
   consultar(): Observable<Respuesta> {
-    return this.http.get(environment.host + util.ruta + util.tipo_gasto, util.options).pipe(
+    return this.http.get(environment.host + util.ruta + util.proveedor, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
       }));
   }
 
-  actualizar(tipo_gasto: TipoGasto): Observable<Respuesta> {
-    return this.http.put(environment.host+util.ruta + util.tipo_gasto, JSON.stringify(tipo_gasto), util.options).pipe(
+  actualizar(proveedor: Proveedor): Observable<Respuesta> {
+    return this.http.put(environment.host+util.ruta + util.proveedor, JSON.stringify(proveedor), util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);
@@ -50,8 +50,8 @@ export class TipoGastoService {
     );
   }
 
-  eliminar(tipo_gasto: TipoGasto): Observable<Respuesta> {
-    return this.http.delete(environment.host+util.ruta + util.tipo_gasto + '/' + tipo_gasto.id, util.options).pipe(
+  eliminar(proveedor: Proveedor): Observable<Respuesta> {
+    return this.http.delete(environment.host+util.ruta + util.proveedor + '/' + proveedor.id, util.options).pipe(
       map(response => response as Respuesta),
       catchError(err => {
         return throwError(err);

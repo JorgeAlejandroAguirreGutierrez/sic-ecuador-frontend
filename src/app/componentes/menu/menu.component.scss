@@ -1,4 +1,6 @@
-// Modifica el estilo de contenedor establecido para todo el sistema
+// Menu.scss
+
+//Modifica el estilo de contenedor establecido para todo el sistema
 .contenedor-menu{
     max-width: 85%;
     width: 100%;
@@ -9,6 +11,7 @@
 .card-header{
     padding: 0.1rem 1.25rem;
     text-align: center;
+    font-weight: bold;
 }
 
 .card-body{

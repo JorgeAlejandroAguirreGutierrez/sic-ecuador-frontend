@@ -10,6 +10,7 @@ import { GrupoClienteLeerComponent } from '../../clientes/grupo-cliente/grupo-cl
 import { FacturaComponent } from "../../comprobantes/factura/factura.component";
 import { FacturaLeerComponent } from '../../comprobantes/factura/factura-leer/factura-leer.component';
 import { ProductoComponent } from "../../inventarios/producto/producto.component";
+import { ServicioComponent } from "../../inventarios/servicio/servicio.component";
 import { PromocionComponent } from "../../inventarios/promocion/promocion.component";
 import { ProveedorComponent } from '../../compras/proveedor/proveedor.component';
 import { FacturaCompraComponent } from '../../compras/factura-compra/factura-compra.component';
@@ -25,13 +26,14 @@ import { EstadoCivilLeerComponent } from '../../clientes/estado-civil/estado-civ
 import { FormaPagoComponent } from '../../clientes/forma-pago/forma-pago.component';
 import { FormaPagoLeerComponent } from '../../clientes/forma-pago/forma-pago-leer/forma-pago-leer.component';
 import { GeneroComponent } from '../../clientes/genero/genero.component';
-import { GeneroLeerComponent } from '../../clientes/genero/genero-leer/genero-leer.component';
 import { OrigenIngresoComponent } from '../../clientes/origen-ingreso/origen-ingreso.component';
 import { OrigenIngresoLeerComponent } from '../../clientes/origen-ingreso/origen-ingreso-leer/origen-ingreso-leer.component';
 import { PlazoCreditoComponent } from '../../clientes/plazo-credito/plazo-credito.component';
 import { PlazoCreditoLeerComponent } from '../../clientes/plazo-credito/plazo-credito-leer/plazo-credito-leer.component';
 import { TipoPagoComponent } from '../../clientes/tipo-pago/tipo-pago.component';
 import { TipoPagoLeerComponent } from '../../clientes/tipo-pago/tipo-pago-leer/tipo-pago-leer.component';
+import { MedidaComponent } from '../../inventarios/medida/medida.component';
+import { MedidaLeerComponent } from '../../inventarios/medida/medida-leer/medida-leer.component';
 import { TablaEquivalenciaMedidaComponent } from '../../inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida.component';
 import { TablaEquivalenciaMedidaLeerComponent } from '../../inventarios/tabla-equivalencia-medida/tabla-equivalencia-medida-leer/tabla-equivalencia-medida-leer.component';
 import { UsuarioComponent } from '../../usuarios/usuario/usuario.component';
@@ -67,18 +69,12 @@ export class SidebarItemsService {
       //this.llenarOpciones(GrupoClienteLeerComponent,constantes.tab_buscar_grupo_cliente, constantes.item_buscar_grupo_cliente, constantes.ico_buscar_grupo_cliente);
       this.llenarOpciones(CategoriaClienteComponent,constantes.tab_crear_categoria_cliente, constantes.item_crear_categoria_cliente, constantes.ico_crear_categoria_cliente);
       //this.llenarOpciones(CategoriaClienteLeerComponent,constantes.tab_buscar_categoria_cliente, constantes.item_buscar_categoria_cliente, constantes.ico_buscar_categoria_cliente);
-      this.llenarOpciones(EstadoCivilComponent,constantes.tab_crear_estado_civil, constantes.item_crear_estado_civil, constantes.ico_crear_estado_civil);
-      //this.llenarOpciones(EstadoCivilLeerComponent, constantes.tab_buscar_estado_civil, constantes.item_buscar_estado_civil, constantes.ico_buscar_estado_civil);
       this.llenarOpciones(FormaPagoComponent, constantes.tab_crear_forma_pago, constantes.item_crear_forma_pago, constantes.ico_crear_forma_pago);
       //this.llenarOpciones(FormaPagoLeerComponent,constantes.tab_buscar_forma_pago, constantes.item_buscar_forma_pago, constantes.ico_buscar_forma_pago);
-      this.llenarOpciones(GeneroComponent, constantes.tab_crear_genero, constantes.item_crear_genero, constantes.ico_crear_genero);
-      //this.llenarOpciones(GeneroLeerComponent,constantes.tab_buscar_genero, constantes.item_buscar_genero, constantes.ico_buscar_genero);
       this.llenarOpciones(OrigenIngresoComponent,constantes.tab_crear_origen_ingreso, constantes.item_crear_origen_ingreso, constantes.ico_crear_origen_ingreso);
       //this.llenarOpciones(OrigenIngresoLeerComponent,constantes.tab_buscar_origen_ingreso,constantes.item_buscar_origen_ingreso, constantes.ico_buscar_origen_ingreso);
       this.llenarOpciones(PlazoCreditoComponent,constantes.tab_crear_plazo_credito, constantes.item_crear_plazo_credito, constantes.ico_crear_plazo_credito);
       //this.llenarOpciones(PlazoCreditoLeerComponent,constantes.tab_buscar_plazo_credito,constantes.item_buscar_plazo_credito, constantes.ico_buscar_plazo_credito);
-      this.llenarOpciones(TipoPagoComponent,constantes.tab_crear_tipo_pago, constantes.item_crear_tipo_pago, constantes.ico_crear_tipo_pago);
-      //this.llenarOpciones(TipoPagoLeerComponent,constantes.tab_buscar_tipo_pago, constantes.item_buscar_tipo_pago, constantes.ico_buscar_tipo_pago);
       this.llenarOpciones(MapsComponent,constantes.tab_mapa_cliente, constantes.item_mapa_cliente,constantes.ico_mapa_cliente);
     }
 
@@ -94,13 +90,16 @@ export class SidebarItemsService {
     }
 
     if (tabNombre == constantes.modulo_inventarios) {
+      this.llenarOpciones(GrupoProductoComponent,constantes.tab_crear_grupo_producto, constantes.item_crear_grupo_producto, constantes.ico_crear_grupo_producto);
+      //this.llenarOpciones(GrupoProductoLeerComponent,constantes.tab_buscar_grupo_producto, constantes.item_buscar_grupo_producto, constantes.ico_buscar_grupo_producto);
       this.llenarOpciones(ProductoComponent,constantes.tab_crear_producto, constantes.item_crear_producto, constantes.ico_crear_producto);
+      this.llenarOpciones(ServicioComponent,constantes.tab_crear_servicio, constantes.item_crear_servicio, constantes.ico_crear_servicio);
       this.llenarOpciones(ProductoLeerComponent,constantes.tab_buscar_producto, constantes.item_buscar_producto, constantes.ico_buscar_producto);
       this.llenarOpciones(SaldoInicialInventarioComponent,constantes.tab_crear_saldo_inicial_inventario, constantes.item_crear_saldo_inicial_inventario, constantes.ico_crear_saldo_inicial_inventario);
+      this.llenarOpciones(MedidaComponent,constantes.tab_crear_medida, constantes.item_crear_medida, constantes.ico_crear_medida);
+      //this.llenarOpciones(MedidaLeerComponent,constantes.tab_buscar_medida, constantes.item_buscar_medida, constantes.ico_buscar_medida);
       this.llenarOpciones(TablaEquivalenciaMedidaComponent,constantes.tab_crear_tabla_equivalencia_medida, constantes.item_crear_tabla_equivalencia_medida, constantes.ico_crear_tabla_equivalencia_medida);
-      this.llenarOpciones(TablaEquivalenciaMedidaLeerComponent, constantes.tab_buscar_tabla_equivalencia_medida, constantes.item_buscar_tabla_equivalencia_medida, constantes.ico_buscar_tabla_equivalencia_medida);
-      this.llenarOpciones(GrupoProductoComponent,constantes.tab_crear_grupo_producto, constantes.item_crear_grupo_producto, constantes.ico_crear_grupo_producto);
-      this.llenarOpciones(GrupoProductoLeerComponent,constantes.tab_buscar_grupo_producto, constantes.item_buscar_grupo_producto, constantes.ico_buscar_grupo_producto);
+      //this.llenarOpciones(TablaEquivalenciaMedidaLeerComponent, constantes.tab_buscar_tabla_equivalencia_medida, constantes.item_buscar_tabla_equivalencia_medida, constantes.ico_buscar_tabla_equivalencia_medida);
       this.llenarOpciones(PromocionComponent,constantes.tab_promociones,constantes.item_promociones,constantes.ico_promociones);
     }
 
@@ -134,7 +133,12 @@ export class SidebarItemsService {
     }
 
     if (tabNombre == constantes.modulo_configuracion) {
-      this.llenarOpciones(GrupoClienteComponent, constantes.tab_crear_grupo_cliente, constantes.item_crear_grupo_cliente, constantes.ico_crear_grupo_cliente);
+      this.llenarOpciones(EstadoCivilComponent,constantes.tab_crear_estado_civil, constantes.item_crear_estado_civil, constantes.ico_crear_estado_civil);
+      //this.llenarOpciones(EstadoCivilLeerComponent, constantes.tab_buscar_estado_civil, constantes.item_buscar_estado_civil, constantes.ico_buscar_estado_civil);
+      this.llenarOpciones(GeneroComponent, constantes.tab_crear_genero, constantes.item_crear_genero, constantes.ico_crear_genero);
+      this.llenarOpciones(TipoPagoComponent,constantes.tab_crear_tipo_pago, constantes.item_crear_tipo_pago, constantes.ico_crear_tipo_pago);
+      //Integrar con TipoPago
+      this.llenarOpciones(TipoPagoLeerComponent,constantes.tab_buscar_tipo_pago, constantes.item_buscar_tipo_pago, constantes.ico_buscar_tipo_pago);
       this.llenarOpciones(TransportistaComponent, constantes.tab_crear_transportista, constantes.item_crear_transportista, constantes.ico_crear_transportista);
       this.llenarOpciones(UbicacionComponent,constantes.tab_crear_ubicacion, constantes.item_crear_ubicacion, constantes.ico_crear_ubicacion);
       this.llenarOpciones(UbicacionLeerComponent, constantes.tab_buscar_ubicacion, constantes.item_buscar_ubicacion, constantes.ico_buscar_ubicacion);

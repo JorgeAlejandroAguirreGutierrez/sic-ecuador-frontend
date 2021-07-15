@@ -49,7 +49,6 @@ import { TipoRetencionComponent } from './clientes/tipo-retencion/tipo-retencion
 import { EstadoCivilComponent } from './clientes/estado-civil/estado-civil.component';
 import { EstadoCivilLeerComponent } from './clientes/estado-civil/estado-civil-leer/estado-civil-leer.component';
 import { GeneroComponent } from './clientes/genero/genero.component';
-import { GeneroLeerComponent } from './clientes/genero/genero-leer/genero-leer.component';
 import { PlazoCreditoComponent } from './clientes/plazo-credito/plazo-credito.component';
 import { PlazoCreditoLeerComponent } from './clientes/plazo-credito/plazo-credito-leer/plazo-credito-leer.component';
 import { ImpuestoComponent } from './clientes/impuesto/impuesto.component';
@@ -71,6 +70,7 @@ import { KardexComponent } from './inventarios/kardex/kardex.component';
 import { ActivoFijoComponent } from './inventarios/activo-fijo/activo-fijo.component';
 import { FiltroSerie } from './pipes/filtro-serie';
 import { ProductoComponent } from './inventarios/producto/producto.component';
+import { ServicioComponent } from './inventarios/servicio/servicio.component';
 import { PromocionComponent, DialogComponente } from './inventarios/promocion/promocion.component';
 import { TablaPromoIndComponent } from './inventarios/promocion/tabla-promo-ind/tabla-promo-ind.component';
 import { TablaPromoGrupComponent } from './inventarios/promocion/tabla-promo-grup/tabla-promo-grup.component';
@@ -150,7 +150,6 @@ const routes: Routes = [
   {path: 'cliente/transportista', component: RetencionComponent},
   {path: 'cliente/tipocontribuyente', component: TipoContribuyenteComponent},
   {path: 'cliente/genero', component: GeneroComponent},
-  {path: 'cliente/genero-leer', component: GeneroLeerComponent},
   {path: 'cliente/estadocivil', component: EstadoCivilComponent},
   {path: 'cliente/estadocivil-leer', component: EstadoCivilLeerComponent},
   {path: 'cliente/categoriacliente', component: CategoriaClienteComponent},
@@ -252,13 +251,13 @@ export const RoutingComponents = [
   EstadoCivilComponent,
   EstadoCivilLeerComponent,
   GeneroComponent,
-  GeneroLeerComponent,
   FormaPagoComponent,
   FormaPagoLeerComponent,
   TipoPagoComponent,
   TipoPagoLeerComponent,
   // Inventarios
   ProductoComponent,
+  ServicioComponent,
   GrupoProductoComponent,
   GrupoProductoLeerComponent,
   BodegaComponent,

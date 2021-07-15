@@ -1,15 +1,8 @@
+// Componente producto
+.derecha{
+    justify-content: end;
+}
 
-
-  table {
-    width: 100%;
-    align-content: center;
-  }
-
-  .centrar{
-    align-content: center!important;
-    font-weight: bold;
-    align-items: center!important;
-    text-align: center!important;
-  }
-  
-::ng-deep { .cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; } }
+.lowercase {
+  text-transform: lowercase;
+}

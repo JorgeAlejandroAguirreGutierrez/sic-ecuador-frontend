@@ -32,7 +32,7 @@
 <div class="contenedor">
     <div class="card">
         <div class="card-header">
-            &nbsp;&nbsp;&nbsp;<i><u>CREAR PRODUCTO</u></i>
+            &nbsp;&nbsp;&nbsp;<i><u>CREAR SERVICIO</u></i>
         </div>
         <div class="card-body">
             <div class="form-group form-row">
@@ -81,55 +81,9 @@
                                 [formControl]="seleccion_seccion_producto" [matAutocomplete]="seccion_producto">
                         </mat-form-field>
                     </div>
-                    <div class="col-4">
+                    <div class="col-9">
                         <mat-form-field appearance="standard">
-                            <mat-label>Línea</mat-label>
-                            <mat-autocomplete autoActiveFirstOption #linea_producto="matAutocomplete"
-                                [displayWith]="ver_linea_producto" (optionSelected)="seleccionar_linea_producto()">
-                                <mat-option *ngFor="let linea_producto of filtro_lineas_productos | async"
-                                    [value]="linea_producto">
-                                    {{linea_producto}}
-                                </mat-option>
-                            </mat-autocomplete>
-                            <input matInput type="text" class="form-control-sm" [formControl]="seleccion_linea_producto"
-                                [matAutocomplete]="linea_producto">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="standard">
-                            <mat-label>Sublínea</mat-label>
-                            <mat-autocomplete autoActiveFirstOption #sub_linea_producto="matAutocomplete"
-                                [displayWith]="ver_sub_linea_producto"
-                                (optionSelected)="seleccionar_sub_linea_producto()">
-                                <mat-option *ngFor="let sub_linea_producto of filtro_sub_lineas_productos | async"
-                                    [value]="sub_linea_producto">
-                                    {{sub_linea_producto}}
-                                </mat-option>
-                            </mat-autocomplete>
-                            <input matInput type="text" class="form-control-sm"
-                                [formControl]="seleccion_sub_linea_producto" [matAutocomplete]="sub_linea_producto">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="standard">
-                            <mat-label>Presentación</mat-label>
-                            <mat-autocomplete autoActiveFirstOption #presentacion_producto="matAutocomplete"
-                                [displayWith]="ver_presentacion_producto"
-                                (optionSelected)="seleccionar_presentacion_producto()">
-                                <mat-option
-                                    *ngFor="let presentacion_producto of filtro_presentaciones_productos | async"
-                                    [value]="presentacion_producto">
-                                    {{presentacion_producto}}
-                                </mat-option>
-                            </mat-autocomplete>
-                            <input matInput type="text" class="form-control-sm"
-                                [formControl]="seleccion_presentacion_producto"
-                                [matAutocomplete]="presentacion_producto">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-12">
-                        <mat-form-field appearance="standard">
-                            <mat-label>Nombre Producto</mat-label>
+                            <mat-label>Nombre</mat-label>
                             <input matInput type="text" oninput="this.value = this.value.toUpperCase()"
                                 [(ngModel)]="producto.nombre" class="form-control-sm">
                             <button mat-button matSuffix mat-icon-button>
@@ -137,14 +91,46 @@
                             </button>
                         </mat-form-field>
                     </div>
+                    <div class="col-2">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Costo Unit.</mat-label>
+                            <input matInput type="text" [(ngModel)]="kardex_inicial.costo_unitario"
+                                [disabled]="habilitar_saldo_inicial" (change)="seleccionar_costo_unitario()"
+                                class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-1 iconos">
+                        <button mat-icon-button mat-button [disabled]="habilitar_saldo_inicial">
+                            <mat-icon (click)="cargar_saldo_inicial()">add</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-5">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Medida</mat-label>
+                            <mat-select [(ngModel)]="kardex_inicial.medida.id"
+                                (selectionChange)="obtener_medida_saldo_inicial()"
+                                [disabled]="habilitar_saldo_inicial">
+                                <mat-option *ngFor="let medida of medidas_inicial" [value]="medida.id">
+                                    {{medida.descripcion}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Saldo Ini.</mat-label>
+                            <input matInput type="text" [(ngModel)]="kardex_inicial.cantidad"
+                                [disabled]="habilitar_saldo_inicial" (change)="seleccionar_cantidad()"
+                                class="form-control-sm">
+                        </mat-form-field>
+                    </div>
                 </div>
                 <div class="form-row col-4 linea-vertical">
                     <div class="col-5">
                         <mat-form-field appearance="standard">
-                            <mat-label>Tipo de Gasto</mat-label>
-                            <mat-select [(ngModel)]="producto.tipo_gasto.id" class="form-control-sm">
-                                <mat-option *ngFor="let tipo_gasto of tipos_gastos" [value]="tipo_gasto.id">
-                                    {{tipo_gasto.nombre}}</mat-option>
+                            <mat-label>Categoría</mat-label>
+                            <mat-select [(ngModel)]="producto.tipo_producto.id" class="form-control-sm">
+                                <mat-option *ngFor="let tipo_producto of tipos_productos" [value]="tipo_producto.id">
+                                    {{tipo_producto.descripcion}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -154,7 +140,16 @@
                             <input matInput type="text" [(ngModel)]="producto.codigo" disabled class="form-control-sm">
                         </mat-form-field>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Tipo de Gasto</mat-label>
+                            <mat-select [(ngModel)]="producto.tipo_gasto.id" class="form-control-sm">
+                                <mat-option *ngFor="let tipo_gasto of tipos_gastos" [value]="tipo_gasto.id">
+                                    {{tipo_gasto.nombre}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
                         <mat-form-field appearance="standard">
                             <mat-label>IVA</mat-label>
                             <mat-select [(ngModel)]="producto.impuesto.id" (selectionChange)="obtener_impuesto()"
@@ -164,16 +159,7 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="standard">
-                            <mat-label>Consig.</mat-label>
-                            <mat-select type="text" [(ngModel)]="producto.consignacion" class="form-control-sm">
-                                <mat-option [value]="true">SI</mat-option>
-                                <mat-option [value]="false">NO</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <mat-form-field appearance="standard">
                             <mat-label>Activo</mat-label>
                             <mat-select [(ngModel)]="producto.estado" class="form-control-sm">
@@ -182,124 +168,6 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div class="col-8">
-                        <mat-form-field appearance="standard">
-                            <mat-label>Proveedor</mat-label>
-                            <mat-select [(ngModel)]="producto.proveedor.id" class="form-control-sm">
-                                <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id">
-                                    {{proveedor.nombre}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-4">
-                        <mat-form-field appearance="standard">
-                            <mat-label>Cód. Proveedor</mat-label>
-                            <input matInput type="text" [(ngModel)]="producto.serie_autogenerado"
-                                [disabled]="habilitar_saldo_inicial" (change)="seleccionar_cantidad()"
-                                class="form-control-sm">
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group form-row">
-                <div class="col-6">
-                    <div class="centrar-titulo col-12 fondo">
-                        <mat-label>KARDEX INICIAL</mat-label>
-                    </div>
-                    <mat-divider></mat-divider>
-                    <mat-card class="mat-elevation-z8">
-                        <div class="form-row">
-                            <div class="col-5">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Medida</mat-label>
-                                    <mat-select [(ngModel)]="kardex_inicial.medida.id"
-                                        (selectionChange)="obtener_medida_saldo_inicial()"
-                                        [disabled]="habilitar_saldo_inicial">
-                                        <mat-option *ngFor="let medida of medidas_inicial" [value]="medida.id">
-                                            {{medida.descripcion}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-3">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Saldo Ini.</mat-label>
-                                    <input matInput type="text" [(ngModel)]="kardex_inicial.cantidad"
-                                        [disabled]="habilitar_saldo_inicial" (change)="seleccionar_cantidad()"
-                                        class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-3">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Costo Unit.</mat-label>
-                                    <input matInput type="text" [(ngModel)]="kardex_inicial.costo_unitario"
-                                        [disabled]="habilitar_saldo_inicial" (change)="seleccionar_costo_unitario()"
-                                        class="form-control-sm">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-1 iconos">
-                                <button mat-icon-button mat-button [disabled]="habilitar_saldo_inicial">
-                                    <mat-icon (click)="cargar_saldo_inicial()">add</mat-icon>
-                                </button>
-                            </div>
-                        </div>
-                    </mat-card>
-                </div>
-                <div class="col-3">
-                    <div class="centrar-titulo col-12 fondo">
-                        <mat-label>INFO KARDEX</mat-label>
-                    </div>
-                    <mat-divider></mat-divider>
-                    <mat-card class="mat-elevation-z8">
-                        <div class="form-group form-row">
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Cant</mat-label>
-                                    <input matInput type="text" [(ngModel)]="kardex_final.cantidad"
-                                        class="form-control-sm" [disabled]="true">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Costo Prom</mat-label>
-                                    <input matInput type="text" [(ngModel)]="kardex_final.costo_unitario"
-                                        class="form-control-sm" [disabled]=true>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-4">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Costo Total</mat-label>
-                                    <input matInput type="text" [(ngModel)]="kardex_final.costo_total"
-                                        class="form-control-sm" [disabled]=true>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </mat-card>
-                </div>
-                <div class="col-3">
-                    <div class="centrar-titulo col-12 fondo">
-                        <mat-label>AGREGAR PRECIO</mat-label>
-                    </div>
-                    <mat-divider></mat-divider>
-                    <mat-card class="mat-elevation-z8">
-                        <div class="form-group form-row">
-                            <div class="col-10">
-                                <mat-form-field appearance="standard">
-                                    <mat-label>Medida</mat-label>
-                                    <mat-select [(ngModel)]="medida"
-                                        (selectionChange)="obtener_tabla_equivalencia_medida()"
-                                        [disabled]="habilitar_otras_medidas">
-                                        <mat-option *ngFor="let medida of medidas" [value]="medida">
-                                            {{medida.descripcion}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-2 iconos">
-                                <button mat-icon-button mat-button [disabled]="habilitar_otras_medidas">
-                                    <mat-icon (click)="crear_precio()">add</mat-icon>
-                                </button>
-                            </div>
-                        </div>
-                    </mat-card>
                 </div>
             </div>
         </div>

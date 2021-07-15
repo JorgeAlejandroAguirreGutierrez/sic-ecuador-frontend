@@ -20,67 +20,417 @@
     </ul>
 </nav>
 <div class="contenedor">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    &nbsp;&nbsp;&nbsp;&nbsp;<i><u>CREAR GRUPO DE PRODUCTO</u></i>
+    <mat-accordion class="headers-align">
+        <mat-expansion-panel (opened)="abrirPanelNuevoGrupo = true" (closed)="abrirPanelNuevoGrupo = false"
+            [expanded]="abrirPanelNuevoGrupo">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i><u>NUEVO GRUPO</u></i>
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{abrirPanelNuevoGrupo ? 'Ocultar crear grupo' : 'Crear nuevo grupo'}}
+                    <mat-icon>playlist_add</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <hr>
+            <div class="form-group form-row">
+                <div class="col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Categoría</mat-label>
+                        <mat-select [(ngModel)]="grupo_producto.tipo_producto" class="form-control-sm">
+                            <mat-option *ngFor="let tipo_producto of tipos_productos" [value]="tipo_producto.id">
+                                {{tipo_producto.descripcion}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-row">
-                                <div class="form-group col-12">
-                                    <mat-form-field appearance="standard">
-                                        <mat-label>Codigo</mat-label>
-                                        <input matInput type="text" [(ngModel)]="grupo_producto.codigo" [disabled]="true" class="form-control-sm">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-4">
-                                    <mat-form-field appearance="standard">
-                                        <mat-label>Grupo Producto</mat-label>
-                                        <input matInput type="text" [(ngModel)]="grupo_producto.grupo" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group col-4">
-                                    <mat-form-field appearance="standard">
-                                        <mat-label>Sub Grupo Producto</mat-label>
-                                        <input matInput type="text" [(ngModel)]="grupo_producto.subgrupo" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group col-4">
-                                    <mat-form-field appearance="standard">
-                                        <mat-label>Categoria Producto</mat-label>
-                                        <input matInput type="text" [(ngModel)]="grupo_producto.categoria" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-4">
-                                    <mat-form-field appearance="standard">
-                                        <mat-label>Linea Producto</mat-label>
-                                        <input matInput type="text" [(ngModel)]="grupo_producto.linea" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group col-4">
-                                    <mat-form-field appearance="standard">
-                                        <mat-label>Sub Linea Producto</mat-label>
-                                        <input matInput type="text" [(ngModel)]="grupo_producto.sublinea" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group col-4">
-                                    <mat-form-field appearance="standard">
-                                        <mat-label>Presentacion Producto</mat-label>
-                                        <input matInput type="text" [(ngModel)]="grupo_producto.presentacion" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Grupo</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto.grupo"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-2 iconos">
+                    <button mat-icon-button>
+                        <mat-icon title="Agregar" (click)="crear_grupo($event)">add</mat-icon>
+                    </button>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Estado</mat-label>
+                        <mat-select [(ngModel)]="estado" class="form-control-sm">
+                            <mat-option value="ACTIVO">ACTIVO</mat-option>
+                            <mat-option value="INACTIVO"> INACTIVO</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
             </div>
-        </div>
-    </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="abrirPanelNuevoSubGrupo = true" (closed)="abrirPanelNuevoSubGrupo = false"
+            [expanded]="abrirPanelNuevoSubGrupo">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i><u>NUEVO SUBGRUPO</u></i>
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{abrirPanelNuevoGrupo ? 'Ocultar crear Subgrupo' : 'Crear nuevo Subgrupo'}}
+                    <mat-icon>playlist_add</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <hr>
+            <div class="form-group form-row">
+                <div class="col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Grupo</mat-label>
+                        <mat-select [(ngModel)]="grupo_producto.grupo" class="form-control-sm">
+                            <mat-option *ngFor="let grupo of grupos" [value]="grupo"
+                                (click)="consultar_subgrupos(grupo)">
+                                {{grupo}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Subgrupo</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto.subgrupo"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-2 iconos">
+                    <button mat-icon-button>
+                        <mat-icon (click)="crear_subgrupo($event)">add</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="abrirPanelNuevaSeccion = true" (closed)="abrirPanelNuevaSeccion = false"
+            [expanded]="abrirPanelNuevaSeccion">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i><u>NUEVA SECCIÓN</u></i>
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{abrirPanelNuevaSeccion ? 'Ocultar crear sección' : 'Crear nueva sección'}}
+                    <mat-icon>playlist_add</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <hr>
+            <div class="form-group form-row">
+                <!--div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Codigo</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto.codigo" [disabled]="true"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div-->
+                <div class="col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Grupo</mat-label>
+                        <mat-select [(ngModel)]="grupo_producto.grupo" class="form-control-sm">
+                            <mat-option *ngFor="let grupo of grupos" [value]="grupo"
+                                (click)="consultar_subgrupos(grupo)">
+                                {{grupo}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Subgrupo</mat-label>
+                        <mat-select [(ngModel)]="grupo_producto.subgrupo" class="form-control-sm">
+                            <mat-option *ngFor="let subgrupo of subgrupos" [value]="subgrupo">
+                                {{subgrupo}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Sección</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto.seccion"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-3">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Afectación Contable</mat-label>
+                        <mat-select [(ngModel)]="grupo_producto.movimiento_contable" class="form-control-sm">
+                            <mat-option *ngFor="let afectacion of afectaciones" [value]="afectacion.id">
+                                {{afectacion}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 centrar-titulo fondo">
+                    CUENTAS CONTABLES
+                </div>
+                <div class="form-row col-11">
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Inventario</mat-label>
+                            <input matInput type="text" [(ngModel)]="grupo_producto.linea"
+                                oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Costo Venta</mat-label>
+                            <input matInput type="text" [(ngModel)]="grupo_producto.presentacion"
+                                oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Dev. Compra</mat-label>
+                            <input matInput type="text" [(ngModel)]="grupo_producto.sublinea"
+                                oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Desc. Compra</mat-label>
+                            <input matInput type="text" [(ngModel)]="grupo_producto.presentacion"
+                                oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Venta</mat-label>
+                            <input matInput type="text" [(ngModel)]="grupo_producto.sublinea"
+                                oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Dev. Venta</mat-label>
+                            <input matInput type="text" [(ngModel)]="grupo_producto.linea"
+                                oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Desc. Venta</mat-label>
+                            <input matInput type="text" [(ngModel)]="grupo_producto.sublinea"
+                                oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Dev. Costo Venta</mat-label>
+                            <input matInput type="text" [(ngModel)]="grupo_producto.presentacion"
+                                oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-1 iconos centrar-vertical">
+                    <button mat-icon-button>
+                        <mat-icon (click)="crear_seccion($event)">add</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="grupo_producto.tipo_producto==1" (opened)="abrirPanelNuevaPresentacion = true"
+            (closed)="abrirPanelNuevaPresentacion = false" [expanded]="abrirPanelNuevaPresentacion">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i><u>NUEVA PRESENTACIÓN</u></i>
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{abrirPanelNuevaPresentacion ? 'Ocultar crear presentacion' : 'Crear nueva presentacion'}}
+                    <mat-icon>playlist_add</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <hr>
+            <div class="form-group form-row">
+                <div class="col-4">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Linea Producto</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto.linea"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-4">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Sub Linea Producto</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto.sublinea"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-4">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Presentacion Producto</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto.presentacion"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="abrirPanelAdminGrupo = true" (closed)="abrirPanelAdminGrupo = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <i><u>ADMINISTRAR GRUPOS</u></i>
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{abrirPanelAdminGrupo ? 'Ocultar administrador de Grupos' : 'Gestionar
+                    Grupos existentes'}}
+                    <mat-icon>playlist_add_check</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <hr>
+            <!--div class="form-row">
+                <div class="form-group col-12">
+                    <mat-form-field appearance="standard" class="grande">
+                        <mat-label>Codigo</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto_buscar.codigo" (change)="cambiar_buscar_grupo()" oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+            </div-->
+            <div class="form-group form-row">
+                <div class="col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Grupo</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto_buscar.grupo"
+                            (change)="cambiar_buscar_grupo()" oninput="this.value = this.value.toUpperCase()"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Subgrupo</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto_buscar.subgrupo"
+                            (change)="cambiar_buscar_sub_grupo()" oninput="this.value = this.value.toUpperCase()"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Sección</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto_buscar.seccion"
+                            (change)="cambiar_buscar_seccion()" oninput="this.value = this.value.toUpperCase()"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Linea</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto_buscar.linea"
+                            (change)="cambiar_buscar_linea()" oninput="this.value = this.value.toUpperCase()"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Sublinea</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto_buscar.sublinea"
+                            (change)="cambiar_buscar_sub_linea()" oninput="this.value = this.value.toUpperCase()"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Presentacion</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_producto_buscar.presentacion"
+                            (change)="cambiar_buscar_presentacion()" oninput="this.value = this.value.toUpperCase()"
+                            class="form-control-sm">
+                    </mat-form-field>
+                </div>
+            </div>
+            <!--table class="table table-hover table-bordered" style="font-size: 0.7rem">
+                <thead class="table-active text-center">
+                    <tr>
+                        <th>OPCION</th>
+                        <th>CODIGO</th>
+                        <th>GRUPO</th>
+                        <th>SUBGRUPO</th>
+                        <th>SECCION</th>
+                        <th>LINEA</th>
+                        <th>SUBLINEA</th>
+                        <th>PRESENTACION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let grupo_producto of grupos_productos">
+                        <td>
+                            <input type="radio" name="seleccion" (click)="seleccion(grupo_producto)">
+                        </td>
+                        <td>{{grupo_producto.codigo}}</td>
+                        <td>{{grupo_producto.grupo}}</td>
+                        <td>{{grupo_producto.subgrupo}}</td>
+                        <td>{{grupo_producto.seccion}}</td>
+                        <td>{{grupo_producto.linea}}</td>
+                        <td>{{grupo_producto.sublinea}}</td>
+                        <td>{{grupo_producto.presentacion}}</td>
+                    </tr>
+                </tbody>
+            </table-->
+
+            <mat-form-field appearance="standard">
+                <mat-label>Buscar en todas la columnas</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ej. TE" #input>
+            </mat-form-field>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort>
+
+                    <!-- Columna ID -->
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                    </ng-container>
+
+                    <!-- Columna Grupo -->
+                    <ng-container matColumnDef="grupo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> GRUPO </th>
+                        <td mat-cell *matCellDef="let row"> {{row.grupo}} </td>
+                    </ng-container>
+
+                    <!-- Columna Subgrupo -->
+                    <ng-container matColumnDef="subgrupo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SUBGRUPO </th>
+                        <td mat-cell *matCellDef="let row"> {{row.subgrupo}} </td>
+                    </ng-container>
+
+                    <!-- Columna Sección -->
+                    <ng-container matColumnDef="seccion">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SECCIÓN </th>
+                        <td mat-cell *matCellDef="let row"> {{row.seccion}} </td>
+                    </ng-container>
+
+                    <!-- Columna Linea -->
+                    <ng-container matColumnDef="linea">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> LINEA </th>
+                        <td mat-cell *matCellDef="let row"> {{row.linea}} </td>
+                    </ng-container>
+
+                    <!-- Columna Sublinea -->
+                    <ng-container matColumnDef="sublinea">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SUBLINEA </th>
+                        <td mat-cell *matCellDef="let row"> {{row.sublinea}} </td>
+                    </ng-container>
+
+                    <!-- Columna Presentacion -->
+                    <ng-container matColumnDef="presentacion">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> PRESENTACIÓN </th>
+                        <td mat-cell *matCellDef="let row"> {{row.presentacion}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="columnasGrupoProducto"></tr>
+                    <tr mat-row (click)="seleccion(row)" [class.selected-row]="clickedRows.has(row)"
+                        *matRowDef="let row; columns: columnasGrupoProducto;"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="7">No hay datos que coincidan con el filtro "{{input.value}}"</td>
+                    </tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </div>
+            <div class="azul" *ngIf="!clickedRows.size">
+                Seleccione una fila para editar
+            </div>
+            <div class="azul" *ngFor="let clickedRow of clickedRows">
+                Id: {{clickedRow.id}} seleccionado
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>

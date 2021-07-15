@@ -1,0 +1,30 @@
+
+
+.fondo{
+    background-color: #5b6582;
+    color: white;
+  }
+  
+  .iconos > .mat-icon{
+    margin: 0;
+    color: rgb(6, 6, 90);
+    cursor: pointer;
+  }
+  
+  .iconos{
+    margin: 0;
+    color: rgb(6, 6, 90);
+    cursor: pointer;
+  }
+  
+  .mat-icon-button {
+      width: 25px;
+  }
+  
+  .derecha{
+      justify-content: end;
+  }
+  
+  .lowercase {
+    text-transform: lowercase;
+  }

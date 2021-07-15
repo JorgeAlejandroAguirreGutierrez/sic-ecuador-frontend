@@ -9,7 +9,7 @@
     <ul class="menu-items puntero">
       <li *ngFor="let opcion of mainComponent.opciones">
         <a (click)="abrirItem(opcion.componente, opcion.tabTitulo)">
-          <i class="{{opcion.icoItem}}"></i>
+          <i title="{{opcion.itemNombre}}" class="{{opcion.icoItem}}"></i>
           <span>{{opcion.itemNombre}}</span>
         </a>
       </li>

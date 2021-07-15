@@ -57,23 +57,30 @@
             </mat-expansion-panel-header>
             <hr>
             <div class="form-group form-row">
-                <div class="col-3">
+                <div class="col-2">
                     <mat-form-field appearance="standard">
                         <mat-label>Codigo</mat-label>
                         <input matInput type="text" [(ngModel)]="grupo_cliente.codigo" class="form-control-sm"
                             [disabled]="true">
                     </mat-form-field>
                 </div>
-                <div class="col-6">
+                <div class="col-5">
                     <mat-form-field appearance="standard">
                         <mat-label>Descripcion</mat-label>
                         <input matInput type="text" [(ngModel)]="grupo_cliente.descripcion"
                             oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                     </mat-form-field>
                 </div>
-                <div class="col-3">
+                <div class="col-1">
                     <mat-form-field appearance="standard">
                         <mat-label>Abreviatura</mat-label>
+                        <input matInput type="text" [(ngModel)]="grupo_cliente.abreviatura"
+                            oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
+                    </mat-form-field>
+                </div>
+                <div class="col-4">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Cuenta Contable</mat-label>
                         <input matInput type="text" [(ngModel)]="grupo_cliente.abreviatura"
                             oninput="this.value = this.value.toUpperCase()" class="form-control-sm">
                     </mat-form-field>
@@ -83,10 +90,10 @@
         <mat-expansion-panel (opened)="abrirPanelAdminGrupo = true" (closed)="abrirPanelAdminGrupo = false">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <i><u>GESTIONAR GRUPOS</u></i>
+                    <i><u>ADMINISTRAR GRUPOS</u></i>
                 </mat-panel-title>
                 <mat-panel-description>
-                    {{abrirPanelAdminGrupo ? 'Ocultar administrador de grupos para clientes' : 'Administrar grupos de
+                    {{abrirPanelAdminGrupo ? 'Ocultar administrador de grupos para clientes' : 'Gestionar grupos de
                     clientes existentes'}}
                     <mat-icon>group</mat-icon>
                 </mat-panel-description>
@@ -122,7 +129,7 @@
                 <table class="table table-hover table-bordered" style="font-size: 0.7rem">
                     <thead class="table-active text-center">
                         <tr>
-                            <th>SELECCIONE</th>
+                            <th>OPCION</th>
                             <th>CODIGO</th>
                             <th>DESCRIPCION</th>
                             <th>ABREVIATURA</th>

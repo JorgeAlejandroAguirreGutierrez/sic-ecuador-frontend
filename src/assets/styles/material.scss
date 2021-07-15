@@ -13,7 +13,8 @@ Forms
 }
 
 .form-control-sm{
-    height: calc(0.3em + 0.3rem + 2px)!important;
+    height: calc(0.3em + 0.3rem + 5px)!important;
+    line-height: 1.125!important;
     padding: 0!important;
 }
 
@@ -23,16 +24,23 @@ Forms
 .mat-form-field {
     width: 100%!important; 
     text-align: center!important; // centra el titulo y el texto
-    line-height: 1.0!important;
+    //line-height: 1.0!important; // no se ve todo el texto como la g
 }
 
 .peque.mat-form-field{
     width: 90% !important;
 }
 
+.mat-input-element{
+    font-size: 0.875rem!important;
+}
 // Esta hay que eliminar de todo el sistema
 .grande.mat-form-field{
     width: 100% !important;
+}
+// Esta tambien
+.cdk-global-overlay-wrapper, .cdk-overlay-container { 
+    z-index: 9999!important; 
 }
 
 .mat-form-field-wrapper{
@@ -66,7 +74,7 @@ Mat card
 .mat-card{
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)!important;  
     -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)!important; 
-    padding: 0px!important; // Tiene margen 0 por defecto
+    padding: 3px!important; // Tiene margen 0 por defecto
     border-radius: $radius!important;
     
     .mat-card-content{
@@ -177,3 +185,19 @@ Mat card
     width: 90% !important; 
 }
 
+.mat-header-cell{
+    color:rgba(241, 133, 10, 0.89);
+}
+// tr para las filas, determina el alto de la cabecera, el contenido y el pie
+tr.mat-header-row, tr.mat-row, tr.mat-footer-row{
+    height: 30px!important;
+}
+// th para las columnas de cabecera, negrita y centrado
+th.mat-header-cell{
+    text-align: center!important;
+    font-weight: bold;
+}
+// th para las columnas de contenido, disminuye el padding de la primera columna
+th.mat-header-cell:first-of-type, td.mat-cell:first-of-type{
+    padding-left: 5px!important;
+}
