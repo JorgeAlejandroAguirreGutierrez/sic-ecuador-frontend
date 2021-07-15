@@ -158,7 +158,7 @@
                         <mat-label>Afectación Contable</mat-label>
                         <mat-select [(ngModel)]="grupo_producto.movimiento_contable" class="form-control-sm">
                             <mat-option *ngFor="let afectacion of afectaciones" [value]="afectacion.id">
-                                {{afectacion}}</mat-option>
+                                {{afectacion.descripcion}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
