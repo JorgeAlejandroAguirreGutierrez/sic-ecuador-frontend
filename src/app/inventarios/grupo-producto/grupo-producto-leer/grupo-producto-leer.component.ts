@@ -101,7 +101,7 @@ export class GrupoProductoLeerComponent implements OnInit {
     this.buscar(null);
   }
 
-  cambiar_buscar_categoria(){
+  cambiar_buscar_seccion(){
     this.buscar(null);
   }
 
